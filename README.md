@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MomRecipesApp
 
-## Getting Started
+A modern web application for storing, organizing, and sharing family recipes with advanced features planned for the future.
 
-First, run the development server:
+## 🍽️ Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+MomRecipesApp is built with Next.js, TypeScript, and PostgreSQL to create a robust recipe management system. The application allows users to store recipes, categorize them, and search through their collection with ease.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15 with React 19
+- **Styling**: Tailwind CSS 4
+- **Backend**: Next.js API routes
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js
+- **Language**: TypeScript
+- **Development Tools**: ESLint, Turbopack
+
+## 🗂️ Project Structure
+
+```
+MomRecipesApp/
+├── .env.local                    # Environment variables (DB config, NextAuth)
+├── .gitignore                    # Git ignore patterns
+├── eslint.config.mjs             # ESLint configuration
+├── next-env.d.ts                 # Next.js TypeScript declarations
+├── next.config.ts                # Next.js configuration
+├── package-lock.json             # NPM package lock
+├── package.json                  # Project dependencies and scripts
+├── postcss.config.mjs            # PostCSS configuration
+├── README.md                     # Project documentation
+├── tsconfig.json                 # TypeScript configuration
+├── node_modules/                 # Dependencies
+├── lib/                          # Utility functions
+├── middleware/                   # Next.js middleware
+├── prisma/                       # Prisma DB schema and migrations
+├── public/                       # Static assets
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   ├── window.svg
+│   └── images/                   # Image assets
+├── scripts/                      # Build scripts
+├── src/                          # Source code
+│   └── app/                      # Next.js App Router
+│       ├── favicon.ico
+│       ├── globals.css           # Global styles with Tailwind
+│       ├── layout.tsx            # Root layout with Geist font
+│       ├── page.tsx              # Homepage component
+│       └── api/                  # API routes folder
+└── translations/                 # Internationalization resources
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18.0 or later
+- PostgreSQL database
+- npm or yarn
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/MomRecipesApp.git
+   cd MomRecipesApp
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Set up your environment variables (copy .env.example to .env.local and adjust values)
 
-## Deploy on Vercel
+4. Set up the database
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Run the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. Open [http://localhost:4000](http://localhost:4000) in your browser
+
+## 📋 Features
+
+### Current Features
+- Recipe storage and management
+- User authentication
+- Responsive design
+
+### Planned Features
+- Recipe categorization and tagging
+- Advanced search functionality
+- Meal planning
+- Grocery list generation
+- Nutritional information calculation
+- Recipe scaling
+- Social sharing capabilities
+- Mobile app integration
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm run test
+# or
+yarn test
+```
+
+## 📊 Database Schema
+
+The application uses PostgreSQL with Prisma ORM. Key models include:
+- Users
+- Recipes
+- Categories
+- Ingredients
+- Instructions
+- Reviews
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
