@@ -1,0 +1,57 @@
+// documentation
+// @ attribute or decorators represent a special contraint or behavior
+// ? means the field is optional
+// in 1 to many or many to many, it's essential to say that table can have many (things)
+// Example   recipes   Recipe[] // One user can have multiple recipes
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id        Int      @id @default(autoincrement()) // Primary key
+  username  String   @unique
+  password  String
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String?
+  role      String   @default("viewer")
+  isActive  String   @default("pending")
+  address   Address?
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  job       String?
+  recipes   Recipe[] // One user can have multiple recipes
+}
+
+// Recipe model
+model Recipe {
+  id        Int      @id @default(autoincrement()) // Primary key
+  title     String
+  ingredients String
+  instructions String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int      // Foreign key
+  user      User     @relation(fields: [userId], references: [id]) // Foreign key relation
+}
+
+// Address model (one-to-one with User)
+model Address {
+  id        Int      @id @default(autoincrement()) // Primary key
+  street    String?
+  city      String?
+  state     String?
+  postalCode String?
+  country   String?
+  userId    Int?     @unique// Foreign key (optional, since the user may or may not have an address)
+  user      User?    @relation(fields: [userId], references: [id]) // Foreign key relation with User
+}
