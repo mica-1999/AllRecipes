@@ -1,11 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    "./src/app/**/*.{js,ts,jsx,tsx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
-        'dm-serif': ['var(--font-dm-serif)', 'serif'],
+      },
+      colors: {
+        facebook: '#1877F2',
+        twitter : '#1DA1F2',
       },
     },
   },
-  // ...rest of your config
+  plugins: [],
 }

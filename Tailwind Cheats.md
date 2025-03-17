@@ -1,5 +1,9 @@
 # Tailwind CSS Cheat Sheet
 
+## Big Tip
+Custom properties can be done through []
+Example: w-[240px]
+
 ## Layout (Customizable in Tailwind)
 
 | Tailwind | Bootstrap Equivalent | Description |
@@ -12,6 +16,9 @@
 | w-full | w-100 | Width: 100% |
 | h-full | h-100 | Height: 100% |
 | h-screen | vh-100 | 100% of viewport height |
+
+Tips: h-px = 1px
+
 
 ## Flexbox
 
@@ -41,6 +48,8 @@
 | m-2 | m-2 | Margin: 0.5rem |
 | m-4 | m-3 | Margin: 1rem |
 
+Tips: You can do -margin for elements in Tailwind !!
+
 ## Typography (Customizable in Tailwind) (Example: "text-3xl")
 
 | Tailwind | Bootstrap Equivalent | Description |
@@ -54,6 +63,23 @@
 | font-bold | fw-bold | Bold text |
 | font-normal | fw-normal | Normal font weight |
 | text-center | text-center | Center-aligned text |
+
+## Borders
+
+| Tailwind | Bootstrap Equivalent | Description |
+|----------|----------------------|-------------|
+| border | border | Add border on all sides |
+| border-t | border-top | Add border to top |
+| border-r | border-end | Add border to right |
+| border-b | border-bottom | Add border to bottom |
+| border-l | border-start | Add border to left |
+| border-0 | border-0 | Remove all borders |
+| border-2 | border-2 | Border width: 2px |
+| border-dashed | - | Dashed border style |
+| border-dotted | - | Dotted border style |
+| border-gray-300 | border-secondary | Gray border color |
+
+Custom examples: border-[#ff0000], border-[3px], border-b-[5px]
 
 ## Images
 
