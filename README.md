@@ -127,6 +127,10 @@ The application uses PostgreSQL with Prisma ORM. Key models include:
 - Instructions
 - Reviews
 
+## Stuff Used 
+https://fonts.google.com/ 
+Prisma Highlight syntax and UML generation
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

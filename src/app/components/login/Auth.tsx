@@ -44,7 +44,7 @@ export default function Auth() {
     return (
         <div className="flex flex-col h-screen p-40">
             <Link href="/home">Home</Link>
-            <h1 className="mt-4 font-bold text-3xl">Login</h1>
+            <h1 className="mt-4 font-bold text-3xl font-dm-serif">Login</h1>
             <form className="flex flex-col mt-10" onSubmit={login}>
                 <label>Email address</label>
                 <input type="email" className="" value={loginForm.email} onChange={(e) => setLoginForm({...loginForm, email: e.target.value})} />
