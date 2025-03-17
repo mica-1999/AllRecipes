@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Auth() {
@@ -42,14 +42,16 @@ export default function Auth() {
     }
 
     return (
-        <div>
+        <div className="flex flex-col h-screen p-40">
             <Link href="/home">Home</Link>
-            <h1>Login</h1>
-            <form onSubmit={login}>
+            <h1 className="mt-4 font-bold text-3xl">Login</h1>
+            <form className="flex flex-col mt-10" onSubmit={login}>
                 <label>Email address</label>
-                <input type="email" value={loginForm.email} onChange={(e) => setLoginForm({...loginForm, email: e.target.value})} />
+                <input type="email" className="" value={loginForm.email} onChange={(e) => setLoginForm({...loginForm, email: e.target.value})} />
+                
                 <label>Password</label>
-                <input type ="password" value={loginForm.password} onChange={(e) => setLoginForm({...loginForm, password: e.target.value})} />
+                <input type ="password" className="" value={loginForm.password} onChange={(e) => setLoginForm({...loginForm, password: e.target.value})} />
+                
                 <input type="checkbox"></input>
                 <label>Remember me</label>
 
@@ -57,13 +59,13 @@ export default function Auth() {
                 <button>Sign In </button>
 
                 <p>Or continue with</p>
-
-                <button>Facebook</button>
-                <button>Google</button>
-                <button>Github</button>
+                <div>
+                    <button>Facebook</button>
+                    <button>Google</button>
+                    <button>Github</button>
+                </div>
                 
                 <p>Don't have an account? <Link href="/signup">Join now</Link></p>
-
             </form>
         </div>
     )
