@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         facebook: '#1877F2',
         twitter : '#1DA1F2',
+        loginSubmitBtn: '#4F39F6',
       },
     },
   },
