@@ -99,7 +99,7 @@ export default function Auth() {
                             </label>
                         </div>
                         <div>
-                            <Link href="/forgotpassword" className="font-medium text-blue-600 hover:underline transition-all duration-200">
+                            <Link href="/forgotpassword" className="font-medium text-[#4F39F6] hover:text-[#3E2BE0] hover:underline transition-all duration-200">
                                 Forgot password?
                             </Link>
                         </div>
@@ -108,7 +108,7 @@ export default function Auth() {
                     <button 
                         type="submit" 
                         className={`w-full flex justify-center items-center py-2.5 px-4 rounded-md 
-                                   font-medium transition-all duration-200 bg-loginSubmitBtn hover:bg-blue-700 
+                                   font-medium transition-all duration-200 bg-[#4F39F6] hover:bg-[#3E2BE0]
                                    text-white focus:outline-none focus:ring-2 focus:ring-offset-2 
                                    focus:ring-blue-500 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         disabled={isLoading}
