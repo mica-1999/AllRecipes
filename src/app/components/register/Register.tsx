@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { FormEvent, ChangeEvent } from "react";
 
 export default function Register() {
     const [formData,setformData] = useState ({
@@ -17,7 +18,7 @@ export default function Register() {
         console.log("formData",formData);
     },[formData]);
 
-    const handleSubmit = () => async (e) => {
+    const handleSubmit = () => async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
 
@@ -36,7 +37,7 @@ export default function Register() {
                             id="username" 
                             placeholder="admin" 
                             className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e) => setformData({...formData, username: e.target.value})}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, username: e.target.value})}
                             value={formData.username}
                         />
                     </div>
@@ -48,7 +49,7 @@ export default function Register() {
                             id="password" 
                             placeholder="•••••••" 
                             className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e) => setformData({...formData, password: e.target.value})}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, password: e.target.value})}
                             value={formData.password}
                         />
                     </div>
@@ -60,7 +61,7 @@ export default function Register() {
                             id="confirmpassword" 
                             placeholder="•••••••" 
                             className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e) => setformData({...formData, confirmpassword: e.target.value})}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, confirmpassword: e.target.value})}
                             value={formData.confirmpassword}
                         />
                     </div>
@@ -69,7 +70,7 @@ export default function Register() {
                     
                     <button 
                         type="submit"
-                        className="w-full mt-6 py-2.5 px-4 bg-[#57713a] text-white rounded-md hover:bg-[#4a6231] transition-colors duration-200 font-medium"
+                        className="w-full cursor-pointer mt-6 py-2.5 px-4 bg-[#57713a] text-white rounded-md hover:bg-[#4a6231] transition-colors duration-200 font-medium"
                         disabled={loading}
                     >
                         {loading ? "Creating account..." : "Create Account"}

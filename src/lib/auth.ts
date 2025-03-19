@@ -1,5 +1,9 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import TwitterProvider from "next-auth/providers/twitter";
+import GitHubProvider from "next-auth/providers/github";
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 
@@ -97,12 +101,74 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    }),
+    
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID as string,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
+      version: "2.0", // Use Twitter OAuth 2.0
+    }),
+    
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
   ],
   session: {
     strategy: "jwt",
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      // This callback runs when a user signs in
+      if (account?.provider === 'credentials') {
+        // Your existing credential logic
+        return true;
+      }
+      
+      // For social logins
+      try {
+        // Check if this user already exists in your database
+        const existingUser = await prisma.user.findUnique({
+          where: {
+            email: user.email as string,
+          }
+        });
+        if (existingUser) {
+          // User exists, update their session
+          await addSession(existingUser.id);
+          return true;
+        } else {
+          // Create a new user in your database
+          const newUser = await prisma.user.create({
+            data: {
+              email: user.email as string,
+              username: (user.email as string).split('@')[0] + `-${account?.provider}`,
+              firstName: user.name?.split(' ')[0] || '',
+              lastName: user.name?.split(' ').slice(1).join(' ') || '',
+              password: '', // Empty password for OAuth users
+              role: 'viewer',
+              isActive: 'active', // Social login users are active by default
+            }
+          });
+          
+          // Create session for this new user
+          await addSession(newUser.id);
+          return true;
+        }
+      } catch (error) {
+        console.error("Error during social sign in:", error);
+        return false;
+      }
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
