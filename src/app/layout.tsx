@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NextAuthSessionProvider from "./sessionWrapper";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -16,7 +17,9 @@ export default function RootLayout({
       <body
         className={`font-sans antialiased`}
       >
-        {children}
+        <NextAuthSessionProvider>
+          {children}
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

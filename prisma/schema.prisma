@@ -27,7 +27,6 @@ model User {
   address   Address?
   lastLogin DateTime?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   job       String?
   recipes   Recipe[] // One user can have multiple recipes
   sessions  Session[] // One user can have multiple sessions
@@ -37,7 +36,7 @@ model Session {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    Int     @unique// Foreign key (optional, since the user may or may not have an address)
+  userId    Int      // Removed @unique constraint to allow multiple sessions per user
   user      User    @relation(fields: [userId], references: [id]) // Foreign key relation with User
 }
 
