@@ -1,10 +1,12 @@
 "use client"
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { FormEvent, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Register() {
+    const router = useRouter();
     const [formData,setformData] = useState ({
         username : "",
         password : "",
@@ -18,17 +20,99 @@ export default function Register() {
         console.log("formData",formData);
     },[formData]);
 
-    const handleSubmit = () => async (e: FormEvent<HTMLFormElement>) => {
+    const formValidation = () => {
+        const usernameRegex = /^[a-zA-Z0-9_]+$/;
+        if(!formData.username || !formData.password || !formData.confirmpassword){
+            setError("All fields are required");
+            return false;
+        }
+        else if(formData.username.length < 4 || formData.username.length > 15){
+            setError("Username must be between 4 and 15 characters");
+            return false;
+        }
+        else if(!usernameRegex.test(formData.username)){
+            setError("Username can only contain letters, numbers, and underscores (no spaces)");
+            return false;
+        }
+        else if(formData.password !== formData.confirmpassword){
+            setError("Passwords do not match");
+            return false;
+        }
+        return true;
+    }
+
+    const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Form validation
+        if(!formValidation()){
+            setLoading(false);
+            return;
+        }
+
+        // Continue with registration
+        setLoading(true);
+
+        try {
+            const response = await fetch("/api/createUser", {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    username : formData.username,
+                    password : formData.password
+                })
+            });
+
+            if(!response.ok){
+                throw new Error("An error occurred while registering. Please try again later.");
+            }
+
+            if(response.ok) {
+                // Show success toast
+                toast("Account created successfully!");
+                
+                // Clear form
+                setformData({
+                    username: "",
+                    password: "",
+                    confirmpassword: ""
+                });
+                
+                // Brief delay for toast to be visible
+                setTimeout(() => {
+                    setLoading(true);
+                    router.push("/pages/login");
+                }, 2500);
+            }
+        }   
+        catch (error: any) {
+            setError("Registration failed. Please try again later.");
+            setLoading(false);
+        } 
     }
 
     return(
         <>
+        <ToastContainer 
+            position="top-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+        />
+
             <div className="bg-white rounded-lg shadow-md px-6 py-7 sm:px-8 sm:py-8 w-full border-t-4 border-[#5eaaae]">
                 <div className="text-center mb-5">
                     <h1 className="text-2xl font-bold text-[#452624]">Sign Up </h1>
                 </div>
-                <form onSubmit={handleSubmit()} className="flex flex-col space-y-1">
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-1">
                     <div className="">
                         <label htmlFor="username" className="mb-1 flex text-sm font-medium text-[#452624]">Username</label>
                         <input 
@@ -66,7 +150,7 @@ export default function Register() {
                         />
                     </div>
                     
-                    {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                    {error && <p className="flex text-red-500 text-sm mt-2 justify-center">{error}</p>}
                     
                     <button 
                         type="submit"

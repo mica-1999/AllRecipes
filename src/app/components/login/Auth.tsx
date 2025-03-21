@@ -35,11 +35,13 @@ export default function Auth() {
                 
                 if (result?.ok) {
                     // Successful login - redirect to dashboard or home
-                    router.push("/dashboard");
+                    setTimeout(() => {
+                        setIsLoading(true);
+                        router.push("/dashboard");
+                    }, 2000);
                 } else {
                     setError('Incorrect username or password');
                 }
-                setIsLoading(false);
             } catch (error) {
                 console.error('An error occurred', error);
                 setError('An error occurred');
@@ -52,7 +54,7 @@ export default function Auth() {
         <>  
             <div className="bg-white rounded-lg shadow-md px-6 py-7 sm:px-8 sm:py-8 w-full border-l-4 border-[#dc7f3a]">
                 <div className="text-center mb-6">
-                    <h1 className="text-2xl font-bold text-[#414240]">Sign In </h1>
+                    <h1 className="text-2xl font-bold text-[#414240]">Log In </h1>
                 </div>
                 
                 <form onSubmit={(e: FormEvent<HTMLFormElement>) => {
