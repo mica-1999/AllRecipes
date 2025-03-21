@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
+import { Spinner } from "@/app/components/reusable/Spinner";
 
 export default function Register() {
     const router = useRouter();
@@ -157,7 +158,14 @@ export default function Register() {
                         className="w-full cursor-pointer mt-6 py-2.5 px-4 bg-[#57713a] text-white rounded-md hover:bg-[#4a6231] transition-colors duration-200 font-medium"
                         disabled={loading}
                     >
-                        {loading ? "Creating account..." : "Create Account"}
+                        {loading ? (
+                            <div className="flex items-center justify-center">
+                                <span>Creating account  </span>
+                                <Spinner/>
+                            </div>
+                        ) : (
+                            "Create Account"
+                        )}
                     </button>
                 </form>
 
