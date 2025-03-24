@@ -80,6 +80,7 @@ Tips: You can do -margin for elements in Tailwind !!
 | border-gray-300 | border-secondary | Gray border color |
 
 Custom examples: border-[#ff0000], border-[3px], border-b-[5px]
+rounded- blabla for border radius
 
 ## Images
 

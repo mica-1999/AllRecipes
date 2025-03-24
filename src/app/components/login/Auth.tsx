@@ -11,6 +11,7 @@ export default function Auth() {
         username: "",
         password: ""
     });
+    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,21 +27,27 @@ export default function Auth() {
         if(loginValidation()){
             setIsLoading(true);
             try {
-                // Using NextAuth signIn with the correct credential names
-                const result = await signIn("credentials", {
-                    username: loginForm.username,
-                    password: loginForm.password,
-                    redirect: false
-                });
+                // Create a promise that resolves after minimum loading time (e.g., 1.5 seconds)
+                const minLoadingTime = new Promise(resolve => setTimeout(resolve, 1250));
+                    // Sign in attempt
+                const result = await Promise.all([
+                    signIn("credentials", {
+                        username: loginForm.username,
+                        password: loginForm.password,
+                        redirect: false
+                    }),
+                    minLoadingTime // This ensures we show loading for at least 1.5 seconds
+                ]);
                 
-                if (result?.ok) {
+                if (result[0]?.ok) {
                     // Successful login - redirect to dashboard or home
                     setTimeout(() => {
                         setIsLoading(true);
-                        router.push("/dashboard");
+                        router.push("/");
                     }, 2000);
                 } else {
                     setError('Incorrect username or password');
+                    setIsLoading(false);
                 }
             } catch (error) {
                 console.error('An error occurred', error);
@@ -97,6 +104,8 @@ export default function Auth() {
                                 id="remember"
                                 type="checkbox"
                                 className="h-4 w-4 text-[#81b234] focus:ring-[#81b234] border-[#969aa5] rounded cursor-pointer"
+                                checked={rememberMe}
+                                onChange={() => setRememberMe(!rememberMe)}
                             />
                             <label htmlFor="remember" className="ml-2 block text-[#414240] cursor-pointer">
                                 Remember me

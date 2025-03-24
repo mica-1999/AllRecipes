@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import 'remixicon/fonts/remixicon.css';
 import NextAuthSessionProvider from "./sessionWrapper";
 
 export const metadata: Metadata = {

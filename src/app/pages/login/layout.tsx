@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata = {
-    title: 'LoginPage',
+    title: 'Login Page',
     description: 'Login with your credentials',
 };
 
@@ -34,11 +34,14 @@ export default function LoginLayout({ children }: LoginLayoutProps) {
                 <Image 
                     src="/images/login/food.jpg" 
                     alt="Delicious Food" 
-                    layout="fill" 
-                    objectFit="cover" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw" 
+                    style={{ objectFit: "cover" }} 
                     className="object-center transform scale-105 hover:scale-100 transition-transform duration-700"
                     priority
                 />
+
+
                 <div className="absolute bottom-10 left-10 z-10 text-white max-w-xs">
                     <h2 className="text-3xl font-bold mb-3 drop-shadow-md">Moms Recipes</h2>
                     <p className="text-base opacity-95 drop-shadow-md leading-relaxed">Discover, share, and enjoy delicious family recipes passed down through generations</p>
