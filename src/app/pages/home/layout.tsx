@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import Navbar from '@/app/components/frontPage/home/Navbar';
-import Footer from '@/app/components/frontPage/home/Footer';
+import Navbar from '@/app/components/frontPage/Navbar';
+import Footer from '@/app/components/frontPage/Footer';
 
 export const metadata = {
     title: 'Home Page',
