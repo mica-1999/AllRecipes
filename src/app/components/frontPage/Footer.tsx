@@ -41,32 +41,39 @@ export default function Footer() {
                 {/* ======================== CONTACT SECTION ======================== */}
                 <div className="flex flex-col w-[30%] p-13">
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">Contact Info</h1>
-                    <p className="text-[#6c6c6c]">Localização: </p>
-                    <p className="text-[#6c6c6c] mt-4">Telefone </p>
-                    <p className="text-[#6c6c6c] mt-4">Email:</p>
-                    <p className="text-[#6c6c6c] mt-4">NIF:</p>
+                    <div className="flex items-center gap-3">
+                        <i className="ri-map-pin-line text-[#747474]"></i>
+                        <p className="text-[#6c6c6c]">Canhas, Funchal, Madeira</p>
+                    </div>
+                    <div className="flex items-center gap-3 mt-4">
+                        <i className="ri-phone-line text-[#747474]"></i>
+                        <p className="text-[#6c6c6c]">+351 964 420 812</p>
+                    </div>
+                    <div className="flex items-center gap-3 mt-4">
+                        <i className="ri-mail-line text-[#747474]"></i>
+                        <p className="text-[#6c6c6c]">micael1999work@gmail.com</p>
+                    </div>
+                    <div className="flex items-center gap-3 mt-4">
+                        <i className="ri-id-card-line text-[#747474]"></i>
+                        <p className="text-[#6c6c6c]">261446509</p>
+                    </div>
                 </div>
 
                 {/* ======================== LINKS SECTION ======================== */}
                 <div className="flex flex-col w-[30%] p-13">
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">Quick Links</h1>
                     <div className="flex">
-                        <div className="flex flex-col w-1/2">
-                            <ul>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Home</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Recipes</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">About</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Contact</Link></li>
-                            </ul>
-                        </div>
-                        <div className="flex flex-col w-1/2">
-                            <ul>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Home</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Recipes</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">About</Link></li>
-                                <li><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] transition-colors duration-200">Contact</Link></li>
-                            </ul>
-                        </div>
+                        <ul className="flex flex-col w-1/2 list-disc ml-5 gap-3 marker:text-[#747474]">
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Home</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Recipes</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">About Us</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Contacts</Link></li>
+                        </ul>
+                        <ul className="flex flex-col w-1/2 list-disc ml-5 gap-3 marker:text-[#747474]">
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Login</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">PT Site</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Privacy Policy</Link></li>
+                        </ul>
                     </div>
                 </div>
             </div>

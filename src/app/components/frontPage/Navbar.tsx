@@ -8,6 +8,16 @@ export default function Navbar() {
     const { data: session, status } = useSession();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    
+    // Navigation items for responsive bottom bar
+    const navItems = [
+        { name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
+        { name: 'My List', icon: 'ri-bookmark-line', link: '/pages/mylist' },
+        { name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
+        { name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
+        { name: 'Profile', icon: 'ri-user-line', link: session?.user ? '/pages/profile' : '/pages/login' },
+        { name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/preferences' },
+    ];
 
     useEffect(() => {
         if(session?.user){
@@ -26,28 +36,17 @@ export default function Navbar() {
     }, [session]);
 
     return(
+        <>
         <div className="flex justify-between items-center px-16 bg-white h-20 border-b-[1px] border-[#b2b3ca] shadow-md shadow-gray-250">
             {/* Left Side - Logo and Primary Nav */}
             <div id="leftSideBtns" className="flex justify-between items-center gap-5">
                 <Link href="/pages/home" className="">
                     <div id="Logo"><h1 className="text-[24px] font-bold">RecipeHub</h1></div>
                 </Link>
-                <div id="subBtns" className="flex justify-center items-center gap-8">
-                    <Link href="/pages/" className="">
-                        <div id="Cuisines" className="hover:text-[#747474] transition-colors duration-200">
-                            <h2 className="text-[14px]">Cuisines</h2>
-                        </div>
-                    </Link>
-                    <Link href="/pages/" className="">
-                        <div id="Ingredients" className="hover:text-[#747474] transition-colors duration-200">
-                            <h2 className="text-[14px]">Ingredients</h2>
-                        </div>
-                    </Link>
-                </div>
             </div>
             
             {/* Middle - Search Bar */}
-            <div id="middleSearchBtn" className="flex-1 max-w-sm ml-8">
+            <div id="middleSearchBtn" className="hidden md:flex md:flex-1 max-w-sm ml-8 mr-4">
                 <div className="flex justify-between items-center w-full h-[45px] px-2.5 py-2.5 
                     rounded-[5px] 
                     border-[1px] border-[#d3d3d3]
@@ -63,21 +62,21 @@ export default function Navbar() {
             {/* Right Side - Additional Nav and Auth */}
             <div id="rightSideBtns" className="flex justify-end items-center gap-5">
                 {/* Additional Navigation Items */}
-                <Link href="/pages/categories" className="">
+                <Link href="/pages/categories" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-restaurant-line text-[18px]"></i>
                         <span className="text-[14px]">Categories</span>
                     </div>
                 </Link>
                 
-                <Link href="/pages/search" className="">
+                <Link href="/pages/search" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-search-2-line text-[18px]"></i>
                         <span className="text-[14px]">Advanced</span>
                     </div>
                 </Link>
                 
-                <Link href="/pages/mylist" className="">
+                <Link href="/pages/mylist" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-bookmark-line text-[18px]"></i>
                         <span className="text-[14px]">My List</span>
@@ -108,7 +107,7 @@ export default function Navbar() {
                     )}
                     
                     {/* 3. Dropdown menu - always visible */}
-                    <div className="relative" ref={dropdownRef}>
+                    <div className="relative hidden lg:flex" ref={dropdownRef}>
                         <button 
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                             className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 flex items-center cursor-pointer"
@@ -182,5 +181,18 @@ export default function Navbar() {
                 </div>
             </div>
         </div>
+
+        {/* Responsive Navigation */}
+        <div id="responsiveNav" className="w-full h-[65px] fixed bottom-0 bg-white border-t-[1px] border-[#b2b3ca] shadow-lg flex items-center justify-between px-2 lg:hidden z-50">
+            {navItems.map((item, index) => (
+                <Link key={index} href={item.link} className="w-1/6 h-full">
+                    <div className="flex flex-col h-full items-center justify-center gap-1 hover:bg-gray-300 active:bg-[#e55a29] transition-colors duration-200">
+                        <i className={`${item.icon} text-[20px]`}></i>
+                        <span className="text-[10px] font-medium">{item.name}</span>
+                    </div>
+                </Link>
+            ))}
+        </div>
+        </>
     );
 }
