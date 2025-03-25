@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Trending () {
     return (
         <>
-            <div className="flex items-center w-full h-15 mt-25">
+            <div className="flex items-center w-full h-15 mt-15">
                 <h2 className="text-[20px]">Trending Recipes</h2>
             </div>
             <div className="flex mb-10 h-[352px] gap-4">
