@@ -4,6 +4,7 @@ import TopRated from "@/app/components/frontPage/home/TopRated";
 import Subscribe from "@/app/components/frontPage/home/Subscribe";
 import RecipeOfDay from "@/app/components/frontPage/home/RecipeofDay";
 import SeasonalRecipes from "@/app/components/frontPage/home/SeasonalRecipes";
+import FeaturedChefs from "@/app/components/frontPage/home/FeaturedChefs";
 
 export default function HomePage(){
     return(
@@ -14,6 +15,7 @@ export default function HomePage(){
                 <Trending />
                 <TopRated />
                 <SeasonalRecipes />
+                <FeaturedChefs />
                 <Subscribe />
             </div>
         </>

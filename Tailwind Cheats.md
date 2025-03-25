@@ -4,6 +4,17 @@
 Custom properties can be done through []
 Example: w-[240px]
 
+## Quick Reference: Screen Sizes
+
+| Breakpoint | Prefix | Min Width |
+|------------|--------|-----------|
+| Mobile     | (none) | 0px       |
+| Small      | sm:    | 640px     |
+| Medium     | md:    | 768px     |
+| Large      | lg:    | 1024px    |
+| Extra Large| xl:    | 1280px    |
+| 2X Large   | 2xl:   | 1536px    |
+
 ## Layout (Customizable in Tailwind)
 
 | Tailwind | Bootstrap Equivalent | Description |
@@ -99,3 +110,30 @@ rounded- blabla for border radius
 | block | d-block | Display: block |
 | inline | d-inline | Display: inline |
 | inline-block | d-inline-block | Display: inline-block |
+
+## Visibility in responsiveness 
+
+When using Tailwind it's standard practice to create 2 layouts in case the site needs it for stuff like
+grid etc. I can basically hide certain parts of the layout based on what the screen size is.
+
+Examples:
+- `hidden md:block` - Hidden on small screens, visible (block) on medium screens and up
+- `md:hidden` - Visible on small screens, hidden on medium screens and up
+- `lg:flex` - Display as flex only on large screens and up
+
+This dual layout approach differs from Bootstrap's single responsive layout and is more common in Tailwind projects because of its mobile-first design philosophy.
+
+## Responsive Breakpoints
+
+| Prefix | Min Width | Usage Example | Description |
+|--------|-----------|---------------|-------------|
+| (none) | 0px | `bg-red-500` | Default for all screen sizes (mobile-first) |
+| sm: | 640px | `sm:bg-red-500` | Changes background on small screens and up |
+| md: | 768px | `md:text-lg` | Larger text for medium screens and up |
+| lg: | 1024px | `lg:p-8` | More padding on large screens and up |
+| xl: | 1280px | `xl:flex-row` | Row layout for extra-large screens and up |
+| 2xl: | 1536px | `2xl:w-1/2` | 50% width only on 2XL screens and up |
+
+**Note:** Tailwind uses a mobile-first approach where unprefixed utilities apply to all screen sizes, while prefixed utilities apply at the specified breakpoint and above.
+
+For custom width or height I use [@800px]

@@ -11,7 +11,7 @@ export default function Subscribe() {
                 </div>
                 
                 {/* Right side - Form */}
-                <div className="flex items-center gap-3">
+                <div className="hidden flex items-center gap-3">
                     <div className="relative">
                         <input 
                             type="email" 
