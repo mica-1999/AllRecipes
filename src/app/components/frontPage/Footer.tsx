@@ -71,7 +71,7 @@ export default function Footer() {
                 </div>
             </div>
             <div id="copyRightSection" className="flex justify-center items-center bg-[#111111] text-[#6c6c6c] h-17">
-                <p>© {currentYear} · Micael Ribeiro · Web Design & Development · Madeira - Portugal</p>
+                <p>© {currentYear} · <a href="https://micaelportfolio.vercel.app/pages/blog" className="hover:text-[#d3d3d3] transition-colors duration-200"> Micael Ribeiro </a> · Web Design & Development · Madeira - Portugal</p>
             </div>
         </footer>
     );

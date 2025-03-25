@@ -29,7 +29,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center px-16 bg-white h-20 border-b-[1px] border-[#b2b3ca] shadow-md shadow-gray-250">
             {/* Left Side - Logo and Primary Nav */}
             <div id="leftSideBtns" className="flex justify-between items-center gap-5">
-                <Link href="/pages/" className="">
+                <Link href="/pages/home" className="">
                     <div id="Logo"><h1 className="text-[24px] font-bold">RecipeHub</h1></div>
                 </Link>
                 <div id="subBtns" className="flex justify-center items-center gap-8">
@@ -73,7 +73,7 @@ export default function Navbar() {
                 <Link href="/pages/search" className="">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-search-2-line text-[18px]"></i>
-                        <span className="text-[14px]">Search</span>
+                        <span className="text-[14px]">Advanced</span>
                     </div>
                 </Link>
                 
@@ -111,14 +111,14 @@ export default function Navbar() {
                     <div className="relative" ref={dropdownRef}>
                         <button 
                             onClick={() => setDropdownOpen(!dropdownOpen)}
-                            className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 flex items-center"
+                            className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 flex items-center cursor-pointer"
                         >
                             <i className="ri-arrow-down-s-line text-[#6c6c6c] text-[20px]"></i>
                         </button>
                         
                         {/* Dropdown content */}
                         {dropdownOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10 border border-gray-200">
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200">
                                 {session?.user ? (
                                     <>
                                         {/* Logged-in user content */}
@@ -152,7 +152,7 @@ export default function Navbar() {
                                         
                                         <button 
                                             onClick={() => signOut({ callbackUrl: '/' })}
-                                            className="px-4 py-2 hover:bg-gray-100 text-sm w-full text-left flex items-center"
+                                            className="px-4 py-2 hover:bg-gray-100 text-sm w-full text-left flex items-center cursor-pointer"
                                         >
                                             <i className="ri-logout-box-line mr-2 text-gray-500"></i>
                                             Sign out
