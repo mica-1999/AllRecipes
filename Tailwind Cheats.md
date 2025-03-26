@@ -4,6 +4,16 @@
 Custom properties can be done through []
 Example: w-[240px]
 
+## Class Structure Groups (Order Recommendation)
+1. Position   | fixed, relative, z-index
+2. Layout     | flex, grid, w-*, h-*
+3. Spacing    | p-*, m-*, gap-*
+4. Visual     | bg-*, text-*, border-*
+5. States     | hover:*, focus:*
+6. Transitions| transition-*, duration-*
+
+Example: "fixed right-0 flex w-12 p-4 bg-blue-500 hover:bg-blue-600 transition-all"
+
 ## Quick Reference: Screen Sizes
 
 | Breakpoint | Prefix | Min Width |

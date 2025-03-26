@@ -7,7 +7,9 @@ import Link from "next/link";
 export default function Navbar() {
     const { data: session, status } = useSession();
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [categoriesOpen, setCategoriesOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const dropdownCategoriesRef = useRef<HTMLDivElement>(null);
     
     // Navigation items for responsive bottom bar
     const navItems = [
@@ -28,6 +30,9 @@ export default function Navbar() {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setDropdownOpen(false);
+            }
+            if (dropdownCategoriesRef.current && !dropdownCategoriesRef.current.contains(event.target as Node)) {
+                setCategoriesOpen(false);
             }
         };
         
@@ -62,12 +67,51 @@ export default function Navbar() {
             {/* Right Side - Additional Nav and Auth */}
             <div id="rightSideBtns" className="flex justify-end items-center gap-5">
                 {/* Additional Navigation Items */}
-                <Link href="/pages/categories" className="hidden lg:flex">
-                    <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
-                        <i className="ri-restaurant-line text-[18px]"></i>
-                        <span className="text-[14px]">Categories</span>
-                    </div>
-                </Link>
+                <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200 cursor-pointer relative hidden lg:flex" ref={dropdownCategoriesRef} onClick={() => setCategoriesOpen(!categoriesOpen)}>
+                    <i className="ri-restaurant-line text-[18px]"></i>
+                    <span className="text-[14px]">Categories</span>
+                    <i className="ri-arrow-down-s-line text-[18px]"></i>
+
+                    {categoriesOpen && (
+                        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-72 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200 text-gray-800">
+                            <Link href="/trending-recipes">
+                                <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
+                                    <i className="ri-fire-line mr-2 text-orange-500"></i>
+                                    Most Popular Recipes Right Now
+                                </div>
+                            </Link>
+                            
+                            <Link href="/weekly-trending">
+                                <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
+                                    <i className="ri-star-line mr-2 text-yellow-500"></i>
+                                    This Week's Trending Recipes
+                                </div>
+                            </Link>
+
+                            <Link href="/seasonal">
+                                <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
+                                    <i className="ri-sun-line mr-2 text-blue-500"></i>
+                                    Seasonal Favorites
+                                </div>
+                            </Link>
+
+                            <Link href="/featured-chefs">
+                                <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
+                                    <i className="ri-user-star-line mr-2 text-purple-500"></i>
+                                    Featured Chef Collections
+                                </div>
+                            </Link>
+
+                            <Link href="/categories">
+                                <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
+                                    <i className="ri-apps-line mr-2 text-green-500"></i>
+                                    Browse All Categories
+                                </div>
+                            </Link>
+                        </div>
+                    )}
+
+                </div>
                 
                 <Link href="/pages/search" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
@@ -76,7 +120,7 @@ export default function Navbar() {
                     </div>
                 </Link>
                 
-                <Link href="/pages/mylist" className="hidden lg:flex">
+                <Link href="/pages/home/myList" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-bookmark-line text-[18px]"></i>
                         <span className="text-[14px]">My List</span>
@@ -117,7 +161,7 @@ export default function Navbar() {
                         
                         {/* Dropdown content */}
                         {dropdownOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200">
+                            <div className="absolute right-0 top-12 w-48 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200">
                                 {session?.user ? (
                                     <>
                                         {/* Logged-in user content */}
@@ -151,7 +195,7 @@ export default function Navbar() {
                                         
                                         <button 
                                             onClick={() => signOut({ callbackUrl: '/' })}
-                                            className="px-4 py-2 hover:bg-gray-100 text-sm w-full text-left flex items-center cursor-pointer"
+                                            className="px-4 py-2 hover:bg-[#ed2626] text-sm w-full text-left flex items-center cursor-pointer"
                                         >
                                             <i className="ri-logout-box-line mr-2 text-gray-500"></i>
                                             Sign out

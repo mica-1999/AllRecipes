@@ -47,11 +47,11 @@ export default function Footer() {
                     </div>
                     <div className="flex items-center gap-3 mt-4">
                         <i className="ri-phone-line text-[#747474]"></i>
-                        <p className="text-[#6c6c6c]">+351 964 420 812</p>
+                        <a className="transform hover:translate-x-2 transition-all duration-200" href="tel:+351964420812"><p className="text-[#6c6c6c] hover:text-[#d3d3d3]">+351 964 420 812</p></a>
                     </div>
                     <div className="flex items-center gap-3 mt-4">
                         <i className="ri-mail-line text-[#747474]"></i>
-                        <p className="text-[#6c6c6c]">micael1999work@gmail.com</p>
+                        <a className="transform hover:translate-x-2 transition-all duration-200" href="mailto:micael1999work@gmail.com"><p className="text-[#6c6c6c] hover:text-[#d3d3d3]">micael1999work@gmail.com</p></a>
                     </div>
                     <div className="flex items-center gap-3 mt-4">
                         <i className="ri-id-card-line text-[#747474]"></i>
@@ -64,7 +64,7 @@ export default function Footer() {
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">Quick Links</h1>
                     <div className="flex">
                         <ul className="flex flex-col w-1/2 list-disc ml-5 gap-3 marker:text-[#747474]">
-                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Home</Link></li>
+                            <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/home" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Home</Link></li>
                             <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Recipes</Link></li>
                             <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">About Us</Link></li>
                             <li className="hover:marker:text-[#d3d3d3]"><Link href="/pages/" className="text-[#747474] hover:text-[#d3d3d3] inline-block transform hover:translate-x-2 transition-all duration-200">Contacts</Link></li>

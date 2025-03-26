@@ -31,7 +31,8 @@ export default function Subscribe() {
                             rounded-[5px] 
                             hover:bg-[#e55a29] 
                             transition-colors duration-200
-                            flex items-center justify-center gap-2"
+                            flex items-center justify-center gap-2
+                            cursor-pointer"
                     >
                         <span>Subscribe</span>
                         <i className="ri-arrow-right-line"></i>
