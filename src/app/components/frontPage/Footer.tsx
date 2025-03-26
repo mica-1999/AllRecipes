@@ -15,8 +15,8 @@ export default function Footer() {
     return(
         <footer>
             {/* ======================== ABOUT US SECTION ======================== */}
-            <div id="socialsSection" className="flex justify-between px-16 bg-[#1a1a1a] w-full h-80 text-white">
-                <div className="flex flex-col w-[40%] p-13">
+            <div id="socialsSection" className="flex max-lg:flex-col max-lg:items-center justify-between bg-[#1a1a1a] w-full text-white">
+                <div className="flex flex-col w-[40%] max-lg:w-[80%] max-sm:px-0 p-13">
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">About Us</h1>
                     <p className="text-[#6c6c6c]">RecipeHub is your go-to platform to discover, save, and share delicious recipes. Organize your favorites, explore new dishes, and connect with a community of food lovers. Start your culinary journey with us today!</p>
 
@@ -39,7 +39,7 @@ export default function Footer() {
                 </div>
 
                 {/* ======================== CONTACT SECTION ======================== */}
-                <div className="flex flex-col w-[30%] p-13">
+                <div className="flex flex-col w-[30%] max-lg:w-[80%] max-lg:pt-0 max-sm:px-0 p-13">
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">Contact Info</h1>
                     <div className="flex items-center gap-3">
                         <i className="ri-map-pin-line text-[#747474]"></i>
@@ -60,7 +60,7 @@ export default function Footer() {
                 </div>
 
                 {/* ======================== LINKS SECTION ======================== */}
-                <div className="flex flex-col w-[30%] p-13">
+                <div className="flex flex-col w-[30%] p-13 max-lg:w-[80%] max-lg:pt-0 max-sm:px-0">
                     <h1 className="text-[1.25rem] font-semibold mb-5 text-[#d3d3d3]">Quick Links</h1>
                     <div className="flex">
                         <ul className="flex flex-col w-1/2 list-disc ml-5 gap-3 marker:text-[#747474]">
@@ -77,8 +77,8 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div id="copyRightSection" className="flex justify-center items-center bg-[#111111] text-[#6c6c6c] h-17">
-                <p>© {currentYear} · <a href="https://micaelportfolio.vercel.app/pages/blog" className="hover:text-[#d3d3d3] transition-colors duration-200"> Micael Ribeiro </a> · Web Design & Development · Madeira - Portugal</p>
+            <div id="copyRightSection" className="flex max-[1024px]:mb-[65px] justify-center items-center bg-[#111111] text-[#6c6c6c] h-17">
+                <p>© {currentYear} · <a href="https://micaelportfolio.vercel.app/pages/blog" className="hover:text-[#d3d3d3] transition-colors duration-200"> Micael Ribeiro </a> <span className="max-sm:hidden">· Web Design & Development · Madeira - Portugal </span></p>
             </div>
         </footer>
     );

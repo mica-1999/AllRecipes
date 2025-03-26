@@ -183,7 +183,7 @@ export default function Navbar() {
         </div>
 
         {/* Responsive Navigation */}
-        <div id="responsiveNav" className="w-full h-[65px] fixed bottom-0 bg-white border-t-[1px] border-[#b2b3ca] shadow-lg flex items-center justify-between px-2 lg:hidden z-50">
+        <div id="responsiveNav" className="w-full h-[65px] fixed bottom-0 bg-white border-t-[1px] border-[#b2b3ca] shadow-lg flex items-center justify-between lg:hidden z-50">
             {navItems.map((item, index) => (
                 <Link key={index} href={item.link} className="w-1/6 h-full">
                     <div className="flex flex-col h-full items-center justify-center gap-1 hover:bg-gray-300 active:bg-[#e55a29] transition-colors duration-200">

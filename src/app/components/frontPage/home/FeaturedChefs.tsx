@@ -45,7 +45,7 @@ export default function FeaturedChefs () {
                     <i className="ri-arrow-right-s-line text-xl text-[#FF6B35] cursor-pointer"></i>
                 </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-6 mt-7 mb-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-full gap-6 mt-7 mb-20">
                     {chefs.map((chef) => (
                         <div key={chef.id} className="bg-white rounded-[15px] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                             <div className="relative h-[280px] w-full">

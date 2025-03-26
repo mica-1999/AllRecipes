@@ -56,9 +56,9 @@ export default function SeasonalRecipes () {
 
     return(
         <>
-            <div className="flex items-center justify-between w-full h-15">
+            <div className="flex items-center justify-between w-full h-15 [@media(max-width:860px)]:flex-col [@media(max-width:860px)]:items-start">
                 <h2 className="text-[20px]">Seasonal Recipes</h2>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 [@media(max-width:860px)]:mt-2 [@media(max-width:860px)]:justify-between [@media(max-width:860px)]:w-full">
                     <div className="flex items-center gap-3">
                         {["Spring", "Summer", "Autumn", "Winter"].map((season) => (
                             <div 
@@ -70,16 +70,16 @@ export default function SeasonalRecipes () {
                             </div>
                         ))}
                     </div>
-                    <div className="flex items-center gap-2 ml-3">
+                    <div className="flex items-center gap-2 ml-3 max-sm:hidden">
                         <button className="font-semibold cursor-pointer text-[#FF6B35] hover:text-[#e55a29] transition-colors">View All</button>
                         <i className="ri-arrow-right-s-line text-xl text-[#FF6B35] cursor-pointer"></i>
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[352px] mb-12">
-                <div className="grid grid-cols-3 gap-6 h-full mt-3">
+            <div className="w-full h-[352px] mb-12 [@media(max-width:860px)]:overflow-x-auto overflow-y-hidden pb-5 [@media(max-width:860px)]:mt-2">
+                <div className="grid grid-cols-3 gap-6 h-full mt-3 [@media(max-width:860px)]:w-[1200px]">
                     {seasonalRecipes[activeSeason as keyof typeof seasonalRecipes].map((recipe) => (
-                        <div key={recipe.id} className="relative rounded-2xl overflow-hidden group transition-all duration-300 hover:shadow-lg">
+                        <div key={recipe.id} className="relative rounded-2xl overflow-hidden group transition-all duration-300 hover:shadow-lg w-full">
                             {/* Recipe image */}
                             <div className="h-full w-full relative">
                                 <Image
