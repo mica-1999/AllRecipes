@@ -1,9 +1,9 @@
-import Filters from "@/app/components/frontPage/myList/Filters";
+import MenuSwitcher from "@/app/components/frontPage/myList/MenuSwitch";
 
 export default function MyList() {
     return (
         <>
-            <Filters />
+            <MenuSwitcher />
         </>
     );
 }
