@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const cookingPreferenceBox = [
     { id: "quick", name: "Quick & Easy", icon: "ri-timer-flash-line", description: "Under 30 minutes", color: "#00BCD4" },
     { id: "beginner", name: "Beginner", icon: "ri-user-smile-line", description: "Simple techniques", color: "#8BC34A" },

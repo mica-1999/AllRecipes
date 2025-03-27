@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const dietRestrictionBox = [
     { id: "vegetarian", name: "Vegetarian", icon: "ri-plant-line", description: "No meat, fish, or poultry", color: "#4CAF50" },
     { id: "vegan", name: "Vegan", icon: "ri-leaf-line", description: "No animal products", color: "#8BC34A" },

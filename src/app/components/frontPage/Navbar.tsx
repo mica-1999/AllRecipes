@@ -113,7 +113,7 @@ export default function Navbar() {
 
                 </div>
                 
-                <Link href="/pages/search" className="hidden lg:flex">
+                <Link href="/pages/home/advancedFilters" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-search-2-line text-[18px]"></i>
                         <span className="text-[14px]">Advanced</span>

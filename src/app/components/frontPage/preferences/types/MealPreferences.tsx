@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const mealTypeBox = [
     { id: "breakfast", name: "Breakfast", icon: "ri-cup-line", description: "Morning meals", color: "#FFA000" },
     { id: "lunch", name: "Lunch", icon: "ri-restaurant-2-line", description: "Midday meals", color: "#F57C00" },

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const cuisineTypeBox = [
     { id: "portuguese", name: "Portuguese", icon: "ri-flag-line", description: "Traditional Portuguese dishes", color: "#006600" },
     { id: "italian", name: "Italian", icon: "ri-restaurant-line", description: "Italian cuisine", color: "#E53935" },

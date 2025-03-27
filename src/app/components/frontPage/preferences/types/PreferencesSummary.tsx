@@ -1,4 +1,3 @@
-import React from 'react';
 import { dietRestrictionBox } from './DietPreferences';
 import { cuisineTypeBox } from './CuisinePreferences';
 import { mealTypeBox } from './MealPreferences';
@@ -117,6 +116,10 @@ export default function PreferencesSummary({
                 ) : (
                     <span className="text-gray-500 text-sm">No cooking preferences selected</span>
                 )}
+            </div>
+            <div className="flex items-center justify-center mt-6 p-3 bg-blue-50 rounded-md border border-blue-100">
+                <i className="ri-information-line text-blue-500 text-lg mr-2"></i>
+                <p className="text-sm text-blue-700">Changes will be applied to your current session</p>
             </div>
         </div>
     );

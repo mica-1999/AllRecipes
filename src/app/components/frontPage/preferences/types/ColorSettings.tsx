@@ -1,4 +1,3 @@
-import React from 'react';
 import { dietRestrictionBox } from './DietPreferences';
 import { cuisineTypeBox } from './CuisinePreferences';
 import { mealTypeBox } from './MealPreferences';
@@ -36,7 +35,7 @@ export default function ColorSettings({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {/* Diet Colors */}
-                <div>
+                <div className='rounded-lg shadow-md p-3'>
                     <h3 className="font-medium text-gray-800 mb-3">Diet Restriction Colors</h3>
                     <div className="space-y-4">
                         {dietRestrictionBox.map(item => (
@@ -70,7 +69,7 @@ export default function ColorSettings({
                 </div>
 
                 {/* Cuisine Colors */}
-                <div>
+                <div className='rounded-lg shadow-md p-3'>
                     <h3 className="font-medium text-gray-800 mb-3">Cuisine Type Colors</h3>
                     <div className="space-y-4">
                         {cuisineTypeBox.map(item => (
@@ -104,7 +103,7 @@ export default function ColorSettings({
                 </div>
 
                 {/* Meal Type Colors */}
-                <div>
+                <div className='rounded-lg shadow-md p-3'>
                     <h3 className="font-medium text-gray-800 mb-3">Meal Type Colors</h3>
                     <div className="space-y-4">
                         {mealTypeBox.map(item => (
@@ -138,7 +137,7 @@ export default function ColorSettings({
                 </div>
 
                 {/* Cooking Preference Colors */}
-                <div>
+                <div className='rounded-lg shadow-md p-3'>
                     <h3 className="font-medium text-gray-800 mb-3">Cooking Preference Colors</h3>
                     <div className="space-y-4">
                         {cookingPreferenceBox.map(item => (
