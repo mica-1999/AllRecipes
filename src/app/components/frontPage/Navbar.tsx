@@ -134,7 +134,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-2">
                     {/* 1. Preferences button - only visible when logged in */}
                     {session?.user && (
-                        <Link href="/pages/preferences">
+                        <Link href="/pages/home/preferences">
                             <div className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
                                 <i className="ri-settings-4-line text-[#6c6c6c] text-[18px]"></i>
                             </div>
@@ -177,7 +177,7 @@ export default function Navbar() {
                                             </div>
                                         </Link>
                                         
-                                        <Link href="/pages/preferences">
+                                        <Link href="/pages/home/preferences">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center">
                                                 <i className="ri-settings-4-line mr-2 text-gray-500"></i>
                                                 Preferences

@@ -33,12 +33,12 @@ export default function Bookmarked() {
                             </div>
                             
                             <div className="flex-shrink-0 flex space-x-2">
-                                <button className="p-2 rounded-full hover:bg-gray-100">
+                                <button className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                                     </svg>
                                 </button>
-                                <button className="p-2 rounded-full hover:bg-gray-100">
+                                <button className="p-2 rounded-full hover:bg-gray-100 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                                     </svg>

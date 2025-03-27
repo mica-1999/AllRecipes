@@ -21,8 +21,6 @@ export default function MenuSwitcher() {
                 return <MyRecipes />
              case 'Commented':
                 return <Commented />
-            // case 'Liked':
-            //     return <Liked />
             case 'Bookmarked':
                 return <Bookmarked />
             default:

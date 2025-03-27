@@ -111,13 +111,13 @@ export default function MyRecipes() {
                         
                         {/* Actions */}
                         <div id="actions" className="w-1/4 md:w-1/8 flex items-center justify-end md:justify-center gap-2 p-2.5">
-                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-[#FF6B35] transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-[#FF6B35] transition-colors cursor-pointer">
                                 <i className="ri-pencil-line"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-red-500 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
                                 <i className="ri-delete-bin-line"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-blue-500 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-blue-500 transition-colors cursor-pointer">
                                 <i className="ri-more-2-fill"></i>
                             </button>
                         </div>

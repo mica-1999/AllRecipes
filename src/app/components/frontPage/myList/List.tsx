@@ -112,11 +112,11 @@ export default function List() {
                         
                         {/* Actions */}
                         <div id="actions" className="w-1/4 md:w-1/8 flex items-center justify-end md:justify-center gap-2 p-2.5">
-                            <button className="px-3 py-1.5 rounded-lg bg-[#FF6B35] text-white hover:bg-[#e05a2a] transition-colors text-xs font-medium">
+                            <button className="px-3 py-1.5 rounded-lg bg-[#FF6B35] text-white hover:bg-[#e05a2a] transition-colors text-xs font-medium cursor-pointer">
                                 <i className="ri-chef-hat-line mr-1"></i>
                                 Prepare
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-blue-500 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-blue-500 transition-colors cursor-pointer">
                                 <i className="ri-more-2-fill"></i>
                             </button>
                         </div>

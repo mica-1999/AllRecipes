@@ -1,4 +1,6 @@
+"use client"
 import Image from "next/image";
+import { useState } from "react";
 
 // Sample comments data
 const commentsData = [
@@ -38,11 +40,42 @@ const commentsData = [
 ];
 
 export default function Comments() {
+
+    const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');
     return (
         <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             <div className="px-5 py-4 bg-gray-50 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-800">Recent Comments</h2>
-                <p className="text-sm text-gray-500">Your activity on recipes</p>
+                <div className="flex items-center justify-between mb-1">
+                    <h2 className="text-lg font-semibold text-gray-800">Recent Comments</h2>
+                    <div className="flex gap-1 bg-gray-100 p-1 rounded-lg">
+                        <button
+                            onClick={() => setActiveTab('my')}
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                                activeTab === 'my'
+                                    ? 'bg-white text-gray-800 shadow-sm'
+                                    : 'text-gray-600 hover:text-gray-800'
+                            }`}
+                        >
+                            My Comments
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('liked')}
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                                activeTab === 'liked'
+                                    ? 'bg-white text-gray-800 shadow-sm'
+                                    : 'text-gray-600 hover:text-gray-800'
+                            }`}
+                        >
+                            Liked Comments
+                        </button>
+                    </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                    {activeTab === 'my' 
+                        ? 'Comments you posted on recipes'
+                        : 'Comments from others that you liked'
+                    }
+                </p>
             </div>
             
             <div className="divide-y divide-gray-100">

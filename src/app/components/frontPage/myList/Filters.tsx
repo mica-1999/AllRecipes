@@ -7,7 +7,6 @@ const listItems = [
     {name: 'My Recipes', icon: "ri-edit-2-line"},
     {name: 'Collections', icon: "ri-folder-line"},
     {name: 'Bookmarked', icon: "ri-bookmark-line"},
-    {name: 'Liked', icon: "ri-heart-line"},
     {name: 'Commented', icon: "ri-chat-3-line"}
 
 ] 
