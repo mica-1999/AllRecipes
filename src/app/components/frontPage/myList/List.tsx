@@ -12,6 +12,12 @@ const listHeaders = [
 ]
 
 export default function List() {
+
+    const ToRecipeDetails = (id: number) => {
+        // Redirect to recipe details page with the selected recipe ID
+        window.location.href = `/pages/home/recipeDetails?id=${id}`;
+    }
+
     return (
         <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             {/* Table Header */}
@@ -39,6 +45,7 @@ export default function List() {
                             ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}
                         `} 
                         key={index}
+                        onClick={() => ToRecipeDetails(item)}
                     >
                         {/* Recipe Name with Image */}
                         <div id="recipeName" className="flex items-center gap-3 w-1/4 lg:w-1/3 p-2.5">
