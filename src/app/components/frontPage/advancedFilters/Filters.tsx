@@ -12,16 +12,21 @@ import Occasion from "./filterComp/Occasion";
 import TableFiltered from "./content/TableFiltered";
 
 const mainFilters = ["Latest", "Popular", "Top Rated", "Random"]; 
+interface CaloriesRangeType {
+    min: number;
+    max: number;
+
+}
 
 export default function AdvFilters () {
     const [mainFilterMenu, setMainFilterMenu] = useState("Popular");
     const [mealTypeFilter, setMealTypeFilter] = useState<string[]>([]);
     const [mealType, setMealType] = useState<string[]>([]);
-    const [cookingTime, setCookingTime] = useState<string[]>([]);
+    const [cookingTime, setCookingTime] = useState<number>(30);
     const [dietaryRestrictions, setDietaryRestrictions] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [difficultyLevel, setDifficultyLevel] = useState<string[]>([]);
-    const [caloriesRange, setCaloriesRange] = useState<string[]>([]);
+    const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 200, max: 800});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
 

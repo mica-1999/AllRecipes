@@ -88,7 +88,11 @@ export default function Register() {
                 }, 2500);
             }
         }   
-        catch (error: any) {
+        catch (error: Error | unknown) {
+            // Log the error for debugging purposes
+            console.error("Registration error:", error);
+            
+            // Set a user-friendly error message
             setError("Registration failed. Please try again later.");
             setLoading(false);
         } 

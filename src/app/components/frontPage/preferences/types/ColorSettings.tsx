@@ -2,6 +2,7 @@ import { dietRestrictionBox } from './DietPreferences';
 import { cuisineTypeBox } from './CuisinePreferences';
 import { mealTypeBox } from './MealPreferences';
 import { cookingPreferenceBox } from './CookingPreferences';
+import Image from 'next/image';
 
 interface ColorSettingsProps {
     dietPreferences: string[];
@@ -175,11 +176,13 @@ export default function ColorSettings({
             <div className="mt-8 p-4 border border-gray-200 rounded-lg">
                 <h3 className="font-medium text-gray-800 mb-4">Recipe Card Preview</h3>
                 <div className="bg-white shadow rounded-lg overflow-hidden">
-                    <div className="relative">
-                        <img 
-                            src="/images/recipe-example.jpg" 
+                    <div className="relative h-48">
+                        <Image 
+                            src="/images/home/change.jpg" 
                             alt="Sample recipe" 
-                            className="h-48 w-full object-cover"
+                            fill
+                            quality={100}
+                            className="object-cover"
                             onError={(e) => {
                                 // Fallback to a colorful gradient if image fails to load
                                 const target = e.target as HTMLImageElement;

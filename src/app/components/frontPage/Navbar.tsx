@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);

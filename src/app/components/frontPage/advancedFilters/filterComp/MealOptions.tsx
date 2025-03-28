@@ -43,12 +43,6 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    useEffect(() => {
-        console.log("mealTypeFilter", mealTypeFilter);
-
-
-    },[])
-
     return(
         <>
             <div className={`bg-white p-5  ${mealTypeFilter.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200"} relative hover:z-10 hover:shadow-lg transition-all duration-200`}>

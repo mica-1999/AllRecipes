@@ -127,7 +127,7 @@ export const authOptions: NextAuthOptions = {
     maxAge: 7 * 24 * 60 * 60, // 7 days
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       // This callback runs when a user signs in
       if (account?.provider === 'credentials') {
         // Your existing credential logic
