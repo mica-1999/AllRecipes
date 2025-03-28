@@ -3,6 +3,17 @@
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import SearchFilter from "./searchFilters/Search";
+
+// Navigation items for responsive bottom bar
+const navItems = [
+    { name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
+    { name: 'My List', icon: 'ri-bookmark-line', link: '/pages/mylist' },
+    { name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
+    { name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
+    { name: 'Profile', icon: 'ri-user-line', link: '/pages/profile' },
+    { name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/preferences' },
+];
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -10,22 +21,9 @@ export default function Navbar() {
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const dropdownCategoriesRef = useRef<HTMLDivElement>(null);
+    const [openSearch, setOpenSearch] = useState<boolean>(false);
     
-    // Navigation items for responsive bottom bar
-    const navItems = [
-        { name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
-        { name: 'My List', icon: 'ri-bookmark-line', link: '/pages/mylist' },
-        { name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
-        { name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
-        { name: 'Profile', icon: 'ri-user-line', link: session?.user ? '/pages/profile' : '/pages/login' },
-        { name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/preferences' },
-    ];
-
     useEffect(() => {
-        if(session?.user){
-            console.log("User is logged in", session.user);
-        }
-        
         // Close dropdown when clicking outside
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -42,6 +40,7 @@ export default function Navbar() {
 
     return(
         <>
+        <SearchFilter openSearch={openSearch} setOpenSearch={setOpenSearch} />
         <div className="flex justify-between items-center px-16 bg-white h-20 border-b-[1px] border-[#b2b3ca] shadow-md shadow-gray-250">
             {/* Left Side - Logo and Primary Nav */}
             <div id="leftSideBtns" className="flex justify-between items-center gap-5">
@@ -58,7 +57,9 @@ export default function Navbar() {
                     bg-[#f5f5f5] 
                     focus-within:bg-white focus-within:border-[#747474] focus-within:ring-1 focus-within:ring-[#747474]
                     transition-all duration-200
-                    cursor-pointer">
+                    cursor-pointer"
+                    onClick={() => setOpenSearch(true)}    
+                >
                     <i className="ri-search-line text-[#6c6c6c] text-[20px]"></i>
                     <span className="text-[#6c6c6c]">Ctrl K</span>
                 </div>
@@ -74,7 +75,7 @@ export default function Navbar() {
 
                     {categoriesOpen && (
                         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-72 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200 text-gray-800">
-                            <Link href="/trending-recipes">
+                            <Link href="/pages/home/advancedFilters?category=Popular">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center">
                                     <i className="ri-fire-line mr-2 text-orange-500"></i>
                                     Most Popular Recipes Right Now
@@ -143,7 +144,7 @@ export default function Navbar() {
                     
                     {/* 2. Profile icon - only visible when logged in */}
                     {session?.user && (
-                        <Link href="/pages/profile">
+                        <Link href="/pages/home/profile">
                             <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors duration-200">
                                 <i className="ri-user-line text-[#6c6c6c] text-[16px]"></i>
                             </div>
@@ -170,7 +171,7 @@ export default function Navbar() {
                                             <p className="text-xs text-gray-500 truncate">{session.user.email}</p>
                                         </div>
                                         
-                                        <Link href="/pages/profile">
+                                        <Link href="/pages/home/profile">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center">
                                                 <i className="ri-user-line mr-2 text-gray-500"></i>
                                                 Your Profile
@@ -180,7 +181,7 @@ export default function Navbar() {
                                         <Link href="/pages/home/preferences">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center">
                                                 <i className="ri-settings-4-line mr-2 text-gray-500"></i>
-                                                Preferences
+                                                Settings
                                             </div>
                                         </Link>
                                         
@@ -195,9 +196,9 @@ export default function Navbar() {
                                         
                                         <button 
                                             onClick={() => signOut({ callbackUrl: '/' })}
-                                            className="px-4 py-2 hover:bg-[#ed2626] text-sm w-full text-left flex items-center cursor-pointer"
+                                            className="px-4 py-2 hover:bg-red-600 hover:text-white text-sm w-full text-left flex items-center cursor-pointer transition-colors duration-200"
                                         >
-                                            <i className="ri-logout-box-line mr-2 text-gray-500"></i>
+                                            <i className="ri-logout-box-line mr-2 text-gray-500 group-hover:text-white"></i>
                                             Sign out
                                         </button>
                                     </>

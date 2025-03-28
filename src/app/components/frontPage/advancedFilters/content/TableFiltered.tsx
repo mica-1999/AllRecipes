@@ -190,37 +190,6 @@ export default function TableFiltered() {
                     </div>
                 ))}
             </div>
-            
-            {/* Table Footer */}
-            <div className="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-200">
-                <div className="text-sm text-gray-600">
-                    Showing <span className="font-medium">6</span> of <span className="font-medium">42</span> filtered recipes
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="hidden md:flex items-center">
-                        <label className="text-sm text-gray-600 mr-2">Sort by:</label>
-                        <select className="bg-white border border-gray-200 rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:border-[#FF6B35] text-sm">
-                            <option>Most Views</option>
-                            <option>Highest Rating</option>
-                            <option>Newest</option>
-                        </select>
-                    </div>
-                    <div className="flex gap-1">
-                        <button className="p-2 rounded hover:bg-gray-200 text-gray-600 transition-colors">
-                            <i className="ri-arrow-left-s-line"></i>
-                        </button>
-                        <button className="w-9 h-9 rounded flex items-center justify-center transition-colors bg-[#FF6B35] text-white">
-                            1
-                        </button>
-                        <button className="w-9 h-9 rounded flex items-center justify-center transition-colors text-gray-600 hover:bg-gray-200">
-                            2
-                        </button>
-                        <button className="p-2 rounded hover:bg-gray-200 text-gray-600 transition-colors">
-                            <i className="ri-arrow-right-s-line"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }

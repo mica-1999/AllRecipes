@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import React, { FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Spinner } from "@/app/components/reusable/Spinner";
 
 export default function Register() {
@@ -72,7 +72,15 @@ export default function Register() {
 
             if(response.ok) {
                 // Show success toast
-                toast("Account created successfully!");
+                toast.success("Account created successfully!", {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light"
+                });
                 
                 // Clear form
                 setformData({
@@ -100,19 +108,6 @@ export default function Register() {
 
     return(
         <>
-        <ToastContainer 
-            position="top-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-        />
-
             <div className="bg-white rounded-lg shadow-md px-6 py-7 sm:px-8 sm:py-8 w-full border-t-4 border-[#5eaaae]">
                 <div className="text-center mb-5">
                     <h1 className="text-2xl font-bold text-[#452624]">Sign Up </h1>

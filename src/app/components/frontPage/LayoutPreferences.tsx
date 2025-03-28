@@ -1,5 +1,6 @@
 "use client"
-import { useState, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { toast } from 'react-toastify';
 
 const modeStyles = [
     {type: "Light", icon: "ri-sun-line", activeGradient: "from-[#FFB938] to-[#FFA238]"},
@@ -15,9 +16,44 @@ const languageOptions = [
 
 export default function StickyButton() {
     const [showConfig, setShowConfig] = useState(false)
-    const [selectedMode, setSelectedMode] = useState(0)
-    const [selectedLanguage, setSelectedLanguage] = useState(0)
+    const [selectedMode, setSelectedMode] = useState<string>("Light")
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("English")
     const configRef = useRef<HTMLDivElement>(null)
+    const [confirmed, setConfirmed] = useState(false)
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (configRef.current && !configRef.current.contains(event.target as Node)) {
+            setShowConfig(false)
+        }
+    }
+    
+    const handleSavedChanges = () => {
+        setConfirmed(true)
+        setShowConfig(false)
+        toast.success("Changes saved successfully!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light"
+        });
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    },[showConfig])
+
+    useEffect(() => {
+        console.log("Selected Mode:", selectedMode)
+        console.log("Selected Language:", selectedLanguage)
+
+
+    },[selectedLanguage, selectedMode])
     
     return(
         <>
@@ -69,14 +105,14 @@ export default function StickyButton() {
                             {modeStyles.map((mode, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
                                     <button 
-                                        onClick={() => setSelectedMode(index)}
+                                        onClick={() => setSelectedMode(mode.type)}
                                         className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            selectedMode === index 
+                                            selectedMode === mode.type 
                                                 ? `bg-gradient-to-r ${mode.activeGradient} shadow-md`
                                                 : "bg-gray-300 hover:bg-gray-400"
                                         }`}
                                     >
-                                        <i className={`${mode.icon} text-[28px] ${selectedMode === index ? "text-white" : "text-gray-700"}`}></i>
+                                        <i className={`${mode.icon} text-[28px] ${selectedMode === mode.type ? "text-white" : "text-gray-700"}`}></i>
                                     </button>
                                     <p className="text-[12px] mt-1 text-center font-medium text-gray-700">{mode.type}</p>
                                 </div>
@@ -93,14 +129,14 @@ export default function StickyButton() {
                             {languageOptions.map((language, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
                                     <button 
-                                        onClick={() => setSelectedLanguage(index)}
+                                        onClick={() => setSelectedLanguage(language.type)}
                                         className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            selectedLanguage === index 
+                                            selectedLanguage === language.type
                                                 ? `bg-gradient-to-r ${language.activeGradient} shadow-md`
                                                 : "bg-gray-300 hover:bg-gray-400"
                                         }`}
                                     >
-                                        <i className={`${language.icon} text-[28px] ${selectedLanguage === index ? "text-white" : "text-gray-700"}`}></i>
+                                        <i className={`${language.icon} text-[28px] ${selectedLanguage === language.type ? "text-white" : "text-gray-700"}`}></i>
                                     </button>
                                     <p className="text-[12px] mt-1 text-center font-medium text-gray-700">{language.type}</p>
                                 </div>
@@ -120,6 +156,7 @@ export default function StickyButton() {
                                 </button>
                                 <button 
                                     className="flex-1 py-2 px-3 bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a29] hover:to-[#e57a4d] text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center cursor-pointer"
+                                    onClick={() => handleSavedChanges()}
                                 >
                                     <i className="ri-check-line mr-1.5 text-base"></i>
                                     Apply Changes

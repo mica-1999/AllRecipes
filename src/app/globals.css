@@ -34,3 +34,20 @@ body {
 @keyframes rotate {
   100% { transform: rotate(360deg) }
 }
+
+body.overlay-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  pointer-events: all;
+}
+
+/* Prevent scrolling when overlay is active */
+body.overlay-active {
+  overflow: hidden;
+}

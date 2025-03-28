@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'remixicon/fonts/remixicon.css';
 import NextAuthSessionProvider from "./sessionWrapper";
+import { ToastContainer } from 'react-toastify';
 
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
         className="antialiased"
       >
         <NextAuthSessionProvider>
+          <ToastContainer />
           {children}
         </NextAuthSessionProvider>
       </body>
