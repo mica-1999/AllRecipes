@@ -51,5 +51,4 @@ export async function POST(request: Request){
         console.error("Error during user creation:", error);
         return NextResponse.json({error: "Error during user creation"}, {status: 500}); 
     }
-
 }

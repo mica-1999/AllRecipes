@@ -94,7 +94,24 @@ export default function Register() {
             console.error("Registration error:", error);
             setError("Registration failed. Please try again later.");
             setLoading(false);
-        } 
+        }
+        
+        try {
+            const response = await fetch("/api/createPreferences", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            
+            if (!response.ok) {
+                throw new Error("Failed to create preferences for user.");
+            }
+        }
+        catch(error){
+            console.error("Error creating preferences for User:", error);
+            setError("An error occurred. Please try again later.");
+        }
     }
 
     return(

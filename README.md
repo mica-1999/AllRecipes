@@ -4,7 +4,7 @@ A modern web application for storing, organizing, and sharing family recipes wit
 
 ## 🍽️ Project Overview
 
-MomRecipesApp is built with Next.js, TypeScript, and PostgreSQL to create a robust recipe management system. The application allows users to store recipes, categorize them, and search through their collection with ease.
+MomRecipesApp is built with Next.js, TypeScript, and PostgreSQL to create a robust recipe management system. The application allows users to store recipes, categorize them, and search through their collection with ease. Perfect for preserving family culinary traditions while using modern technology.
 
 ## 🛠️ Tech Stack
 
@@ -15,6 +15,7 @@ MomRecipesApp is built with Next.js, TypeScript, and PostgreSQL to create a robu
 - **Authentication**: NextAuth.js
 - **Language**: TypeScript
 - **Development Tools**: ESLint, Turbopack
+- **Deployment**: Vercel
 
 ## 🗂️ Project Structure
 
@@ -75,11 +76,16 @@ MomRecipesApp/
    yarn install
    ```
 
-3. Set up your environment variables (copy .env.example to .env.local and adjust values)
+3. Set up your environment variables
+   ```bash
+   cp .env.example .env.local
+   # Then edit .env.local with your database credentials and other config
+   ```
 
 4. Set up the database
    ```bash
    npx prisma migrate dev --name init
+   npx prisma db seed # if you have seed data
    ```
 
 5. Run the development server
@@ -95,46 +101,111 @@ MomRecipesApp/
 
 ### Current Features
 - Recipe storage and management
-- User authentication
-- Responsive design
+- User authentication and profiles
+- Responsive design for all devices
+- Recipe search functionality
+- Image uploads for recipes
 
 ### Planned Features
 - Recipe categorization and tagging
-- Advanced search functionality
-- Meal planning
+- Advanced search with filtering options
+- Meal planning calendar
 - Grocery list generation
 - Nutritional information calculation
-- Recipe scaling
+- Recipe scaling for different serving sizes
 - Social sharing capabilities
-- Mobile app integration
+- Mobile app version
+- Print-friendly recipe views
+- Recipe versioning (track modifications)
+- Favorites and collections
+
+## 📊 Database Schema
+
+The application uses PostgreSQL with Prisma ORM. The core data models include:
+
+**User**
+- Personal information
+- Authentication details
+- Preferences
+
+**Recipe**
+- Title, description, prep/cook times
+- Creator reference
+- Image URLs
+- Serving size
+
+**Category**
+- Name and description
+- Parent category (for hierarchical organization)
+
+**Ingredient**
+- Name, amount, unit
+- Recipe reference
+- Optional alternatives
+
+**Instruction**
+- Step number and description
+- Recipe reference
+- Optional images per step
+
+**Review**
+- Rating and comments
+- User reference
+- Recipe reference
 
 ## 🧪 Testing
 
 ```bash
-# Run tests
+# Run unit tests
 npm run test
-# or
-yarn test
+
+# Run integration tests
+npm run test:integration
+
+# Run end-to-end tests
+npm run test:e2e
 ```
 
-## 📊 Database Schema
+## 🛡️ Security
 
-The application uses PostgreSQL with Prisma ORM. Key models include:
-- Users
-- Recipes
-- Categories
-- Ingredients
-- Instructions
-- Reviews
+This application implements:
+- CSRF protection
+- Input sanitization
+- Rate limiting on API routes
+- Secure authentication flow
+- Data encryption for sensitive information
 
-## Stuff Used 
-https://fonts.google.com/ 
-Prisma Highlight syntax and UML generation
+## 📱 Responsive Design
+
+The app is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile phones
+- Large displays
+
+## 🔧 Tools & Resources
+
+- [Google Fonts](https://fonts.google.com/) for typography
+- Prisma Highlight syntax and UML generation for database modeling
+- Vercel for deployment and hosting
+- Cloudinary for image storage (planned)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please adhere to the coding standards and add appropriate tests.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📬 Contact
+
+Project Link: [https://github.com/yourusername/MomRecipesApp](https://github.com/yourusername/MomRecipesApp)

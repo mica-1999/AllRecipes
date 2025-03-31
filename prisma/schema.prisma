@@ -30,6 +30,14 @@ model User {
   job       String?
   recipes   Recipe[] // One user can have multiple recipes
   sessions  Session[] // One user can have multiple sessions
+  userPreferences UserPreferences? @relation("UserToPreferences") // Each user should have one user preferences
+}
+model UserPreferences {
+  id        Int      @id @default(autoincrement()) // Primary key
+  visualTheme String @default("light") // Default value is "light"
+  language    String @default("en") // Default value is "en"
+  userId    Int   @unique// Foreign Key
+  user User @relation("UserToPreferences", fields: [userId], references: [id]) // Foreign key relation with User
 }
 
 model Session {
