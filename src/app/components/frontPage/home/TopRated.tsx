@@ -32,6 +32,7 @@ export default function TopRated () {
                                 src={`/images/home/toprated/${images[i]}`}
                                 alt="Delicious food"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 20vw"
                                 className="object-cover"
                                 priority
                             />
@@ -64,6 +65,7 @@ export default function TopRated () {
                                 src={`/images/home/toprated/${images[i]}`}
                                 alt="Delicious food"
                                 fill
+                                sizes="250px"
                                 className="object-cover"
                                 priority
                             />

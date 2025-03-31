@@ -106,12 +106,14 @@ export default function Navbar() {
                     </div>
                 </Link>
                 
+                {session?.user && (
                 <Link href="/pages/home/myList" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200">
                         <i className="ri-bookmark-line text-[18px]"></i>
                         <span className="text-[14px]">My List</span>
                     </div>
                 </Link>
+                )}
                 
                 {/* Separator */}
                 <div className="h-6 border-l border-[#d3d3d3] mx-2"></div>

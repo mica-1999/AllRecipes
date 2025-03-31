@@ -25,9 +25,12 @@ export default function Footer() {
                     {Socials.map((social, index) => (
                         <Link href={social.url} key={index}>
                             <div 
-                                className={`flex justify-center items-center w-9 h-9 rounded-full bg-gray-700 hover:bg-[#FF6B35] transition-all duration-300 ${
+                                className={`flex justify-center items-center w-9 h-9 rounded-full bg-gray-700 transition-all duration-300 ${
                                     hoveredSocial === index ? 'translate-y-[-4px]' : ''
                                 }`}
+                                style={{
+                                    backgroundColor: hoveredSocial === index ? `#${social.color}` : ''
+                                }}
                                 onMouseEnter={() => setHoveredSocial(index)}
                                 onMouseLeave={() => setHoveredSocial(null)}
                             >

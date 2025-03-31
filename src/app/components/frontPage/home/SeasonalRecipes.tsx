@@ -63,6 +63,7 @@ export default function SeasonalRecipes () {
                                     src={recipe.image}
                                     alt={recipe.title}
                                     fill
+                                    sizes="(max-width: 860px) 100vw, 33vw"
                                     className="object-cover"
                                     priority
                                 />

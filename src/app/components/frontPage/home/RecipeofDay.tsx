@@ -15,6 +15,7 @@ export default function RecipeOfDay () {
                             src="/images/home/day/img1.jpg"
                             alt="Recipe of the day"
                             fill
+                            sizes="(max-width: 768px) 100vw, 40vw"
                             className="object-cover"
                             priority
                         />

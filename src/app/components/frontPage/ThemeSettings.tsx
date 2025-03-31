@@ -1,10 +1,14 @@
 "use client"
-import { useState, useRef } from "react"
+import { useSession } from "next-auth/react";
+import { useState, useRef, useEffect } from "react"
 import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { modeStyles, languageOptions } from "@/app/dataItems/LayoutData";
 
 export default function StickyButton() {
+    // Get session data from NextAuth
+    const { data: session } = useSession(); 
+
     // Ref to DIV
     const configRef = useRef<HTMLDivElement>(null) // Used to close the config menu when clicking outside of it
     
@@ -12,25 +16,78 @@ export default function StickyButton() {
     const [showConfig, setShowConfig] = useState(false) // Controls the visibility of the config menu
     const [selectedMode, setSelectedMode] = useState<string>("Light") // Controls the selected mode (Light, Dark, Auto)
     const [selectedLanguage, setSelectedLanguage] = useState<string>("English") // Controls the selected language (English, Portuguese, Spanish)
-    const [confirmed, setConfirmed] = useState(false) // Controls the confirmation of changes
 
     // Use the click outside hook directly - no need for useEffect
     useClickOutside(configRef, setShowConfig);
     
     // Function to handle confirmation of changes
-    const handleSavedChanges = () => {
-        setConfirmed(true)
-        setShowConfig(false)
-        toast.success("Changes saved successfully!", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light"
-        });
+    const handleSavedChanges = async () => {
+        try{
+            const response = await fetch("/api/preferences",{
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: session?.user.id,
+                    visualTheme: selectedMode,
+                    language: selectedLanguage 
+                })
+            })
+
+            if(response.ok){
+                setShowConfig(false)
+                toast.success("Changes saved successfully!", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light"
+                });
+            }
+        }
+        catch(error){
+            console.error("Error saving preferences:", error)
+            toast.error("Error saving preferences", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "light"
+            });
+        }
     }
+
+    const loadPreferences = async () => {
+        try{
+            const response = await fetch("/api/preferences?userId=" + session?.user.id, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+            const data = await response.json()
+            if(response.ok && data){
+                setSelectedMode(data.visualTheme)
+                setSelectedLanguage(data.language)
+            }
+        }
+        catch(error){
+            console.error("Error loading preferences:", error)
+        }
+    }
+
+    // On Mount, load user preferences from DB
+    useEffect(() => {
+        if(session?.user){
+            loadPreferences()
+        }
+    }, [session]);
 
     return(
         <>

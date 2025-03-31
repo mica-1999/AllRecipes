@@ -61,11 +61,31 @@ export default function Register() {
                 })
             });
 
-            if(!response.ok){
-                throw new Error("An error occurred while registering. Please try again later.");
-            }
+            // Returns user data and error message
+            const data = await response.json();
 
+            // If user Sucessfully created, add default preferences
             if(response.ok) {
+                try {
+                    const response = await fetch("/api/preferences", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userId: data.user.id
+                        })
+                    })
+                    
+                    if (!response.ok) {
+                        throw new Error("Failed to create preferences for user.");
+                    }
+                }
+                catch(error){
+                    console.error("Error creating preferences for User:", error);
+                    setError("An error occurred. Please try again later.");
+                }
+
                 toast.success("Account created successfully!", {
                     position: "top-right",
                     autoClose: 1500,
@@ -77,11 +97,7 @@ export default function Register() {
                 });
                 
                 // Clear form
-                setformData({
-                    username: "",
-                    password: "",
-                    confirmpassword: ""
-                });
+                setformData({username: "", password: "", confirmpassword: ""});
                 
                 // Brief delay for toast to be visible
                 setTimeout(() => {
@@ -94,23 +110,6 @@ export default function Register() {
             console.error("Registration error:", error);
             setError("Registration failed. Please try again later.");
             setLoading(false);
-        }
-        
-        try {
-            const response = await fetch("/api/createPreferences", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            
-            if (!response.ok) {
-                throw new Error("Failed to create preferences for user.");
-            }
-        }
-        catch(error){
-            console.error("Error creating preferences for User:", error);
-            setError("An error occurred. Please try again later.");
         }
     }
 

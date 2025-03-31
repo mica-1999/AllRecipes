@@ -31,6 +31,7 @@ export default function Trending () {
                         src="/images/home/trending/trending1.jpg"
                         alt="Delicious food"
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover"
                         priority
                     />
@@ -41,6 +42,7 @@ export default function Trending () {
                             src="/images/home/trending/trending2.jpg"
                             alt="Delicious food"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
                             priority
                         />
@@ -50,6 +52,7 @@ export default function Trending () {
                             src="/images/home/trending/trending3.jpg"
                             alt="Delicious food"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
                             priority
                         />
@@ -60,6 +63,7 @@ export default function Trending () {
                         src="/images/home/trending/trending4.jpg"
                         alt="Delicious food"
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover"
                         priority
                     />
@@ -70,6 +74,7 @@ export default function Trending () {
                             src="/images/home/trending/trending5.jpg"
                             alt="Delicious food"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
                             priority
                         />
@@ -79,6 +84,7 @@ export default function Trending () {
                             src="/images/home/trending/trending6.jpg"
                             alt="Delicious food"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
                             priority
                         />
@@ -95,6 +101,7 @@ export default function Trending () {
                                 src={`/images/home/trending/trending${recipe}.jpg`}
                                 alt="Delicious food"
                                 fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                                 className="object-cover"
                                 priority
                             />

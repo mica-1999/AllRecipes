@@ -3,6 +3,7 @@ import "./globals.css";
 import 'remixicon/fonts/remixicon.css'; // Import Remix Icon CSS
 import NextAuthSessionProvider from "./sessionWrapper";
 import { ToastContainer } from 'react-toastify'; // Initialize ToastContainer for App
+import { ThemeProvider } from "@/app/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -20,8 +21,10 @@ export default function RootLayout({
         className="antialiased"
       >
         <NextAuthSessionProvider>
-          <ToastContainer />
-          {children}
+          <ThemeProvider>
+            <ToastContainer />
+            {children}
+          </ThemeProvider>
         </NextAuthSessionProvider>
       </body>
     </html>
