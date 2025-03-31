@@ -1,20 +1,12 @@
 "use client"
+import { restrictions } from "@/app/dataItems/AdvFiltersData";
 
 interface DietaryRestrictionsProps {
     dietaryRestrictions: string[];
     setDietaryRestrictions: (value: string[]) => void;
 }
 
-export default function DietaryRestrictions({dietaryRestrictions, setDietaryRestrictions}: DietaryRestrictionsProps) {
-    const restrictions = [
-        { id: "vegetarian", label: "Vegetarian" },
-        { id: "vegan", label: "Vegan" },
-        { id: "glutenFree", label: "Gluten-Free" },
-        { id: "dairyFree", label: "Dairy-Free" },
-        { id: "nutFree", label: "Nut-Free" },
-        { id: "lowCarb", label: "Low Carb" },
-    ];
-    
+export default function DietaryRestrictions({dietaryRestrictions, setDietaryRestrictions}: DietaryRestrictionsProps) {    
     const toggleRestriction = (restriction: string) => {
         if (dietaryRestrictions.includes(restriction)) {
             setDietaryRestrictions(dietaryRestrictions.filter(item => item !== restriction));

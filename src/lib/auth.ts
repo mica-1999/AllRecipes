@@ -16,8 +16,10 @@ const addSession = async (userId: number) => {
       }
     });
 
+    // Get the current timestamp
     const currentTimestamp = new Date();
 
+    // If a session exists, update the timestamp
     if(findSession){
       await prisma.session.update({
         where: {
@@ -29,8 +31,8 @@ const addSession = async (userId: number) => {
       });
       console.log(`Updated session timestamp for user: ${userId}`);
     }
+    // If no session exists, create a new one
     else {
-      // Create new session
       await prisma.session.create({
         data: {
           userId: userId,
@@ -38,7 +40,6 @@ const addSession = async (userId: number) => {
           updatedAt: currentTimestamp
         }
       });
-      console.log(`Created new session for user: ${userId}`);
     }
   } catch (error) {
     console.error("Error during session management:", error);
@@ -128,22 +129,17 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account }) {
-      // This callback runs when a user signs in
       if (account?.provider === 'credentials') {
-        // Your existing credential logic
         return true;
       }
       
-      // For social logins
       try {
-        // Check if this user already exists in your database
         const existingUser = await prisma.user.findUnique({
           where: {
             email: user.email as string,
           }
         });
         if (existingUser) {
-          // User exists, update their session
           await addSession(existingUser.id);
           return true;
         } else {

@@ -1,26 +1,22 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import React, { FormEvent, ChangeEvent } from "react";
+import { FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import { Spinner } from "@/app/components/reusable/Spinner";
 
 export default function Register() {
-    const router = useRouter();
+    const router = useRouter(); // Initialize router for navigation
     const [formData,setformData] = useState ({
         username : "",
         password : "",
         confirmpassword : ""
     });
-
     const [error,setError] = useState("");
     const [loading , setLoading] = useState(false);
 
-    useEffect(() => {
-        console.log("formData",formData);
-    },[formData]);
-
+    // Validate form data
     const formValidation = () => {
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
         if(!formData.username || !formData.password || !formData.confirmpassword){
@@ -45,15 +41,14 @@ export default function Register() {
     const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Form validation
         if(!formValidation()){
             setLoading(false);
             return;
         }
 
-        // Continue with registration
         setLoading(true);
 
+        // Create user account
         try {
             const response = await fetch("/api/createUser", {
                 method : "POST",
@@ -71,7 +66,6 @@ export default function Register() {
             }
 
             if(response.ok) {
-                // Show success toast
                 toast.success("Account created successfully!", {
                     position: "top-right",
                     autoClose: 1500,
@@ -97,10 +91,7 @@ export default function Register() {
             }
         }   
         catch (error: Error | unknown) {
-            // Log the error for debugging purposes
             console.error("Registration error:", error);
-            
-            // Set a user-friendly error message
             setError("Registration failed. Please try again later.");
             setLoading(false);
         } 

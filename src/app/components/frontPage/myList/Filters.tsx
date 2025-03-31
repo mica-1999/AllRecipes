@@ -1,15 +1,6 @@
 "use client"
-
 import { Dispatch, SetStateAction } from 'react'
-
-const listItems = [
-    {name: 'List', icon: "ri-list-check"},
-    {name: 'My Recipes', icon: "ri-edit-2-line"},
-    {name: 'Collections', icon: "ri-folder-line"},
-    {name: 'Bookmarked', icon: "ri-bookmark-line"},
-    {name: 'Commented', icon: "ri-chat-3-line"}
-
-] 
+import { listItems } from '@/app/dataItems/MyListData';
 
 export default function Filters({selectedMenu, setSelectedMenu}: {
     selectedMenu: string;

@@ -1,42 +1,27 @@
 "use client"
-
 import { useSession, signOut } from "next-auth/react";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import SearchFilter from "./searchFilters/Search";
-
-// Navigation items for responsive bottom bar
-const navItems = [
-    { name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
-    { name: 'My List', icon: 'ri-bookmark-line', link: '/pages/mylist' },
-    { name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
-    { name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
-    { name: 'Profile', icon: 'ri-user-line', link: '/pages/profile' },
-    { name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/preferences' },
-];
+import SearchFilter from "@/app/components/frontPage/searchFilters/Search";
+import { navItems } from "@/app/dataItems/LayoutData";
+import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 export default function Navbar() {
-    const { data: session } = useSession();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [categoriesOpen, setCategoriesOpen] = useState(false);
+    // Get session data from NextAuth
+    const { data: session } = useSession(); 
+
+    // Refs for dropdowns
     const dropdownRef = useRef<HTMLDivElement>(null);
     const dropdownCategoriesRef = useRef<HTMLDivElement>(null);
+
+    // State variables for dropdowns and search filter
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [categoriesOpen, setCategoriesOpen] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
-    
-    useEffect(() => {
-        // Close dropdown when clicking outside
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setDropdownOpen(false);
-            }
-            if (dropdownCategoriesRef.current && !dropdownCategoriesRef.current.contains(event.target as Node)) {
-                setCategoriesOpen(false);
-            }
-        };
-        
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [session]);
+
+    // Controls closing dropdowns when clicking outside
+    useClickOutside(dropdownRef, setDropdownOpen);
+    useClickOutside(dropdownCategoriesRef, setCategoriesOpen);
 
     return(
         <>

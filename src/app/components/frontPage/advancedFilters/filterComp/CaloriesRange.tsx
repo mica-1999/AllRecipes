@@ -8,13 +8,14 @@ interface CaloriesRangeProps {
     };
     setCaloriesRange: (value: { min: number; max: number }) => void;
 }
+// Range for calories
+const minCalories = 0;
+const maxCalories = 2000;
 
 export default function CaloriesRange({caloriesRange, setCaloriesRange}: CaloriesRangeProps) {
+    // State Variables
     const [counter , setCounter] = useState(0);
-    
-    const minCalories = 0;
-    const maxCalories = 2000;
-    
+
     // Handle min value change
     const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);

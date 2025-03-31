@@ -1,10 +1,4 @@
-export const dietRestrictionBox = [
-    { id: "vegetarian", name: "Vegetarian", icon: "ri-plant-line", description: "No meat, fish, or poultry", color: "#4CAF50" },
-    { id: "vegan", name: "Vegan", icon: "ri-leaf-line", description: "No animal products", color: "#8BC34A" },
-    { id: "gluten-free", name: "Gluten-free", icon: "ri-seed-line", description: "No wheat, barley, or rye", color: "#FFEB3B" },
-    { id: "dairy-free", name: "Dairy-free", icon: "ri-drop-line", description: "No milk, cheese, or dairy", color: "#03A9F4" },
-    { id: "nut-free", name: "Nut-free", icon: "ri-forbidden-2-line", description: "No tree nuts or peanuts", color: "#FF5722" }
-];
+import { dietRestrictionBox } from "@/app/dataItems/PreferencesData";
 
 interface DietPreferencesProps {
     preferences: string[];

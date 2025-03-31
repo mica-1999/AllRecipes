@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Navbar from '@/app/components/frontPage/Navbar';
 import Footer from '@/app/components/frontPage/Footer';
-import StickyButton from '@/app/components/frontPage/LayoutPreferences';
+import StickyButton from '@/app/components/frontPage/ThemeSettings';
 
 export const metadata = {
     title: 'Home Page',

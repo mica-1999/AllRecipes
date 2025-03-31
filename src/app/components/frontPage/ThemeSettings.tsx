@@ -1,32 +1,23 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import { toast } from 'react-toastify';
-
-const modeStyles = [
-    {type: "Light", icon: "ri-sun-line", activeGradient: "from-[#FFB938] to-[#FFA238]"},
-    {type: "Dark", icon: "ri-moon-line", activeGradient: "from-[#6C72CB] to-[#5A60B6]"},
-    {type: "Auto", icon: "ri-computer-line", activeGradient: "from-[#4A90E2] to-[#357ABD]"}
-]
-
-const languageOptions = [
-    {type: "English", code: "en", icon: "ri-flag-line", activeGradient: "from-[#DC1C2C] to-[#00247D]"},
-    {type: "Portuguese", code: "pt", icon: "ri-translate-2", activeGradient: "from-[#006600] to-[#FF0000]"},
-    {type: "Spanish", code: "es", icon: "ri-global-line", activeGradient: "from-[#FF0000] to-[#FFC400]"}
-]
+import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
+import { modeStyles, languageOptions } from "@/app/dataItems/LayoutData";
 
 export default function StickyButton() {
-    const [showConfig, setShowConfig] = useState(false)
-    const [selectedMode, setSelectedMode] = useState<string>("Light")
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("English")
-    const configRef = useRef<HTMLDivElement>(null)
-    const [confirmed, setConfirmed] = useState(false)
-
-    const handleClickOutside = (event: MouseEvent) => {
-        if (configRef.current && !configRef.current.contains(event.target as Node)) {
-            setShowConfig(false)
-        }
-    }
+    // Ref to DIV
+    const configRef = useRef<HTMLDivElement>(null) // Used to close the config menu when clicking outside of it
     
+    // State variables
+    const [showConfig, setShowConfig] = useState(false) // Controls the visibility of the config menu
+    const [selectedMode, setSelectedMode] = useState<string>("Light") // Controls the selected mode (Light, Dark, Auto)
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("English") // Controls the selected language (English, Portuguese, Spanish)
+    const [confirmed, setConfirmed] = useState(false) // Controls the confirmation of changes
+
+    // Use the click outside hook directly - no need for useEffect
+    useClickOutside(configRef, setShowConfig);
+    
+    // Function to handle confirmation of changes
     const handleSavedChanges = () => {
         setConfirmed(true)
         setShowConfig(false)
@@ -41,20 +32,6 @@ export default function StickyButton() {
         });
     }
 
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside)
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    },[showConfig])
-
-    useEffect(() => {
-        console.log("Selected Mode:", selectedMode)
-        console.log("Selected Language:", selectedLanguage)
-
-
-    },[selectedLanguage, selectedMode])
-    
     return(
         <>
             <div 
@@ -167,7 +144,6 @@ export default function StickyButton() {
                             </p>
                         </div>
                     </div>
-                    
                 </div>
             )}
         </>

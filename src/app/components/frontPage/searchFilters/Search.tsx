@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 
 interface SearchFilterProps {
     openSearch: boolean;
@@ -6,28 +7,34 @@ interface SearchFilterProps {
 }
 
 export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterProps) {
-    const [isFocused, setIsFocused] = useState(false);
+    // Ref for the search box element
+    const searchRef = useRef<HTMLDivElement>(null);
     
-    // Add effect to control body styling when overlay is open
+    // State Variable
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    
+    // Hook to detect clicks outside the search box
+    useClickOutside(searchRef, setOpenSearch)
+
+    // Adds Dark Overlay to the body when Search is open
     useEffect(() => {
         if (openSearch) {
-            // Add overlay class to body when search is open
             document.body.classList.add('overlay-active');
         } else {
-            // Remove overlay class when search is closed
             document.body.classList.remove('overlay-active');
         }
         
         // Cleanup on component unmount
         return () => {
             document.body.classList.remove('overlay-active');
+            document.removeEventListener
         };
     }, [openSearch]);
 
     return(
         <>
         {openSearch && (
-            <div className="fixed inset-0 flex justify-center pt-5 z-101 pointer-events-none">
+            <div className="fixed inset-0 flex justify-center pt-5 z-101 pointer-events-none" ref={searchRef}>
                 <div className="bg-white rounded-lg shadow-xl w-[720px] h-[62px] mx-4 pointer-events-auto px-2.5 flex items-center justify-between border border-gray-300">
                     {/* Search box with icon and input */}
                     <div className={`

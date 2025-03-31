@@ -7,8 +7,10 @@ interface IngredientsProps {
 }
 
 export default function Ingredients({ingredients, setIngredients}: IngredientsProps) {
-    const [inputValue, setInputValue] = useState("");
+    // State Variables
+    const [inputValue, setInputValue] = useState<string>("");
     
+    // Add Ingredient Function
     const addIngredient = (ingredient: string) => {
         const trimmed = ingredient.trim();
         if (trimmed && !ingredients.includes(trimmed)) {
@@ -17,10 +19,12 @@ export default function Ingredients({ingredients, setIngredients}: IngredientsPr
         setInputValue("");
     };
     
+    // Remove Ingredient Function
     const removeIngredient = (ingredient: string) => {
         setIngredients(ingredients.filter(item => item !== ingredient));
     };
     
+    // On KeyPress Event Handler
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();

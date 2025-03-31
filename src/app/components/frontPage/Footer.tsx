@@ -1,13 +1,14 @@
 "use client"
-import { Socials } from "@/app/dataItems/socials";
+import { Socials } from "@/app/dataItems/LayoutData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Footer() {
-    const [currentYear, setCurrentYear] = useState("");
+    // State variables
+    const [currentYear, setCurrentYear] = useState<string | null>("");
     const [hoveredSocial, setHoveredSocial] = useState<number | null>(null);
 
-    // Get Current Year
+    // Get Current Year on Mount
     useEffect(() => {
         setCurrentYear(new Date().getFullYear().toString());
     }, []);

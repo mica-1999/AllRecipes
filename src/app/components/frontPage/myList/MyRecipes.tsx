@@ -1,22 +1,12 @@
-import Image from "next/image"
-
-const listHeaders = [
-    "Recipe Name",
-    "Category",
-    "Difficulty",
-    "Cooking Time",
-    "Rating",
-    "Last Made",
-    "Date Added",
-    "Actions"
-]
+import Image from "next/image";
+import { mylistHeaders } from "@/app/dataItems/MyListData";
 
 export default function MyRecipes() {
     return (
         <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             {/* Table Header */}
             <div id="tableHeaders" className="flex w-full bg-gray-50 border-b border-gray-200 text-gray-600 font-medium text-sm">
-                {listHeaders.map((header, index) => (
+                {mylistHeaders.map((header, index) => (
                     <div key={index} className={`
                         px-4 py-3.5 flex items-center
                         ${header === "Recipe Name" ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}

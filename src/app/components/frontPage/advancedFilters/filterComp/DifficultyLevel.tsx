@@ -1,30 +1,21 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { difficulties } from "@/app/dataItems/AdvFiltersData";
 
 interface DifficultyLevelProps {
-    difficultyLevel: string[];
-    setDifficultyLevel: (value: string[]) => void;
+    difficultyLevel: string;
+    setDifficultyLevel: (value: string) => void;
 }
 
 export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: DifficultyLevelProps) {
-    const difficulties = [
-        { value: "Easy", color: "bg-green-100 text-green-800 border-green-300" },
-        { value: "Medium", color: "bg-yellow-100 text-yellow-800 border-yellow-300" },
-        { value: "Hard", color: "bg-red-100 text-red-800 border-red-300" }
-    ];
-    const [counter , setCounter] = useState(0);
+    // State variables
+    const [counter , setCounter] = useState<number>(0);
     
+    // Function to handle difficulty level selection
     const selectDifficulty = (difficulty: string) => {
-        setDifficultyLevel([difficulty]);
+        setDifficultyLevel(difficulty);
         setCounter(counter + 1);
     };
-    
-    useEffect(() => {
-        // Initialize with "Easy" if nothing is selected
-        if (difficultyLevel.length === 0) {
-            setDifficultyLevel(["Easy"]);
-        }
-    }, [difficultyLevel.length, setDifficultyLevel]);
 
     return(
         <>
@@ -37,7 +28,7 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
                                 id={`difficulty-${difficulty.value}`}
                                 type="radio"
                                 name="difficulty"
-                                checked={difficultyLevel.includes(difficulty.value)}
+                                checked={difficultyLevel === difficulty.value}
                                 onChange={() => selectDifficulty(difficulty.value)}
                                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 cursor-pointer"
                             />

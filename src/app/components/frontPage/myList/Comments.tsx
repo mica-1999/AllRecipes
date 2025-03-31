@@ -1,47 +1,12 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-
-// Sample comments data
-const commentsData = [
-    {
-        id: 1,
-        userName: "Maria Johnson",
-        userImage: "/images/home/seasonal/autumn1.jpg",
-        time: "2 hours ago",
-        recipeImage: "/images/home/trending/trending1.jpg",
-        recipeName: "Mom's Special Pasta",
-        date: "May 10, 2024",
-        likes: 24,
-        comment: "This recipe reminds me of my childhood! I added a bit more garlic and it was perfect."
-    },
-    {
-        id: 2,
-        userName: "David Chen",
-        userImage: "/images/home/seasonal/autumn2.jpg",
-        time: "Yesterday",
-        recipeImage: "/images/home/trending/trending2.jpg",
-        recipeName: "Grandma's Cookies",
-        date: "May 8, 2024",
-        likes: 15,
-        comment: "These cookies are incredible! I've made them three times already and they always turn out great."
-    },
-    {
-        id: 3,
-        userName: "Sophie Williams",
-        userImage: "/images/home/seasonal/autumn3.jpg",
-        time: "3 days ago",
-        recipeImage: "/images/home/trending/trending3.jpg",
-        recipeName: "Dad's BBQ",
-        date: "May 5, 2024",
-        likes: 32,
-        comment: "The marinade is a game changer! Everyone at our family gathering loved it."
-    }
-];
+import { commentsData } from "@/app/dataItems/MyListData";
 
 export default function Comments() {
-
+    // State to manage the active tab (My Comments or Liked Comments)
     const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');
+    
     return (
         <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             <div className="px-5 py-4 bg-gray-50 border-b border-gray-200">

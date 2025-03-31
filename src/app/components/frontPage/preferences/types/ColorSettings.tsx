@@ -1,7 +1,4 @@
-import { dietRestrictionBox } from './DietPreferences';
-import { cuisineTypeBox } from './CuisinePreferences';
-import { mealTypeBox } from './MealPreferences';
-import { cookingPreferenceBox } from './CookingPreferences';
+import { mealTypeBox, dietRestrictionBox, cuisineTypeBox, cookingPreferenceBox } from "@/app/dataItems/PreferencesData";
 import Image from 'next/image';
 
 interface ColorSettingsProps {

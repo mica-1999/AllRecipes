@@ -1,20 +1,9 @@
 import Image from "next/image"
-
-const listHeaders = [
-    "Recipe Name",
-    "Category",
-    "Difficulty",
-    "Cooking Time",
-    "Rating",
-    "Last Made",
-    "Date Added",
-    "Actions"
-]
+import { generalHeaders } from "@/app/dataItems/MyListData";
 
 export default function List() {
-
+    // Function to handle navigation to recipe details page
     const ToRecipeDetails = (id: number) => {
-        // Redirect to recipe details page with the selected recipe ID
         window.location.href = `/pages/home/recipeDetails?id=${id}`;
     }
 
@@ -22,7 +11,7 @@ export default function List() {
         <div className="w-full bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
             {/* Table Header */}
             <div id="tableHeaders" className="flex w-full bg-gray-50 border-b border-gray-200 text-gray-600 font-medium text-sm">
-                {listHeaders.map((header, index) => (
+                {generalHeaders.map((header, index) => (
                     <div key={index} className={`
                         px-4 py-3.5 flex items-center
                         ${header === "Recipe Name" ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}

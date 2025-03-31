@@ -1,4 +1,5 @@
 "use client"
+import { methods } from "@/app/dataItems/AdvFiltersData";
 
 interface CookingMethodProps {
     cookingMethod: string[];
@@ -6,17 +7,7 @@ interface CookingMethodProps {
 }
 
 export default function CookingMethod({cookingMethod, setCookingMethod}: CookingMethodProps) {
-    const methods = [
-        { name: "Baking", icon: "🍞" },
-        { name: "Frying", icon: "🍳" },
-        { name: "Grilling", icon: "🔥" },
-        { name: "Steaming", icon: "♨️" },
-        { name: "Boiling", icon: "🍲" },
-        { name: "Roasting", icon: "🍗" },
-        { name: "Sautéing", icon: "🥘" },
-        { name: "Slow Cooking", icon: "⏱️" }
-    ];
-    
+    // Function to toggle the selected cooking method
     const toggleMethod = (method: string) => {
         if (cookingMethod.includes(method)) {
             setCookingMethod(cookingMethod.filter(item => item !== method));

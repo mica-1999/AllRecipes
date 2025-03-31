@@ -1,16 +1,17 @@
 "use client"
-
 import { useState } from "react"
-import Filters from "./Filters"
-import List from "./List"
-import MyRecipes from "./MyRecipes"
-import Collections from "./Collections"
-import Bookmarked from "./Bookmarks"
-import Commented from "./Comments"
+import Filters from "@/app/components/frontPage/myList/Filters"
+import List from "@/app/components/frontPage/myList/List"
+import MyRecipes from "@/app/components/frontPage/myList/MyRecipes"
+import Collections from "@/app/components/frontPage/myList/Collections"
+import Bookmarked from "@/app/components/frontPage/myList/Bookmarks"
+import Commented from "@/app/components/frontPage/myList/Comments"
 
 export default function MenuSwitcher() {
+    // State to manage the selected menu option
     const [selectedMenu, setSelectedMenu] = useState('List')
 
+    // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {
         switch(selectedMenu) {
             case 'List':

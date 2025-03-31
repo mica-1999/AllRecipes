@@ -1,17 +1,12 @@
 "use client"
+import { occasions } from "@/app/dataItems/AdvFiltersData";
 
 interface OccasionProps {
     occasion: string[];
     setOccasion: (value: string[]) => void;
 }
 
-export default function Occasion({occasion, setOccasion}: OccasionProps) {
-    const occasions = [
-        "Birthday", "Holiday", "Casual", "Date Night", 
-        "Thanksgiving", "Christmas", "Wedding", "BBQ", 
-        "Game Day", "Picnic", "Brunch", "Potluck"
-    ];
-    
+export default function Occasion({occasion, setOccasion}: OccasionProps) {    
     const toggleOccasion = (value: string) => {
         if (occasion.includes(value)) {
             setOccasion(occasion.filter(item => item !== value));

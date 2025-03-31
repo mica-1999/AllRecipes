@@ -1,4 +1,5 @@
 "use client"
+import { mealTypes } from "@/app/dataItems/AdvFiltersData";
 
 interface MealTypeProps {
     mealType: string[];
@@ -6,8 +7,6 @@ interface MealTypeProps {
 }
 
 export default function MealType({mealType, setMealType}: MealTypeProps) {
-    const mealTypes = ["Breakfast", "Lunch", "Dinner", "Brunch", "Snack", "Dessert"];
-    
     const toggleMealType = (type: string) => {
         if (mealType.includes(type)) {
             setMealType(mealType.filter(item => item !== type));

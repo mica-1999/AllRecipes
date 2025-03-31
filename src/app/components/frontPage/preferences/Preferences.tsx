@@ -1,15 +1,15 @@
 "use client"
-
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from 'react-toastify';
 
 // Import components
-import DietPreferences from "./types/DietPreferences";
-import CuisinePreferences from "./types/CuisinePreferences";
-import MealPreferences from "./types/MealPreferences";
-import CookingPreferences from "./types/CookingPreferences";
-import ColorSettings from "./types/ColorSettings";
-import PreferencesSummary from "./types/PreferencesSummary";
+import DietPreferences from "@/app/components/frontPage/preferences/types/DietPreferences";
+import CuisinePreferences from "@/app/components/frontPage/preferences/types/CuisinePreferences";
+import MealPreferences from "@/app/components/frontPage/preferences/types/MealPreferences";
+import CookingPreferences from "@/app/components/frontPage/preferences/types/CookingPreferences";
+import ColorSettings from "@/app/components/frontPage/preferences/types/ColorSettings";
+import PreferencesSummary from "@/app/components/frontPage/preferences/types/PreferencesSummary";
 
 export default function CustomizedPreferences() {
     // State management
@@ -21,7 +21,7 @@ export default function CustomizedPreferences() {
     const [customColors, setCustomColors] = useState<{[key: string]: string}>({});
     const [activeTab, setActiveTab] = useState("preferences"); // preferences or colors
 
-    // Handlers
+    // Handlers for each preference
     const handleDietChange = (id: string) => {
         setDietPreferences(prev => 
             prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
@@ -67,18 +67,18 @@ export default function CustomizedPreferences() {
         if (saved) setSaved(false);
     };
 
+    // Function to save preferences
     const savePreferences = () => {
-        // Here you would typically save to an API or local storage
-        console.log("Saving preferences:", {
-            diet: dietPreferences,
-            cuisine: cuisinePreferences,
-            meal: mealPreferences,
-            cooking: cookingPreferences,
-            customColors: customColors
+        toast.success("Changes saved successfully!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light"
         });
         setSaved(true);
-        
-        // Reset the saved status after 3 seconds
         setTimeout(() => setSaved(false), 3000);
     };
 

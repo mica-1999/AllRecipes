@@ -2,16 +2,13 @@
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-
-const profileTabs = [
-    {name: 'About', icon: "ri-information-line"},
-    {name: 'Recipes', icon: "ri-book-2-line"},
-    {name: 'Followers', icon: "ri-user-follow-line"},
-    {name: 'Following', icon: "ri-user-shared-line"}
-]; 
+import { profileTabs } from "@/app/dataItems/ProfileData"
 
 export default function Profile () {
+    // Using NextAuth to get the session data
     const { data: session, status } = useSession()
+
+    // State Variables
     const [activeTab, setActiveTab] = useState('About');
     
     return (

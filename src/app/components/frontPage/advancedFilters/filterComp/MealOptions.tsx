@@ -1,5 +1,7 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import { cuisineOptions } from "@/app/dataItems/AdvFiltersData";
+import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 interface MealOptionsProps {
     mealTypeFilter: string[];
@@ -7,15 +9,16 @@ interface MealOptionsProps {
 }
 
 export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOptionsProps) {
+    // State Variables
     const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState<string>("");
+
+    // Ref for the dropdown menu
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Close the dropdown when clicking outside of it
+    useClickOutside(dropdownRef, setIsOpen);
     
-    const cuisineOptions = [
-        "Italian", "Chinese", "Mexican", "Indian", "Japanese", 
-        "Thai", "French", "Greek", "Spanish", "Mediterranean", 
-        "American", "Korean", "Vietnamese", "Middle Eastern", "Brazilian"
-    ];
     
     // Filter options based on search term
     const filteredOptions = cuisineOptions.filter(cuisine => 
@@ -30,18 +33,6 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
             setMealTypeFilter([...mealTypeFilter, cuisine]);
         }
     };
-    
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        };
-        
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
 
     return(
         <>

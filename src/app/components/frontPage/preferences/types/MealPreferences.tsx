@@ -1,11 +1,4 @@
-export const mealTypeBox = [
-    { id: "breakfast", name: "Breakfast", icon: "ri-cup-line", description: "Morning meals", color: "#FFA000" },
-    { id: "lunch", name: "Lunch", icon: "ri-restaurant-2-line", description: "Midday meals", color: "#F57C00" },
-    { id: "dinner", name: "Dinner", icon: "ri-restaurant-fill", description: "Evening meals", color: "#6D4C41" },
-    { id: "snack", name: "Snack", icon: "ri-cake-line", description: "Light bites", color: "#00897B" },
-    { id: "dessert", name: "Dessert", icon: "ri-cake-3-line", description: "Sweet treats", color: "#EC407A" },
-    { id: "drink", name: "Drink", icon: "ri-goblet-line", description: "Beverages", color: "#42A5F5" }
-];
+import { mealTypeBox } from "@/app/dataItems/PreferencesData";
 
 interface MealPreferencesProps {
     preferences: string[];

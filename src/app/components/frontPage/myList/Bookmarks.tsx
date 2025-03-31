@@ -1,13 +1,7 @@
 import Image from "next/image";
+import { bookmarkedRecipes } from "@/app/dataItems/MyListData";
 
 export default function Bookmarked() {
-    // Sample data for bookmarked recipes
-    const bookmarkedRecipes = [
-        { id: 1, title: "Pasta Carbonara", imageUrl: "/images/home/seasonal/autumn1.jpg", date: "15 Jan" },
-        { id: 2, title: "Chicken Stir Fry", imageUrl: "/images/home/seasonal/autumn2.jpg", date: "12 Jan" },
-        { id: 3, title: "Veggie Soup", imageUrl: "/images/home/seasonal/spring3.jpg", date: "10 Jan" },
-        { id: 4, title: "Beef Tacos", imageUrl: "/images/home/seasonal/spring2.jpg", date: "5 Jan" },
-    ];
 
     return(
         <>

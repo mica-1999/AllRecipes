@@ -1,11 +1,4 @@
-export const cookingPreferenceBox = [
-    { id: "quick", name: "Quick & Easy", icon: "ri-timer-flash-line", description: "Under 30 minutes", color: "#00BCD4" },
-    { id: "beginner", name: "Beginner", icon: "ri-user-smile-line", description: "Simple techniques", color: "#8BC34A" },
-    { id: "intermediate", name: "Intermediate", icon: "ri-user-star-line", description: "Some cooking experience", color: "#FF9800" },
-    { id: "advanced", name: "Advanced", icon: "ri-user-settings-line", description: "Complex techniques", color: "#F44336" },
-    { id: "onepot", name: "One Pot", icon: "ri-bowl-line", description: "Minimal cleanup", color: "#795548" },
-    { id: "mealprep", name: "Meal Prep", icon: "ri-fridge-line", description: "Make ahead meals", color: "#607D8B" }
-];
+import { cookingPreferenceBox } from "@/app/dataItems/PreferencesData";
 
 interface CookingPreferencesProps {
     preferences: string[];

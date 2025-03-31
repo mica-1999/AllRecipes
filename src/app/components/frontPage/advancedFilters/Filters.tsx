@@ -3,73 +3,48 @@ import { useState, useEffect ,useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
 // Components
-import MealOptions from "./filterComp/MealOptions";
-import MealType from "./filterComp/MealType";
-import CookingTime from "./filterComp/CookingTime";
-import DietaryRestrictions from "./filterComp/DietaryRestrictions";
-import Ingredients from "./filterComp/Ingredients";
-import DifficultyLevel from "./filterComp/DifficultyLevel";
-import CaloriesRange from "./filterComp/CaloriesRange";
-import CookingMethod from "./filterComp/CookingMethod";
-import Occasion from "./filterComp/Occasion";
-import TableFiltered from "./content/TableFiltered";
+import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
+import MealType from "@/app/components/frontPage/advancedFilters/filterComp/MealType";
+import CookingTime from "@/app/components/frontPage/advancedFilters/filterComp/CookingTime";
+import DietaryRestrictions from "@/app/components/frontPage/advancedFilters/filterComp/DietaryRestrictions";
+import Ingredients from "@/app/components/frontPage/advancedFilters/filterComp/Ingredients";
+import DifficultyLevel from "@/app/components/frontPage/advancedFilters/filterComp/DifficultyLevel";
+import CaloriesRange from "@/app/components/frontPage/advancedFilters/filterComp/CaloriesRange";
+import CookingMethod from "@/app/components/frontPage/advancedFilters/filterComp/CookingMethod";
+import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occasion";
+import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
+import { mainFilters, seasonsData } from "@/app/dataItems/AdvFiltersData";
+import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
-
-const mainFilters = ["Latest", "Popular", "Top Rated", "Seasonal","Random"]; 
-const seasonsData = [
-    { 
-      name: "Spring", 
-      bgColor: "bg-green-100", 
-      textColor: "text-green-800",
-      hoverBg: "hover:bg-green-50",
-      hoverText: "hover:text-green-700"
-    },
-    { 
-      name: "Summer", 
-      bgColor: "bg-amber-100", 
-      textColor: "text-amber-800",
-      hoverBg: "hover:bg-amber-50", 
-      hoverText: "hover:text-amber-700"
-    },
-    { 
-      name: "Fall", 
-      bgColor: "bg-orange-100", 
-      textColor: "text-orange-800",
-      hoverBg: "hover:bg-orange-50",
-      hoverText: "hover:text-orange-700"
-    },
-    { 
-      name: "Winter", 
-      bgColor: "bg-blue-100", 
-      textColor: "text-blue-800",
-      hoverBg: "hover:bg-blue-50",
-      hoverText: "hover:text-blue-700"
-    }
-  ];
 interface CaloriesRangeType {
     min: number;
     max: number;
 }
 
 export default function AdvFilters () {
-    // Get the search params from the URL
+    // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
 
     // State variables for Main Filter Menu
-    const [mainFilterMenu, setMainFilterMenu] = useState("Latest");
-    const [seasonChoice , setSeasonChoice] = useState<string>("");
-    const [seasonalOpen, setSeasonalOpen] = useState<Boolean>(false);
-    const seasonsRef = useRef<HTMLDivElement>(null);
+    const [mainFilterMenu, setMainFilterMenu] = useState<string>("Latest"); // Main Menu
     const [selectedSeason, setSelectedSeason] = useState<typeof seasonsData[0] | null>(null);
+    const [seasonChoice , setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
+    const [seasonalOpen, setSeasonalOpen] = useState<Boolean>(false); // Dropdown Menu Open/Close
 
-    // State variables for Filter Options
+    // Ref for the dropdown menu
+    const seasonsRef = useRef<HTMLDivElement>(null);
+
+    // Close the dropdown when clicking outside of it
+    useClickOutside(seasonsRef, setSeasonalOpen);
+
+    // State variables for Filters
     const [mealTypeFilter, setMealTypeFilter] = useState<string[]>([]);
     const [mealType, setMealType] = useState<string[]>([]);
     const [cookingTime, setCookingTime] = useState<number>(30);
     const [dietaryRestrictions, setDietaryRestrictions] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<string[]>([]);
-    const [difficultyLevel, setDifficultyLevel] = useState<string[]>([]);
+    const [difficultyLevel, setDifficultyLevel] = useState<string>("Easy");
     const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 200, max: 800});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
@@ -84,21 +59,6 @@ export default function AdvFilters () {
             setSeasonalOpen(false);
         }
     }
-
-    // Close the dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-        if (seasonsRef.current && !seasonsRef.current.contains(event.target as Node)) {
-            setSeasonalOpen(false);
-        }
-    }
-
-    // Event listener for clicks outside the dropdown
-    useEffect(() =>{
-        document.addEventListener("click", handleClickOutside);
-        return () => {
-            document.removeEventListener("click", handleClickOutside);
-        }
-    },[seasonalOpen])
 
     // Update the main filter menu based on the query parameter
     useEffect(() => {

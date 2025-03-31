@@ -3,10 +3,10 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React, { FormEvent, ChangeEvent } from "react";
+import { FormEvent, ChangeEvent } from "react";
 
 export default function Auth() {
-    const router = useRouter();
+    const router = useRouter(); // Initiliaze router for navigation
     const [loginForm, setLoginForm] = useState({
         username: "",
         password: ""
@@ -15,6 +15,7 @@ export default function Auth() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    // Validation function to check if fields are filled (Needs improvement)
     const loginValidation = () => {
         if(loginForm.username === '' || loginForm.password === '') {
             setError("Please fill in all fields");
@@ -23,13 +24,15 @@ export default function Auth() {
         return true;
     }
 
+    // Login function to handle sign in process
     const login = async () => {
         if(loginValidation()){
             setIsLoading(true);
             try {
                 // Create a promise that resolves after minimum loading time (e.g., 1.5 seconds)
                 const minLoadingTime = new Promise(resolve => setTimeout(resolve, 1250));
-                    // Sign in attempt
+                
+                // Sign in attempt
                 const result = await Promise.all([
                     signIn("credentials", {
                         username: loginForm.username,
@@ -39,8 +42,8 @@ export default function Auth() {
                     minLoadingTime // This ensures we show loading for at least 1.5 seconds
                 ]);
                 
+                // Check if sign in was successful
                 if (result[0]?.ok) {
-                    // Successful login - redirect to dashboard or home
                     setTimeout(() => {
                         setIsLoading(true);
                         router.push("/");

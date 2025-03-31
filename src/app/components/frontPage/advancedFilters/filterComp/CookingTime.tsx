@@ -1,15 +1,17 @@
 "use client"
 import { useState } from "react";
-
 interface CookingTimeProps {
     cookingTime: number;
     setCookingTime: (value: number) => void;
 }
 
+const maxTime = 180; // Maximum time in minutes (3 hours)
+
 export default function CookingTime({cookingTime, setCookingTime}: CookingTimeProps) {
-    const maxTime = 180; // Maximum time in minutes (3 hours)
-    const [isModified, setIsModified] = useState(false);
+    // State Variables
+    const [isModified, setIsModified] = useState<boolean>(false);
     
+    // Handle Change in Range Slider
     const handleCookingTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
         if (value >= 5 && value <= maxTime) {

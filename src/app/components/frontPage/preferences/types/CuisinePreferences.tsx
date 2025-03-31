@@ -1,10 +1,4 @@
-export const cuisineTypeBox = [
-    { id: "portuguese", name: "Portuguese", icon: "ri-flag-line", description: "Traditional Portuguese dishes", color: "#006600" },
-    { id: "italian", name: "Italian", icon: "ri-restaurant-line", description: "Italian cuisine", color: "#E53935" },
-    { id: "mediterranean", name: "Mediterranean", icon: "ri-sun-line", description: "Mediterranean diet", color: "#1E88E5" },
-    { id: "asian", name: "Asian", icon: "ri-vip-crown-line", description: "Asian flavors", color: "#D81B60" },
-    { id: "american", name: "American", icon: "ri-store-line", description: "American classics", color: "#3949AB" }
-];
+import { cuisineTypeBox } from "@/app/dataItems/PreferencesData";
 
 interface CuisinePreferencesProps {
     preferences: string[];
