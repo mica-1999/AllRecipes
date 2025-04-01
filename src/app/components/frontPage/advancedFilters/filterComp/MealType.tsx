@@ -17,8 +17,8 @@ export default function MealType({mealType, setMealType}: MealTypeProps) {
 
     return(
         <>
-            <div className={`bg-white p-5 ${mealType.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200"} relative hover:z-10 hover:shadow-lg transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 mb-3">Meal Type</h2>
+            <div className={`bg-white dark:bg-gray-800 p-5 ${mealType.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Meal Type</h2>
                 <div className="flex flex-wrap gap-2">
                     {mealTypes.map((type) => (
                         <button
@@ -27,7 +27,7 @@ export default function MealType({mealType, setMealType}: MealTypeProps) {
                             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer ${
                                 mealType.includes(type)
                                     ? 'bg-indigo-600 text-white'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
                             }`}
                         >
                             {type}

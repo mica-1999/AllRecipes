@@ -18,8 +18,8 @@ export default function CookingMethod({cookingMethod, setCookingMethod}: Cooking
 
     return(
         <>
-            <div className={`bg-white p-5 ${cookingMethod.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200"} relative hover:z-10 hover:shadow-lg transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 mb-3">Cooking Method</h2>
+            <div className={`bg-white dark:bg-gray-800 p-5 ${cookingMethod.length > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Cooking Method</h2>
                 <div className="grid grid-cols-4 gap-3">
                     {methods.map((method) => (
                         <div 
@@ -27,12 +27,12 @@ export default function CookingMethod({cookingMethod, setCookingMethod}: Cooking
                             onClick={() => toggleMethod(method.name)}
                             className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-colors ${
                                 cookingMethod.includes(method.name)
-                                    ? 'bg-indigo-100 ring-2 ring-indigo-400'
-                                    : 'bg-gray-50 hover:bg-gray-100'
+                                    ? 'bg-indigo-100 dark:bg-indigo-900/70 ring-2 ring-indigo-400 dark:ring-indigo-500'
+                                    : 'bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600'
                             }`}
                         >
-                            <span className="text-2xl mb-1">{method.icon}</span>
-                            <span className="text-xs font-medium text-center text-gray-700">{method.name}</span>
+                            <span className="text-2xl mb-1 dark:text-gray-200">{method.icon}</span>
+                            <span className="text-xs font-medium text-center text-gray-700 dark:text-gray-300">{method.name}</span>
                         </div>
                     ))}
                 </div>

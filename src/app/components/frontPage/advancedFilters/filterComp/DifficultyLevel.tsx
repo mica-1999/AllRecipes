@@ -19,8 +19,11 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
 
     return(
         <>
-            <div className={`bg-white p-5 ${difficultyLevel.length > 0 && counter > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200"} relative hover:z-10 hover:shadow-lg transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 mb-3">Difficulty Level</h2>
+            <div className={`bg-white dark:bg-gray-800 p-5 ${difficultyLevel.length > 0 && counter > 0 
+                ? "border-[2.5px] border-green-500 dark:border-green-600"
+                : "border-[0.5px] border-gray-200 dark:border-gray-700"} 
+                relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Difficulty Level</h2>
                 <div className="flex flex-col space-y-3">
                     {difficulties.map((difficulty) => (
                         <div key={difficulty.value} className="flex items-center">
@@ -30,7 +33,7 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
                                 name="difficulty"
                                 checked={difficultyLevel === difficulty.value}
                                 onChange={() => selectDifficulty(difficulty.value)}
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 cursor-pointer"
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 cursor-pointer"
                             />
                             <label 
                                 htmlFor={`difficulty-${difficulty.value}`}

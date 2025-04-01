@@ -21,29 +21,29 @@ export default function ColorSettings({
     onColorReset
 }: ColorSettingsProps) {
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 border border-gray-100 dark:border-gray-700">
             <div className="flex items-center mb-6">
-                <i className="ri-palette-line text-xl text-[#FF6B35] mr-2"></i>
-                <h2 className="text-xl font-semibold text-gray-800">Visual Identification</h2>
+                <i className="ri-palette-line text-xl text-[#FF6B35] dark:text-indigo-400 mr-2"></i>
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Visual Identification</h2>
             </div>
-            <p className="text-sm text-gray-600 mb-6">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                 Customize colors to easily identify recipe categories when browsing through lists.
                 These colors will appear as indicators next to recipes in search results and lists.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {/* Diet Colors */}
-                <div className='rounded-lg shadow-md p-3'>
-                    <h3 className="font-medium text-gray-800 mb-3">Diet Restriction Colors</h3>
+                <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-gray-800 dark:text-white mb-3">Diet Restriction Colors</h3>
                     <div className="space-y-4">
                         {dietRestrictionBox.map(item => (
-                            <div key={item.id} className="flex items-center">
-                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1">
+                            <div key={item.id} className="flex items-center justify-between py-1">
+                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
                                     <div 
-                                        className="w-4 h-4 rounded-full mr-2" 
+                                        className="w-4 h-4 rounded-full mr-2 border border-gray-200 dark:border-gray-600" 
                                         style={{ backgroundColor: customColors[item.id] || item.color }}
                                     ></div>
-                                    <span className="text-sm text-gray-700">{item.name}</span>
+                                    <span className="text-sm text-gray-700 dark:text-gray-200">{item.name}</span>
                                 </label>
                                 <div className="flex items-center">
                                     <input 
@@ -55,7 +55,7 @@ export default function ColorSettings({
                                     />
                                     <button 
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 text-gray-500 hover:text-red-500"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                                         title="Reset to default"
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -67,17 +67,17 @@ export default function ColorSettings({
                 </div>
 
                 {/* Cuisine Colors */}
-                <div className='rounded-lg shadow-md p-3'>
-                    <h3 className="font-medium text-gray-800 mb-3">Cuisine Type Colors</h3>
+                <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-gray-800 dark:text-white mb-3">Cuisine Type Colors</h3>
                     <div className="space-y-4">
                         {cuisineTypeBox.map(item => (
-                            <div key={item.id} className="flex items-center">
-                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1">
+                            <div key={item.id} className="flex items-center justify-between py-1">
+                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
                                     <div 
-                                        className="w-4 h-4 rounded-full mr-2" 
+                                        className="w-4 h-4 rounded-full mr-2 border border-gray-200 dark:border-gray-600" 
                                         style={{ backgroundColor: customColors[item.id] || item.color }}
                                     ></div>
-                                    <span className="text-sm text-gray-700">{item.name}</span>
+                                    <span className="text-sm text-gray-700 dark:text-gray-200">{item.name}</span>
                                 </label>
                                 <div className="flex items-center">
                                     <input 
@@ -89,7 +89,7 @@ export default function ColorSettings({
                                     />
                                     <button 
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 text-gray-500 hover:text-red-500"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                                         title="Reset to default"
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -101,17 +101,17 @@ export default function ColorSettings({
                 </div>
 
                 {/* Meal Type Colors */}
-                <div className='rounded-lg shadow-md p-3'>
-                    <h3 className="font-medium text-gray-800 mb-3">Meal Type Colors</h3>
+                <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-gray-800 dark:text-white mb-3">Meal Type Colors</h3>
                     <div className="space-y-4">
                         {mealTypeBox.map(item => (
-                            <div key={item.id} className="flex items-center">
-                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1">
+                            <div key={item.id} className="flex items-center justify-between py-1">
+                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
                                     <div 
-                                        className="w-4 h-4 rounded-full mr-2" 
+                                        className="w-4 h-4 rounded-full mr-2 border border-gray-200 dark:border-gray-600" 
                                         style={{ backgroundColor: customColors[item.id] || item.color }}
                                     ></div>
-                                    <span className="text-sm text-gray-700">{item.name}</span>
+                                    <span className="text-sm text-gray-700 dark:text-gray-200">{item.name}</span>
                                 </label>
                                 <div className="flex items-center">
                                     <input 
@@ -123,7 +123,7 @@ export default function ColorSettings({
                                     />
                                     <button 
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 text-gray-500 hover:text-red-500"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                                         title="Reset to default"
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -135,17 +135,17 @@ export default function ColorSettings({
                 </div>
 
                 {/* Cooking Preference Colors */}
-                <div className='rounded-lg shadow-md p-3'>
-                    <h3 className="font-medium text-gray-800 mb-3">Cooking Preference Colors</h3>
+                <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-gray-800 dark:text-white mb-3">Cooking Preference Colors</h3>
                     <div className="space-y-4">
                         {cookingPreferenceBox.map(item => (
-                            <div key={item.id} className="flex items-center">
-                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1">
+                            <div key={item.id} className="flex items-center justify-between py-1">
+                                <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
                                     <div 
-                                        className="w-4 h-4 rounded-full mr-2" 
+                                        className="w-4 h-4 rounded-full mr-2 border border-gray-200 dark:border-gray-600" 
                                         style={{ backgroundColor: customColors[item.id] || item.color }}
                                     ></div>
-                                    <span className="text-sm text-gray-700">{item.name}</span>
+                                    <span className="text-sm text-gray-700 dark:text-gray-200">{item.name}</span>
                                 </label>
                                 <div className="flex items-center">
                                     <input 
@@ -157,7 +157,7 @@ export default function ColorSettings({
                                     />
                                     <button 
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 text-gray-500 hover:text-red-500"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                                         title="Reset to default"
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -170,9 +170,9 @@ export default function ColorSettings({
             </div>
 
             {/* Color Preview Section */}
-            <div className="mt-8 p-4 border border-gray-200 rounded-lg">
-                <h3 className="font-medium text-gray-800 mb-4">Recipe Card Preview</h3>
-                <div className="bg-white shadow rounded-lg overflow-hidden">
+            <div className="mt-8 p-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                <h3 className="font-medium text-gray-800 dark:text-white mb-4">Recipe Card Preview</h3>
+                <div className="bg-white dark:bg-gray-800 shadow-md dark:shadow-lg dark:shadow-black/30 rounded-lg overflow-hidden">
                     <div className="relative h-48">
                         <Image 
                             src="/images/home/change.jpg" 
@@ -195,7 +195,7 @@ export default function ColorSettings({
                                 return (
                                     <div 
                                         key={pref} 
-                                        className="w-3 h-3 rounded-full" 
+                                        className="w-4 h-4 rounded-full border border-white dark:border-gray-900 shadow-sm dark:shadow-black/30" 
                                         style={{ backgroundColor: customColors[pref] || item?.color }}
                                         title={item?.name}
                                     ></div>
@@ -209,7 +209,7 @@ export default function ColorSettings({
                                 return (
                                     <div 
                                         key={pref} 
-                                        className="w-3 h-3 rounded-full" 
+                                        className="w-4 h-4 rounded-full border border-white dark:border-gray-900 shadow-sm dark:shadow-black/30" 
                                         style={{ backgroundColor: customColors[pref] || item?.color }}
                                         title={item?.name}
                                     ></div>
@@ -223,7 +223,7 @@ export default function ColorSettings({
                                 return (
                                     <div 
                                         key={pref} 
-                                        className="w-3 h-3 rounded-full" 
+                                        className="w-4 h-4 rounded-full border border-white dark:border-gray-900 shadow-sm dark:shadow-black/30" 
                                         style={{ backgroundColor: customColors[pref] || item?.color }}
                                         title={item?.name}
                                     ></div>
@@ -237,7 +237,7 @@ export default function ColorSettings({
                                 return (
                                     <div 
                                         key={pref} 
-                                        className="w-3 h-3 rounded-full" 
+                                        className="w-4 h-4 rounded-full border border-white dark:border-gray-900 shadow-sm dark:shadow-black/30" 
                                         style={{ backgroundColor: customColors[pref] || item?.color }}
                                         title={item?.name}
                                     ></div>
@@ -246,12 +246,12 @@ export default function ColorSettings({
                         </div>
                     </div>
                     <div className="p-4">
-                        <h4 className="font-medium">Sample Recipe Title</h4>
-                        <p className="text-sm text-gray-600 mt-1">This is how your recipes will appear with the selected color indicators.</p>
+                        <h4 className="font-medium text-gray-800 dark:text-white">Sample Recipe Title</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">This is how your recipes will appear with the selected color indicators.</p>
                     </div>
                 </div>
                 
-                <p className="text-sm text-gray-500 mt-4">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
                     <i className="ri-information-line mr-1"></i>
                     Recipe cards will show colored indicators for the categories you've selected, making it easier to identify recipes at a glance.
                 </p>

@@ -17,8 +17,8 @@ export default function DietaryRestrictions({dietaryRestrictions, setDietaryRest
 
     return(
         <>
-            <div className={`bg-white p-5 ${dietaryRestrictions.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200"} relative hover:z-10 hover:shadow-lg transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 mb-3">Dietary Restrictions</h2>
+            <div className={`bg-white dark:bg-gray-800 p-5 ${dietaryRestrictions.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Dietary Restrictions</h2>
                 <div className="grid grid-cols-2 gap-2">
                     {restrictions.map((restriction) => (
                         <div 
@@ -28,13 +28,13 @@ export default function DietaryRestrictions({dietaryRestrictions, setDietaryRest
                             <input
                                 id={restriction.id}
                                 type="checkbox"
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded cursor-pointer"
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded cursor-pointer"
                                 checked={dietaryRestrictions.includes(restriction.label)}
                                 onChange={() => toggleRestriction(restriction.label)}
                             />
                             <label 
                                 htmlFor={restriction.id}
-                                className="ml-2 text-sm text-gray-700 cursor-pointer"
+                                className="ml-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
                             >
                                 {restriction.label}
                             </label>

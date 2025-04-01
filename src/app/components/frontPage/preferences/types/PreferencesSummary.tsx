@@ -16,8 +16,8 @@ export default function PreferencesSummary({
     customColors 
 }: PreferencesSummaryProps) {
     return (
-        <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900 mb-3">Your Selected Preferences</h3>
+        <div className="mt-8 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-lg dark:shadow-black/20">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Your Selected Preferences</h3>
             
             {/* Diet preferences */}
             <div className="flex flex-wrap gap-2">
@@ -39,7 +39,7 @@ export default function PreferencesSummary({
                         );
                     })
                 ) : (
-                    <span className="text-gray-500 text-sm">No diet restrictions selected</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No diet restrictions selected</span>
                 )}
             </div>
             
@@ -63,7 +63,7 @@ export default function PreferencesSummary({
                         );
                     })
                 ) : (
-                    <span className="text-gray-500 text-sm">No cuisine preferences selected</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No cuisine preferences selected</span>
                 )}
             </div>
             
@@ -87,7 +87,7 @@ export default function PreferencesSummary({
                         );
                     })
                 ) : (
-                    <span className="text-gray-500 text-sm">No meal types selected</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No meal types selected</span>
                 )}
             </div>
             
@@ -111,12 +111,12 @@ export default function PreferencesSummary({
                         );
                     })
                 ) : (
-                    <span className="text-gray-500 text-sm">No cooking preferences selected</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No cooking preferences selected</span>
                 )}
             </div>
-            <div className="flex items-center justify-center mt-6 p-3 bg-blue-50 rounded-md border border-blue-100">
-                <i className="ri-information-line text-blue-500 text-lg mr-2"></i>
-                <p className="text-sm text-blue-700">Changes will be applied to your current session</p>
+            <div className="flex items-center justify-center mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-md border border-blue-100 dark:border-blue-800/30">
+                <i className="ri-information-line text-blue-500 dark:text-blue-400 text-lg mr-2"></i>
+                <p className="text-sm text-blue-700 dark:text-blue-300">Changes will be applied to your current session</p>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect ,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
 // Components
@@ -70,10 +70,10 @@ export default function AdvFilters () {
     return(
         <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-white rounded-lg shadow-md p-6 mb-8">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-6 mb-8 transition-colors">
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">{mainFilterMenu}</h1>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{mainFilterMenu}</h1>
                             {seasonChoice && (
                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     selectedSeason ? `${selectedSeason.bgColor} ${selectedSeason.textColor}` : 'bg-indigo-100 text-indigo-800'
@@ -83,7 +83,7 @@ export default function AdvFilters () {
                             )}
                         </div>
                         
-                        <p className="text-sm text-gray-600">Choose your filter preference to see matching recipes below</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">Choose your filter preference to see matching recipes below</p>
                     </div>                
 
                     <div id="mainMenuBtns" className="flex flex-wrap justify-start md:justify-end gap-3 mt-4 md:mt-0">
@@ -93,7 +93,7 @@ export default function AdvFilters () {
                                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer
                                     ${mainFilterMenu === filter 
                                         ? 'bg-indigo-600 text-white shadow-md' 
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
                                     onClick={() => handleMenuChange(filter)}
                                 >
                                     
@@ -107,12 +107,12 @@ export default function AdvFilters () {
                                     )}
                                 </button>
                                 {filter == "Seasonal" && (
-                                    <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white shadow-lg rounded-md z-40" ref={seasonsRef} style={{display: seasonalOpen ? "block" : "none"}}>
+                                    <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white dark:bg-gray-800 shadow-lg dark:shadow-black/30 rounded-md z-40" ref={seasonsRef} style={{display: seasonalOpen ? "block" : "none"}}>
                                         <div className="py-2">
                                             {seasonsData.map((season) => (
                                                 <button 
                                                     key={season.name} 
-                                                    className={`block px-4 py-2 text-sm w-full text-left cursor-pointer ${season.hoverBg} ${season.hoverText}`}
+                                                    className={`block px-4 py-2 text-sm w-full text-left cursor-pointer dark:text-gray-200 ${season.hoverBg} ${season.hoverText} dark:hover:bg-gray-700`}
                                                     onClick={() => {
                                                         setSeasonalOpen(false);
                                                         setSeasonChoice(season.name);
@@ -130,8 +130,8 @@ export default function AdvFilters () {
                     </div>
                 </div>
 
-                <div className="overflow-hidden shadow-md">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+                <div className="overflow-hidden shadow-md dark:shadow-lg dark:shadow-black/20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 dark:bg-gray-800 dark:divide-gray-700">
                         <MealOptions mealTypeFilter={mealTypeFilter} setMealTypeFilter={setMealTypeFilter} />
                         <MealType mealType={mealType} setMealType={setMealType} />
                         <CookingTime cookingTime={cookingTime} setCookingTime={setCookingTime} />

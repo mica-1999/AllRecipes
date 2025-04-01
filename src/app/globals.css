@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 :root {
   --background: #ffffff;
@@ -8,17 +10,16 @@
   --color-foreground: var(--foreground);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
 }
+
+html.dark body {
+  background-color: #0f172a; /* dark background - tailwind's slate-900 */
+  color: #e2e8f0; /* dark mode text color - tailwind's slate-200 */
+}
+
 
 .loader {
   margin-left: 5px;

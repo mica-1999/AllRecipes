@@ -5,18 +5,18 @@ export default function TopRated () {
     return (
         <>
             <div className="flex items-center justify-between w-full h-15">
-                <h2 className="text-[20px]">Top-Rated Recipes</h2>
+                <h2 className="text-[20px] dark:text-slate-200">Top-Rated Recipes</h2>
                 <div className="flex items-center gap-4">
                     {/* View All button */}
                     <div className="flex items-center gap-2">
                         {/* Left arrow button */}
-                        <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] rounded-full flex items-center justify-center cursor-pointer">
+                        <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M15 18l-6-6 6-6"/>
                             </svg>
                         </button>
                         {/* Right arrow button */}
-                        <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] rounded-full flex items-center justify-center cursor-pointer">
+                        <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M9 18l6-6-6-6"/>
                             </svg>
@@ -26,7 +26,7 @@ export default function TopRated () {
             </div>
             <div className="hidden lg:flex w-full h-[294px] mb-15 gap-4">
                 {images.map((_, i) => (
-                    <div className="w-1/5 h-full bg-[#D3D3D3] rounded-[15px] relative overflow-hidden p-3" key={i}>
+                    <div className="w-1/5 h-full bg-[#D3D3D3] dark:bg-gray-800 rounded-[15px] relative overflow-hidden p-3 shadow-sm dark:shadow-md dark:shadow-black/30 transition-colors" key={i}>
                         <div className="w-full h-[70%] rounded-[15px] relative overflow-hidden">
                             <Image
                                 src={`/images/home/toprated/${images[i]}`}
@@ -43,15 +43,14 @@ export default function TopRated () {
                                 <div className="flex justify-center items-center w-[28px] h-[28px] bg-black text-white rounded-[20px]">
                                     <i className="ri-heart-fill"></i>
                                 </div>
-                                
                             </div>
                         </div>
                         <div className="flex flex-col w-full h-[40%]">
-                            <h2 className="text-[16px] mt-2">Recipe Title</h2>
-                            <p className="text-[14px] font-light">Category</p>
+                            <h2 className="text-[16px] mt-2 dark:text-white">Recipe Title</h2>
+                            <p className="text-[14px] font-light dark:text-gray-400">Category</p>
                             <div className="flex w-full items-center justify-between">
-                                <h2 className="text-[16px] font-bold mt-2">Random Description</h2>
-                                <i className="ri-arrow-right-s-line text-xl"></i>
+                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">Random Description</h2>
+                                <i className="ri-arrow-right-s-line text-xl dark:text-gray-400"></i>
                             </div>
                         </div>
                     </div>
@@ -59,7 +58,7 @@ export default function TopRated () {
             </div>
             <div className="lg:hidden flex w-full h-[294px] mb-15 gap-4 overflow-x-auto pb-2">
                 {images.map((_, i) => (
-                    <div className="w-[250px] flex-shrink-0 h-full bg-[#D3D3D3] rounded-[15px] relative overflow-hidden p-3" key={i}>
+                    <div className="w-[250px] flex-shrink-0 h-full bg-[#D3D3D3] dark:bg-gray-800 rounded-[15px] relative overflow-hidden p-3 shadow-sm dark:shadow-md dark:shadow-black/30 transition-colors" key={i}>
                         <div className="w-full h-[70%] rounded-[15px] relative overflow-hidden">
                             <Image
                                 src={`/images/home/toprated/${images[i]}`}
@@ -76,15 +75,14 @@ export default function TopRated () {
                                 <div className="flex justify-center items-center w-[28px] h-[28px] bg-black text-white rounded-[20px]">
                                     <i className="ri-heart-fill"></i>
                                 </div>
-                                
                             </div>
                         </div>
                         <div className="flex flex-col w-full h-[40%]">
-                            <h2 className="text-[16px] mt-2">Recipe Title</h2>
-                            <p className="text-[14px] font-light">Category</p>
+                            <h2 className="text-[16px] mt-2 dark:text-white">Recipe Title</h2>
+                            <p className="text-[14px] font-light dark:text-gray-400">Category</p>
                             <div className="flex w-full items-center justify-between">
-                                <h2 className="text-[16px] font-bold mt-2">Random Description</h2>
-                                <i className="ri-arrow-right-s-line text-xl"></i>
+                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">Random Description</h2>
+                                <i className="ri-arrow-right-s-line text-xl dark:text-gray-400"></i>
                             </div>
                         </div>
                     </div>

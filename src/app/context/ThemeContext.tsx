@@ -9,6 +9,10 @@ type ThemeContextType = {
   setTheme: (theme: string) => void;
   language: string;
   setLanguage: (language: string) => void;
+  savedTheme: string;
+  setSavedTheme: (theme: string) => void;
+  savedLanguage: string;
+  setSavedLanguage: (language: string) => void;
 };
 
 // Create the context with a default undefined value
@@ -19,6 +23,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
   const [theme, setTheme] = useState<string>("Light");
   const [language, setLanguage] = useState<string>("English");
+  const [savedTheme, setSavedTheme] = useState<string>("");
+  const [savedLanguage, setSavedLanguage] = useState<string>("");
 
   // Load preferences when session is available
   useEffect(() => {
@@ -36,6 +42,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           if (data) {
             setTheme(data.visualTheme);
             setLanguage(data.language);
+            setSavedTheme(data.visualTheme);
+            setSavedLanguage(data.language);
           }
         }
       } catch (error) {
@@ -61,7 +69,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.classList.remove('dark');
       }
 
-      // Listen for system changes
+      // Listen for system changes on auto
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const handleChange = (e: MediaQueryListEvent) => {
         if (e.matches) {
@@ -77,7 +85,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, language, setLanguage }}>
+    <ThemeContext.Provider value={{ theme, setTheme, language, setLanguage, savedTheme, setSavedTheme, savedLanguage, setSavedLanguage }}>
       {children}
     </ThemeContext.Provider>
   );

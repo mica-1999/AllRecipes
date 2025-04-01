@@ -1,21 +1,23 @@
 "use client"
 import { useSession } from "next-auth/react";
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { modeStyles, languageOptions } from "@/app/dataItems/LayoutData";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function StickyButton() {
     // Get session data from NextAuth
     const { data: session } = useSession(); 
 
+    // Get theme and language from context
+    const { theme, setTheme, language, setLanguage, savedTheme, setSavedTheme, savedLanguage, setSavedLanguage  } = useTheme();
+    
     // Ref to DIV
     const configRef = useRef<HTMLDivElement>(null) // Used to close the config menu when clicking outside of it
     
     // State variables
     const [showConfig, setShowConfig] = useState(false) // Controls the visibility of the config menu
-    const [selectedMode, setSelectedMode] = useState<string>("Light") // Controls the selected mode (Light, Dark, Auto)
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("English") // Controls the selected language (English, Portuguese, Spanish)
 
     // Use the click outside hook directly - no need for useEffect
     useClickOutside(configRef, setShowConfig);
@@ -30,12 +32,17 @@ export default function StickyButton() {
                 },
                 body: JSON.stringify({
                     userId: session?.user.id,
-                    visualTheme: selectedMode,
-                    language: selectedLanguage 
+                    visualTheme: theme,
+                    language: language 
                 })
             })
 
             if(response.ok){
+                // Save new theme and language to context        
+                setSavedTheme(theme); 
+                setSavedLanguage(language);      
+                
+                // Close the config menu and show success message
                 setShowConfig(false)
                 toast.success("Changes saved successfully!", {
                     position: "top-center",
@@ -44,7 +51,7 @@ export default function StickyButton() {
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
-                    theme: "light"
+                    theme: theme.toLowerCase() === "dark" ? "dark" : "light"
                 });
             }
         }
@@ -57,38 +64,27 @@ export default function StickyButton() {
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                theme: "light"
+                theme: theme.toLowerCase() === "dark" ? "dark" : "light"
             });
         }
     }
 
-    const loadPreferences = async () => {
-        try{
-            const response = await fetch("/api/preferences?userId=" + session?.user.id, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            })
+    const handleReset = () => {
+        setLanguage(savedLanguage)
+        setTheme(savedTheme)
 
-            const data = await response.json()
-            if(response.ok && data){
-                setSelectedMode(data.visualTheme)
-                setSelectedLanguage(data.language)
-            }
-        }
-        catch(error){
-            console.error("Error loading preferences:", error)
-        }
+        // Optional: Add a toast notification for feedback
+        toast.info("Settings reset to saved values", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
+        });
     }
-
-    // On Mount, load user preferences from DB
-    useEffect(() => {
-        if(session?.user){
-            loadPreferences()
-        }
-    }, [session]);
-
+    
     return(
         <>
             <div 
@@ -98,7 +94,8 @@ export default function StickyButton() {
                     pr-2
                     bg-[#FF6B35] text-white rounded-l-lg shadow-lg
                     hover:w-14 hover:bg-[#ff8255] hover:shadow-xl cursor-pointer
-                    transition-all duration-300 ease-in-out"
+                    transition-all duration-300 ease-in-out
+                    dark:bg-indigo-600 dark:hover:bg-indigo-500"
                 onClick={() => setShowConfig(!showConfig)}
             >
                 <i className="ri-settings-3-line text-xl"></i>
@@ -113,90 +110,97 @@ export default function StickyButton() {
                     bg-gradient-to-b from-gray-100 to-gray-200
                     shadow-xl
                     overflow-y-auto
+                    dark:from-gray-800 dark:to-gray-900
                     " 
                 ref={configRef}>
-                    <div className="flex items-center justify-between border-b-2 border-gray-300 pb-2 -mx-5 px-5">
+                    <div className="flex items-center justify-between border-b-2 border-gray-300 pb-2 -mx-5 px-5 dark:border-gray-700">
                         <div className="flex flex-col">
-                            <h2 className="text-[18px] font-semibold text-gray-800">Layout Preferences</h2>
-                            <p className="text-[12px] text-gray-600">Customize and preview in real time</p>
+                            <h2 className="text-[18px] font-semibold text-gray-800 dark:text-white">Layout Preferences</h2>
+                            <p className="text-[12px] text-gray-600 dark:text-gray-400">Customize and preview in real time</p>
                         </div>
                         <div className="flex items-center gap-1">
-                            <button className="cursor-pointer hover:text-blue-600 transition-colors">
+                            <button 
+                            onClick={() => handleReset()}
+                            className="cursor-pointer hover:text-blue-600 transition-colors dark:text-gray-300 dark:hover:text-blue-400">
                                 <i className="ri-refresh-line text-[23px]"></i>
                             </button>
-                            <button className="cursor-pointer hover:text-red-600 transition-colors" onClick={() => setShowConfig(false)}>
+                            <button className="cursor-pointer hover:text-red-600 transition-colors dark:text-gray-300 dark:hover:text-red-400" onClick={() => setShowConfig(false)}>
                                 <i className="ri-close-line text-[30px]"></i>
                             </button>
                         </div>
                     </div>
 
                     <div id="themeStyles" className="flex flex-col mt-5">
-                        <div className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 rounded-md h-8 p-2 w-fit text-[13px] text-white font-medium shadow-sm">
+                        <div className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 rounded-md h-8 p-2 w-fit text-[13px] text-white font-medium shadow-sm dark:from-blue-700 dark:to-blue-800">
                             <h2>Theming</h2>
                         </div>
-                        <h2 className="text-[16px] font-semibold mt-5 text-gray-800">Style (Mode)</h2>
+                        <h2 className="text-[16px] font-semibold mt-5 text-gray-800 dark:text-white">Style (Mode)</h2>
                         <div className="flex justify-between gap-3 mt-3 w-full">
                             {modeStyles.map((mode, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
                                     <button 
-                                        onClick={() => setSelectedMode(mode.type)}
+                                        onClick={() => {
+                                            setTheme(mode.type)
+                                        }
+                                            
+                                        }
                                         className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            selectedMode === mode.type 
+                                            theme === mode.type 
                                                 ? `bg-gradient-to-r ${mode.activeGradient} shadow-md`
-                                                : "bg-gray-300 hover:bg-gray-400"
+                                                : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600"
                                         }`}
                                     >
-                                        <i className={`${mode.icon} text-[28px] ${selectedMode === mode.type ? "text-white" : "text-gray-700"}`}></i>
+                                        <i className={`${mode.icon} text-[28px] ${theme === mode.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
-                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700">{mode.type}</p>
+                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">{mode.type}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     <div id="languageSettings" className="flex flex-col mt-8">
-                        <div className="flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 rounded-md h-8 p-2 w-fit text-[13px] text-white font-medium shadow-sm">
+                        <div className="flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 rounded-md h-8 p-2 w-fit text-[13px] text-white font-medium shadow-sm dark:from-green-700 dark:to-green-800">
                             <h2>Language</h2>
                         </div>
-                        <h2 className="text-[16px] font-semibold mt-5 text-gray-800">Choose Language</h2>
+                        <h2 className="text-[16px] font-semibold mt-5 text-gray-800 dark:text-white">Choose Language</h2>
                         <div className="flex justify-between gap-3 mt-3 w-full">
-                            {languageOptions.map((language, index) => (
+                            {languageOptions.map((languagearray, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
                                     <button 
-                                        onClick={() => setSelectedLanguage(language.type)}
+                                        onClick={() => setLanguage(languagearray.type)}
                                         className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            selectedLanguage === language.type
-                                                ? `bg-gradient-to-r ${language.activeGradient} shadow-md`
-                                                : "bg-gray-300 hover:bg-gray-400"
+                                            language === languagearray.type
+                                                ? `bg-gradient-to-r ${languagearray.activeGradient} shadow-md`
+                                                : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600"
                                         }`}
                                     >
-                                        <i className={`${language.icon} text-[28px] ${selectedLanguage === language.type ? "text-white" : "text-gray-700"}`}></i>
+                                        <i className={`${languagearray.icon} text-[28px] ${language === languagearray.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
-                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700">{language.type}</p>
+                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">{languagearray.type}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                     
                     <div id="btns" className="flex flex-col mt-10 mb-5">
-                        <div className="border-t border-gray-300 pt-6 pb-2 -mx-5 px-5">
+                        <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-2 -mx-5 px-5">
                             <div className="flex items-center justify-between gap-4">
                                 <button 
-                                    className="flex-1 py-2 px-3 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer"
+                                    className="flex-1 py-2 px-3 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                                     onClick={() => setShowConfig(false)}
                                 >
                                     <i className="ri-close-circle-line mr-1.5 text-base"></i>
                                     Cancel
                                 </button>
                                 <button 
-                                    className="flex-1 py-2 px-3 bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a29] hover:to-[#e57a4d] text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center cursor-pointer"
+                                    className="flex-1 py-2 px-3 bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a29] hover:to-[#e57a4d] text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center cursor-pointer dark:from-indigo-600 dark:to-indigo-700 dark:hover:from-indigo-700 dark:hover:to-indigo-800"
                                     onClick={() => handleSavedChanges()}
                                 >
                                     <i className="ri-check-line mr-1.5 text-base"></i>
                                     Apply Changes
                                 </button>
                             </div>
-                            <p className="text-center text-xs text-gray-500 mt-4">
+                            <p className="text-center text-xs text-gray-500 mt-4 dark:text-gray-400">
                                 Changes will be applied to your current session
                             </p>
                         </div>
