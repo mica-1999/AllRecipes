@@ -1,4 +1,6 @@
+"use client"
 import { mealTypeBox } from "@/app/dataItems/PreferencesData";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface MealPreferencesProps {
     preferences: string[];
@@ -7,13 +9,15 @@ interface MealPreferencesProps {
 }
 
 export default function MealPreferences({ preferences, customColors, onPreferenceChange }: MealPreferencesProps) {
+    const { t } = useTheme();
+    
     return (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 border border-gray-100 dark:border-gray-700">
             <div className="flex items-center mb-4">
                 <i className="ri-timer-line text-xl text-[#FF6B35] dark:text-indigo-400 mr-2"></i>
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Meal Types</h2>
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('preferences.mealPreferences.title')}</h2>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">What kinds of meals are you interested in?</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{t('preferences.mealPreferences.subtitle')}</p>
             
             <div className="space-y-3">
                 {mealTypeBox.map((item) => (

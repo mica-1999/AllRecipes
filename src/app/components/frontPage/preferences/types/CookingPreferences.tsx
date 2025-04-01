@@ -1,4 +1,6 @@
+"use client"
 import { cookingPreferenceBox } from "@/app/dataItems/PreferencesData";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface CookingPreferencesProps {
     preferences: string[];
@@ -7,13 +9,15 @@ interface CookingPreferencesProps {
 }
 
 export default function CookingPreferences({ preferences, customColors, onPreferenceChange }: CookingPreferencesProps) {
+    const { t } = useTheme();
+    
     return (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 border border-gray-100 dark:border-gray-700">
             <div className="flex items-center mb-4">
                 <i className="ri-knife-line text-xl text-[#FF6B35] dark:text-indigo-400 mr-2"></i>
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Cooking Preferences</h2>
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('preferences.cookingPreferences.title')}</h2>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">How much time and skill do you have?</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{t('preferences.cookingPreferences.subtitle')}</p>
             
             <div className="space-y-3">
                 {cookingPreferenceBox.map((item) => (

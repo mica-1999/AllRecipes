@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from 'react-toastify';
+import { useTheme } from '@/app/context/ThemeContext';
 
 // Import components
 import DietPreferences from "@/app/components/frontPage/preferences/types/DietPreferences";
@@ -12,6 +13,8 @@ import ColorSettings from "@/app/components/frontPage/preferences/types/ColorSet
 import PreferencesSummary from "@/app/components/frontPage/preferences/types/PreferencesSummary";
 
 export default function CustomizedPreferences() {
+    const { t } = useTheme();
+    
     // State management
     const [dietPreferences, setDietPreferences] = useState<string[]>([]);
     const [cuisinePreferences, setCuisinePreferences] = useState<string[]>([]);
@@ -88,8 +91,8 @@ export default function CustomizedPreferences() {
             <div className="border-b border-gray-200 dark:border-gray-700 pb-5 mb-8">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Your Preferences</h1>
-                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Customize your recipe recommendations and visual settings</p>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('preferences.title')}</h1>
+                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{t('preferences.subtitle')}</p>
                     </div>
                     <div className="flex items-center space-x-3">
                         <button 
@@ -103,19 +106,19 @@ export default function CustomizedPreferences() {
                             {saved ? (
                                 <>
                                     <i className="ri-check-line mr-2"></i>
-                                    Saved!
+                                    {t('preferences.saved')}
                                 </>
                             ) : (
                                 <>
                                     <i className="ri-save-line mr-2"></i>
-                                    Save Preferences
+                                    {t('preferences.save')}
                                 </>
                             )}
                         </button>
                         <Link href="/pages/home">
                             <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm dark:shadow-black/20 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
                                 <i className="ri-arrow-left-line mr-2"></i>
-                                Back to Home
+                                {t('preferences.backToHome')}
                             </button>
                         </Link>
                     </div>
@@ -131,7 +134,7 @@ export default function CustomizedPreferences() {
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >
                     <i className="ri-settings-4-line mr-1"></i>
-                    Recipe Preferences
+                    {t('preferences.tabs.recipePreferences')}
                 </button>
                 <button
                     onClick={() => setActiveTab("colors")}
@@ -140,7 +143,7 @@ export default function CustomizedPreferences() {
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >
                     <i className="ri-palette-line mr-1"></i>
-                    Visual Settings
+                    {t('preferences.tabs.visualSettings')}
                 </button>
             </div>
 

@@ -133,6 +133,75 @@ const translations = {
         noCuisinesFound: 'No cuisines found',
         add: 'Add',
         clear: 'Clear'
+    },
+    tableFiltered: {
+        title: 'Filtered Results',
+        description: 'Recipes that match your advanced filter criteria',
+        headers: {
+            recipeName: 'Recipe Name',
+            views: 'Views',
+            rating: 'Rating',
+            actions: 'Actions'
+        },
+        viewsLabel: 'Views',
+        viewButton: 'View',
+        outOf5: '/5'
+    },
+    themeSettings: {
+        title: 'Layout Preferences',
+        subtitle: 'Customize and preview in real time',
+        theming: 'Theming',
+        styleMode: 'Style (Mode)',
+        language: 'Language',
+        chooseLanguage: 'Choose Language',
+        cancel: 'Cancel',
+        applyChanges: 'Apply Changes',
+        changesSaved: 'Changes saved successfully!',
+        errorSaving: 'Error saving preferences',
+        settingsReset: 'Settings reset to saved values',
+        sessionNote: 'Changes will be applied to your current session'
+    },
+    preferences: {
+        title: 'Your Preferences',
+        subtitle: 'Customize your recipe recommendations and visual settings',
+        save: 'Save Preferences',
+        saved: 'Saved!',
+        backToHome: 'Back to Home',
+        tabs: {
+            recipePreferences: 'Recipe Preferences',
+            visualSettings: 'Visual Settings'
+        },
+        dietPreferences: {
+            title: 'Diet Preferences',
+            subtitle: 'Select dietary preferences to personalize your recipe suggestions'
+        },
+        cuisinePreferences: {
+            title: 'Cuisine Preferences',
+            subtitle: 'Select cuisines you enjoy for better recipe recommendations'
+        },
+        mealPreferences: {
+            title: 'Meal Type Preferences',
+            subtitle: 'What kinds of meals are you most interested in?'
+        },
+        cookingPreferences: {
+            title: 'Cooking Preferences',
+            subtitle: 'How do you prefer your meals to be prepared?'
+        },
+        colorSettings: {
+            title: 'Color Settings',
+            subtitle: 'Customize the color scheme for different preference tags',
+            reset: 'Reset',
+            color: 'Color',
+            preview: 'Preview'
+        },
+        summary: {
+            title: 'Your Preferences Summary',
+            diet: 'Diet Preferences:',
+            cuisine: 'Cuisine Preferences:',
+            mealType: 'Meal Type Preferences:',
+            cooking: 'Cooking Preferences:',
+            noneSelected: 'None selected'
+        }
     }
 }
 

@@ -133,6 +133,75 @@ const translations = {
         noCuisinesFound: 'No se encontraron cocinas',
         add: 'Añadir',
         clear: 'Limpiar'
+    },
+    tableFiltered: {
+        title: 'Resultados Filtrados',
+        description: 'Recetas que coinciden con tus criterios de filtro avanzados',
+        headers: {
+            recipeName: 'Nombre de la Receta',
+            views: 'Vistas',
+            rating: 'Calificación',
+            actions: 'Acciones'
+        },
+        viewsLabel: 'Vistas',
+        viewButton: 'Ver',
+        outOf5: '/5'
+    },
+    themeSettings: {
+        title: 'Preferencias de Diseño',
+        subtitle: 'Personaliza y previsualiza en tiempo real',
+        theming: 'Tematización',
+        styleMode: 'Estilo (Modo)',
+        language: 'Idioma',
+        chooseLanguage: 'Elegir Idioma',
+        cancel: 'Cancelar',
+        applyChanges: 'Aplicar Cambios',
+        changesSaved: '¡Cambios guardados con éxito!',
+        errorSaving: 'Error al guardar preferencias',
+        settingsReset: 'Configuración restablecida a los valores guardados',
+        sessionNote: 'Los cambios se aplicarán a su sesión actual'
+    },
+    preferences: {
+        title: 'Tus Preferencias',
+        subtitle: 'Personaliza tus recomendaciones de recetas y ajustes visuales',
+        save: 'Guardar Preferencias',
+        saved: '¡Guardado!',
+        backToHome: 'Volver al Inicio',
+        tabs: {
+            recipePreferences: 'Preferencias de Recetas',
+            visualSettings: 'Ajustes Visuales'
+        },
+        dietPreferences: {
+            title: 'Preferencias de Dieta',
+            subtitle: 'Selecciona preferencias dietéticas para personalizar tus sugerencias de recetas'
+        },
+        cuisinePreferences: {
+            title: 'Preferencias de Cocina',
+            subtitle: 'Selecciona las cocinas que disfrutas para mejores recomendaciones de recetas'
+        },
+        mealPreferences: {
+            title: 'Preferencias de Tipo de Comida',
+            subtitle: '¿Qué tipos de comidas te interesan más?'
+        },
+        cookingPreferences: {
+            title: 'Preferencias de Cocina',
+            subtitle: '¿Cómo prefieres que se preparen tus comidas?'
+        },
+        colorSettings: {
+            title: 'Ajustes de Color',
+            subtitle: 'Personaliza el esquema de colores para diferentes etiquetas de preferencia',
+            reset: 'Restablecer',
+            color: 'Color',
+            preview: 'Vista previa'
+        },
+        summary: {
+            title: 'Resumen de Tus Preferencias',
+            diet: 'Preferencias de Dieta:',
+            cuisine: 'Preferencias de Cocina:',
+            mealType: 'Preferencias de Tipo de Comida:',
+            cooking: 'Preferencias de Cocina:',
+            noneSelected: 'Ninguna seleccionada'
+        }
     }
 }
 
