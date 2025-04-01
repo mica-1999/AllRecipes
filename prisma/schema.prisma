@@ -13,6 +13,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum VisualTheme {
+  Light
+  Dark
+  Auto
+}
+
+enum language {
+  English
+  Spanish
+  Portuguese
+}
+
+enum difficulty {
+  Easy
+  Medium
+  Hard
+}
+
+enum cuisineType {
+  Italian
+  Chinese
+  Mexican
+  Indian
+  Japanese
+  Thai
+  French
+  Greek
+  Spanish
+  Mediterranean
+  American
+  Korean
+  Vietnamese
+  MiddleEastern
+  Brazilian
+}
+
+enum mealType {
+  Breakfast
+  Lunch
+  Dinner
+  Brunch
+  Snack
+  Dessert
+}
+
+enum dietaryRestrictions {
+  Vegetarian
+  Vegan
+  GlutenFree
+  DairyFree
+  NutFree
+  LowCarb
+}
+
+enum cookingMethod {
+  Baking
+  Frying
+  Grilling
+  Steaming
+  Boiling
+  Roasting
+  Sautéing
+  SlowCooking
+}
+
 // User model
 model User {
   id        Int      @id @default(autoincrement()) // Primary key
@@ -35,22 +100,10 @@ model User {
 
 model UserPreferences {
   id        Int      @id @default(autoincrement()) // Primary key
-  visualTheme String @default("Light")   // Default value is "light"
-  language    String @default("English") // Default value is "en"
+  visualTheme VisualTheme @default(Light)   // Default value is "light"
+  language    language @default(English) // Default value is "en"
   userId    Int   @unique// Foreign Key
   user User @relation("UserToPreferences", fields: [userId], references: [id]) // Foreign key relation with User
-}
-
-enum VisualTheme {
-  Light
-  Dark
-  Auto
-}
-
-enum language {
-  English
-  Spanish
-  Portuguese
 }
 
 model Session {
@@ -65,8 +118,23 @@ model Session {
 model Recipe {
   id        Int      @id @default(autoincrement()) // Primary key
   title     String
-  ingredients String
-  instructions String
+  description String
+  ingredients String[] // Array of strings for ingredients 
+  instructions String[] // Array of strings for instructions
+  cookTime Int? // Cooking time in minutes (separate from prep time)
+  difficulty difficulty // Difficulty level (e.g., Easy, Medium, Hard)
+  image String   
+  rating Float? // Optional rating field
+  season String? // Optional season field
+  categoryType String // Category type field
+  cuisineType cuisineType // Cuisine type for the recipe (e.g., Italian, Chinese)
+  mealType mealType // Meal type field (e.g., Breakfast, Lunch, Dinner)
+  dietaryRestrictions dietaryRestrictions[] // Array of strings for dietary restrictions
+  numCalories Int? // Optional number of calories field
+  cookingMethod cookingMethod? // Optional cooking method (e.g. Baking, Frying)
+  occasions String[] // Array of strings for occasions
+  servings Int? // How many people the recipe serves
+  viewCount Int @default(0) // Track popularity
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int      // Foreign key
@@ -84,4 +152,3 @@ model Address {
   userId    Int?     @unique// Foreign key (optional, since the user may or may not have an address)
   user      User?    @relation(fields: [userId], references: [id]) // Foreign key relation with User
 }
-

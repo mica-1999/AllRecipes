@@ -1,11 +1,16 @@
+"use client"
 import Image from "next/image";
+import { useTheme } from '@/app/context/ThemeContext';
+
 const images = ["rated1.jpg", "rated2.jpg", "rated3.jpg", "rated4.jpg", "rated5.jpg"];
 
 export default function TopRated () {
+    const { t } = useTheme();
+    
     return (
         <>
             <div className="flex items-center justify-between w-full h-15">
-                <h2 className="text-[20px] dark:text-slate-200">Top-Rated Recipes</h2>
+                <h2 className="text-[20px] dark:text-slate-200">{t('topRated.title')}</h2>
                 <div className="flex items-center gap-4">
                     {/* View All button */}
                     <div className="flex items-center gap-2">
@@ -30,7 +35,7 @@ export default function TopRated () {
                         <div className="w-full h-[70%] rounded-[15px] relative overflow-hidden">
                             <Image
                                 src={`/images/home/toprated/${images[i]}`}
-                                alt="Delicious food"
+                                alt={t('topRated.imageAlt')}
                                 fill
                                 sizes="(max-width: 1024px) 100vw, 20vw"
                                 className="object-cover"
@@ -38,7 +43,7 @@ export default function TopRated () {
                             />
                             <div className="flex justify-between px-3 items-center absolute top-4 w-full">
                                 <div className="flex justify-center items-center w-[43px] h-[28px] bg-black text-white rounded-[20px]">
-                                    <p className="text-[12px]">9.5</p>
+                                    <p className="text-[12px]">{t('topRated.rating').replace('{rating}', '9.5')}</p>
                                 </div>
                                 <div className="flex justify-center items-center w-[28px] h-[28px] bg-black text-white rounded-[20px]">
                                     <i className="ri-heart-fill"></i>
@@ -46,10 +51,10 @@ export default function TopRated () {
                             </div>
                         </div>
                         <div className="flex flex-col w-full h-[40%]">
-                            <h2 className="text-[16px] mt-2 dark:text-white">Recipe Title</h2>
-                            <p className="text-[14px] font-light dark:text-gray-400">Category</p>
+                            <h2 className="text-[16px] mt-2 dark:text-white">{t('topRated.recipeTitle')}</h2>
+                            <p className="text-[14px] font-light dark:text-gray-400">{t('topRated.category')}</p>
                             <div className="flex w-full items-center justify-between">
-                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">Random Description</h2>
+                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">{t('topRated.description')}</h2>
                                 <i className="ri-arrow-right-s-line text-xl dark:text-gray-400"></i>
                             </div>
                         </div>
@@ -62,7 +67,7 @@ export default function TopRated () {
                         <div className="w-full h-[70%] rounded-[15px] relative overflow-hidden">
                             <Image
                                 src={`/images/home/toprated/${images[i]}`}
-                                alt="Delicious food"
+                                alt={t('topRated.imageAlt')}
                                 fill
                                 sizes="250px"
                                 className="object-cover"
@@ -70,7 +75,7 @@ export default function TopRated () {
                             />
                             <div className="flex justify-between px-3 items-center absolute top-4 w-full">
                                 <div className="flex justify-center items-center w-[43px] h-[28px] bg-black text-white rounded-[20px]">
-                                    <p className="text-[12px]">9.5</p>
+                                    <p className="text-[12px]">{t('topRated.rating').replace('{rating}', '9.5')}</p>
                                 </div>
                                 <div className="flex justify-center items-center w-[28px] h-[28px] bg-black text-white rounded-[20px]">
                                     <i className="ri-heart-fill"></i>
@@ -78,10 +83,10 @@ export default function TopRated () {
                             </div>
                         </div>
                         <div className="flex flex-col w-full h-[40%]">
-                            <h2 className="text-[16px] mt-2 dark:text-white">Recipe Title</h2>
-                            <p className="text-[14px] font-light dark:text-gray-400">Category</p>
+                            <h2 className="text-[16px] mt-2 dark:text-white">{t('topRated.recipeTitle')}</h2>
+                            <p className="text-[14px] font-light dark:text-gray-400">{t('topRated.category')}</p>
                             <div className="flex w-full items-center justify-between">
-                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">Random Description</h2>
+                                <h2 className="text-[16px] font-bold mt-2 dark:text-gray-200">{t('topRated.description')}</h2>
                                 <i className="ri-arrow-right-s-line text-xl dark:text-gray-400"></i>
                             </div>
                         </div>

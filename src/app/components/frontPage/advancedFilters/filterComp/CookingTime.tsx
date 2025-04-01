@@ -1,5 +1,7 @@
 "use client"
 import { useState } from "react";
+import { useTheme } from '@/app/context/ThemeContext';
+
 interface CookingTimeProps {
     cookingTime: number;
     setCookingTime: (value: number) => void;
@@ -8,6 +10,8 @@ interface CookingTimeProps {
 const maxTime = 180; // Maximum time in minutes (3 hours)
 
 export default function CookingTime({cookingTime, setCookingTime}: CookingTimeProps) {
+    const { t } = useTheme();
+    
     // State Variables
     const [isModified, setIsModified] = useState<boolean>(false);
     
@@ -23,7 +27,7 @@ export default function CookingTime({cookingTime, setCookingTime}: CookingTimePr
     // Format the time display
     const formatTime = (minutes: number) => {
         if (minutes < 60) {
-            return `${minutes} mins`;
+            return `${minutes} ${t('advancedFilters.minutes')}`;
         } else {
             const hours = Math.floor(minutes / 60);
             const mins = minutes % 60;
@@ -38,10 +42,10 @@ export default function CookingTime({cookingTime, setCookingTime}: CookingTimePr
                 ? "border-[2.5px] border-green-500 dark:border-green-600" 
                 : "border-[0.5px] border-gray-200 dark:border-gray-700"
             } relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Cooking Time</h2>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.cookingTime')}</h2>
                 <div className="flex flex-col space-y-4">
                     <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Up to:</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400">{t('advancedFilters.upTo')}:</span>
                         <span className="font-medium text-indigo-600 dark:text-indigo-400">{formatTime(cookingTime)}</span>
                     </div>
                     
@@ -56,7 +60,7 @@ export default function CookingTime({cookingTime, setCookingTime}: CookingTimePr
                     />
                     
                     <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                        <span>5 mins</span>
+                        <span>5 {t('advancedFilters.minutes')}</span>
                         <span>1h</span>
                         <span>2h</span>
                         <span>3h</span>

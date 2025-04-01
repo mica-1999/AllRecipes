@@ -5,10 +5,12 @@ import Link from "next/link";
 import SearchFilter from "@/app/components/frontPage/searchFilters/Search";
 import { navItems } from "@/app/dataItems/LayoutData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
+import { useTheme } from '@/app/context/ThemeContext';
 
 export default function Navbar() {
     // Get session data from NextAuth
     const { data: session } = useSession(); 
+    const { t } = useTheme();
 
     // Refs for dropdowns
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -56,7 +58,7 @@ export default function Navbar() {
                 {/* Additional Navigation Items */}
                 <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200 cursor-pointer relative hidden lg:flex dark:text-gray-200 dark:hover:text-white" ref={dropdownCategoriesRef} onClick={() => setCategoriesOpen(!categoriesOpen)}>
                     <i className="ri-restaurant-line text-[18px]"></i>
-                    <span className="text-[14px]">Categories</span>
+                    <span className="text-[14px]">{t('navBar.categories')}</span>
                     <i className="ri-arrow-down-s-line text-[18px]"></i>
 
                     {categoriesOpen && (
@@ -64,35 +66,35 @@ export default function Navbar() {
                             <Link href="/pages/home/advancedFilters?category=Popular">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                     <i className="ri-fire-line mr-2 text-orange-500"></i>
-                                    Most Popular Recipes Right Now
+                                    {t('navBar.popularRecipes')}
                                 </div>
                             </Link>
                             
                             <Link href="/weekly-trending">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                     <i className="ri-star-line mr-2 text-yellow-500"></i>
-                                    This Week's Trending Recipes
+                                    {t('navBar.trendingRecipes')}
                                 </div>
                             </Link>
 
                             <Link href="/seasonal">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                     <i className="ri-sun-line mr-2 text-blue-500"></i>
-                                    Seasonal Favorites
+                                    {t('navBar.seasonal')}
                                 </div>
                             </Link>
 
                             <Link href="/featured-chefs">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                     <i className="ri-user-star-line mr-2 text-purple-500"></i>
-                                    Featured Chef Collections
+                                    {t('navBar.featuredChefs')}
                                 </div>
                             </Link>
 
                             <Link href="/categories">
                                 <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                     <i className="ri-apps-line mr-2 text-green-500"></i>
-                                    Browse All Categories
+                                    {t('navBar.browseCategories')}
                                 </div>
                             </Link>
                         </div>
@@ -103,7 +105,7 @@ export default function Navbar() {
                 <Link href="/pages/home/advancedFilters" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200 dark:text-gray-200 dark:hover:text-white">
                         <i className="ri-search-2-line text-[18px]"></i>
-                        <span className="text-[14px]">Advanced</span>
+                        <span className="text-[14px]">{t('navBar.advanced')}</span>
                     </div>
                 </Link>
                 
@@ -111,7 +113,7 @@ export default function Navbar() {
                 <Link href="/pages/home/myList" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200 dark:text-gray-200 dark:hover:text-white">
                         <i className="ri-bookmark-line text-[18px]"></i>
-                        <span className="text-[14px]">My List</span>
+                        <span className="text-[14px]">{t('navBar.myList')}</span>
                     </div>
                 </Link>
                 )}
@@ -162,14 +164,14 @@ export default function Navbar() {
                                         <Link href="/pages/home/profile">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                 <i className="ri-user-line mr-2 text-gray-500 dark:text-gray-400"></i>
-                                                Your Profile
+                                                {t('navBar.myProfile')}
                                             </div>
                                         </Link>
                                         
                                         <Link href="/pages/home/preferences">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                 <i className="ri-settings-4-line mr-2 text-gray-500 dark:text-gray-400"></i>
-                                                Settings
+                                                {t('navBar.settings')}
                                             </div>
                                         </Link>
                                         
@@ -187,7 +189,7 @@ export default function Navbar() {
                                             className="px-4 py-2 hover:bg-red-600 hover:text-white text-sm w-full text-left flex items-center cursor-pointer transition-colors duration-200 dark:text-gray-200"
                                         >
                                             <i className="ri-logout-box-line mr-2 text-gray-500 group-hover:text-white dark:text-gray-400"></i>
-                                            Sign out
+                                            {t('navBar.signOut')}
                                         </button>
                                     </>
                                 ) : (
@@ -196,14 +198,14 @@ export default function Navbar() {
                                         <Link href="/pages/login">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                 <i className="ri-login-box-line mr-2 text-gray-500 dark:text-gray-400"></i>
-                                                Sign in
+                                                {t('navBar.signIn')}
                                             </div>
                                         </Link>
                                         
                                         <Link href="/pages/signup">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                 <i className="ri-user-add-line mr-2 text-gray-500 dark:text-gray-400"></i>
-                                                Sign up
+                                                {t('navBar.signUp')}
                                             </div>
                                         </Link>
                                     </>

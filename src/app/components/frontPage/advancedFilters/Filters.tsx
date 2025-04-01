@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTheme } from '@/app/context/ThemeContext';
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -25,12 +26,13 @@ export default function AdvFilters () {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
+    const { t } = useTheme();
 
     // State variables for Main Filter Menu
     const [mainFilterMenu, setMainFilterMenu] = useState<string>("Latest"); // Main Menu
     const [selectedSeason, setSelectedSeason] = useState<typeof seasonsData[0] | null>(null);
     const [seasonChoice , setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
-    const [seasonalOpen, setSeasonalOpen] = useState<Boolean>(false); // Dropdown Menu Open/Close
+    const [seasonalOpen, setSeasonalOpen] = useState<boolean>(false); // Dropdown Menu Open/Close
 
     // Ref for the dropdown menu
     const seasonsRef = useRef<HTMLDivElement>(null);
@@ -48,6 +50,31 @@ export default function AdvFilters () {
     const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 200, max: 800});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
+
+    // Translate filter preference
+    const getFilterTranslation = (filter: string) => {
+        switch (filter) {
+            case "Latest": return t('advancedFilters.filterPreference.latest');
+            case "Popular": return t('advancedFilters.filterPreference.popular');
+            case "Seasonal": return t('advancedFilters.filterPreference.seasonal');
+            case "Trending": return t('advancedFilters.filterPreference.trending');
+            case "Quick & Easy": return t('advancedFilters.filterPreference.quick');
+            case "Budget-Friendly": return t('advancedFilters.filterPreference.budget');
+            case "Healthy": return t('advancedFilters.filterPreference.healthy');
+            default: return filter;
+        }
+    };
+
+    // Translate season name
+    const getSeasonTranslation = (season: string) => {
+        switch (season) {
+            case "Spring": return t('advancedFilters.seasons.spring');
+            case "Summer": return t('advancedFilters.seasons.summer');
+            case "Autumn": return t('advancedFilters.seasons.autumn');
+            case "Winter": return t('advancedFilters.seasons.winter');
+            default: return season;
+        }
+    };
 
     // Main Menu Change Handler
     const handleMenuChange = (menu: string) => {
@@ -73,17 +100,17 @@ export default function AdvFilters () {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-6 mb-8 transition-colors">
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{mainFilterMenu}</h1>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{getFilterTranslation(mainFilterMenu)}</h1>
                             {seasonChoice && (
                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     selectedSeason ? `${selectedSeason.bgColor} ${selectedSeason.textColor}` : 'bg-indigo-100 text-indigo-800'
                                 }`}>
-                                    {seasonChoice}
+                                    {getSeasonTranslation(seasonChoice)}
                                 </span>
                             )}
                         </div>
                         
-                        <p className="text-sm text-gray-600 dark:text-gray-300">Choose your filter preference to see matching recipes below</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{t('advancedFilters.title')}</p>
                     </div>                
 
                     <div id="mainMenuBtns" className="flex flex-wrap justify-start md:justify-end gap-3 mt-4 md:mt-0">
@@ -99,11 +126,11 @@ export default function AdvFilters () {
                                     
                                     {filter === "Seasonal" ? (
                                         <>
-                                            {seasonChoice ? seasonChoice : "Seasonal"}
+                                            {seasonChoice ? getSeasonTranslation(seasonChoice) : getFilterTranslation(filter)}
                                             <i className={`ri-arrow-${seasonalOpen ? 'up' : 'down'}-s-line ml-2`}></i>
                                         </>
                                     ) : (
-                                        filter
+                                        getFilterTranslation(filter)
                                     )}
                                 </button>
                                 {filter == "Seasonal" && (
@@ -119,7 +146,7 @@ export default function AdvFilters () {
                                                         setSelectedSeason(season);
                                                     }}
                                                 >
-                                                    {season.name}
+                                                    {getSeasonTranslation(season.name)}
                                                 </button>
                                             ))}
                                         </div>

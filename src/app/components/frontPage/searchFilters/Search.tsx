@@ -27,8 +27,7 @@ export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterP
         // Cleanup on component unmount
         return () => {
             document.body.classList.remove('overlay-active');
-            document.removeEventListener
-        };
+        }
     }, [openSearch]);
 
     return(

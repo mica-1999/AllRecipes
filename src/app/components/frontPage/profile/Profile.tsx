@@ -6,7 +6,7 @@ import { profileTabs } from "@/app/dataItems/ProfileData"
 
 export default function Profile () {
     // Using NextAuth to get the session data
-    const { data: session, status } = useSession()
+    const { status } = useSession()
 
     // State Variables
     const [activeTab, setActiveTab] = useState('About');

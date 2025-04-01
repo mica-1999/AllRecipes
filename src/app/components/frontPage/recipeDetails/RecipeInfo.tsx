@@ -3,22 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { recipeData } from '@/app/dataItems/RecipeInfoData';
 
-interface RecipeInfoProps {
-  recipe?: {
-    title: string;
-    imageUrl: string;
-    prepTime: string;
-    cookTime: string;
-    servings: number;
-    difficulty: string;
-    ingredients: string[];
-    instructions: string[];
-    notes?: string;
-    videoUrl?: string; // Optional video URL for the recipe
-  };
-}
-
-export default function RecipeInfo({ recipe = recipeData }: RecipeInfoProps) {
+export default function RecipeInfo() {
   const [activeStep, setActiveStep] = useState(0);
   
   return (

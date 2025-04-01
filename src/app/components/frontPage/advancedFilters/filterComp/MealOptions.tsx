@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { cuisineOptions } from "@/app/dataItems/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface MealOptionsProps {
     mealTypeFilter: string[];
@@ -9,6 +10,8 @@ interface MealOptionsProps {
 }
 
 export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOptionsProps) {
+    const { t } = useTheme();
+    
     // State Variables
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -36,7 +39,7 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
     return(
         <>
             <div className={`bg-white dark:bg-gray-800 p-5 ${mealTypeFilter.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Cuisine Type</h2>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.mealOptions')}</h2>
                 <div className="relative" ref={dropdownRef}>
                     <div 
                         className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 flex items-center justify-between cursor-pointer"
@@ -56,7 +59,7 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
                                 <div className="relative">
                                     <input
                                         type="text"
-                                        placeholder="Search cuisines..."
+                                        placeholder={t('advancedFilters.search')}
                                         className="w-full px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 pr-8"
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,7 +96,7 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
                                     </div>
                                 ))}
                                 {filteredOptions.length === 0 && (
-                                    <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">No cuisines found</div>
+                                    <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">{t('advancedFilters.noCuisinesFound')}</div>
                                 )}
                                 
                             </div>

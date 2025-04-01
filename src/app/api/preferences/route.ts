@@ -71,7 +71,7 @@ export async function PUT(req: Request){
 
     try {
         // DB Query for updating user preferences
-        const updatedPreferences = await prisma.userPreferences.update({
+        await prisma.userPreferences.update({
             data : {
                 visualTheme: visualTheme,
                 language: language

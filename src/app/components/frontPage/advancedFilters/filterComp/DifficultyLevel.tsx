@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import { difficulties } from "@/app/dataItems/AdvFiltersData";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface DifficultyLevelProps {
     difficultyLevel: string;
@@ -8,6 +9,8 @@ interface DifficultyLevelProps {
 }
 
 export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: DifficultyLevelProps) {
+    const { t } = useTheme();
+    
     // State variables
     const [counter , setCounter] = useState<number>(0);
     
@@ -23,7 +26,7 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
                 ? "border-[2.5px] border-green-500 dark:border-green-600"
                 : "border-[0.5px] border-gray-200 dark:border-gray-700"} 
                 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Difficulty Level</h2>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.difficultyLevel')}</h2>
                 <div className="flex flex-col space-y-3">
                     {difficulties.map((difficulty) => (
                         <div key={difficulty.value} className="flex items-center">
@@ -40,7 +43,7 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
                                 className="ml-3 flex items-center cursor-pointer"
                             >
                                 <span className={`px-2 py-1 rounded text-xs font-medium border ${difficulty.color}`}>
-                                    {difficulty.value}
+                                    {t(`advancedFilters.difficulty.${difficulty.value.toLowerCase()}`)}
                                 </span>
                             </label>
                         </div>

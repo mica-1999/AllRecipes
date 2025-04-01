@@ -1,5 +1,6 @@
 "use client"
 import { methods } from "@/app/dataItems/AdvFiltersData";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface CookingMethodProps {
     cookingMethod: string[];
@@ -7,6 +8,8 @@ interface CookingMethodProps {
 }
 
 export default function CookingMethod({cookingMethod, setCookingMethod}: CookingMethodProps) {
+    const { t } = useTheme();
+
     // Function to toggle the selected cooking method
     const toggleMethod = (method: string) => {
         if (cookingMethod.includes(method)) {
@@ -19,7 +22,7 @@ export default function CookingMethod({cookingMethod, setCookingMethod}: Cooking
     return(
         <>
             <div className={`bg-white dark:bg-gray-800 p-5 ${cookingMethod.length > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Cooking Method</h2>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.cookingMethod')}</h2>
                 <div className="grid grid-cols-4 gap-3">
                     {methods.map((method) => (
                         <div 

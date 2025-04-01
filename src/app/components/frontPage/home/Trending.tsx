@@ -1,10 +1,14 @@
+"use client"
 import Image from "next/image";
+import { useTheme } from '@/app/context/ThemeContext';
 
 export default function Trending () {
+    const { t } = useTheme();
+    
     return (
         <>
             <div className="flex items-center justify-between w-full h-15 mt-15">
-                <h2 className="text-[20px] dark:text-slate-200">Trending Recipes</h2>
+                <h2 className="text-[20px] dark:text-slate-200">{t('trending.title')}</h2>
                 <div className="flex items-center gap-4">
                     {/* View All button */}
                     <div className="flex items-center gap-2">
@@ -29,7 +33,7 @@ export default function Trending () {
                 <div className="w-1/4 h-full rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                     <Image
                         src="/images/home/trending/trending1.jpg"
-                        alt="Delicious food"
+                        alt={t('trending.imageAlt')}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover"
@@ -42,7 +46,7 @@ export default function Trending () {
                     <div className="w-full h-[60%] rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                         <Image
                             src="/images/home/trending/trending2.jpg"
-                            alt="Delicious food"
+                            alt={t('trending.imageAlt')}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
@@ -53,7 +57,7 @@ export default function Trending () {
                     <div className="w-full h-[40%] rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                         <Image
                             src="/images/home/trending/trending3.jpg"
-                            alt="Delicious food"
+                            alt={t('trending.imageAlt')}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
@@ -65,7 +69,7 @@ export default function Trending () {
                 <div className="w-1/4 h-full rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                     <Image
                         src="/images/home/trending/trending4.jpg"
-                        alt="Delicious food"
+                        alt={t('trending.imageAlt')}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover"
@@ -77,7 +81,7 @@ export default function Trending () {
                     <div className="w-full h-[40%] rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                         <Image
                             src="/images/home/trending/trending5.jpg"
-                            alt="Delicious food"
+                            alt={t('trending.imageAlt')}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
@@ -88,7 +92,7 @@ export default function Trending () {
                     <div className="w-full h-[60%] rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                         <Image
                             src="/images/home/trending/trending6.jpg"
-                            alt="Delicious food"
+                            alt={t('trending.imageAlt')}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                             className="object-cover"
@@ -106,7 +110,7 @@ export default function Trending () {
                         <div key={recipe} className="w-[280px] h-[320px] flex-shrink-0 rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
                             <Image
                                 src={`/images/home/trending/trending${recipe}.jpg`}
-                                alt="Delicious food"
+                                alt={t('trending.imageAlt')}
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                                 className="object-cover"

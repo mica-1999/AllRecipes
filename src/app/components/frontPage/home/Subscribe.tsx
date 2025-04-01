@@ -1,4 +1,9 @@
+"use client"
+import { useTheme } from '@/app/context/ThemeContext';
+
 export default function Subscribe() {
+    const { t } = useTheme();
+    
     return (
         <>
             <div className="flex flex-col min-[885px]:flex-row items-start min-[885px]:items-center justify-between w-full py-6 px-8 
@@ -9,9 +14,9 @@ export default function Subscribe() {
                 mb-20">
                 {/* Left side - Content */}
                 <div className="flex flex-col gap-2 max-w-full min-[885px]:max-w-[60%] mb-4 min-[885px]:mb-0">
-                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Stay Updated with RecipeHub</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{t('subscribe.title')}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Subscribe to our newsletter and get weekly updates on new recipes, cooking tips, and exclusive offers.
+                        {t('subscribe.description')}
                     </p>
                 </div>
                 
@@ -20,7 +25,7 @@ export default function Subscribe() {
                     <div className="relative w-full min-[885px]:w-64">
                         <input 
                             type="email" 
-                            placeholder="Your email address" 
+                            placeholder={t('subscribe.placeholder')}
                             className="w-full h-[42px] px-4 py-2 
                                 rounded-[5px] 
                                 border border-[#d3d3d3] dark:border-gray-600
@@ -40,7 +45,7 @@ export default function Subscribe() {
                             flex items-center justify-center gap-2
                             cursor-pointer"
                     >
-                        <span>Subscribe</span>
+                        <span>{t('subscribe.button')}</span>
                         <i className="ri-arrow-right-line"></i>
                     </button>
                 </div>

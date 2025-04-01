@@ -1,34 +1,37 @@
 "use client"
+import { useTheme } from '@/app/context/ThemeContext';
 
 export default function BasicFilter() {
+    const { t } = useTheme();
+
     return (
         <div className="flex items-center justify-between w-full px-4 sm:px-5 md:px-6 lg:px-8 py-3 sm:py-4">
             {/* Filter categories - tablet and up */}
             <div className="hidden sm:flex sm:w-[23%] md:w-[24%] items-center pr-2 md:pr-3">
                 <div className="flex flex-col w-full">
-                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">Cuisines</h2>
-                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">What do you crave?</h2>
+                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">{t('basicFilter.cuisines')}</h2>
+                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">{t('basicFilter.whatCrave')}</h2>
                 </div>
             </div>
             
             <div className="hidden sm:flex sm:w-[23%] md:w-[22%] items-center pr-2 md:pr-3">
                 <div className="flex flex-col w-full">
-                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">Filter by</h2>
-                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">Add Ingredient</h2>
+                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">{t('basicFilter.filterBy')}</h2>
+                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">{t('basicFilter.addIngredient')}</h2>
                 </div>
             </div>
             
             <div className="hidden sm:flex sm:w-[23%] md:w-[22%] items-center pr-2 md:pr-3">
                 <div className="flex flex-col w-full">
-                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">Difficulty</h2>
-                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">Select level</h2>
+                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">{t('basicFilter.difficulty')}</h2>
+                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">{t('basicFilter.selectLevel')}</h2>
                 </div>
             </div>
             
             <div className="hidden sm:flex sm:w-[20%] md:w-[20%] items-center">
                 <div className="flex flex-col w-full">
-                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">Filters</h2>
-                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">Customize</h2>
+                    <h2 className="text-[13px] md:text-[14px] lg:text-[16px] text-black dark:text-white font-bold truncate">{t('basicFilter.filters')}</h2>
+                    <h2 className="text-[11px] md:text-[12px] lg:text-[14px] text-[#030303] dark:text-gray-300 mt-1 truncate">{t('basicFilter.customize')}</h2>
                 </div>
             </div>
             

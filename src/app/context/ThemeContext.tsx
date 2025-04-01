@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { getTranslations } from '@/app/translations/translationUtils';
 
 // Define the shape of our context
 type ThemeContextType = {
@@ -13,6 +14,7 @@ type ThemeContextType = {
   setSavedTheme: (theme: string) => void;
   savedLanguage: string;
   setSavedLanguage: (language: string) => void;
+  t: (key: string) => string; // Add translation function to context
 };
 
 // Create the context with a default undefined value
@@ -84,8 +86,40 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme]);
 
+  // Translation function
+  const t = (key: string): string => {
+    // Get translations for current language
+    const translations = getTranslations(language);
+    
+    // Parse the key path (e.g., 'navBar.categories')
+    const keys = key.split('.');
+    let result: any = translations;
+    
+    // Navigate through nested objects
+    for (const k of keys) {
+      if (result && typeof result === 'object' && k in result) {
+        result = result[k];
+      } else {
+        // If translation missing, return the key itself
+        return key;
+      }
+    }
+    
+    return typeof result === 'string' ? result : key;
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, language, setLanguage, savedTheme, setSavedTheme, savedLanguage, setSavedLanguage }}>
+    <ThemeContext.Provider value={{ 
+      theme, 
+      setTheme, 
+      language, 
+      setLanguage, 
+      savedTheme, 
+      setSavedTheme, 
+      savedLanguage, 
+      setSavedLanguage,
+      t // Add translation function to the context
+    }}>
       {children}
     </ThemeContext.Provider>
   );

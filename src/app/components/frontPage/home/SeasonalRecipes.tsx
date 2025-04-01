@@ -2,8 +2,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { seasonalRecipes } from "@/app/dataItems/HomeData";
+import { useTheme } from '@/app/context/ThemeContext';
 
 export default function SeasonalRecipes () {
+    const { t } = useTheme();
     const [activeSeason, setActiveSeason] = useState<string>("Spring");
 
     // Function to determine the background color for a season button
@@ -31,10 +33,21 @@ export default function SeasonalRecipes () {
         }
     };
 
+    // Get the translated season name
+    const getSeasonTranslation = (season: string) => {
+        switch (season) {
+            case "Spring": return t('seasonal.seasons.spring');
+            case "Summer": return t('seasonal.seasons.summer');
+            case "Autumn": return t('seasonal.seasons.autumn');
+            case "Winter": return t('seasonal.seasons.winter');
+            default: return season;
+        }
+    };
+
     return(
         <>
             <div className="flex items-center justify-between w-full h-15 [@media(max-width:860px)]:flex-col [@media(max-width:860px)]:items-start">
-                <h2 className="text-[20px] dark:text-slate-200">Seasonal Recipes</h2>
+                <h2 className="text-[20px] dark:text-slate-200">{t('seasonal.title')}</h2>
                 <div className="flex items-center gap-4 [@media(max-width:860px)]:mt-2 [@media(max-width:860px)]:justify-between [@media(max-width:860px)]:w-full">
                     <div className="flex items-center gap-3">
                         {["Spring", "Summer", "Autumn", "Winter"].map((season) => (
@@ -43,12 +56,12 @@ export default function SeasonalRecipes () {
                                 className={`px-4 py-1.5 rounded-full ${getSeasonStyle(season)} text-sm font-medium cursor-pointer transition-colors duration-200`}
                                 onClick={() => setActiveSeason(season)}
                             >
-                                {season}
+                                {getSeasonTranslation(season)}
                             </div>
                         ))}
                     </div>
                     <div className="flex items-center gap-2 ml-3 max-sm:hidden">
-                        <button className="font-semibold cursor-pointer text-[#FF6B35] hover:text-[#e55a29] dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors">View All</button>
+                        <button className="font-semibold cursor-pointer text-[#FF6B35] hover:text-[#e55a29] dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors">{t('seasonal.viewAll')}</button>
                         <i className="ri-arrow-right-s-line text-xl text-[#FF6B35] dark:text-indigo-400 cursor-pointer"></i>
                     </div>
                 </div>

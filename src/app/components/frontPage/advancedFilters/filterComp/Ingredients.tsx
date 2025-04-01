@@ -1,5 +1,6 @@
 "use client"
 import { useState, KeyboardEvent } from "react";
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface IngredientsProps {
     ingredients: string[];
@@ -7,6 +8,8 @@ interface IngredientsProps {
 }
 
 export default function Ingredients({ingredients, setIngredients}: IngredientsProps) {
+    const { t } = useTheme();
+    
     // State Variables
     const [inputValue, setInputValue] = useState<string>("");
     
@@ -35,12 +38,12 @@ export default function Ingredients({ingredients, setIngredients}: IngredientsPr
     return(
         <>
             <div className={`bg-white dark:bg-gray-800 p-5 ${ingredients.length > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Ingredients</h2>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.ingredients')}</h2>
                 <div className="space-y-4">
                     <div className="relative">
                         <input 
                             type="text" 
-                            placeholder="Add ingredients and press Enter"
+                            placeholder={t('advancedFilters.addIngredientsEnter')}
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={handleKeyDown}
