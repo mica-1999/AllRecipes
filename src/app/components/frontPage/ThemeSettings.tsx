@@ -152,7 +152,9 @@ export default function StickyButton() {
                                     >
                                         <i className={`${mode.icon} text-[28px] ${theme === mode.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
-                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">{mode.type}</p>
+                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">
+                                        {t(`themeSettings.modes.${mode.id}`)}
+                                    </p>
                                 </div>
                             ))}
                         </div>
@@ -176,7 +178,9 @@ export default function StickyButton() {
                                     >
                                         <i className={`${languagearray.icon} text-[28px] ${language === languagearray.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
-                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">{languagearray.type}</p>
+                                    <p className="text-[12px] mt-1 text-center font-medium text-gray-700 dark:text-gray-300">
+                                        {t(`themeSettings.languages.${languagearray.id}`)}
+                                    </p>
                                 </div>
                             ))}
                         </div>

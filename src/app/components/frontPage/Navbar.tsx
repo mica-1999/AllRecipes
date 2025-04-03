@@ -110,7 +110,7 @@ export default function Navbar() {
                 </Link>
                 
                 {session?.user && (
-                <Link href="/pages/home/myList" className="hidden lg:flex">
+                <Link href="/pages/home/myList/" className="hidden lg:flex">
                     <div className="flex items-center gap-1.5 hover:text-[#747474] transition-colors duration-200 dark:text-gray-200 dark:hover:text-white">
                         <i className="ri-bookmark-line text-[18px]"></i>
                         <span className="text-[14px]">{t('navBar.myList')}</span>

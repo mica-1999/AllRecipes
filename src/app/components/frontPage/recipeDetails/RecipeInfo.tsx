@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { recipeData } from '@/app/dataItems/RecipeInfoData';
+import { useTheme } from '@/app/context/ThemeContext';
 
 export default function RecipeInfo() {
   const [activeStep, setActiveStep] = useState(0);
+  const { t } = useTheme();
   
   return (
     <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 border border-blue-100 dark:border-gray-700 rounded-lg overflow-hidden my-6 shadow-sm">
@@ -27,28 +29,28 @@ export default function RecipeInfo() {
         <div className="flex items-center px-3 py-1">
           <i className="ri-time-line text-blue-600 dark:text-blue-400 text-xl mr-2"></i>
           <div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Prep</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('recipeInfo.stats.prep')}</p>
             <p className="font-medium text-gray-800 dark:text-white">{recipeData.prepTime}</p>
           </div>
         </div>
         <div className="flex items-center px-3 py-1">
           <i className="ri-fire-line text-blue-600 dark:text-blue-400 text-xl mr-2"></i>
           <div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Cook</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('recipeInfo.stats.cook')}</p>
             <p className="font-medium text-gray-800 dark:text-white">{recipeData.cookTime}</p>
           </div>
         </div>
         <div className="flex items-center px-3 py-1">
           <i className="ri-group-line text-blue-600 dark:text-blue-400 text-xl mr-2"></i>
           <div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Serves</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('recipeInfo.stats.serves')}</p>
             <p className="font-medium text-gray-800 dark:text-white">{recipeData.servings}</p>
           </div>
         </div>
         <div className="flex items-center px-3 py-1">
           <i className="ri-award-line text-blue-600 dark:text-blue-400 text-xl mr-2"></i>
           <div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Difficulty</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t('recipeInfo.stats.difficulty')}</p>
             <p className="font-medium text-gray-800 dark:text-white">{recipeData.difficulty}</p>
           </div>
         </div>
@@ -62,7 +64,7 @@ export default function RecipeInfo() {
             <div className="sticky top-4">
               <h2 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-4 flex items-center">
                 <i className="ri-list-check text-blue-600 dark:text-blue-400 mr-2"></i>
-                Ingredients
+                {t('recipeInfo.sections.ingredients')}
               </h2>
               
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-gray-700">
@@ -81,7 +83,7 @@ export default function RecipeInfo() {
                 <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-300 dark:border-blue-500/50 rounded">
                   <h3 className="font-bold text-blue-800 dark:text-blue-300 mb-2">
                     <i className="ri-lightbulb-line text-blue-600 dark:text-blue-400 mr-2"></i>
-                    Mom's Tips
+                    {t('recipeInfo.sections.tips')}
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">{recipeData.notes}</p>
                 </div>
@@ -93,7 +95,7 @@ export default function RecipeInfo() {
           <div className="lg:w-2/3">
             <h2 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-4 flex items-center">
               <i className="ri-book-open-line text-blue-600 dark:text-blue-400 mr-2"></i>
-              Step-by-Step Instructions
+              {t('recipeInfo.sections.instructions')}
             </h2>
             
             {/* Video Player (placeholder) */}
@@ -110,7 +112,7 @@ export default function RecipeInfo() {
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
                     <i className="ri-video-line text-4xl text-gray-400 dark:text-gray-500 mb-2"></i>
-                    <p className="text-gray-500 dark:text-gray-400">Video coming soon</p>
+                    <p className="text-gray-500 dark:text-gray-400">{t('recipeInfo.videoPlaceholder.comingSoon')}</p>
                   </div>
                 </div>
               )}
@@ -124,11 +126,11 @@ export default function RecipeInfo() {
                 className="px-3 py-1 bg-blue-100 dark:bg-blue-800/40 text-blue-800 dark:text-blue-300 rounded-md disabled:opacity-50"
               >
                 <i className="ri-arrow-left-line mr-1"></i>
-                Previous
+                {t('recipeInfo.navigation.previous')}
               </button>
               
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                Step {activeStep + 1} of {recipeData.instructions.length}
+                {`${t('recipeInfo.navigation.step')} ${activeStep + 1} / ${recipeData.instructions.length}`}
               </span>
               
               <button 
@@ -136,7 +138,7 @@ export default function RecipeInfo() {
                 disabled={activeStep === recipeData.instructions.length - 1}
                 className="px-3 py-1 bg-blue-100 dark:bg-blue-800/40 text-blue-800 dark:text-blue-300 rounded-md disabled:opacity-50"
               >
-                Next
+                {t('recipeInfo.navigation.next')}
                 <i className="ri-arrow-right-line ml-1"></i>
               </button>
             </div>
@@ -154,13 +156,13 @@ export default function RecipeInfo() {
             {/* Steps Timeline */}
             <div className="mt-8">
               <div className="flex items-center mb-2">
-                <h3 className="font-medium text-gray-700 dark:text-gray-300">All Steps</h3>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('recipeInfo.sections.allSteps')}</h3>
                 <div className="ml-auto">
                   <button 
                     onClick={() => setActiveStep(0)} 
                     className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                   >
-                    View All
+                    {t('recipeInfo.sections.viewAll')}
                   </button>
                 </div>
               </div>
@@ -205,15 +207,15 @@ export default function RecipeInfo() {
         <div className="flex flex-wrap gap-3">
           <button className="flex items-center px-4 py-2 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg transition-colors">
             <i className="ri-heart-line mr-1.5"></i>
-            Save Recipe
+            {t('recipeInfo.actions.save')}
           </button>
           <button className="flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-lg transition-colors">
             <i className="ri-printer-line mr-1.5"></i>
-            Print
+            {t('recipeInfo.actions.print')}
           </button>
           <button className="flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-lg transition-colors">
             <i className="ri-share-line mr-1.5"></i>
-            Share
+            {t('recipeInfo.actions.share')}
           </button>
         </div>
       </div>

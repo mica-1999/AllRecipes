@@ -178,7 +178,17 @@ const translations = {
         changesSaved: 'Changes saved successfully!',
         errorSaving: 'Error saving preferences',
         settingsReset: 'Settings reset to saved values',
-        sessionNote: 'Changes will be applied to your current session'
+        sessionNote: 'Changes will be applied to your current session',
+        modes: {
+            light: 'Light',
+            dark: 'Dark',
+            auto: 'Auto'
+        },
+        languages: {
+            english: 'English',
+            portuguese: 'Portuguese',
+            spanish: 'Spanish'
+        }
     },
     preferences: {
         title: 'Your Preferences',
@@ -307,7 +317,36 @@ const translations = {
             followers: "User's followers will be displayed here",
             following: "Accounts this user follows will be displayed here"
         }
+    },
+    recipeInfo: {
+        stats: {
+            prep: "Prep",
+            cook: "Cook",
+            serves: "Serves",
+            difficulty: "Difficulty"
+        },
+        sections: {
+            ingredients: "Ingredients",
+            instructions: "Step-by-Step Instructions",
+            tips: "Mom's Tips",
+            allSteps: "All Steps",
+            viewAll: "View All"
+        },
+        navigation: {
+            previous: "Previous",
+            next: "Next",
+            step: "Step {current} of {total}"
+        },
+        actions: {
+            save: "Save Recipe",
+            print: "Print",
+            share: "Share"
+        },
+        videoPlaceholder: {
+            comingSoon: "Video coming soon"
+        }
     }
+    
 }
 
 export default translations;

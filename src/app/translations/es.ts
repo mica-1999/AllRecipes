@@ -170,16 +170,26 @@ const translations = {
     themeSettings: {
         title: 'Preferencias de Diseño',
         subtitle: 'Personaliza y previsualiza en tiempo real',
-        theming: 'Tematización',
+        theming: 'Tema',
         styleMode: 'Estilo (Modo)',
         language: 'Idioma',
         chooseLanguage: 'Elegir Idioma',
         cancel: 'Cancelar',
         applyChanges: 'Aplicar Cambios',
-        changesSaved: '¡Cambios guardados con éxito!',
+        changesSaved: '¡Cambios guardados correctamente!',
         errorSaving: 'Error al guardar preferencias',
-        settingsReset: 'Configuración restablecida a los valores guardados',
-        sessionNote: 'Los cambios se aplicarán a su sesión actual'
+        settingsReset: 'Configuración restablecida a valores guardados',
+        sessionNote: 'Los cambios se aplicarán a tu sesión actual',
+        modes: {
+            light: 'Claro',
+            dark: 'Oscuro',
+            auto: 'Auto'
+        },
+        languages: {
+            english: 'Inglés',
+            portuguese: 'Portugués',
+            spanish: 'Español'
+        }
     },
     preferences: {
         title: 'Tus Preferencias',
@@ -306,6 +316,34 @@ const translations = {
             recipes: "Las recetas del usuario se mostrarán aquí",
             followers: "Los seguidores del usuario se mostrarán aquí",
             following: "Las cuentas que sigue este usuario se mostrarán aquí"
+        }
+    },
+    recipeInfo: {
+        stats: {
+            prep: "Preparación",
+            cook: "Cocción",
+            serves: "Porciones",
+            difficulty: "Dificultad"
+        },
+        sections: {
+            ingredients: "Ingredientes",
+            instructions: "Instrucciones Paso a Paso",
+            tips: "Consejos de Mamá",
+            allSteps: "Todos los Pasos",
+            viewAll: "Ver Todo"
+        },
+        navigation: {
+            previous: "Anterior",
+            next: "Siguiente",
+            step: "Paso {current} de {total}"
+        },
+        actions: {
+            save: "Guardar Receta",
+            print: "Imprimir",
+            share: "Compartir"
+        },
+        videoPlaceholder: {
+            comingSoon: "Video próximamente"
         }
     }
 }

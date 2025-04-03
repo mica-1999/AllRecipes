@@ -168,17 +168,27 @@ const translations = {
     },
     themeSettings: {
         title: 'Preferências de Layout',
-        subtitle: 'Personalize e pré-visualize em tempo real',
+        subtitle: 'Personalize e visualize em tempo real',
         theming: 'Tema',
         styleMode: 'Estilo (Modo)',
         language: 'Idioma',
         chooseLanguage: 'Escolher Idioma',
         cancel: 'Cancelar',
         applyChanges: 'Aplicar Alterações',
-        changesSaved: 'Alterações guardadas com sucesso!',
-        errorSaving: 'Erro ao guardar preferências',
-        settingsReset: 'Definições restauradas para os valores guardados',
-        sessionNote: 'As alterações serão aplicadas à sua sessão atual'
+        changesSaved: 'Alterações salvas com sucesso!',
+        errorSaving: 'Erro ao salvar preferências',
+        settingsReset: 'Configurações redefinidas para valores salvos',
+        sessionNote: 'As alterações serão aplicadas à sua sessão atual',
+        modes: {
+            light: 'Claro',
+            dark: 'Escuro',
+            auto: 'Auto'
+        },
+        languages: {
+            english: 'Inglês',
+            portuguese: 'Português',
+            spanish: 'Espanhol'
+        }
     },
     preferences: {
         title: 'As Suas Preferências',
@@ -305,6 +315,34 @@ const translations = {
             recipes: "As receitas do usuário serão exibidas aqui",
             followers: "Os seguidores do usuário serão exibidos aqui",
             following: "As contas que este usuário segue serão exibidas aqui"
+        }
+    },
+    recipeInfo: {
+        stats: {
+            prep: "Preparo",
+            cook: "Cozimento",
+            serves: "Porções",
+            difficulty: "Dificuldade"
+        },
+        sections: {
+            ingredients: "Ingredientes",
+            instructions: "Instruções Passo a Passo",
+            tips: "Dicas da Mamãe",
+            allSteps: "Todos os Passos",
+            viewAll: "Ver Todos"
+        },
+        navigation: {
+            previous: "Anterior",
+            next: "Próximo",
+            step: "Passo {current} de {total}"
+        },
+        actions: {
+            save: "Salvar Receita",
+            print: "Imprimir",
+            share: "Compartilhar"
+        },
+        videoPlaceholder: {
+            comingSoon: "Vídeo em breve"
         }
     }
 }
