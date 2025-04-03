@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { bookmarkedRecipes } from "@/app/dataItems/MyListData";
+import { bookmarkedRecipes } from "@/app/data/MyListData";
 import { useTheme } from "@/app/context/ThemeContext";
 
 export default function Bookmarked() {

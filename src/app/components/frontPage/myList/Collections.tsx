@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { collectionsData } from "@/app/dataItems/MyListData";
+import { collectionsData } from "@/app/data/MyListData";
 
 export default function Collections() {
     return(

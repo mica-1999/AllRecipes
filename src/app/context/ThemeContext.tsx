@@ -14,8 +14,9 @@ type ThemeContextType = {
   setSavedTheme: (theme: string) => void;
   savedLanguage: string;
   setSavedLanguage: (language: string) => void;
-  t: (key: string) => string; // Add translation function to context
-  tArray: <T>(key: string) => T[]; // Add translation function for arrays to context
+  t: (key: string) => string;
+  tArray: <T>(key: string) => T[];
+  isLoading: boolean; // Add this
 };
 
 // Create the context with a default undefined value
@@ -24,10 +25,39 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 // Create the provider component
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
-  const [theme, setTheme] = useState<string>("Light");
-  const [language, setLanguage] = useState<string>("English");
-  const [savedTheme, setSavedTheme] = useState<string>("");
-  const [savedLanguage, setSavedLanguage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+
+  // Initialize from localStorage with fallback values
+  const [theme, setTheme] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || "Light";
+    }
+    return "Light";
+  });
+  
+  const [language, setLanguage] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('language') || "English";
+    }
+    return "English";
+  });
+  
+  const [savedTheme, setSavedTheme] = useState<string>(theme);
+  const [savedLanguage, setSavedLanguage] = useState<string>(language);
+
+  // Save theme to localStorage when it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && theme) {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
+
+  // Save language to localStorage when it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && language) {
+      localStorage.setItem('language', language);
+    }
+  }, [language]);
 
   // Load preferences when session is available
   useEffect(() => {
@@ -47,6 +77,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             setLanguage(data.language);
             setSavedTheme(data.visualTheme);
             setSavedLanguage(data.language);
+            
+            // Also update localStorage to keep them in sync
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('theme', data.visualTheme);
+              localStorage.setItem('language', data.language);
+            }
           }
         }
       } catch (error) {
@@ -57,7 +93,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     loadPreferences();
   }, [session]);
 
-  // Apply theme to document
+  // Apply theme to document - still needed for theme changes after initial load
   useEffect(() => {
     if (theme === "Dark") {
       document.documentElement.classList.add('dark');
@@ -87,7 +123,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme]);
 
-  // Translation function
+  // Add a useEffect to control loading state
+  useEffect(() => {
+    // This will run after hydration is complete
+    setIsLoading(false);
+  }, []);
+
+  // Rest of your translation functions remain the same...
   const t = (key: string): string => {
     // Get translations for current language
     const translations = getTranslations(language);
@@ -136,8 +178,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setSavedTheme, 
       savedLanguage, 
       setSavedLanguage,
-      t, // Add translation function to the context
-      tArray // Add translation function for arrays to the context
+      t,
+      tArray,
+      isLoading
     }}>
       {children}
     </ThemeContext.Provider>

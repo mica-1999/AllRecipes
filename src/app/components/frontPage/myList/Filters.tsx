@@ -1,6 +1,6 @@
 "use client"
 import { Dispatch, SetStateAction } from 'react'
-import { listItems } from '@/app/dataItems/MyListData';
+import { listItems } from '@/app/data/MyListData';
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function Filters({selectedMenu, setSelectedMenu}: {

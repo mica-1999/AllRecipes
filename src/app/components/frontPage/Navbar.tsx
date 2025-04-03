@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useState, useRef } from "react";
 import Link from "next/link";
 import SearchFilter from "@/app/components/frontPage/searchFilters/Search";
-import { navItems } from "@/app/dataItems/LayoutData";
+import { navItems } from "@/app/data/LayoutData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 import { useTheme } from '@/app/context/ThemeContext';
 

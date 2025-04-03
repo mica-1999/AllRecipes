@@ -14,7 +14,7 @@ import CaloriesRange from "@/app/components/frontPage/advancedFilters/filterComp
 import CookingMethod from "@/app/components/frontPage/advancedFilters/filterComp/CookingMethod";
 import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occasion";
 import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
-import { seasonsData } from "@/app/dataItems/AdvFiltersData";
+import { seasonsData } from "@/app/data/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 interface CaloriesRangeType {

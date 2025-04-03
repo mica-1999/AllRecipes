@@ -3,8 +3,12 @@ import { useSession } from "next-auth/react";
 import { useState, useRef } from "react"
 import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
-import { modeStyles, languageOptions } from "@/app/dataItems/LayoutData";
+import { modeStyles, languageOptions } from "@/app/data/LayoutData";
 import { useTheme } from "@/app/context/ThemeContext";
+
+interface HandleResetProps {
+    method: "reset" | "cancel";
+}
 
 export default function StickyButton() {
     // Get session data from NextAuth
@@ -69,20 +73,23 @@ export default function StickyButton() {
         }
     }
 
-    const handleReset = () => {
-        setLanguage(savedLanguage)
-        setTheme(savedTheme)
 
-        // Optional: Add a toast notification for feedback
-        toast.info(t('themeSettings.settingsReset'), {
-            position: "top-center",
-            autoClose: 1500,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
-        });
+
+    const handleReset = (method: HandleResetProps["method"]) => {
+        setLanguage(savedLanguage);
+        setTheme(savedTheme);
+
+        if (method !== "cancel") {
+            toast.info(t('themeSettings.settingsReset'), {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
+            });
+        }
     }
     
     return(
@@ -120,11 +127,17 @@ export default function StickyButton() {
                         </div>
                         <div className="flex items-center gap-1">
                             <button 
-                            onClick={() => handleReset()}
-                            className="cursor-pointer hover:text-blue-600 transition-colors dark:text-gray-300 dark:hover:text-blue-400">
+                                onClick={() => handleReset("reset")}
+                                className="cursor-pointer hover:text-blue-600 transition-colors dark:text-gray-300 dark:hover:text-blue-400">
                                 <i className="ri-refresh-line text-[23px]"></i>
                             </button>
-                            <button className="cursor-pointer hover:text-red-600 transition-colors dark:text-gray-300 dark:hover:text-red-400" onClick={() => setShowConfig(false)}>
+                            <button 
+                                className="cursor-pointer hover:text-red-600 transition-colors dark:text-gray-300 dark:hover:text-red-400" 
+                                onClick={() => {
+                                    handleReset("cancel");
+                                    setShowConfig(false);
+                                }}
+                            >
                                 <i className="ri-close-line text-[30px]"></i>
                             </button>
                         </div>
@@ -191,7 +204,10 @@ export default function StickyButton() {
                             <div className="flex items-center justify-between gap-4">
                                 <button 
                                     className="flex-1 py-2 px-3 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-                                    onClick={() => setShowConfig(false)}
+                                    onClick={() => {
+                                        handleReset("cancel");
+                                        setShowConfig(false);
+                                    }}
                                 >
                                     <i className="ri-close-circle-line mr-1.5 text-base"></i>
                                     {t('themeSettings.cancel')}

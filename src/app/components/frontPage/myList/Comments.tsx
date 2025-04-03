@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
-import { commentsData } from "@/app/dataItems/MyListData";
+import { commentsData } from "@/app/data/MyListData";
 import { useTheme } from "@/app/context/ThemeContext";
 
 export default function Comments() {

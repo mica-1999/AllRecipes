@@ -1,5 +1,5 @@
 "use client"
-import { dietRestrictionBox } from "@/app/dataItems/PreferencesData";
+import { dietRestrictionBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface DietPreferencesProps {

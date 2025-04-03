@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import Image from 'next/image';
-import { recipeData } from '@/app/dataItems/RecipeInfoData';
+import { recipeData } from '@/app/data/RecipeInfoData';
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function RecipeInfo() {

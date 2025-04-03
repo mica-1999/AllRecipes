@@ -2,7 +2,7 @@
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
-import { profileTabs } from "@/app/dataItems/ProfileData"
+import { profileTabs } from "@/app/data/ProfileData"
 import { useTheme } from "@/app/context/ThemeContext"
 
 export default function Profile() {

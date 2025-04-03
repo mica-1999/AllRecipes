@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { listHeaders, filteredRecipesData } from "@/app/dataItems/AdvFiltersData"
+import { listHeaders, filteredRecipesData } from "@/app/data/AdvFiltersData"
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function TableFiltered() {

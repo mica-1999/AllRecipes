@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import Image from "next/image";
-import { seasonalRecipes } from "@/app/dataItems/HomeData";
+import { seasonalRecipes } from "@/app/data/HomeData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function SeasonalRecipes () {

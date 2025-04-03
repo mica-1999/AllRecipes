@@ -1,5 +1,5 @@
 "use client"
-import { mealTypeBox } from "@/app/dataItems/PreferencesData";
+import { mealTypeBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface MealPreferencesProps {

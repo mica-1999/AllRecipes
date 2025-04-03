@@ -1,5 +1,5 @@
 "use client"
-import { Socials } from "@/app/dataItems/LayoutData";
+import { Socials } from "@/app/data/LayoutData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from '@/app/context/ThemeContext';

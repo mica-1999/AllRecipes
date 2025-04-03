@@ -1,5 +1,5 @@
 "use client"
-import { cuisineTypeBox } from "@/app/dataItems/PreferencesData";
+import { cuisineTypeBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface CuisinePreferencesProps {

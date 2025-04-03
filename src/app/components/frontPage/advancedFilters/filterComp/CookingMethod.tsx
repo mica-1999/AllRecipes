@@ -1,5 +1,5 @@
 "use client"
-import { methods } from "@/app/dataItems/AdvFiltersData";
+import { methods } from "@/app/data/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface CookingMethodProps {

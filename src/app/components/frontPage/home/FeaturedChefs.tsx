@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { chefs } from "@/app/dataItems/HomeData";
+import { chefs } from "@/app/data/HomeData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function FeaturedChefs() {

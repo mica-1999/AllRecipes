@@ -1,5 +1,5 @@
 "use client"
-import { mealTypeBox, dietRestrictionBox, cuisineTypeBox, cookingPreferenceBox } from "@/app/dataItems/PreferencesData";
+import { mealTypeBox, dietRestrictionBox, cuisineTypeBox, cookingPreferenceBox } from "@/app/data/PreferencesData";
 import Image from 'next/image';
 import { useTheme } from '@/app/context/ThemeContext';
 

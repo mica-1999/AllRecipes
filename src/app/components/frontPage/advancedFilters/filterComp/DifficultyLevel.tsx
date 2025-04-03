@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { difficulties } from "@/app/dataItems/AdvFiltersData";
+import { difficulties } from "@/app/data/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface DifficultyLevelProps {
