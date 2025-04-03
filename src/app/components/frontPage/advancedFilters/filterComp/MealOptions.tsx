@@ -9,7 +9,7 @@ interface MealOptionsProps {
 }
 
 export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOptionsProps) {
-    const { t, tArray, language } = useTheme();
+    const { t, tArray } = useTheme();
     
     // State Variables
     const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
         return tArray<string>('advancedFilters.cuisineOptions').filter(cuisine => 
             cuisine.toLowerCase().includes(searchTerm.toLowerCase())
         );
-    }, [searchTerm, tArray, language]);
+    }, [searchTerm, tArray]);
     
     // Toggle selection of a cuisine
     const toggleCuisine = (cuisine: string) => {

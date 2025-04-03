@@ -19,6 +19,15 @@ type ThemeContextType = {
   isLoading: boolean; // Add this
 };
 
+// Define interfaces for our translation structure
+interface NestedTranslations {
+  [key: string]: string | NestedTranslations | Array<unknown>;
+}
+
+interface Translations {
+  [key: string]: NestedTranslations;
+}
+
 // Create the context with a default undefined value
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -132,15 +141,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Rest of your translation functions remain the same...
   const t = (key: string): string => {
     // Get translations for current language
-    const translations = getTranslations(language);
+    const translations = getTranslations(language) as Translations;
     
     // Parse the key path (e.g., 'navBar.categories')
     const keys = key.split('.');
-    let result: any = translations;
+    let result: string | NestedTranslations | Array<unknown> = translations;
     
     // Navigate through nested objects
     for (const k of keys) {
-      if (result && typeof result === 'object' && k in result) {
+      if (
+        result && 
+        typeof result === 'object' && 
+        !Array.isArray(result) && 
+        k in result
+      ) {
         result = result[k];
       } else {
         // If translation missing, return the key itself
@@ -153,19 +167,24 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   // Translation function for arrays
   const tArray = <T,>(key: string): T[] => {
-    const translations = getTranslations(language);
+    const translations = getTranslations(language) as Translations;
     const keys = key.split('.');
-    let result: any = translations;
+    let result: string | NestedTranslations | Array<unknown> = translations;
     
     for (const k of keys) {
-      if (result && typeof result === 'object' && k in result) {
+      if (
+        result && 
+        typeof result === 'object' && 
+        !Array.isArray(result) && 
+        k in result
+      ) {
         result = result[k];
       } else {
         return [] as T[];
       }
     }
     
-    return Array.isArray(result) ? result : [] as T[];
+    return Array.isArray(result) ? result as T[] : [] as T[];
   };
 
   return (
