@@ -2,43 +2,45 @@
 import Image from "next/image";
 import { useState } from "react";
 import { commentsData } from "@/app/dataItems/MyListData";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function Comments() {
+    const { t } = useTheme();
     // State to manage the active tab (My Comments or Liked Comments)
     const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');
     
     return (
-        <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700">
+        <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700 mb-20">
             <div className="px-5 py-4 bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-1">
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Recent Comments</h2>
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-white">{t('myList.comments.recentTitle')}</h2>
                     <div className="flex gap-1 bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
                         <button
                             onClick={() => setActiveTab('my')}
-                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
                                 activeTab === 'my'
                                     ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
                                     : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
                             }`}
                         >
-                            My Comments
+                            {t('myList.comments.myComments')}
                         </button>
                         <button
                             onClick={() => setActiveTab('liked')}
-                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
                                 activeTab === 'liked'
                                     ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
                                     : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
                             }`}
                         >
-                            Liked Comments
+                            {t('myList.comments.likedComments')}
                         </button>
                     </div>
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                     {activeTab === 'my' 
-                        ? 'Comments you posted on recipes'
-                        : 'Comments from others that you liked'
+                        ? t('myList.comments.myCommentsDescription')
+                        : t('myList.comments.likedCommentsDescription')
                     }
                 </p>
             </div>
@@ -52,7 +54,7 @@ export default function Comments() {
                                 <div className="w-12 h-12 rounded-full relative overflow-hidden shadow-sm dark:shadow-black/20 border border-gray-200 dark:border-gray-700">
                                     <Image 
                                         src={comment.userImage}
-                                        alt={`${comment.userName} profile`}
+                                        alt={`${comment.userName} ${t('myList.comments.profile')}`}
                                         fill
                                         className="object-cover"
                                     />
@@ -68,13 +70,22 @@ export default function Comments() {
                                         <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">{comment.time}</span>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <button className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                                        <button 
+                                            className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                                            title={t('myList.comments.like')}
+                                        >
                                             <i className="ri-heart-line text-sm"></i>
                                         </button>
-                                        <button className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-[#FF6B35] dark:hover:text-indigo-300 transition-colors">
+                                        <button 
+                                            className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-[#FF6B35] dark:hover:text-indigo-300 transition-colors"
+                                            title={t('myList.comments.reply')}
+                                        >
                                             <i className="ri-reply-line text-sm"></i>
                                         </button>
-                                        <button className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors">
+                                        <button 
+                                            className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                            title={t('myList.comments.delete')}
+                                        >
                                             <i className="ri-delete-bin-line text-sm"></i>
                                         </button>
                                     </div>
@@ -111,10 +122,10 @@ export default function Comments() {
             </div>
             
             {/* Footer with Load More Button */}
-            <div className="bg-gray-50 dark:bg-gray-700/60 px-5 py-3 border-t border-gray-200 dark:border-gray-700 mb-20">
+            <div className="bg-gray-50 dark:bg-gray-700/60 px-5 py-3 border-t border-gray-200 dark:border-gray-700">
                 <button className="w-full py-2 bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center justify-center">
-                    <i className="ri-refresh-line mr-1.5"></i>
-                    Load More Comments
+                    <i className="ri-refresh-line mr-1.5 mt-1"></i>
+                    {t('myList.comments.loadMore')}
                 </button>
             </div>
         </div>

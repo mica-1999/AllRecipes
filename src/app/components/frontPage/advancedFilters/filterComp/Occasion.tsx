@@ -1,5 +1,4 @@
 "use client"
-import { occasions } from "@/app/dataItems/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface OccasionProps {
@@ -8,7 +7,7 @@ interface OccasionProps {
 }
 
 export default function Occasion({occasion, setOccasion}: OccasionProps) {    
-    const { t } = useTheme();
+    const { t,tArray } = useTheme();
     
     const toggleOccasion = (value: string) => {
         if (occasion.includes(value)) {
@@ -23,7 +22,7 @@ export default function Occasion({occasion, setOccasion}: OccasionProps) {
             <div className={`bg-white dark:bg-gray-800 p-5 ${occasion.length > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.occasion')}</h2>
                 <div className="flex flex-wrap gap-2">
-                    {occasions.map((item) => (
+                    {tArray<string>('advancedFilters.occasions').map((item) => (
                         <div 
                             key={item}
                             onClick={() => toggleOccasion(item)}

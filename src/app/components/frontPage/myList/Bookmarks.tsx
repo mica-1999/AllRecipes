@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { bookmarkedRecipes } from "@/app/dataItems/MyListData";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function Bookmarked() {
-
+    const { t } = useTheme()
     return(
         <>
             <div className="px-10 py-2">
                 <div className="flex items-center mb-4">
-                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Your Bookmarks</h2>
+                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('myList.bookmarks')}</h2>
                 </div>
                 
                     {bookmarkedRecipes.map((recipe) => (
@@ -23,7 +24,7 @@ export default function Bookmarked() {
                             
                             <div className="flex-grow">
                                 <h3 className="font-medium text-gray-800 dark:text-white">{recipe.title}</h3>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">Bookmarked {recipe.date}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{t('myList.bookmarked')} {recipe.date}</p>
                             </div>
                             
                             <div className="flex-shrink-0 flex space-x-2">

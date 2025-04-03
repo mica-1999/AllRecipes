@@ -1,17 +1,19 @@
 import Image from "next/image";
-import { mylistHeaders } from "@/app/dataItems/MyListData";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function MyRecipes() {
+    const { tArray, t } = useTheme();
+
     return (
-        <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700">
+        <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700 mb-20">
             {/* Table Header */}
             <div id="tableHeaders" className="flex w-full bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-200 font-medium text-sm">
-                {mylistHeaders.map((header, index) => (
+                {tArray<string>('myList.mylistHeaders').map((header, index) => (
                     <div key={index} className={`
                         px-4 py-3.5 flex items-center
-                        ${header === "Recipe Name" ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}
-                        ${header === "Category" || header === "Difficulty" ? "lg:flex md:hidden" : ""}
-                        ${header === "Actions" ? "w-1/4 md:w-1/8 justify-end md:justify-center" : ""}
+                        ${index === 0 ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}
+                        ${index === 1 || index === 2 ? "lg:flex md:hidden" : ""}
+                        ${index === 7 ? "w-1/4 md:w-1/8 justify-end md:justify-center" : ""}
                     `}>
                         {header}
                     </div>
@@ -116,9 +118,9 @@ export default function MyRecipes() {
             </div>
             
             {/* Table Footer */}
-            <div className="flex justify-between items-center px-4 py-3 bg-gray-50 dark:bg-gray-700/60 border-t border-gray-200 dark:border-gray-700 mb-20">
+            <div className="flex justify-between items-center px-4 py-3 bg-gray-50 dark:bg-gray-700/60 border-t border-gray-200 dark:border-gray-700">
                 <div className="text-sm text-gray-600 dark:text-gray-300 ml-10">
-                    Showing <span className="font-medium dark:text-white">6</span> of <span className="font-medium dark:text-white">6</span> recipes
+                    {t('myList.showing')} <span className="font-medium dark:text-white">6</span> {t('myList.of')} <span className="font-medium dark:text-white">6</span> {t('myList.recipes')}
                 </div>
                 <div className="flex gap-1">
                     <button className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">

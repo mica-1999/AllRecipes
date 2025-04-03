@@ -14,7 +14,7 @@ import CaloriesRange from "@/app/components/frontPage/advancedFilters/filterComp
 import CookingMethod from "@/app/components/frontPage/advancedFilters/filterComp/CookingMethod";
 import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occasion";
 import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
-import { mainFilters, seasonsData } from "@/app/dataItems/AdvFiltersData";
+import { seasonsData } from "@/app/dataItems/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 interface CaloriesRangeType {
@@ -26,10 +26,10 @@ export default function AdvFilters () {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
-    const { t } = useTheme();
+    const { t, tArray } = useTheme();
 
     // State variables for Main Filter Menu
-    const [mainFilterMenu, setMainFilterMenu] = useState<string>("Latest"); // Main Menu
+    const [mainFilterMenu, setMainFilterMenu] = useState<string>(""); // Main Menu
     const [selectedSeason, setSelectedSeason] = useState<typeof seasonsData[0] | null>(null);
     const [seasonChoice , setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
     const [seasonalOpen, setSeasonalOpen] = useState<boolean>(false); // Dropdown Menu Open/Close
@@ -50,21 +50,7 @@ export default function AdvFilters () {
     const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 200, max: 800});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
-
-    // Translate filter preference
-    const getFilterTranslation = (filter: string) => {
-        switch (filter) {
-            case "Latest": return t('advancedFilters.filterPreference.latest');
-            case "Popular": return t('advancedFilters.filterPreference.popular');
-            case "Seasonal": return t('advancedFilters.filterPreference.seasonal');
-            case "Trending": return t('advancedFilters.filterPreference.trending');
-            case "Quick & Easy": return t('advancedFilters.filterPreference.quick');
-            case "Budget-Friendly": return t('advancedFilters.filterPreference.budget');
-            case "Healthy": return t('advancedFilters.filterPreference.healthy');
-            default: return filter;
-        }
-    };
-
+    
     // Translate season name
     const getSeasonTranslation = (season: string) => {
         switch (season) {
@@ -78,7 +64,9 @@ export default function AdvFilters () {
 
     // Main Menu Change Handler
     const handleMenuChange = (menu: string) => {
-        if (menu === "Seasonal") {
+        const filters = tArray<string>('advancedFilters.mainFilters');
+
+        if (menu === filters[3]) { // If the menu is "Seasonal"
             setMainFilterMenu(menu);
             setSeasonalOpen(!seasonalOpen);
         } else {
@@ -94,13 +82,17 @@ export default function AdvFilters () {
         }
     }, [query]);
 
+    useEffect(() => {
+        setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); // Set default menu to "Latest" translated
+    },[tArray]);
+
     return(
         <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-6 mb-8 transition-colors">
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{getFilterTranslation(mainFilterMenu)}</h1>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{mainFilterMenu}</h1>
                             {seasonChoice && (
                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                                     selectedSeason ? `${selectedSeason.bgColor} ${selectedSeason.textColor}` : 'bg-indigo-100 text-indigo-800'
@@ -114,7 +106,7 @@ export default function AdvFilters () {
                     </div>                
 
                     <div id="mainMenuBtns" className="flex flex-wrap justify-start md:justify-end gap-3 mt-4 md:mt-0">
-                        {mainFilters.map((filter) => (
+                        {tArray<string>('advancedFilters.mainFilters').map((filter: string, index) => (
                             <div className="relative" key={filter}>
                                 <button 
                                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer
@@ -124,16 +116,16 @@ export default function AdvFilters () {
                                     onClick={() => handleMenuChange(filter)}
                                 >
                                     
-                                    {filter === "Seasonal" ? (
+                                    {index === 3 ? (
                                         <>
-                                            {seasonChoice ? getSeasonTranslation(seasonChoice) : getFilterTranslation(filter)}
+                                            {seasonChoice ? getSeasonTranslation(seasonChoice) : filter}
                                             <i className={`ri-arrow-${seasonalOpen ? 'up' : 'down'}-s-line ml-2`}></i>
                                         </>
                                     ) : (
-                                        getFilterTranslation(filter)
+                                        filter
                                     )}
                                 </button>
-                                {filter == "Seasonal" && (
+                                {index === 3 && (
                                     <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white dark:bg-gray-800 shadow-lg dark:shadow-black/30 rounded-md z-40" ref={seasonsRef} style={{display: seasonalOpen ? "block" : "none"}}>
                                         <div className="py-2">
                                             {seasonsData.map((season) => (

@@ -13,6 +13,10 @@ const translations = {
         signOut: 'Sign out',
         signIn: 'Sign in',
         signUp: 'Sign up',
+        home: 'Home',
+        search: 'Search',
+        profile: 'Profile',
+        dashboard: 'Dashboard'
     },
     footer: {
         aboutUs: 'About Us',
@@ -92,15 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Choose your filter preference to see matching recipes below',
-        filterPreference: {
-            latest: 'Latest',
-            popular: 'Popular',
-            seasonal: 'Seasonal',
-            trending: 'Trending',
-            quick: 'Quick & Easy',
-            budget: 'Budget-Friendly',
-            healthy: 'Healthy'
-        },
+        mainFilters: ["Latest", "Popular", "Top Rated", "Seasonal","Random"],
         seasons: {
             spring: 'Spring',
             summer: 'Summer',
@@ -132,7 +128,30 @@ const translations = {
         search: 'Search cuisines...',
         noCuisinesFound: 'No cuisines found',
         add: 'Add',
-        clear: 'Clear'
+        clear: 'Clear',
+        cuisinePlaceholder: 'Italian, Chinese, Mexican...',
+        cuisineOptions: [
+            "Italian", "Chinese", "Mexican", "Indian", "Japanese", 
+            "Thai", "French", "Greek", "Spanish", "Mediterranean", 
+            "American", "Korean", "Vietnamese", "Middle Eastern", "Brazilian"
+        ],
+        mealTypes: ["Breakfast", "Lunch", "Dinner", "Brunch", "Snack", "Dessert"],
+        restrictions: ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut-Free", "Low Carb"],
+        cookingMethods: {
+            baking: "Baking",
+            frying: "Frying",
+            grilling: "Grilling",
+            steaming: "Steaming",
+            boiling: "Boiling",
+            roasting: "Roasting",
+            sauteing: "Sautéing", 
+            slowCooking: "Slow Cooking"
+          },
+        occasions: [
+            "Birthday", "Holiday", "Casual", "Date Night", 
+            "Thanksgiving", "Christmas", "Wedding", "BBQ", 
+            "Game Day", "Picnic", "Brunch", "Potluck"
+        ]
     },
     tableFiltered: {
         title: 'Filtered Results',
@@ -201,6 +220,92 @@ const translations = {
             mealType: 'Meal Type Preferences:',
             cooking: 'Cooking Preferences:',
             noneSelected: 'None selected'
+        }
+    },
+    search: {
+        placeholder: 'Search recipes...',
+        cancel: 'Cancel'
+    },
+    myList: {
+        search: 'Search in',
+        filter: 'Filter',
+        export: 'Export',
+        import: 'Import',
+        prepareButton: 'Prepare',
+        showing: 'Showing',
+        of: 'of',
+        recipes: 'recipes',
+        bookmarks: 'Your Bookmarks',
+        bookmarked: 'Bookmarked',
+        tabs: {
+            list: 'List',
+            myRecipes: 'My Recipes',
+            collections: 'Collections',
+            bookmarked: 'Bookmarked',
+            commented: 'Commented'
+        },
+        // MY LIST TABLE HEADERS
+        mylistHeaders: [
+            "Recipe Name",
+            "Category",
+            "Difficulty",
+            "Cooking Time",
+            "Rating",
+            "Last Made",
+            "Date Added",
+            "Actions"
+        ],
+        comments: {
+            recentTitle: 'Recent Comments',
+            myComments: 'My Comments',
+            likedComments: 'Liked Comments',
+            myCommentsDescription: 'Comments you posted on recipes',
+            likedCommentsDescription: 'Comments from others that you liked',
+            profile: 'profile',
+            like: 'Like',
+            reply: 'Reply',
+            delete: 'Delete',
+            loadMore: 'Load More Comments'
+        }
+    },
+    profile: {
+        bannerAlt: "Profile banner",
+        avatarAlt: "Profile picture",
+        recipeCount: "{count} recipes",
+        buttons: {
+            editProfile: "Edit Profile",
+            settings: "Settings",
+            follow: "Follow",
+            message: "Message"
+        },
+        tabs: {
+            about: "About",
+            recipes: "Recipes",
+            followers: "Followers",
+            following: "Following"
+        },
+        gallery: {
+            title: "Recipe Gallery",
+            imageAlt: "Recipe image",
+            viewAll: "View All Photos"
+        },
+        aboutSection: {
+            title: "About {name}",
+            bio: "Passionate home cook with a love for experimenting with flavors from around the world. I believe that cooking is a creative expression that brings people together. My specialty is taking traditional recipes and giving them a modern twist.",
+            location: "Location",
+            joined: "Joined",
+            favoriteCuisine: "Favorite Cuisine",
+            achievements: "Achievements"
+        },
+        achievements: {
+            topChef: "Top Chef",
+            recipeCreator: "Recipe Creator",
+            trendsetter: "Trendsetter"
+        },
+        emptyStates: {
+            recipes: "User's recipes will be displayed here",
+            followers: "User's followers will be displayed here",
+            following: "Accounts this user follows will be displayed here"
         }
     }
 }

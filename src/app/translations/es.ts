@@ -2,8 +2,8 @@ const translations = {
     navBar: {
         categories: 'Categorías',
         popularRecipes: 'Recetas Más Populares Ahora',
-        trendingRecipes: 'Recetas Tendencia de Esta Semana',
-        seasonal: 'Favoritos de Temporada',
+        trendingRecipes: 'Recetas Tendencia Esta Semana',
+        seasonal: 'Favoritas de Temporada',
         featuredChefs: 'Colecciones de Chefs Destacados',
         browseCategories: 'Explorar Todas las Categorías',
         advanced: 'Avanzado',
@@ -13,6 +13,10 @@ const translations = {
         signOut: 'Cerrar Sesión',
         signIn: 'Iniciar Sesión',
         signUp: 'Registrarse',
+        home: 'Inicio',
+        search: 'Buscar',
+        profile: 'Perfil',
+        dashboard: 'Panel'
     },
     footer: {
         aboutUs: 'Sobre Nosotros',
@@ -92,15 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Elige tu preferencia de filtro para ver recetas coincidentes a continuación',
-        filterPreference: {
-            latest: 'Más Recientes',
-            popular: 'Populares',
-            seasonal: 'De Temporada',
-            trending: 'Tendencias',
-            quick: 'Rápidas & Fáciles',
-            budget: 'Económicas',
-            healthy: 'Saludables'
-        },
+        mainFilters: ["Más recientes", "Popular", "Mejor valorados", "De temporada", "Aleatorio"],
         seasons: {
             spring: 'Primavera',
             summer: 'Verano',
@@ -132,7 +128,31 @@ const translations = {
         search: 'Buscar cocinas...',
         noCuisinesFound: 'No se encontraron cocinas',
         add: 'Añadir',
-        clear: 'Limpiar'
+        clear: 'Limpiar',
+        cuisinePlaceholder: 'Italiana, China, Mexicana...',
+        cuisineOptions: [
+            "Italiana", "China", "Mexicana", "India", "Japonesa", 
+            "Tailandesa", "Francesa", "Griega", "Española", "Mediterránea", 
+            "Americana", "Coreana", "Vietnamita", "Medio Oriente", "Brasileña"
+        ],
+        mealTypes: ["Desayuno", "Almuerzo", "Cena", "Brunch", "Merienda", "Postre"],
+        restrictions: ["Vegetariano", "Vegano", "Sin Gluten", "Sin Lactosa", "Sin Frutos Secos", "Bajo en Carbohidratos"],
+        cookingMethods: {
+            baking: "Hornear",
+            frying: "Freír",
+            grilling: "Asar a la parrilla",
+            steaming: "Cocer al vapor",
+            boiling: "Hervir",
+            roasting: "Asar",
+            sauteing: "Saltear",
+            slowCooking: "Cocción lenta"
+          },
+
+        occasions: [
+            "Cumpleaños", "Vacaciones", "Casual", "Cita Romántica", 
+            "Acción de Gracias", "Navidad", "Boda", "Barbacoa", 
+            "Día de Partido", "Picnic", "Brunch", "Comida Compartida"
+        ]
     },
     tableFiltered: {
         title: 'Resultados Filtrados',
@@ -201,6 +221,91 @@ const translations = {
             mealType: 'Preferencias de Tipo de Comida:',
             cooking: 'Preferencias de Cocina:',
             noneSelected: 'Ninguna seleccionada'
+        }
+    },
+    search: {
+        placeholder: 'Buscar recetas...',
+        cancel: 'Cancelar'
+    },
+    myList: {
+        search: 'Buscar en',
+        filter: 'Filtrar',
+        export: 'Exportar',
+        import: 'Importar',
+        prepareButton: 'Preparar',
+        showing: 'Mostrando',
+        of: 'de',
+        recipes: 'recetas',
+        bookmarks: 'Tus Favoritos',
+        bookmarked: 'Guardado',  
+        tabs: {
+            list: 'Lista',
+            myRecipes: 'Mis Recetas',
+            collections: 'Colecciones',
+            bookmarked: 'Guardadas',
+            commented: 'Comentadas'
+        },
+        mylistHeaders: [
+            "Nombre de Receta",
+            "Categoría",
+            "Dificultad",
+            "Tiempo de Cocción",
+            "Calificación",
+            "Último Uso",
+            "Fecha Añadida",
+            "Acciones"
+        ],
+        comments: {
+            recentTitle: 'Comentarios Recientes',
+            myComments: 'Mis Comentarios',
+            likedComments: 'Comentarios que me Gustaron',
+            myCommentsDescription: 'Comentarios que publicaste en recetas',
+            likedCommentsDescription: 'Comentarios de otros que te gustaron',
+            profile: 'perfil',
+            like: 'Me gusta',
+            reply: 'Responder',
+            delete: 'Eliminar',
+            loadMore: 'Cargar Más Comentarios'
+        }
+    },
+    profile: {
+        bannerAlt: "Banner de perfil",
+        avatarAlt: "Foto de perfil",
+        recipeCount: "{count} recetas",
+        buttons: {
+            editProfile: "Editar Perfil",
+            settings: "Configuración",
+            follow: "Seguir",
+            message: "Mensaje"
+        },
+        tabs: {
+            about: "Sobre",
+            recipes: "Recetas",
+            followers: "Seguidores",
+            following: "Siguiendo"
+        },
+        gallery: {
+            title: "Galería de Recetas",
+            imageAlt: "Imagen de receta",
+            viewAll: "Ver Todas las Fotos"
+        },
+        aboutSection: {
+            title: "Sobre {name}",
+            bio: "Cocinero apasionado con amor por experimentar con sabores de todo el mundo. Creo que cocinar es una expresión creativa que une a las personas. Mi especialidad es tomar recetas tradicionales y darles un giro moderno.",
+            location: "Ubicación",
+            joined: "Se unió",
+            favoriteCuisine: "Cocina Favorita",
+            achievements: "Logros"
+        },
+        achievements: {
+            topChef: "Chef Principal",
+            recipeCreator: "Creador de Recetas",
+            trendsetter: "Innovador"
+        },
+        emptyStates: {
+            recipes: "Las recetas del usuario se mostrarán aquí",
+            followers: "Los seguidores del usuario se mostrarán aquí",
+            following: "Las cuentas que sigue este usuario se mostrarán aquí"
         }
     }
 }

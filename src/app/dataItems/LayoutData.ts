@@ -13,12 +13,12 @@ export const languageOptions = [
 
 // NAVBAR
 export const navItems = [
-    { name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
-    { name: 'My List', icon: 'ri-bookmark-line', link: '/pages/mylist' },
-    { name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
-    { name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
-    { name: 'Profile', icon: 'ri-user-line', link: '/pages/profile' },
-    { name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/preferences' },
+    { id: 'home', name: 'Home', icon: 'ri-home-5-line', link: '/pages/home' },
+    { id: 'myList', name: 'My List', icon: 'ri-bookmark-line', link: '/pages/home/myList' },
+    { id: 'categories', name: 'Categories', icon: 'ri-restaurant-line', link: '/pages/categories' },
+    { id: 'search', name: 'Search', icon: 'ri-search-line', link: '/pages/search' },
+    { id: 'profile', name: 'Profile', icon: 'ri-user-line', link: '/pages/home/profile' },
+    { id: 'settings', name: 'Settings', icon: 'ri-settings-4-line', link: '/pages/home/preferences' },
 ];
 
 // FOOTER 

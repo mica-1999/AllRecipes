@@ -1,6 +1,5 @@
 "use client"
-import { useState, useRef } from "react";
-import { cuisineOptions } from "@/app/dataItems/AdvFiltersData";
+import { useState, useRef, useMemo } from "react";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 import { useTheme } from '@/app/context/ThemeContext';
 
@@ -10,7 +9,7 @@ interface MealOptionsProps {
 }
 
 export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOptionsProps) {
-    const { t } = useTheme();
+    const { t, tArray, language } = useTheme();
     
     // State Variables
     const [isOpen, setIsOpen] = useState(false);
@@ -22,10 +21,12 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
     // Close the dropdown when clicking outside of it
     useClickOutside(dropdownRef, setIsOpen);
     
-    // Filter options based on search term
-    const filteredOptions = cuisineOptions.filter(cuisine => 
-        cuisine.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Get cuisine options from translations and filter them based on search term
+    const filteredOptions = useMemo(() => {
+        return tArray<string>('advancedFilters.cuisineOptions').filter(cuisine => 
+            cuisine.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [searchTerm, tArray, language]);
     
     // Toggle selection of a cuisine
     const toggleCuisine = (cuisine: string) => {
@@ -46,10 +47,10 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
                         onClick={() => setIsOpen(!isOpen)}
                     >
                         <span className={mealTypeFilter.length ? "text-gray-800 dark:text-white" : "text-gray-500 dark:text-gray-400"}>
-                            {mealTypeFilter.length ? mealTypeFilter.join(", ") : "Italian, Chinese, Mexican..."}
+                            {mealTypeFilter.length ? mealTypeFilter.join(", ") : t('advancedFilters.cuisinePlaceholder')}
                         </span>
                         <svg className={`h-5 w-5 text-gray-400 dark:text-gray-300 transition-transform duration-200 ${isOpen ? "transform rotate-180" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                     </div>
                     

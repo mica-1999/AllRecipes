@@ -1,6 +1,6 @@
 export const profileTabs = [
-    {name: 'About', icon: "ri-information-line"},
-    {name: 'Recipes', icon: "ri-book-2-line"},
-    {name: 'Followers', icon: "ri-user-follow-line"},
-    {name: 'Following', icon: "ri-user-shared-line"}
-]; 
+    { id: "about", name: "About", icon: "ri-user-3-line" },
+    { id: "recipes", name: "Recipes", icon: "ri-restaurant-line" },
+    { id: "followers", name: "Followers", icon: "ri-group-line" },
+    { id: "following", name: "Following", icon: "ri-team-line" }
+];

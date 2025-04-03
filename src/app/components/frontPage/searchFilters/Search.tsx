@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
+import { useTheme } from '@/app/context/ThemeContext';
 
 interface SearchFilterProps {
     openSearch: boolean;
@@ -7,6 +8,9 @@ interface SearchFilterProps {
 }
 
 export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterProps) {
+    // Get translations from Theme context
+    const { t } = useTheme();
+    
     // Ref for the search box element
     const searchRef = useRef<HTMLDivElement>(null);
     
@@ -59,7 +63,7 @@ export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterP
                         </div>
                         <input
                             type="text"
-                            placeholder="Search recipes..."
+                            placeholder={t('search.placeholder')}
                             className="flex-grow font-medium text-gray-700 dark:text-gray-200 border-none focus:ring-0 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400"
                             autoFocus
                             onFocus={() => setIsFocused(true)}
@@ -70,9 +74,9 @@ export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterP
                     {/* Cancel button - with border */}
                     <button 
                         onClick={() => setOpenSearch(false)} 
-                        className="flex-shrink-0 px-4 py-1.5 rounded-md text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-white transition-colors font-medium"
+                        className="flex-shrink-0 px-4 py-1.5 rounded-md text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-white transition-colors font-medium cursor-pointer"
                     >
-                        Cancel
+                        {t('search.cancel')}
                     </button>
                 </div>
             </div>

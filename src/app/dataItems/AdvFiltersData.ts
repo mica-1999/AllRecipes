@@ -1,5 +1,4 @@
 // MAIN MENU 
-export const mainFilters = ["Latest", "Popular", "Top Rated", "Seasonal","Random"]; 
 export const seasonsData = [
   { 
     name: "Spring", 
@@ -31,26 +30,6 @@ export const seasonsData = [
   }
 ];
 
-// MEAL OPTIONS
-export const cuisineOptions = [
-  "Italian", "Chinese", "Mexican", "Indian", "Japanese", 
-  "Thai", "French", "Greek", "Spanish", "Mediterranean", 
-  "American", "Korean", "Vietnamese", "Middle Eastern", "Brazilian"
-];
-
-// MEAL TYPES
-export const mealTypes = ["Breakfast", "Lunch", "Dinner", "Brunch", "Snack", "Dessert"];
-
-// DIETARY RESTRICTIONS
-export const restrictions = [
-  { id: "vegetarian", label: "Vegetarian" },
-  { id: "vegan", label: "Vegan" },
-  { id: "glutenFree", label: "Gluten-Free" },
-  { id: "dairyFree", label: "Dairy-Free" },
-  { id: "nutFree", label: "Nut-Free" },
-  { id: "lowCarb", label: "Low Carb" },
-];
-
 // DIFFICULTY LEVELS
 export const difficulties = [
   { value: "Easy", color: "bg-green-100 text-green-800 border-green-300" },
@@ -70,15 +49,7 @@ export const methods = [
   { name: "Slow Cooking", icon: "⏱️" }
 ];
 
-// OCCASIONS
-export const occasions = [
-  "Birthday", "Holiday", "Casual", "Date Night", 
-  "Thanksgiving", "Christmas", "Wedding", "BBQ", 
-  "Game Day", "Picnic", "Brunch", "Potluck"
-];
-
 // TABLE OF RESULTS 
-
 export const listHeaders = [
   "Recipe Name",
   "Views",

@@ -1,22 +1,24 @@
 import Image from "next/image"
-import { generalHeaders } from "@/app/dataItems/MyListData";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function List() {
+    const { tArray, t } = useTheme()
+    
     // Function to handle navigation to recipe details page
     const ToRecipeDetails = (id: number) => {
         window.location.href = `/pages/home/recipeDetails?id=${id}`;
     }
 
     return (
-        <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700">
+        <div className="w-full dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700 mb-20">
             {/* Table Header */}
             <div id="tableHeaders" className="flex w-full bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-200 font-medium text-sm">
-                {generalHeaders.map((header, index) => (
+                {tArray<string>('myList.mylistHeaders').map((header, index) => (
                     <div key={index} className={`
                         px-4 py-3.5 flex items-center
-                        ${header === "Recipe Name" ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}
-                        ${header === "Category" || header === "Difficulty" ? "lg:flex md:hidden" : ""}
-                        ${header === "Actions" ? "w-1/4 md:w-1/8 justify-end md:justify-center" : ""}
+                        ${index === 0 ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}
+                        ${index === 1 || index === 2 ? "lg:flex md:hidden" : ""}
+                        ${index === 7 ? "w-1/4 md:w-1/8 justify-end md:justify-center" : ""}
                     `}>
                         {header}
                     </div>
@@ -110,7 +112,7 @@ export default function List() {
                         <div id="actions" className="w-1/4 md:w-1/8 flex items-center justify-end md:justify-center gap-2 p-2.5">
                             <button className="px-3 py-1.5 rounded-lg bg-[#FF6B35] dark:bg-indigo-600 text-white hover:bg-[#e05a2a] dark:hover:bg-indigo-500 transition-colors text-xs font-medium cursor-pointer">
                                 <i className="ri-chef-hat-line mr-1"></i>
-                                Prepare
+                                {t('myList.prepareButton')}
                             </button>
                             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer">
                                 <i className="ri-more-2-fill"></i>
@@ -121,9 +123,9 @@ export default function List() {
             </div>
             
             {/* Table Footer */}
-            <div className="flex justify-between items-center px-4 py-3 bg-gray-50 dark:bg-gray-700/60 border-t border-gray-200 dark:border-gray-700 mb-20">
+            <div className="flex justify-between items-center px-4 py-3 bg-gray-50 dark:bg-gray-700/60 border-t border-gray-200 dark:border-gray-700">
                 <div className="text-sm text-gray-600 dark:text-gray-300 ml-10">
-                    Showing <span className="font-medium dark:text-white">10</span> of <span className="font-medium dark:text-white">24</span> recipes
+                    {t('myList.showing')} <span className="font-medium dark:text-white">10</span> {t('myList.of')} <span className="font-medium dark:text-white">24</span> {t('myList.recipes')}
                 </div>
                 <div className="flex gap-1">
                     <button className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">

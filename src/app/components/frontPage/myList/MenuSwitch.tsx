@@ -9,20 +9,20 @@ import Commented from "@/app/components/frontPage/myList/Comments"
 
 export default function MenuSwitcher() {
     // State to manage the selected menu option
-    const [selectedMenu, setSelectedMenu] = useState('List')
+    const [selectedMenu, setSelectedMenu] = useState('list')
 
     // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {
         switch(selectedMenu) {
-            case 'List':
+            case 'list':
                 return <List />
-            case 'Collections':
+            case 'collections':
                 return <Collections />
-            case 'My Recipes':
+            case 'myRecipes':
                 return <MyRecipes />
-             case 'Commented':
+             case 'commented':
                 return <Commented />
-            case 'Bookmarked':
+            case 'bookmarked':
                 return <Bookmarked />
             default:
                 return <List />

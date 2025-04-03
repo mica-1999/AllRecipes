@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { getTranslations } from '@/app/translations/translationUtils';
 
@@ -15,6 +15,7 @@ type ThemeContextType = {
   savedLanguage: string;
   setSavedLanguage: (language: string) => void;
   t: (key: string) => string; // Add translation function to context
+  tArray: <T>(key: string) => T[]; // Add translation function for arrays to context
 };
 
 // Create the context with a default undefined value
@@ -108,6 +109,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return typeof result === 'string' ? result : key;
   };
 
+  // Translation function for arrays
+  const tArray = <T,>(key: string): T[] => {
+    const translations = getTranslations(language);
+    const keys = key.split('.');
+    let result: any = translations;
+    
+    for (const k of keys) {
+      if (result && typeof result === 'object' && k in result) {
+        result = result[k];
+      } else {
+        return [] as T[];
+      }
+    }
+    
+    return Array.isArray(result) ? result : [] as T[];
+  };
+
   return (
     <ThemeContext.Provider value={{ 
       theme, 
@@ -118,7 +136,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setSavedTheme, 
       savedLanguage, 
       setSavedLanguage,
-      t // Add translation function to the context
+      t, // Add translation function to the context
+      tArray // Add translation function for arrays to the context
     }}>
       {children}
     </ThemeContext.Provider>

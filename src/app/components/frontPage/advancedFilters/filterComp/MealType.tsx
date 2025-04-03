@@ -1,5 +1,4 @@
 "use client"
-import { mealTypes } from "@/app/dataItems/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface MealTypeProps {
@@ -8,7 +7,7 @@ interface MealTypeProps {
 }
 
 export default function MealType({mealType, setMealType}: MealTypeProps) {
-    const { t } = useTheme();
+    const { t, tArray } = useTheme();
     
     const toggleMealType = (type: string) => {
         if (mealType.includes(type)) {
@@ -23,7 +22,7 @@ export default function MealType({mealType, setMealType}: MealTypeProps) {
             <div className={`bg-white dark:bg-gray-800 p-5 ${mealType.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.mealType')}</h2>
                 <div className="flex flex-wrap gap-2">
-                    {mealTypes.map((type) => (
+                    {tArray<string>('advancedFilters.mealTypes').map((type) => (
                         <button
                             key={type}
                             onClick={() => toggleMealType(type)}

@@ -178,7 +178,7 @@ export default function Navbar() {
                                         <Link href="/dashboard">
                                             <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                 <i className="ri-dashboard-line mr-2 text-gray-500 dark:text-gray-400"></i>
-                                                Dashboard
+                                                {t('navBar.dashboard')} 
                                             </div>
                                         </Link>
                                         
@@ -223,7 +223,7 @@ export default function Navbar() {
                 <Link key={index} href={item.link} className="w-1/6 h-full">
                     <div className="flex flex-col h-full items-center justify-center gap-1 hover:bg-gray-300 active:bg-[#e55a29] transition-colors duration-200 dark:hover:bg-gray-700 dark:active:bg-indigo-800 dark:text-gray-200">
                         <i className={`${item.icon} text-[20px]`}></i>
-                        <span className="text-[10px] font-medium">{item.name}</span>
+                        <span className="text-[10px] font-medium">{t(`navBar.${item.id}`)}</span>
                     </div>
                 </Link>
             ))}

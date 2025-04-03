@@ -19,6 +19,18 @@ export default function CookingMethod({cookingMethod, setCookingMethod}: Cooking
         }
     };
 
+    // Function to get the method translation
+    const getMethodTranslation = (methodName: string) => {
+
+        // Handle specific cases for translations (space and special characters)
+        if (methodName === "Sautéing") return t('advancedFilters.cookingMethods.sauteing');
+        if (methodName === "Slow Cooking") return t('advancedFilters.cookingMethods.slowCooking');
+
+        // Convert method name to lowercase and remove spaces for use as a translation key
+        const key = methodName.toLowerCase().replace(/\s+/g, '');
+        return t(`advancedFilters.cookingMethods.${key}`);
+    };
+
     return(
         <>
             <div className={`bg-white dark:bg-gray-800 p-5 ${cookingMethod.length > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
@@ -35,7 +47,7 @@ export default function CookingMethod({cookingMethod, setCookingMethod}: Cooking
                             }`}
                         >
                             <span className="text-2xl mb-1 dark:text-gray-200">{method.icon}</span>
-                            <span className="text-xs font-medium text-center text-gray-700 dark:text-gray-300">{method.name}</span>
+                            <span className="text-xs font-medium text-center text-gray-700 dark:text-gray-300">{getMethodTranslation(method.name)}</span>
                         </div>
                     ))}
                 </div>

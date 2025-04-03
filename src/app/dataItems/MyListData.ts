@@ -1,34 +1,11 @@
 // MENU 
 export const listItems = [
-    {name: 'List', icon: "ri-list-check"},
-    {name: 'My Recipes', icon: "ri-edit-2-line"},
-    {name: 'Collections', icon: "ri-folder-line"},
-    {name: 'Bookmarked', icon: "ri-bookmark-line"},
-    {name: 'Commented', icon: "ri-chat-3-line"}
+    {id: "list", name: "List", icon: "ri-list-check"},
+    {id: "myRecipes", name: "My Recipes", icon: "ri-edit-2-line"},
+    {id: "collections", name: "Collections", icon: "ri-folder-line"},
+    {id: "bookmarked", name: "Bookmarked", icon: "ri-bookmark-line"},
+    {id: "commented", name: "Commented", icon: "ri-chat-3-line"}
 ] 
-// MY LIST TABLE HEADERS
-export const mylistHeaders = [
-    "Recipe Name",
-    "Category",
-    "Difficulty",
-    "Cooking Time",
-    "Rating",
-    "Last Made",
-    "Date Added",
-    "Actions"
-]
-
-// GENERAL LIST TABLE HEADERS 
-export const generalHeaders = [
-    "Recipe Name",
-    "Category",
-    "Difficulty",
-    "Cooking Time",
-    "Rating",
-    "Last Made",
-    "Date Added",
-    "Actions"
-]
 
 // BOOKMARK
 export const bookmarkedRecipes = [
