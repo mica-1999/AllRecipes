@@ -1,9 +1,3 @@
-// documentation
-// @ attribute or decorators represent a special contraint or behavior
-// ? means the field is optional
-// in 1 to many or many to many, it's essential to say that table can have many (things)
-// Example   recipes   Recipe[] // One user can have multiple recipes
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,6 +5,87 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int              @id @default(autoincrement())
+  username        String           @unique
+  password        String
+  firstname       String
+  lastname        String
+  email           String           @unique
+  phone           String?
+  role            String           @default("viewer")
+  isactive        String           @default("pending")
+  lastlogin       DateTime?        @db.Timestamp(6)
+  createdat       DateTime         @default(now()) @db.Timestamp(6)
+  job             String?
+  Address         Address?
+  Recipe          Recipe[]
+  Session         Session[]
+  UserPreferences UserPreferences?
+
+  @@index([email])
+  @@index([username])
+}
+
+model UserPreferences {
+  id          Int         @id @default(autoincrement())
+  visualtheme VisualTheme @default(Light)
+  language    language    @default(English)
+  userid      Int         @unique
+  User        User        @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  createdat DateTime @default(now()) @db.Timestamp(6)
+  updatedat DateTime @default(now()) @db.Timestamp(6)
+  userid    Int
+  User      User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([userid], map: "Session_userId_idx")
+}
+
+model Recipe {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  description         String
+  ingredients         String[]
+  instructions        String[]
+  cooktime            Int?
+  difficulty          difficulty
+  image               String
+  rating              Float?
+  season              String?
+  categorytype        String
+  cuisinetype         cuisineType
+  mealtype            mealType
+  dietaryrestrictions dietaryRestrictions[]
+  numcalories         Int?
+  cookingmethod       cookingMethod?
+  occasions           String[]
+  servings            Int?
+  viewcount           Int                   @default(0)
+  createdat           DateTime              @default(now()) @db.Timestamp(6)
+  updatedat           DateTime              @default(now()) @db.Timestamp(6)
+  userid              Int
+  User                User                  @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([cuisinetype], map: "Recipe_cuisineType_idx")
+  @@index([mealtype], map: "Recipe_mealType_idx")
+  @@index([userid], map: "Recipe_userId_idx")
+}
+
+model Address {
+  id         Int     @id @default(autoincrement())
+  street     String?
+  city       String?
+  state      String?
+  postalcode String?
+  country    String?
+  userid     Int?    @unique
+  User       User?   @relation(fields: [userid], references: [id], onUpdate: NoAction)
 }
 
 enum VisualTheme {
@@ -74,81 +149,6 @@ enum cookingMethod {
   Steaming
   Boiling
   Roasting
-  Sautéing
+  // Sautéing
   SlowCooking
-}
-
-// User model
-model User {
-  id        Int      @id @default(autoincrement()) // Primary key
-  username  String   @unique
-  password  String
-  firstName String
-  lastName  String
-  email     String   @unique
-  phone     String?
-  role      String   @default("viewer")
-  isActive  String   @default("pending")
-  address   Address?
-  lastLogin DateTime?
-  createdAt DateTime @default(now())
-  job       String?
-  recipes   Recipe[] // One user can have multiple recipes
-  sessions  Session[] // One user can have multiple sessions
-  userPreferences UserPreferences? @relation("UserToPreferences") // Each user should have one user preferences
-}
-
-model UserPreferences {
-  id        Int      @id @default(autoincrement()) // Primary key
-  visualTheme VisualTheme @default(Light)   // Default value is "light"
-  language    language @default(English) // Default value is "en"
-  userId    Int   @unique// Foreign Key
-  user User @relation("UserToPreferences", fields: [userId], references: [id]) // Foreign key relation with User
-}
-
-model Session {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int      // Removed @unique constraint to allow multiple sessions per user
-  user      User    @relation(fields: [userId], references: [id]) // Foreign key relation with User
-}
-
-// Recipe model
-model Recipe {
-  id        Int      @id @default(autoincrement()) // Primary key
-  title     String
-  description String
-  ingredients String[] // Array of strings for ingredients 
-  instructions String[] // Array of strings for instructions
-  cookTime Int? // Cooking time in minutes (separate from prep time)
-  difficulty difficulty // Difficulty level (e.g., Easy, Medium, Hard)
-  image String   
-  rating Float? // Optional rating field
-  season String? // Optional season field
-  categoryType String // Category type field
-  cuisineType cuisineType // Cuisine type for the recipe (e.g., Italian, Chinese)
-  mealType mealType // Meal type field (e.g., Breakfast, Lunch, Dinner)
-  dietaryRestrictions dietaryRestrictions[] // Array of strings for dietary restrictions
-  numCalories Int? // Optional number of calories field
-  cookingMethod cookingMethod? // Optional cooking method (e.g. Baking, Frying)
-  occasions String[] // Array of strings for occasions
-  servings Int? // How many people the recipe serves
-  viewCount Int @default(0) // Track popularity
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int      // Foreign key
-  user      User     @relation(fields: [userId], references: [id]) // Foreign key relation
-}
-
-// Address model (one-to-one with User)
-model Address {
-  id        Int      @id @default(autoincrement()) // Primary key
-  street    String?
-  city      String?
-  state     String?
-  postalCode String?
-  country   String?
-  userId    Int?     @unique// Foreign key (optional, since the user may or may not have an address)
-  user      User?    @relation(fields: [userId], references: [id]) // Foreign key relation with User
 }
