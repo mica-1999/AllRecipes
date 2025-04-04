@@ -41,8 +41,8 @@ export async function POST(request: Request){
             data: {
                 username: username,
                 password: hashedPassword,
-                firstName: username,
-                lastName: "User",
+                firstname: username,
+                lastname: "User",
                 email: `${username}@example.com`,
             }
         });

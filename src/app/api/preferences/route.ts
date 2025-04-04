@@ -15,11 +15,11 @@ export async function GET( req: Request){
         // DB Query for fetching user preferences
         const preferences = await prisma.userPreferences.findUnique({
             select: {
-                visualTheme: true,
+                visualtheme: true,
                 language: true
             },
             where: {
-                userId: userId
+                userid: userId
             }
         });
         
@@ -49,7 +49,7 @@ export async function POST (req :Request){
         // DB Query for creating user preferences
         await prisma.userPreferences.create({
             data: {
-                userId: userIdNumber
+                userid: userIdNumber
             }
         })
         return NextResponse.json({message: "Preferences created for user: " + userIdNumber},{ status:201});
@@ -73,11 +73,11 @@ export async function PUT(req: Request){
         // DB Query for updating user preferences
         await prisma.userPreferences.update({
             data : {
-                visualTheme: visualTheme,
+                visualtheme: visualTheme,
                 language: language
             },
             where: {
-                userId : userIdNumber
+                userid : userIdNumber
             }
         })
         return NextResponse.json({message: "Preferences updated for user: " + userIdNumber}, {status: 200});

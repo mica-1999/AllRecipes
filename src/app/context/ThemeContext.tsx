@@ -34,10 +34,10 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 // Create the provider component
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   // Initialize from localStorage with fallback values
-  const [theme, setTheme] = useState<string>(() => {
+  const [theme, setTheme] = useState<string>(() => {  
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || "Light";
     }
@@ -53,21 +53,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   
   const [savedTheme, setSavedTheme] = useState<string>(theme);
   const [savedLanguage, setSavedLanguage] = useState<string>(language);
-
-  // Save theme to localStorage when it changes
-  useEffect(() => {
-    if (typeof window !== 'undefined' && theme) {
-      localStorage.setItem('theme', theme);
-    }
-  }, [theme]);
-
-  // Save language to localStorage when it changes
-  useEffect(() => {
-    if (typeof window !== 'undefined' && language) {
-      localStorage.setItem('language', language);
-    }
-  }, [language]);
-
+  
   // Load preferences when session is available
   useEffect(() => {
     const loadPreferences = async () => {
@@ -86,8 +72,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             setLanguage(data.language);
             setSavedTheme(data.visualTheme);
             setSavedLanguage(data.language);
-            
-            // Also update localStorage to keep them in sync
+
+            // Store in localStorage for future reference
             if (typeof window !== 'undefined') {
               localStorage.setItem('theme', data.visualTheme);
               localStorage.setItem('language', data.language);

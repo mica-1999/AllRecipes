@@ -1,6 +1,6 @@
 "use client"
 import { useSession } from "next-auth/react";
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { modeStyles, languageOptions } from "@/app/data/LayoutData";
@@ -44,7 +44,13 @@ export default function StickyButton() {
             if(response.ok){
                 // Save new theme and language to context        
                 setSavedTheme(theme); 
-                setSavedLanguage(language);      
+                setSavedLanguage(language);     
+                
+                // Save new theme and language to localStorage
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('theme', theme);
+                    localStorage.setItem('language', language);
+                  }
                 
                 // Close the config menu and show success message
                 setShowConfig(false)
@@ -73,8 +79,6 @@ export default function StickyButton() {
         }
     }
 
-
-
     const handleReset = (method: HandleResetProps["method"]) => {
         setLanguage(savedLanguage);
         setTheme(savedTheme);
@@ -91,7 +95,13 @@ export default function StickyButton() {
             });
         }
     }
-    
+
+    useEffect(() => {
+        if(theme){
+            console.log("Theme changed to: ", theme)
+        }
+    },[theme])
+
     return(
         <>
             <div 
@@ -154,11 +164,9 @@ export default function StickyButton() {
                                     <button 
                                         onClick={() => {
                                             setTheme(mode.type)
-                                        }
-                                            
-                                        }
+                                        }}
                                         className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            theme === mode.type 
+                                            (theme || savedTheme) === mode.type  // Add fallback to savedTheme
                                                 ? `bg-gradient-to-r ${mode.activeGradient} shadow-md`
                                                 : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600"
                                         }`}

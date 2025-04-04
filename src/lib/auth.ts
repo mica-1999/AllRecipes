@@ -12,7 +12,7 @@ const addSession = async (userId: number) => {
      // Check if a session exists for this user
      const findSession = await prisma.session.findFirst({
       where: {
-        userId: userId
+        userid: userId
       }
     });
 
@@ -26,7 +26,7 @@ const addSession = async (userId: number) => {
           id: findSession.id
         },
         data: {
-          updatedAt: currentTimestamp
+          updatedat: currentTimestamp
         }
       });
       console.log(`Updated session timestamp for user: ${userId}`);
@@ -35,9 +35,9 @@ const addSession = async (userId: number) => {
     else {
       await prisma.session.create({
         data: {
-          userId: userId,
-          createdAt: currentTimestamp,
-          updatedAt: currentTimestamp
+          userid: userId,
+          createdat: currentTimestamp,
+          updatedat: currentTimestamp
         }
       });
     }
@@ -91,8 +91,8 @@ export const authOptions: NextAuthOptions = {
           return {
             id: user.id.toString(), // Converting to string as NextAuth expects string IDs
             username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            firstName: user.firstname,
+            lastName: user.lastname,
             role: user.role
           };
         } 
@@ -148,11 +148,11 @@ export const authOptions: NextAuthOptions = {
             data: {
               email: user.email as string,
               username: (user.email as string).split('@')[0] + `-${account?.provider}`,
-              firstName: user.name?.split(' ')[0] || '',
-              lastName: user.name?.split(' ').slice(1).join(' ') || '',
+              firstname: user.name?.split(' ')[0] || '',
+              lastname: user.name?.split(' ').slice(1).join(' ') || '',
               password: '', // Empty password for OAuth users
               role: 'viewer',
-              isActive: 'active', // Social login users are active by default
+              isactive: 'active', // Social login users are active by default
             }
           });
           
