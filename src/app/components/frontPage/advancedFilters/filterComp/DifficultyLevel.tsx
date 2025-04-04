@@ -34,7 +34,6 @@ export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: D
                                 id={`difficulty-${difficulty.value}`}
                                 type="radio"
                                 name="difficulty"
-                                checked={difficultyLevel === difficulty.value}
                                 onChange={() => selectDifficulty(difficulty.value)}
                                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 cursor-pointer"
                             />

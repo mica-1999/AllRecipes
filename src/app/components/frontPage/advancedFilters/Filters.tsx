@@ -43,11 +43,11 @@ export default function AdvFilters () {
     // State variables for Filters
     const [cuisineFilter, setCuisineFilter] = useState<string[]>([]);  // Changed from mealTypeFilter
     const [mealType, setMealType] = useState<string[]>([]);
-    const [cookingTime, setCookingTime] = useState<number>(30);
+    const [cookingTime, setCookingTime] = useState<number>(0);
     const [dietaryRestrictions, setDietaryRestrictions] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<string[]>([]);
-    const [difficultyLevel, setDifficultyLevel] = useState<string>("Easy");
-    const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 200, max: 800});
+    const [difficultyLevel, setDifficultyLevel] = useState<string>("");
+    const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 0, max: 2000});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
     

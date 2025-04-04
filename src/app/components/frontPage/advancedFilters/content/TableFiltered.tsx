@@ -1,9 +1,36 @@
 "use client"
 import Image from "next/image"
-import { listHeaders, filteredRecipesData } from "@/app/data/AdvFiltersData"
+import { listHeaders } from "@/app/data/AdvFiltersData"
 import { useTheme } from '@/app/context/ThemeContext';
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { difficulty, cuisineType, mealType, dietaryRestrictions, cookingMethod } from "@prisma/client";
+
+// Define the Recipe interface based on your Prisma schema
+interface Recipe {
+  id: number;
+  title: string;
+  description: string;
+  ingredients: string[];
+  instructions: string[];
+  cooktime?: number | null;
+  difficulty: difficulty;
+  image: string;
+  rating?: number | null;
+  season?: string | null;
+  categorytype: string;
+  cuisinetype: cuisineType;
+  mealtype: mealType;
+  dietaryrestrictions: dietaryRestrictions[];
+  numcalories?: number | null;
+  cookingmethod?: cookingMethod | null;
+  occasions: string[];
+  servings?: number | null;
+  viewcount: number;
+  createdat: string;
+  updatedat: string;
+  userid: number;
+}
 
 interface CaloriesRangeType {
     min: number;
@@ -36,8 +63,7 @@ export default function TableFiltered({
     seasonChoice
 }: TableFilteredProps) {
 
-    const [recipes, setRecipes] = useState([]);
-    const [filteredRecipes, setFilteredRecipes] = useState([]);
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
     const { t, theme } = useTheme();
     
     // Translating the header labels
@@ -53,16 +79,36 @@ export default function TableFiltered({
 
     const fetchRecipes = async () => {
         try {
-            const response = await fetch('/api/recipes', {
-                method : 'GET',
-                headers : {
+            // Build query parameters from filters
+            const params = new URLSearchParams();
+            
+            // Add all filters to query params - only add non-empty values
+            if (cuisineFilter.length > 0) params.append('cuisine', cuisineFilter.join(','));
+            if (mealType.length > 0) params.append('mealType', mealType.join(','));
+            if (cookingTime > 0) params.append('cookingTime', cookingTime.toString());
+            if (dietaryRestrictions.length > 0) params.append('diet', dietaryRestrictions.join(','));
+            if (ingredients.length > 0) params.append('ingredients', ingredients.join(','));
+            if (difficultyLevel) params.append('difficulty', difficultyLevel);
+            if (caloriesRange.min > 0) params.append('caloriesMin', caloriesRange.min.toString());
+            if (caloriesRange.max < 2000) params.append('caloriesMax', caloriesRange.max.toString());
+            if (cookingMethod.length > 0) params.append('method', cookingMethod.join(','));
+            if (occasion.length > 0) params.append('occasion', occasion.join(','));
+            if (seasonChoice) params.append('season', seasonChoice);
+            
+            // Create the URL with parameters
+            const queryString = params.toString();
+            const url = `/api/recipes${queryString ? `?${queryString}` : ''}`;
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
                     'Content-Type': 'application/json'
                 }
             });
-    
-            if(response.ok){
-                setRecipes(await response.json());
-                setFilteredRecipes(await response.json());
+
+            if (response.ok) {
+                const data = await response.json();
+                setRecipes(data.recipes);
             }
         } catch (error) {
             console.error("Error fetching recipes:", error);
@@ -80,7 +126,18 @@ export default function TableFiltered({
 
     useEffect(() => {
         fetchRecipes();
-    },[])
+    }, [
+        cuisineFilter,
+        mealType,
+        cookingTime,
+        dietaryRestrictions,
+        ingredients,
+        difficultyLevel,
+        caloriesRange,
+        cookingMethod,
+        occasion,
+        seasonChoice
+    ]);
     
     return(
         <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -112,7 +169,7 @@ export default function TableFiltered({
 
             {/* Table Body - Fixed alignment to match headers */}
             <div id="table" className="flex flex-col w-full">
-                {filteredRecipesData.map((recipe, index) => (
+                {recipes.map((recipe, index) => (
                     <div 
                         id={`item-${index}`} 
                         className={`
@@ -125,24 +182,24 @@ export default function TableFiltered({
                         {/* Recipe Name with Image */}
                         <div id="recipeName" className="flex items-center gap-4 w-2/3 md:w-1/2 px-6 py-4">
                             <div id="image" className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-lg relative overflow-hidden shadow-md dark:shadow-black/30 border border-gray-200 dark:border-gray-700">
-                                <Image
-                                    src={recipe.image}
-                                    alt={recipe.name}
-                                    fill
-                                    className="object-cover"
-                                    priority
+                                <Image 
+                                    src={recipe.image} 
+                                    alt={recipe.title} 
+                                    fill 
+                                    className="object-cover object-center rounded-lg" 
+                                    sizes="(max-width: 640px) 80px, (max-width: 768px) 90px, 100px" 
                                 />
                             </div>
                             <div className="flex flex-col justify-center">
                                 <h1 className="font-medium text-gray-800 dark:text-white text-lg line-clamp-1">
-                                    {recipe.name}
+                                    {recipe.title}
                                 </h1>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-1">
                                     {recipe.description}
                                 </p>
                                 <div className="flex items-center gap-2 mt-2">
                                     <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
-                                        {recipe.category}
+                                        {recipe.categorytype}
                                     </span>
                                     <span className={`
                                         px-2.5 py-1 rounded-full text-xs font-medium
@@ -159,7 +216,7 @@ export default function TableFiltered({
                         {/* Views - Fixed alignment to match header */}
                         <div id="views" className="w-0 md:w-1/6 hidden md:flex items-center justify-center py-4">
                             <div className="flex flex-col items-center text-center">
-                                <span className="text-xl font-bold text-gray-800 dark:text-white">{recipe.views.toLocaleString()}</span>
+                                <span className="text-xl font-bold text-gray-800 dark:text-white">{recipe.viewcount.toLocaleString()}</span>
                                 <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('tableFiltered.viewsLabel')}</span>
                             </div>
                         </div>
@@ -175,7 +232,7 @@ export default function TableFiltered({
                                     {[...Array(5)].map((_, i) => (
                                         <i 
                                             key={i}
-                                            className={`text-base ${i < Math.floor(recipe.rating) ? "ri-star-fill text-amber-400 dark:text-amber-300" : "ri-star-line text-gray-300 dark:text-gray-600"}`}
+                                            className={`text-base ${i < Math.floor(recipe.rating || 0) ? "ri-star-fill text-amber-400 dark:text-amber-300" : "ri-star-line text-gray-300 dark:text-gray-600"}`}
                                         ></i>
                                     ))}
                                 </div>

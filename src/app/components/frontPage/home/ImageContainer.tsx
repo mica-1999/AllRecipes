@@ -9,7 +9,7 @@ export default function ImageContainer(){
     return (
         <div id="imageSection" className="w-full h-[260px] sm:h-[280px] md:h-[300px] relative mb-12 sm:mb-20 md:mb-16 rounded-[15px]">
             <Image
-                src="/images/home/change.jpg"
+                src="/images/home/basicFilterBackground.jpg"
                 alt={t('imageContainer.imageAlt')}
                 fill
                 className="object-cover rounded-[15px]"
