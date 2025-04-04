@@ -1,11 +1,7 @@
 "use client"
 import { useState } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface CookingTimeProps {
-    cookingTime: number;
-    setCookingTime: (value: number) => void;
-}
+import { CookingTimeProps } from '@/app/types/filters';
 
 const maxTime = 180; // Maximum time in minutes (3 hours)
 

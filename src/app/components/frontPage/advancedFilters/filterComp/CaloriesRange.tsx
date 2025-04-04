@@ -1,14 +1,8 @@
 "use client"
 import { useState } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
+import { CaloriesRangeProps } from '@/app/types/filters';
 
-interface CaloriesRangeProps {
-    caloriesRange: {
-        min: number;
-        max: number;
-    };
-    setCaloriesRange: (value: { min: number; max: number }) => void;
-}
 // Range for calories
 const minCalories = 0;
 const maxCalories = 2000;

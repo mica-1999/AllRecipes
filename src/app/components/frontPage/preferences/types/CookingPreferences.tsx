@@ -1,12 +1,7 @@
 "use client"
 import { cookingPreferenceBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface CookingPreferencesProps {
-    preferences: string[];
-    customColors: {[key: string]: string};
-    onPreferenceChange: (id: string) => void;
-}
+import { CookingPreferencesProps } from '@/app/types/preferences';
 
 export default function CookingPreferences({ preferences, customColors, onPreferenceChange }: CookingPreferencesProps) {
     const { t } = useTheme();

@@ -1,10 +1,6 @@
 "use client"
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface DietaryRestrictionsProps {
-    dietaryRestrictions: string[];
-    setDietaryRestrictions: (value: string[]) => void;
-}
+import { DietaryRestrictionsProps } from '@/app/types/filters';
 
 export default function DietaryRestrictions({dietaryRestrictions, setDietaryRestrictions}: DietaryRestrictionsProps) {    
     const { t,tArray } = useTheme();

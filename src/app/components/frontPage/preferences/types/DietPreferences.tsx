@@ -1,12 +1,7 @@
 "use client"
 import { dietRestrictionBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface DietPreferencesProps {
-    preferences: string[];
-    customColors: {[key: string]: string};
-    onPreferenceChange: (id: string) => void;
-}
+import { DietPreferencesProps } from '@/app/types/preferences';
 
 export default function DietPreferences({ preferences, customColors, onPreferenceChange }: DietPreferencesProps) {
     const { t } = useTheme();

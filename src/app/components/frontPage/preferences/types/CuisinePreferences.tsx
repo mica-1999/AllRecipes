@@ -1,12 +1,7 @@
 "use client"
 import { cuisineTypeBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface CuisinePreferencesProps {
-    preferences: string[];
-    customColors: {[key: string]: string};
-    onPreferenceChange: (id: string) => void;
-}
+import { CuisinePreferencesProps } from '@/app/types/preferences';
 
 export default function CuisinePreferences({ preferences, customColors, onPreferenceChange }: CuisinePreferencesProps) {
     const { t } = useTheme();

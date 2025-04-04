@@ -4,51 +4,8 @@ import { listHeaders } from "@/app/data/AdvFiltersData"
 import { useTheme } from '@/app/context/ThemeContext';
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { difficulty, cuisineType, mealType, dietaryRestrictions, cookingMethod } from "@prisma/client";
-
-// Define the Recipe interface based on your Prisma schema
-interface Recipe {
-  id: number;
-  title: string;
-  description: string;
-  ingredients: string[];
-  instructions: string[];
-  cooktime?: number | null;
-  difficulty: difficulty;
-  image: string;
-  rating?: number | null;
-  season?: string | null;
-  categorytype: string;
-  cuisinetype: cuisineType;
-  mealtype: mealType;
-  dietaryrestrictions: dietaryRestrictions[];
-  numcalories?: number | null;
-  cookingmethod?: cookingMethod | null;
-  occasions: string[];
-  servings?: number | null;
-  viewcount: number;
-  createdat: string;
-  updatedat: string;
-  userid: number;
-}
-
-interface CaloriesRangeType {
-    min: number;
-    max: number;
-}
-
-interface TableFilteredProps {
-    cuisineFilter: string[];
-    mealType: string[];
-    cookingTime: number;
-    dietaryRestrictions: string[];
-    ingredients: string[];
-    difficultyLevel: string;
-    caloriesRange: CaloriesRangeType;
-    cookingMethod: string[];
-    occasion: string[];
-    seasonChoice: string;
-}
+import { TableFilteredProps } from '@/app/types/filters';
+import { Recipe } from '@/app/types/recipe';
 
 export default function TableFiltered({
     cuisineFilter,

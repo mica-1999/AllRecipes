@@ -1,11 +1,7 @@
 "use client"
 import { useState, KeyboardEvent } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface IngredientsProps {
-    ingredients: string[];
-    setIngredients: (value: string[]) => void;
-}
+import { IngredientsProps } from '@/app/types/filters';
 
 export default function Ingredients({ingredients, setIngredients}: IngredientsProps) {
     const { t } = useTheme();

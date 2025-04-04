@@ -1,10 +1,6 @@
 "use client"
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface OccasionProps {
-    occasion: string[];
-    setOccasion: (value: string[]) => void;
-}
+import { OccasionProps } from '@/app/types/filters';
 
 export default function Occasion({occasion, setOccasion}: OccasionProps) {    
     const { t,tArray } = useTheme();

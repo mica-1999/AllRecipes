@@ -2,11 +2,7 @@
 import { useState, useRef, useMemo } from "react";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface MealOptionsProps {
-    cuisineFilter: string[];
-    setCuisineFilter: (value: string[]) => void;
-}
+import { MealOptionsProps } from '@/app/types/filters';
 
 export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptionsProps) {
     const { t, tArray } = useTheme();

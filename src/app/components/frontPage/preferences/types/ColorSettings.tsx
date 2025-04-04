@@ -2,16 +2,7 @@
 import { mealTypeBox, dietRestrictionBox, cuisineTypeBox, cookingPreferenceBox } from "@/app/data/PreferencesData";
 import Image from 'next/image';
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface ColorSettingsProps {
-    dietPreferences: string[];
-    cuisinePreferences: string[];
-    mealPreferences: string[];
-    cookingPreferences: string[];
-    customColors: {[key: string]: string};
-    onColorChange: (id: string, value: string) => void;
-    onColorReset: (id: string) => void;
-}
+import { ColorSettingsProps } from '@/app/types/preferences';
 
 export default function ColorSettings({ 
     dietPreferences,

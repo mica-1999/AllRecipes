@@ -3,30 +3,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { getTranslations } from '@/app/translations/translationUtils';
-
-// Define the shape of our context
-type ThemeContextType = {
-  theme: string;
-  setTheme: (theme: string) => void;
-  language: string;
-  setLanguage: (language: string) => void;
-  savedTheme: string;
-  setSavedTheme: (theme: string) => void;
-  savedLanguage: string;
-  setSavedLanguage: (language: string) => void;
-  t: (key: string) => string;
-  tArray: <T>(key: string) => T[];
-  isLoading: boolean; // Add this
-};
-
-// Define interfaces for our translation structure
-interface NestedTranslations {
-  [key: string]: string | NestedTranslations | Array<unknown>;
-}
-
-interface Translations {
-  [key: string]: NestedTranslations;
-}
+import { ThemeContextType, NestedTranslations, Translations } from '@/app/types/theme';
 
 // Create the context with a default undefined value
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

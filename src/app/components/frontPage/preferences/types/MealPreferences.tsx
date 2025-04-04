@@ -1,12 +1,7 @@
 "use client"
 import { mealTypeBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface MealPreferencesProps {
-    preferences: string[];
-    customColors: {[key: string]: string};
-    onPreferenceChange: (id: string) => void;
-}
+import { MealPreferencesProps } from '@/app/types/preferences';
 
 export default function MealPreferences({ preferences, customColors, onPreferenceChange }: MealPreferencesProps) {
     const { t } = useTheme();

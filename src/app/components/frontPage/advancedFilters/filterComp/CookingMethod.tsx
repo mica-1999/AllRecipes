@@ -1,11 +1,7 @@
 "use client"
 import { methods } from "@/app/data/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface CookingMethodProps {
-    cookingMethod: string[];
-    setCookingMethod: (value: string[]) => void;
-}
+import { CookingMethodProps } from '@/app/types/filters';
 
 export default function CookingMethod({cookingMethod, setCookingMethod}: CookingMethodProps) {
     const { t } = useTheme();

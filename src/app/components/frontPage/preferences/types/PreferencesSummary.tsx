@@ -1,14 +1,7 @@
 "use client"
 import { mealTypeBox, dietRestrictionBox, cuisineTypeBox, cookingPreferenceBox } from "@/app/data/PreferencesData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface PreferencesSummaryProps {
-    dietPreferences: string[];
-    cuisinePreferences: string[];
-    mealPreferences: string[];
-    cookingPreferences: string[];
-    customColors: {[key: string]: string};
-}
+import { PreferencesSummaryProps } from '@/app/types/preferences';
 
 export default function PreferencesSummary({ 
     dietPreferences, 

@@ -1,10 +1,6 @@
 "use client"
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface MealTypeProps {
-    mealType: string[];
-    setMealType: (value: string[]) => void;
-}
+import { MealTypeProps } from '@/app/types/filters';
 
 export default function MealType({mealType, setMealType}: MealTypeProps) {
     const { t, tArray } = useTheme();

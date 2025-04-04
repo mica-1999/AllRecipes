@@ -2,11 +2,7 @@
 import { useState } from "react";
 import { difficulties } from "@/app/data/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface DifficultyLevelProps {
-    difficultyLevel: string;
-    setDifficultyLevel: (value: string) => void;
-}
+import { DifficultyLevelProps } from '@/app/types/filters';
 
 export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: DifficultyLevelProps) {
     const { t } = useTheme();

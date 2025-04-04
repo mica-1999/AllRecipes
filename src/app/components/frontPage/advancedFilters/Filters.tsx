@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
+import { CaloriesRangeType } from '@/app/types/filters';
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -16,11 +17,6 @@ import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occa
 import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
 import { seasonsData } from "@/app/data/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
-
-interface CaloriesRangeType {
-    min: number;
-    max: number;
-}
 
 export default function AdvFilters () {
     // Get the search params from the URL to update the Filters
