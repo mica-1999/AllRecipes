@@ -151,7 +151,8 @@ const translations = {
             "Birthday", "Holiday", "Casual", "Date Night", 
             "Thanksgiving", "Christmas", "Wedding", "BBQ", 
             "Game Day", "Picnic", "Brunch", "Potluck"
-        ]
+        ],
+        filtersReset: 'Filters have been reset'
     },
     tableFiltered: {
         title: 'Filtered Results',
@@ -164,7 +165,10 @@ const translations = {
         },
         viewsLabel: 'Views',
         viewButton: 'View',
-        outOf5: '/5'
+        outOf5: '/5',
+        noResults: 'No recipes found matching your criteria',
+        tryAdjusting: 'Try adjusting your filters or selecting different options',
+        resetFilters: 'Reset Filters'
     },
     themeSettings: {
         title: 'Layout Preferences',

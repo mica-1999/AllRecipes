@@ -151,7 +151,8 @@ const translations = {
             "Aniversário", "Férias", "Casual", "Encontro Romântico", 
             "Ação de Graças", "Natal", "Casamento", "Churrasco", 
             "Dia de Jogo", "Piquenique", "Brunch", "Almoço Partilhado"
-        ]
+        ],
+        filtersReset: 'Os filtros foram redefinidos'
     },
     tableFiltered: {
         title: 'Resultados Filtrados',
@@ -164,7 +165,10 @@ const translations = {
         },
         viewsLabel: 'Visualizações',
         viewButton: 'Ver',
-        outOf5: '/5'
+        outOf5: '/5',
+        noResults: 'Não foram encontradas receitas que correspondam aos seus critérios',
+        tryAdjusting: 'Tente ajustar seus filtros ou selecionar opções diferentes',
+        resetFilters: 'Redefinir Filtros'
     },
     themeSettings: {
         title: 'Preferências de Layout',

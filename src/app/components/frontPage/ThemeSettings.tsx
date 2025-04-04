@@ -95,13 +95,7 @@ export default function StickyButton() {
             });
         }
     }
-
-    useEffect(() => {
-        if(theme){
-            console.log("Theme changed to: ", theme)
-        }
-    },[theme])
-
+    
     return(
         <>
             <div 

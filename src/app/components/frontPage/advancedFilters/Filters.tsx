@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeType } from '@/app/types/filters';
+import { toast } from "react-toastify";
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -15,6 +16,9 @@ import CaloriesRange from "@/app/components/frontPage/advancedFilters/filterComp
 import CookingMethod from "@/app/components/frontPage/advancedFilters/filterComp/CookingMethod";
 import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occasion";
 import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
+import ResetAdvFilters from "@/app/components/frontPage/advancedFilters/resetButton/Reset"
+
+// Data
 import { seasonsData } from "@/app/data/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
@@ -22,7 +26,7 @@ export default function AdvFilters () {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
-    const { t, tArray } = useTheme();
+    const { t, tArray, savedTheme } = useTheme();
 
     // State variables for Main Filter Menu
     const [mainFilterMenu, setMainFilterMenu] = useState<string>(""); // Main Menu
@@ -70,6 +74,31 @@ export default function AdvFilters () {
             setSeasonalOpen(false);
         }
     }
+
+    const resetAllFilters = () => {
+        // Reset all filter states to their initial values
+        setCuisineFilter([]);
+        setMealType([]);
+        setCookingTime(0);
+        setDietaryRestrictions([]);
+        setIngredients([]);
+        setDifficultyLevel("");
+        setCaloriesRange({ min: 0, max: 2000 });
+        setCookingMethod([]);
+        setOccasion([]);
+        setSeasonChoice("");
+        
+        // Optional: Show a toast notification to confirm filters were reset
+        toast.success(t('advancedFilters.filtersReset'), {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
+        });
+    };
 
     // Update the main filter menu based on the query parameter
     useEffect(() => {
@@ -171,9 +200,11 @@ export default function AdvFilters () {
                         cookingMethod={cookingMethod}
                         occasion={occasion}
                         seasonChoice={seasonChoice}
+                        onResetFilters={resetAllFilters}
                     />
                 </div>
             </div>
+            <ResetAdvFilters resetAllFilters={resetAllFilters} />
         </>
     )
 }

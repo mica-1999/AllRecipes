@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeProps } from '@/app/types/filters';
 
@@ -10,7 +10,14 @@ const maxCalories = 2000;
 export default function CaloriesRange({caloriesRange, setCaloriesRange}: CaloriesRangeProps) {
     const { t } = useTheme();
     // State Variables
-    const [counter , setCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
+
+    // Reset counter if caloriesRange is reset
+    useEffect(() => {
+        if (caloriesRange.min === 0 && caloriesRange.max === 2000) {
+            setCounter(0);
+        }
+    }, [caloriesRange]);
 
     // Handle min value change
     const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +39,8 @@ export default function CaloriesRange({caloriesRange, setCaloriesRange}: Calorie
     
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 ${counter > 0 ? "border-[2.5px] border-green-500 dark:border-green-600": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
+            <div className={`bg-white dark:bg-gray-800 p-5 border-[0.5px] border-gray-200 dark:border-gray-700 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
+                ${counter > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.caloriesRange')}</h2>
                 <div className="flex flex-col space-y-6">
                     <div className="flex justify-between items-center">

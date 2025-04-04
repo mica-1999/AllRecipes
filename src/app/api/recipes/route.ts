@@ -12,10 +12,7 @@ export async function GET(request: Request) {
         // Execute the query
         const recipes = await prisma.recipe.findMany(query);
         
-        if (!recipes || recipes.length === 0) {
-            return NextResponse.json({ message: "No recipes found matching your criteria" }, { status: 404 });
-        }
-        
+        // Return recipes array even if empty - always use status 200 for a valid query with no results
         return NextResponse.json({ recipes }, { status: 200 });
         
     } catch (error) {

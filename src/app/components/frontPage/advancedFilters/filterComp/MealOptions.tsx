@@ -35,7 +35,8 @@ export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptio
 
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 ${cuisineFilter.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
+            <div className={`bg-white dark:bg-gray-800 p-5 border-[0.5px] border-gray-200 dark:border-gray-700 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200
+                ${cuisineFilter.length > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.mealOptions')}</h2>
                 <div className="relative" ref={dropdownRef}>
                     <div 

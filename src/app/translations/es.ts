@@ -146,13 +146,13 @@ const translations = {
             roasting: "Asar",
             sauteing: "Saltear",
             slowCooking: "Cocción lenta"
-          },
-
+        },
         occasions: [
             "Cumpleaños", "Vacaciones", "Casual", "Cita Romántica", 
             "Acción de Gracias", "Navidad", "Boda", "Barbacoa", 
             "Día de Partido", "Picnic", "Brunch", "Comida Compartida"
-        ]
+        ],
+        filtersReset: 'Los filtros han sido restablecidos'
     },
     tableFiltered: {
         title: 'Resultados Filtrados',
@@ -165,7 +165,10 @@ const translations = {
         },
         viewsLabel: 'Vistas',
         viewButton: 'Ver',
-        outOf5: '/5'
+        outOf5: '/5',
+        noResults: 'No se encontraron recetas que coincidan con tus criterios',
+        tryAdjusting: 'Intenta ajustar tus filtros o seleccionar diferentes opciones',
+        resetFilters: 'Restablecer Filtros'
     },
     themeSettings: {
         title: 'Preferencias de Diseño',

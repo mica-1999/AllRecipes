@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CookingTimeProps } from '@/app/types/filters';
 
@@ -10,6 +10,13 @@ export default function CookingTime({cookingTime, setCookingTime}: CookingTimePr
     
     // State Variables
     const [isModified, setIsModified] = useState<boolean>(false);
+    
+    // Reset isModified state when cookingTime is reset to 0
+    useEffect(() => {
+        if (cookingTime === 0) {
+            setIsModified(false);
+        }
+    }, [cookingTime]);
     
     // Handle Change in Range Slider
     const handleCookingTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {

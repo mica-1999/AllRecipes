@@ -14,6 +14,7 @@ export interface TableFilteredProps {
     cookingMethod: string[];
     occasion: string[];
     seasonChoice: string;
+    onResetFilters?: () => void;
 }
 
 export interface MealOptionsProps {
