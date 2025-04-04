@@ -41,7 +41,7 @@ export default function AdvFilters () {
     useClickOutside(seasonsRef, setSeasonalOpen);
 
     // State variables for Filters
-    const [mealTypeFilter, setMealTypeFilter] = useState<string[]>([]);
+    const [cuisineFilter, setCuisineFilter] = useState<string[]>([]);  // Changed from mealTypeFilter
     const [mealType, setMealType] = useState<string[]>([]);
     const [cookingTime, setCookingTime] = useState<number>(30);
     const [dietaryRestrictions, setDietaryRestrictions] = useState<string[]>([]);
@@ -151,7 +151,7 @@ export default function AdvFilters () {
 
                 <div className="overflow-hidden shadow-md dark:shadow-lg dark:shadow-black/20">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 dark:bg-gray-800 dark:divide-gray-700">
-                        <MealOptions mealTypeFilter={mealTypeFilter} setMealTypeFilter={setMealTypeFilter} />
+                        <MealOptions cuisineFilter={cuisineFilter} setCuisineFilter={setCuisineFilter} />
                         <MealType mealType={mealType} setMealType={setMealType} />
                         <CookingTime cookingTime={cookingTime} setCookingTime={setCookingTime} />
                         <DietaryRestrictions dietaryRestrictions={dietaryRestrictions} setDietaryRestrictions={setDietaryRestrictions} />
@@ -164,7 +164,18 @@ export default function AdvFilters () {
                 </div>
 
                 <div className="mt-8">
-                    <TableFiltered />
+                    <TableFiltered 
+                        cuisineFilter={cuisineFilter}
+                        mealType={mealType}
+                        cookingTime={cookingTime}
+                        dietaryRestrictions={dietaryRestrictions}
+                        ingredients={ingredients}
+                        difficultyLevel={difficultyLevel}
+                        caloriesRange={caloriesRange}
+                        cookingMethod={cookingMethod}
+                        occasion={occasion}
+                        seasonChoice={seasonChoice}
+                    />
                 </div>
             </div>
         </>

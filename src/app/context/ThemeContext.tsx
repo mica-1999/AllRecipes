@@ -68,14 +68,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         if (response.ok) {
           const data = await response.json();
           if (data) {
-            setTheme(data.visualTheme);
+            setTheme(data.visualtheme);
             setLanguage(data.language);
-            setSavedTheme(data.visualTheme);
+            setSavedTheme(data.visualtheme);
             setSavedLanguage(data.language);
 
             // Store in localStorage for future reference
             if (typeof window !== 'undefined') {
-              localStorage.setItem('theme', data.visualTheme);
+              localStorage.setItem('theme', data.visualtheme);
               localStorage.setItem('language', data.language);
             }
           }

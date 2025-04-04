@@ -4,11 +4,11 @@ import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 import { useTheme } from '@/app/context/ThemeContext';
 
 interface MealOptionsProps {
-    mealTypeFilter: string[];
-    setMealTypeFilter: (value: string[]) => void;
+    cuisineFilter: string[];
+    setCuisineFilter: (value: string[]) => void;
 }
 
-export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOptionsProps) {
+export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptionsProps) {
     const { t, tArray } = useTheme();
     
     // State Variables
@@ -30,24 +30,24 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
     
     // Toggle selection of a cuisine
     const toggleCuisine = (cuisine: string) => {
-        if (mealTypeFilter.includes(cuisine)) {
-            setMealTypeFilter(mealTypeFilter.filter(item => item !== cuisine));
+        if (cuisineFilter.includes(cuisine)) {
+            setCuisineFilter(cuisineFilter.filter(item => item !== cuisine));
         } else {
-            setMealTypeFilter([...mealTypeFilter, cuisine]);
+            setCuisineFilter([...cuisineFilter, cuisine]);
         }
     };
 
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 ${mealTypeFilter.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
+            <div className={`bg-white dark:bg-gray-800 p-5 ${cuisineFilter.length > 0 ? "border-[2.5px] border-green-500": "border-[0.5px] border-gray-200 dark:border-gray-700"} relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/30 transition-all duration-200`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.mealOptions')}</h2>
                 <div className="relative" ref={dropdownRef}>
                     <div 
                         className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 flex items-center justify-between cursor-pointer"
                         onClick={() => setIsOpen(!isOpen)}
                     >
-                        <span className={mealTypeFilter.length ? "text-gray-800 dark:text-white" : "text-gray-500 dark:text-gray-400"}>
-                            {mealTypeFilter.length ? mealTypeFilter.join(", ") : t('advancedFilters.cuisinePlaceholder')}
+                        <span className={cuisineFilter.length ? "text-gray-800 dark:text-white" : "text-gray-500 dark:text-gray-400"}>
+                            {cuisineFilter.length ? cuisineFilter.join(", ") : t('advancedFilters.cuisinePlaceholder')}
                         </span>
                         <svg className={`h-5 w-5 text-gray-400 dark:text-gray-300 transition-transform duration-200 ${isOpen ? "transform rotate-180" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 0 010-1.414z" clipRule="evenodd" />
@@ -90,7 +90,7 @@ export default function MealOptions({mealTypeFilter, setMealTypeFilter}: MealOpt
                                         <input
                                             type="checkbox"
                                             className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded"
-                                            checked={mealTypeFilter.includes(cuisine)}
+                                            checked={cuisineFilter.includes(cuisine)}
                                             onChange={() => {}}
                                         />
                                         <span className="dark:text-gray-200">{cuisine}</span>
