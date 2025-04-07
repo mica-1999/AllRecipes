@@ -188,21 +188,17 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
     ];
   }
 
-  // Look for Top Rated recipes
-  // e.g. ?menu=topRated returns all recipes that are top rated
-  if (searchParams.has('topRated') && searchParams.get('topRated') === 'true') {
-    query.where.toprated = true;
-  }
-
-
-  // Add sorting if specified
-  if (searchParams.has('sortBy')) {
-    const sortField = searchParams.get('sortBy');
-    const sortOrder = searchParams.has('sortOrder') ? searchParams.get('sortOrder') : 'asc';
+  // Handle sorting parameters
+  if (searchParams.has('sortBy') && searchParams.has('order')) {
+    const sortBy = searchParams.get('sortBy');
+    const order = searchParams.get('order');
     
-    query.orderBy = {
-      [sortField as string]: sortOrder
-    };
+    // Only apply sorting if valid values are provided
+    if (sortBy && ['rating', 'viewcount'].includes(sortBy)) {
+      query.orderBy = {
+        [sortBy]: order === 'desc' ? 'desc' : 'asc'
+      };
+    }
   }
 
   return query;
