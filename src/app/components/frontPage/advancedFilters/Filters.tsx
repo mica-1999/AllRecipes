@@ -50,6 +50,12 @@ export default function AdvFilters () {
     const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 0, max: 2000});
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
+
+    // State variables for OR or AND operations in Diet/Ingredients/Occasion
+    // By default it will show all recipes that match any of the selected filters
+    const [exactMatchDiet, setExactMatchDiet] = useState<boolean>(true);
+    const [exactMatchIngredients, setExactMatchIngredients] = useState<boolean>(true);
+    const [exactMatchOccasion, setExactMatchOccasion] = useState<boolean>(false);
     
     // Translate season name
     const getSeasonTranslation = (season: string) => {
@@ -87,8 +93,11 @@ export default function AdvFilters () {
         setCookingMethod([]);
         setOccasion([]);
         setSeasonChoice("");
+        setExactMatchDiet(true);
+        setExactMatchIngredients(true);
+        setExactMatchOccasion(false);
         
-        // Optional: Show a toast notification to confirm filters were reset
+        // Show a toast notification to confirm filters were reset
         toast.success(t('advancedFilters.filtersReset'), {
             position: "top-center",
             autoClose: 2000,
@@ -107,10 +116,11 @@ export default function AdvFilters () {
         }
     }, [query]);
 
+    // Set default menu to "Latest" translated
     useEffect(() => {
-        setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); // Set default menu to "Latest" translated
+        setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); 
     },[tArray]);
-
+    
     return(
         <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
@@ -179,12 +189,12 @@ export default function AdvFilters () {
                         <MealOptions cuisineFilter={cuisineFilter} setCuisineFilter={setCuisineFilter} />
                         <MealType mealType={mealType} setMealType={setMealType} />
                         <CookingTime cookingTime={cookingTime} setCookingTime={setCookingTime} />
-                        <DietaryRestrictions dietaryRestrictions={dietaryRestrictions} setDietaryRestrictions={setDietaryRestrictions} />
-                        <Ingredients ingredients={ingredients} setIngredients={setIngredients} />
+                        <DietaryRestrictions dietaryRestrictions={dietaryRestrictions} setDietaryRestrictions={setDietaryRestrictions}  exactMatchDiet={exactMatchDiet} setExactMatchDiet={setExactMatchDiet} />
+                        <Ingredients ingredients={ingredients} setIngredients={setIngredients} exactMatchIngredients={exactMatchIngredients} setExactMatchIngredients={setExactMatchIngredients} />
                         <DifficultyLevel difficultyLevel={difficultyLevel} setDifficultyLevel={setDifficultyLevel} />
                         <CaloriesRange caloriesRange={caloriesRange} setCaloriesRange={setCaloriesRange} />
                         <CookingMethod cookingMethod={cookingMethod} setCookingMethod={setCookingMethod} />
-                        <Occasion occasion={occasion} setOccasion={setOccasion} />
+                        <Occasion occasion={occasion} setOccasion={setOccasion} exactMatchOccasion={exactMatchOccasion} setExactMatchOccasion={setExactMatchOccasion}/>
                     </div>
                 </div>
 
@@ -194,11 +204,14 @@ export default function AdvFilters () {
                         mealType={mealType}
                         cookingTime={cookingTime}
                         dietaryRestrictions={dietaryRestrictions}
+                        exactMatchDiet={exactMatchDiet}
                         ingredients={ingredients}
+                        exactMatchIngredients={exactMatchIngredients}
                         difficultyLevel={difficultyLevel}
                         caloriesRange={caloriesRange}
                         cookingMethod={cookingMethod}
                         occasion={occasion}
+                        exactMatchOccasion={exactMatchOccasion}
                         seasonChoice={seasonChoice}
                         onResetFilters={resetAllFilters}
                     />

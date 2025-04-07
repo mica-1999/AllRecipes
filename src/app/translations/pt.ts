@@ -152,7 +152,21 @@ const translations = {
             "Ação de Graças", "Natal", "Casamento", "Churrasco", 
             "Dia de Jogo", "Piquenique", "Brunch", "Almoço Partilhado"
         ],
-        filtersReset: 'Os filtros foram redefinidos'
+        filtersReset: 'Os filtros foram redefinidos',
+        all: 'TODOS',
+        any: 'QUALQUER',
+        matchAllIngredients: 'Corresponder a todos os ingredientes (E)',
+        matchAnyIngredient: 'Corresponder a qualquer ingrediente (OU)',
+        showingAllIngredients: 'Mostrando receitas com todos estes ingredientes',
+        showingAnyIngredient: 'Mostrando receitas com qualquer um destes ingredientes',
+        matchAllRestrictions: 'Corresponder a todas as restrições (E)',
+        matchAnyRestriction: 'Corresponder a qualquer restrição (OU)',
+        showingAllRestrictions: 'Mostrando receitas com todas as restrições selecionadas',
+        showingAnyRestriction: 'Mostrando receitas com qualquer restrição selecionada',
+        matchAllOccasions: 'Corresponder a todas as ocasiões (E)',
+        matchAnyOccasion: 'Corresponder a qualquer ocasião (OU)',
+        showingAllOccasions: 'Mostrando receitas para todas as ocasiões selecionadas',
+        showingAnyOccasion: 'Mostrando receitas para qualquer ocasião selecionada'
     },
     tableFiltered: {
         title: 'Resultados Filtrados',

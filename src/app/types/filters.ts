@@ -8,11 +8,14 @@ export interface TableFilteredProps {
     mealType: string[];
     cookingTime: number;
     dietaryRestrictions: string[];
+    exactMatchDiet: boolean;
     ingredients: string[];
+    exactMatchIngredients: boolean;
     difficultyLevel: string;
     caloriesRange: CaloriesRangeType;
     cookingMethod: string[];
     occasion: string[];
+    exactMatchOccasion: boolean;
     seasonChoice: string;
     onResetFilters?: () => void;
 }
@@ -35,11 +38,15 @@ export interface CookingTimeProps {
 export interface DietaryRestrictionsProps {
     dietaryRestrictions: string[];
     setDietaryRestrictions: (value: string[]) => void;
+    exactMatchDiet: boolean;
+    setExactMatchDiet: (exactMatchDiet: boolean) => void;
 }
 
 export interface IngredientsProps {
     ingredients: string[];
     setIngredients: (value: string[]) => void;
+    exactMatchIngredients: boolean;
+    setExactMatchIngredients: (exactMatchIngredients: boolean) => void;
 }
 
 export interface DifficultyLevelProps {
@@ -60,4 +67,15 @@ export interface CookingMethodProps {
 export interface OccasionProps {
     occasion: string[];
     setOccasion: (value: string[]) => void;
+    exactMatchOccasion: boolean;
+    setExactMatchOccasion: (exactMatchOccasion: boolean) => void;
 }
+
+export interface FilterModeToggleProps {
+    isExactMatch: boolean;
+    setIsExactMatch: (value: boolean) => void;
+    tooltipText?: {
+      all: string;
+      any: string;
+    };
+  }

@@ -2,8 +2,9 @@
 import { useState, KeyboardEvent } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
 import { IngredientsProps } from '@/app/types/filters';
+import FilterModeToggle from "@/app/components/frontPage/advancedFilters/filterComp/FilterModeToggle";
 
-export default function Ingredients({ingredients, setIngredients}: IngredientsProps) {
+export default function Ingredients({ingredients, setIngredients, exactMatchIngredients, setExactMatchIngredients}: IngredientsProps) {
     const { t } = useTheme();
     
     // State Variables
@@ -36,6 +37,18 @@ export default function Ingredients({ingredients, setIngredients}: IngredientsPr
             <div className={`bg-white dark:bg-gray-800 p-5 border-[0.5px] border-gray-200 dark:border-gray-700 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
                 ${ingredients.length > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.ingredients')}</h2>
+                
+                {ingredients.length > 1 && (
+                    <FilterModeToggle 
+                        isExactMatch={exactMatchIngredients} 
+                        setIsExactMatch={setExactMatchIngredients} 
+                        tooltipText={{
+                            all: t('advancedFilters.matchAllIngredients') || "Match all ingredients (AND)",
+                            any: t('advancedFilters.matchAnyIngredient') || "Match any ingredient (OR)"
+                        }}
+                    />
+                )}
+                
                 <div className="space-y-4">
                     <div className="relative">
                         <input 
@@ -75,6 +88,15 @@ export default function Ingredients({ingredients, setIngredients}: IngredientsPr
                                 </div>
                             ))}
                         </div>
+                    )}
+                    
+                    {ingredients.length > 1 && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            {exactMatchIngredients 
+                                ? t('advancedFilters.showingAllIngredients') || "Showing recipes with all ingredients"
+                                : t('advancedFilters.showingAnyIngredient') || "Showing recipes with any of these ingredients"
+                            }
+                        </p>
                     )}
                 </div>
             </div>

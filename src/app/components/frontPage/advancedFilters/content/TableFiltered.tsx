@@ -13,11 +13,14 @@ export default function TableFiltered({
     mealType,
     cookingTime,
     dietaryRestrictions,
+    exactMatchDiet,
     ingredients,
+    exactMatchIngredients,
     difficultyLevel,
     caloriesRange,
     cookingMethod,
     occasion,
+    exactMatchOccasion,
     seasonChoice,
     onResetFilters
 }: TableFilteredProps) {
@@ -82,11 +85,6 @@ export default function TableFiltered({
             });
         }
     }
-
-    useEffect(() => {
-        fetchRecipes();
-        console.log({ cuisineFilter, mealType, cookingTime, dietaryRestrictions, ingredients, difficultyLevel, caloriesRange, cookingMethod, occasion, seasonChoice });
-    }, [cuisineFilter,mealType,cookingTime,dietaryRestrictions,ingredients,difficultyLevel,caloriesRange,cookingMethod,occasion,seasonChoice]);
     
     return(
         <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-200 dark:border-gray-700">

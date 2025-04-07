@@ -152,7 +152,21 @@ const translations = {
             "Thanksgiving", "Christmas", "Wedding", "BBQ", 
             "Game Day", "Picnic", "Brunch", "Potluck"
         ],
-        filtersReset: 'Filters have been reset'
+        filtersReset: 'Filters have been reset',
+        all: 'ALL',
+        any: 'ANY',
+        matchAllIngredients: 'Match all ingredients (AND)',
+        matchAnyIngredient: 'Match any ingredient (OR)',
+        showingAllIngredients: 'Showing recipes with all these ingredients',
+        showingAnyIngredient: 'Showing recipes with any of these ingredients',
+        matchAllRestrictions: 'Match all restrictions (AND)',
+        matchAnyRestriction: 'Match any restriction (OR)',
+        showingAllRestrictions: 'Showing recipes with all selected restrictions',
+        showingAnyRestriction: 'Showing recipes with any selected restriction',
+        matchAllOccasions: 'Match all occasions (AND)',
+        matchAnyOccasion: 'Match any occasion (OR)',
+        showingAllOccasions: 'Showing recipes for all selected occasions',
+        showingAnyOccasion: 'Showing recipes for any selected occasion'
     },
     tableFiltered: {
         title: 'Filtered Results',
