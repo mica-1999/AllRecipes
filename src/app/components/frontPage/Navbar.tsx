@@ -10,6 +10,8 @@ import { useTheme } from '@/app/context/ThemeContext';
 export default function Navbar() {
     // Get session data from NextAuth
     const { data: session } = useSession(); 
+
+    // Get theme context
     const { t } = useTheme();
 
     // Refs for dropdowns

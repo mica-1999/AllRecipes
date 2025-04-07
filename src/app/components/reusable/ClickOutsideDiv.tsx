@@ -1,5 +1,7 @@
 import { RefObject, useEffect } from 'react';
 
+// This hook detects clicks outside of a specified element and updates the state accordingly.
+// It is useful for closing dropdowns, modals, or any other UI elements that should close when clicked outside.
 export const useClickOutside = (
   reference: RefObject<HTMLElement | null>,
   setState: (value: boolean) => void

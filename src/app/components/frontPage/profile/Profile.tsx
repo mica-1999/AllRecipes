@@ -8,6 +8,8 @@ import { useTheme } from "@/app/context/ThemeContext"
 export default function Profile() {
     // Using NextAuth to get the session data
     const { status } = useSession()
+
+    // Theme context for settings
     const { t } = useTheme();
 
     // State Variables

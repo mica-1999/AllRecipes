@@ -26,6 +26,8 @@ export default function AdvFilters () {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
+
+    // Theme context for settings
     const { t, tArray, savedTheme } = useTheme();
 
     // State variables for Main Filter Menu

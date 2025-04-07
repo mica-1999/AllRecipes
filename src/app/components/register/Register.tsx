@@ -7,7 +7,10 @@ import { toast } from 'react-toastify';
 import { Spinner } from "@/app/components/reusable/Spinner";
 
 export default function Register() {
-    const router = useRouter(); // Initialize router for navigation
+    // Router instance to navigate between pages
+    const router = useRouter();
+
+    // State variables to manage form data, error messages, and loading state
     const [formData,setformData] = useState ({
         username : "",
         password : "",
@@ -38,6 +41,8 @@ export default function Register() {
         return true;
     }
 
+    // Handle form submission
+    // This function is called when the form is submitted. It validates the form data, sends a POST request to create a user account, and handles the response.
     const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -64,7 +69,7 @@ export default function Register() {
             // Returns user data and error message
             const data = await response.json();
 
-            // If user Sucessfully created, add default preferences
+            // If User sucessfully created, add default preferences
             if(response.ok) {
                 try {
                     const response = await fetch("/api/preferences", {

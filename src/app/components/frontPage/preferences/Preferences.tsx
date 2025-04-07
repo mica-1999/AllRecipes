@@ -13,6 +13,7 @@ import ColorSettings from "@/app/components/frontPage/preferences/types/ColorSet
 import PreferencesSummary from "@/app/components/frontPage/preferences/types/PreferencesSummary";
 
 export default function CustomizedPreferences() {
+    // Theme context for settings
     const { t } = useTheme();
     
     // State management

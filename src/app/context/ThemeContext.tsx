@@ -1,5 +1,4 @@
 "use client"
-
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { getTranslations } from '@/app/translations/translationUtils';
@@ -13,7 +12,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize from localStorage with fallback values
+  // Initialize from localStorage with fallback values for theme and language
   const [theme, setTheme] = useState<string>(() => {  
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || "Light";
@@ -31,7 +30,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [savedTheme, setSavedTheme] = useState<string>(theme);
   const [savedLanguage, setSavedLanguage] = useState<string>(language);
   
-  // Load preferences when session is available
+  // Load preferences and save them to localStorage
+  // This will only run once when the session is available
   useEffect(() => {
     const loadPreferences = async () => {
       if (!session?.user?.id) return;
@@ -50,7 +50,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             setSavedTheme(data.visualtheme);
             setSavedLanguage(data.language);
 
-            // Store in localStorage for future reference
             if (typeof window !== 'undefined') {
               localStorage.setItem('theme', data.visualtheme);
               localStorage.setItem('language', data.language);
@@ -65,7 +64,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     loadPreferences();
   }, [session]);
 
-  // Apply theme to document - still needed for theme changes after initial load
+  // Apply theme to document
   useEffect(() => {
     if (theme === "Dark") {
       document.documentElement.classList.add('dark');
@@ -97,11 +96,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   // Add a useEffect to control loading state
   useEffect(() => {
-    // This will run after hydration is complete
     setIsLoading(false);
   }, []);
 
-  // Rest of your translation functions remain the same...
+  // Translation function
+  // This function takes a key and returns the corresponding translation
   const t = (key: string): string => {
     // Get translations for current language
     const translations = getTranslations(language) as Translations;
@@ -124,7 +123,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         return key;
       }
     }
-    
     return typeof result === 'string' ? result : key;
   };
 

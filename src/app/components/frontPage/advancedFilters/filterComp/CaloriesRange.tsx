@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeProps } from '@/app/types/filters';
 
-// Range for calories
+// Valid Range for calories
 const minCalories = 0;
 const maxCalories = 2000;
 

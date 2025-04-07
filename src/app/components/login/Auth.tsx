@@ -6,7 +6,10 @@ import Link from "next/link";
 import { FormEvent, ChangeEvent } from "react";
 
 export default function Auth() {
-    const router = useRouter(); // Initiliaze router for navigation
+    // Router instance to navigate between pages
+    const router = useRouter(); 
+
+    // State variables to manage form data, error messages, and loading state
     const [loginForm, setLoginForm] = useState({
         username: "",
         password: ""

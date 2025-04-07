@@ -13,8 +13,6 @@ export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptio
 
     // Ref for the dropdown menu
     const dropdownRef = useRef<HTMLDivElement>(null);
-
-    // Close the dropdown when clicking outside of it
     useClickOutside(dropdownRef, setIsOpen);
     
     // Get cuisine options from translations and filter them based on search term

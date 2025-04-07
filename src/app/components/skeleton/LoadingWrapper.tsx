@@ -1,5 +1,4 @@
 "use client"
-
 import { useTheme } from "@/app/context/ThemeContext";
 
 export default function LoadingWrapper({ children }: { children: React.ReactNode }) {

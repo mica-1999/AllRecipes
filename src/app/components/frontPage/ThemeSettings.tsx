@@ -1,6 +1,6 @@
 "use client"
 import { useSession } from "next-auth/react";
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { modeStyles, languageOptions } from "@/app/data/LayoutData";
@@ -23,7 +23,7 @@ export default function StickyButton() {
     // State variables
     const [showConfig, setShowConfig] = useState(false) // Controls the visibility of the config menu
 
-    // Use the click outside hook directly - no need for useEffect
+    // Handle click outside of the config menu to close it
     useClickOutside(configRef, setShowConfig);
     
     // Function to handle confirmation of changes
@@ -79,6 +79,7 @@ export default function StickyButton() {
         }
     }
 
+    // Reset to default 
     const handleReset = (method: HandleResetProps["method"]) => {
         setLanguage(savedLanguage);
         setTheme(savedTheme);
