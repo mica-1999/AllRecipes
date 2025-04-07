@@ -3,9 +3,16 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { DietaryRestrictionsProps } from '@/app/types/filters';
 
 export default function DietaryRestrictions({dietaryRestrictions, setDietaryRestrictions}: DietaryRestrictionsProps) {    
-    const { t,tArray } = useTheme();
+    const { t, tArray } = useTheme();
     
+    // Helper function to convert display format to database format
+    const toDbFormat = (displayValue: string): string => {
+        // Convert "Gluten-Free" to "GlutenFree" etc.
+        return displayValue.replace(/[-\s]/g, '');
+    };
+
     const toggleRestriction = (restriction: string) => {
+        // We're already receiving the DB format here, no need to convert again
         if (dietaryRestrictions.includes(restriction)) {
             setDietaryRestrictions(dietaryRestrictions.filter(item => item !== restriction));
         } else {
@@ -19,24 +26,30 @@ export default function DietaryRestrictions({dietaryRestrictions, setDietaryRest
                 ${dietaryRestrictions.length > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.dietaryRestrictions')}</h2>
                 <div className="grid grid-cols-2 gap-2">
-                    {tArray<string>('advancedFilters.restrictions').map((restriction,i) => (
-                        <div 
-                            key={i}
-                            className="flex items-center"
-                        >
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                                checked={dietaryRestrictions.includes(restriction)}
-                                onChange={() => toggleRestriction(restriction)}
-                            />
-                            <label 
-                                className="ml-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
+                    {tArray<string>('advancedFilters.restrictions').map((restriction, i) => {
+                        // Convert to DB format once and reuse it
+                        const dbValue = toDbFormat(restriction);
+                        
+                        return (
+                            <div 
+                                key={i}
+                                className="flex items-center cursor-pointer"
+                                onClick={() => toggleRestriction(dbValue)}
                             >
-                                {restriction}
-                            </label>
-                        </div>
-                    ))}
+                                <input
+                                    type="checkbox"
+                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                                    checked={dietaryRestrictions.includes(dbValue)}
+                                    readOnly
+                                />
+                                <label 
+                                    className="ml-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
+                                >
+                                    {restriction}
+                                </label>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </>

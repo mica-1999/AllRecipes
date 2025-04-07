@@ -4,56 +4,48 @@ import * as bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create test users
+  // Create fresh test users
   const passwordHash = await bcrypt.hash('password123', 10);
   
-  const user1 = await prisma.user.upsert({
-    where: { email: 'mom@example.com' },
-    update: {},
-    create: {
-      username: 'momchef',
+  const user1 = await prisma.user.create({
+    data: {
+      username: 'chefmaria',
       password: passwordHash,
       firstname: 'Maria',
-      lastname: 'Silva',
-      email: 'mom@example.com',
+      lastname: 'Oliveira',
+      email: 'maria@cooking.com',
       role: 'admin',
       isactive: 'active',
+      UserPreferences: {
+        create: {
+          visualtheme: 'Light',
+          language: 'English'
+        }
+      }
     }
   });
 
-  const user2 = await prisma.user.upsert({
-    where: { email: 'test@example.com' },
-    update: {},
-    create: {
-      username: 'testuser',
+  const user2 = await prisma.user.create({
+    data: {
+      username: 'foodlover',
       password: passwordHash,
-      firstname: 'John',
-      lastname: 'Doe',
-      email: 'test@example.com',
+      firstname: 'Carlos',
+      lastname: 'Santos',
+      email: 'carlos@foodie.com',
       role: 'user',
       isactive: 'active',
+      phone: '+351123456789',
+      job: 'Food Blogger'
     }
   });
 
-  console.log(`Created users: ${user1.firstname} and ${user2.firstname}`);
+  console.log(`Created fresh users: ${user1.firstname} and ${user2.firstname}`);
 
-  // Recipe data
-  const recipes = [
-    {
+  // Create recipes with their ingredients using nested writes
+  await prisma.recipe.create({
+    data: {
       title: "Mom's Classic Lasagna",
       description: "A delicious layered pasta dish with rich meat sauce and creamy cheese.",
-      ingredients: [
-        "1 pound ground beef",
-        "1 onion, chopped",
-        "2 garlic cloves, minced",
-        "1 can (15 oz) tomato sauce",
-        "1 can (15 oz) crushed tomatoes",
-        "2 tablespoons Italian seasoning",
-        "9 lasagna noodles",
-        "16 oz ricotta cheese",
-        "2 cups shredded mozzarella",
-        "1/2 cup grated parmesan cheese"
-      ],
       instructions: [
         "Preheat oven to 375°F (190°C).",
         "Brown ground beef in a large skillet; drain fat.",
@@ -66,7 +58,7 @@ async function main() {
       ],
       cooktime: 60,
       difficulty: difficulty.Medium,
-      image: "/images/recipes/lasagna.jpg",
+      image: "/images/home/recipes/lasagna.jpg",
       rating: 4.8,
       season: "All",
       categorytype: "Main Course",
@@ -77,24 +69,28 @@ async function main() {
       cookingmethod: cookingMethod.Baking,
       occasions: ["Family Dinner", "Sunday Meal"],
       servings: 8,
-      userid: user1.id
-    },
-    {
+      userid: user1.id,
+      Ingredients: {
+        create: [
+          { ingredient: "1 pound ground beef" },
+          { ingredient: "1 onion, chopped" },
+          { ingredient: "2 garlic cloves, minced" },
+          { ingredient: "1 can (15 oz) tomato sauce" },
+          { ingredient: "1 can (15 oz) crushed tomatoes" },
+          { ingredient: "2 tablespoons Italian seasoning" },
+          { ingredient: "9 lasagna noodles" },
+          { ingredient: "16 oz ricotta cheese" },
+          { ingredient: "2 cups shredded mozzarella" },
+          { ingredient: "1/2 cup grated parmesan cheese" }
+        ]
+      }
+    }
+  });
+
+  await prisma.recipe.create({
+    data: {
       title: "Vegetarian Stir-Fry",
       description: "A quick and healthy vegetable stir-fry with tofu and a savory sauce.",
-      ingredients: [
-        "14 oz extra-firm tofu, cubed",
-        "2 tbsp vegetable oil",
-        "1 bell pepper, sliced",
-        "1 carrot, julienned",
-        "1 cup broccoli florets",
-        "2 cloves garlic, minced",
-        "1 tbsp ginger, minced",
-        "3 tbsp soy sauce",
-        "1 tbsp rice vinegar",
-        "1 tsp sesame oil",
-        "2 green onions, sliced"
-      ],
       instructions: [
         "Press tofu between paper towels to remove excess moisture.",
         "Heat oil in a large wok over high heat.",
@@ -106,7 +102,7 @@ async function main() {
       ],
       cooktime: 20,
       difficulty: difficulty.Easy,
-      image: "/images/recipes/stirfry.jpg",
+      image: "/images/home/recipes/stirfry.jpg",
       rating: 4.5,
       season: "All",
       categorytype: "Main Course",
@@ -117,23 +113,29 @@ async function main() {
       cookingmethod: cookingMethod.Frying,
       occasions: ["Weeknight Dinner", "Meal Prep"],
       servings: 4,
-      userid: user2.id
-    },
-    {
+      userid: user2.id,
+      Ingredients: {
+        create: [
+          { ingredient: "14 oz extra-firm tofu, cubed" },
+          { ingredient: "2 tbsp vegetable oil" },
+          { ingredient: "1 bell pepper, sliced" },
+          { ingredient: "1 carrot, julienned" },
+          { ingredient: "1 cup broccoli florets" },
+          { ingredient: "2 cloves garlic, minced" },
+          { ingredient: "1 tbsp ginger, minced" },
+          { ingredient: "3 tbsp soy sauce" },
+          { ingredient: "1 tbsp rice vinegar" },
+          { ingredient: "1 tsp sesame oil" },
+          { ingredient: "2 green onions, sliced" }
+        ]
+      }
+    }
+  });
+
+  await prisma.recipe.create({
+    data: {
       title: "Chocolate Chip Cookies",
       description: "Classic homemade chocolate chip cookies with a soft center and crispy edges.",
-      ingredients: [
-        "1 cup butter, softened",
-        "1 cup white sugar",
-        "1 cup packed brown sugar",
-        "2 eggs",
-        "2 teaspoons vanilla extract",
-        "3 cups all-purpose flour",
-        "1 teaspoon baking soda",
-        "2 teaspoons hot water",
-        "1/2 teaspoon salt",
-        "2 cups semisweet chocolate chips"
-      ],
       instructions: [
         "Preheat oven to 350°F (175°C).",
         "Cream together butter and sugars until smooth.",
@@ -145,7 +147,7 @@ async function main() {
       ],
       cooktime: 10,
       difficulty: difficulty.Easy,
-      image: "/images/recipes/cookies.jpg",
+      image: "/images/home/recipes/cookies.jpg",
       rating: 4.9,
       season: "All",
       categorytype: "Dessert",
@@ -156,21 +158,28 @@ async function main() {
       cookingmethod: cookingMethod.Baking,
       occasions: ["Bake Sale", "After School Snack"],
       servings: 36,
-      userid: user1.id
-    },
-    {
+      userid: user1.id,
+      Ingredients: {
+        create: [
+          { ingredient: "1 cup butter, softened" },
+          { ingredient: "1 cup white sugar" },
+          { ingredient: "1 cup packed brown sugar" },
+          { ingredient: "2 eggs" },
+          { ingredient: "2 teaspoons vanilla extract" },
+          { ingredient: "3 cups all-purpose flour" },
+          { ingredient: "1 teaspoon baking soda" },
+          { ingredient: "2 teaspoons hot water" },
+          { ingredient: "1/2 teaspoon salt" },
+          { ingredient: "2 cups semisweet chocolate chips" }
+        ]
+      }
+    }
+  });
+
+  await prisma.recipe.create({
+    data: {
       title: "Guacamole",
       description: "Fresh homemade guacamole with ripe avocados, lime, and cilantro.",
-      ingredients: [
-        "3 ripe avocados",
-        "1 lime, juiced",
-        "1/2 teaspoon salt",
-        "1/2 cup diced onion",
-        "3 tablespoons chopped fresh cilantro",
-        "2 roma tomatoes, diced",
-        "1 teaspoon minced garlic",
-        "1 pinch ground cayenne pepper (optional)"
-      ],
       instructions: [
         "Mash avocados in a medium bowl.",
         "Stir in lime juice and salt.",
@@ -180,7 +189,7 @@ async function main() {
       ],
       cooktime: 10,
       difficulty: difficulty.Easy,
-      image: "/images/recipes/guacamole.jpg",
+      image: "/images/home/recipes/guacamole.jpg",
       rating: 4.7,
       season: "Summer",
       categorytype: "Appetizer",
@@ -191,17 +200,96 @@ async function main() {
       cookingmethod: null,
       occasions: ["Party", "Game Day"],
       servings: 4,
-      userid: user2.id
+      userid: user2.id,
+      Ingredients: {
+        create: [
+          { ingredient: "3 ripe avocados" },
+          { ingredient: "1 lime, juiced" },
+          { ingredient: "1/2 teaspoon salt" },
+          { ingredient: "1/2 cup diced onion" },
+          { ingredient: "3 tablespoons chopped fresh cilantro" },
+          { ingredient: "2 roma tomatoes, diced" },
+          { ingredient: "1 teaspoon minced garlic" },
+          { ingredient: "1 pinch ground cayenne pepper (optional)" }
+        ]
+      }
     }
-  ];
+  });
 
-  // Create recipes
-  for (const recipeData of recipes) {
-    const recipe = await prisma.recipe.create({
-      data: recipeData
-    });
-    console.log(`Created recipe: ${recipe.title}`);
-  }
+  await prisma.recipe.create({
+    data: {
+      title: "Tofu Scramble",
+      description: "A protein-packed vegan breakfast alternative to scrambled eggs.",
+      instructions: [
+        "Drain and press tofu to remove excess water.",
+        "Heat olive oil in a skillet over medium heat.",
+        "Add chopped onion and cook until translucent.",
+        "Crumble tofu into the pan and add turmeric for color.",
+        "Cook for 5-7 minutes, stirring occasionally.",
+        "Season with salt and pepper to taste."
+      ],
+      cooktime: 15,
+      difficulty: difficulty.Easy,
+      image: "/images/tofu-scramble.jpg",
+      rating: 4.3,
+      season: "All",
+      categorytype: "Breakfast",
+      cuisinetype: cuisineType.American,
+      mealtype: mealType.Breakfast,
+      dietaryrestrictions: [dietaryRestrictions.Vegan, dietaryRestrictions.DairyFree],
+      numcalories: 180,
+      cookingmethod: cookingMethod.Frying,
+      occasions: ["Everyday Breakfast", "Brunch"],
+      servings: 2,
+      userid: user1.id,
+      Ingredients: {
+        create: [
+          { ingredient: "14 oz extra-firm tofu, cubed" },
+          { ingredient: "1 tbsp olive oil" },
+          { ingredient: "1/4 cup chopped onion" },
+          { ingredient: "1/2 tsp turmeric" },
+          { ingredient: "1/4 tsp black pepper" },
+          { ingredient: "1/2 tsp salt" }
+        ]
+      }
+    }
+  });
+
+  await prisma.recipe.create({
+    data: {
+      title: "Ham & Eggs Breakfast",
+      description: "A classic protein-rich breakfast combination.",
+      instructions: [
+        "Heat a non-stick skillet over medium heat.",
+        "Cook ham slices for 2 minutes on each side until lightly browned.",
+        "In the same pan, crack eggs and cook to your preference.",
+        "Season with salt and pepper.",
+        "Serve ham with eggs on the side."
+      ],
+      cooktime: 10,
+      difficulty: difficulty.Easy,
+      image: "/images/ham-eggs.jpg",
+      rating: 4.6,
+      season: "All",
+      categorytype: "Breakfast",
+      cuisinetype: cuisineType.American,
+      mealtype: mealType.Breakfast,
+      dietaryrestrictions: [],
+      numcalories: 320,
+      cookingmethod: cookingMethod.Frying,
+      occasions: ["Weekend Breakfast"],
+      servings: 1,
+      userid: user2.id,
+      Ingredients: {
+        create: [
+          { ingredient: "2 eggs" },
+          { ingredient: "3 slices of ham" },
+          { ingredient: "Salt and pepper" },
+          { ingredient: "1 tsp butter" }
+        ]
+      }
+    }
+  });
 
   console.log(`Database has been seeded successfully!`);
 }

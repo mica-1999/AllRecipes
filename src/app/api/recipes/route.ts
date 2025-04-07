@@ -8,6 +8,8 @@ export async function GET(request: Request) {
     try {
         // Build query using separated function
         const query = buildRecipeQuery(searchParams);
+
+        console.log(query)
         
         // Execute the query
         const recipes = await prisma.recipe.findMany(query);

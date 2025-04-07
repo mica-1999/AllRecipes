@@ -52,7 +52,7 @@ export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptio
                     </div>
                     
                     {isOpen && (
-                        <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg dark:shadow-black/30 max-h-60 overflow-auto border border-gray-200 dark:border-gray-700">
+                        <div className="absolute z-40 mt-1 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg dark:shadow-black/30 max-h-60 overflow-auto border border-gray-200 dark:border-gray-700">
                             <div className="sticky top-0 bg-white dark:bg-gray-800 p-2 border-b border-gray-200 dark:border-gray-700 relative">
                                 <div className="relative">
                                     <input
@@ -86,7 +86,7 @@ export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptio
                                     >
                                         <input
                                             type="checkbox"
-                                            className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded"
+                                            className="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-400 border-gray-300 dark:border-gray-600 rounded cursor-pointer"
                                             checked={cuisineFilter.includes(cuisine)}
                                             onChange={() => {}}
                                         />

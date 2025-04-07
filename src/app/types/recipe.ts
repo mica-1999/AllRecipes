@@ -25,3 +25,20 @@ export interface Recipe {
   updatedat: string;
   userid: number;
 }
+
+
+export interface FilterParams {
+  cuisine?: string;
+  mealType?: string;
+  cookingTime?: string;
+  diet?: string;
+  difficulty?: string;
+  caloriesMin?: string;
+  caloriesMax?: string;
+  method?: string;
+  occasion?: string;
+  season?: string;
+  ingredients?: string;
+  sortBy?: string;
+  sortOrder?: string;
+}

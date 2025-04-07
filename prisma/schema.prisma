@@ -51,8 +51,8 @@ model Recipe {
   id                  Int                   @id @default(autoincrement())
   title               String
   description         String
-  ingredients         String[]
   instructions        String[]
+  Ingredients         Ingredients[]
   cooktime            Int?
   difficulty          difficulty
   image               String
@@ -64,7 +64,7 @@ model Recipe {
   dietaryrestrictions dietaryRestrictions[]
   numcalories         Int?
   cookingmethod       cookingMethod?
-  occasions           String[]
+  occasions           occasion[]
   servings            Int?
   viewcount           Int                   @default(0)
   createdat           DateTime              @default(now()) @db.Timestamp(6)
@@ -72,9 +72,18 @@ model Recipe {
   userid              Int
   User                User                  @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
+
   @@index([cuisinetype], map: "Recipe_cuisineType_idx")
   @@index([mealtype], map: "Recipe_mealType_idx")
   @@index([userid], map: "Recipe_userId_idx")
+}
+
+model Ingredients {
+  id          Int      @id @default(autoincrement())
+  ingredient        String
+  recipeid    Int
+  Recipe      Recipe   @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  @@index([recipeid], map: "Ingredients_recipeId_idx")
 }
 
 model Address {
@@ -151,4 +160,19 @@ enum cookingMethod {
   Roasting
   // Sautéing
   SlowCooking
+}
+
+enum occasion {
+  Birthday
+  Holiday
+  Casual
+  DateNight
+  Thanksgiving
+  Christmas
+  Wedding
+  BBQ
+  GameDay
+  Picnic
+  Brunch
+  Potluck
 }
