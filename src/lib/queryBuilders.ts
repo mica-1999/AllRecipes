@@ -60,9 +60,18 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
   if (searchParams.has('diet') && searchParams.get('diet') !== '') {
     const diets = searchParams.get('diet')!.split(',');
     if (diets.length > 0) {
-      query.where.dietaryrestrictions = {
-        hasEvery: diets,
-      };
+      // Check exactMatchDiet parameter
+      if (searchParams.has('exactMatchDiet') && searchParams.get('exactMatchDiet') === 'true') {
+        // "AND" operation - all restrictions must match
+        query.where.dietaryrestrictions = {
+          hasEvery: diets,
+        };
+      } else {
+        // "OR" operation - any restriction can match
+        query.where.dietaryrestrictions = {
+          hasSome: diets,
+        };
+      }
     }
   }
 
@@ -109,9 +118,18 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
   if (searchParams.has('occasion') && searchParams.get('occasion') !== '') {
     const occasions = searchParams.get('occasion')!.split(',');
     if (occasions.length > 0) {
-      query.where.occasions = {
-        hasSome: occasions,
-      };
+      // Check exactMatchOccasion parameter
+      if (searchParams.has('exactMatchOccasion') && searchParams.get('exactMatchOccasion') === 'true') {
+        // "AND" operation - all occasions must match
+        query.where.occasions = {
+          hasEvery: occasions,
+        };
+      } else {
+        // "OR" operation - any occasion can match
+        query.where.occasions = {
+          hasSome: occasions,
+        };
+      }
     }
   }
 
@@ -125,30 +143,56 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
       .filter(Boolean);
   
     if (ingredients.length > 0) {
-      query.where = {
-        ...query.where,
-        AND: ingredients.map((ingredient) => ({
-          Ingredients: {
-            some: {
-              ingredient: {
-                contains: ingredient,
-                mode: 'insensitive', // optional: makes search case-insensitive
+      // Check exactMatchIngredients parameter
+      if ( searchParams.has('exactMatchIngredients') && searchParams.get('exactMatchIngredients') === 'true') {
+        // "AND" operation - all ingredients must match
+        query.where = {
+          ...query.where,
+          AND: ingredients.map((ingredient) => ({
+            Ingredients: {
+              some: {
+                ingredient: {
+                  contains: ingredient,
+                  mode: 'insensitive', // optional: makes search case-insensitive
+                },
               },
             },
-          },
-        })),
-      };
+          })),
+        };
+      }
+      else {
+        // "OR" operation - any ingredient can match
+        query.where = {
+          ...query.where,
+          Ingredients: {
+            some: {
+              OR: ingredients.map((ingredient) => ({
+                ingredient: {
+                  contains: ingredient,
+                  mode: 'insensitive', // optional: makes search case-insensitive
+                }
+              }))
+            }
+          }
+        }
+      }
     }
   }
   
-  
-
-
-
+  // Look for seasons, single value
+  // e.g. ?season=Summer returns all recipes that are suitable for summer or all seasons
   if (searchParams.has('season') && searchParams.get('season') !== '') {
-    query.where.season = searchParams.get('season');
+    query.where.OR = [
+      { season: searchParams.get('season') },
+      { season: 'All' }
+    ];
   }
 
+  // Look for Top Rated recipes
+  // e.g. ?menu=topRated returns all recipes that are top rated
+  if (searchParams.has('topRated') && searchParams.get('topRated') === 'true') {
+    query.where.toprated = true;
+  }
 
 
   // Add sorting if specified

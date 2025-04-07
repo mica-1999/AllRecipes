@@ -16,9 +16,19 @@ export default function Occasion({occasion, setOccasion, exactMatchOccasion, set
 
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 border-[0.5px] border-gray-200 dark:border-gray-700 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
-                ${occasion.length > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.occasion')}</h2>
+            <div className={`bg-white dark:bg-gray-800 p-5 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
+                ${occasion.length > 0 
+                    ? "border-l-4 border-indigo-500 dark:border-indigo-400 border-t border-r border-b border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700" 
+                    : "border border-gray-200 dark:border-gray-700"
+                }`}>
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
+                    {t('advancedFilters.filterSections.occasion')}
+                    {occasion.length > 0 && (
+                        <span className="ml-2 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-0.5 rounded-full">
+                            {occasion.length}
+                        </span>
+                    )}
+                </h2>
                 
                 {occasion.length > 1 && (
                     <FilterModeToggle 

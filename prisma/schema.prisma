@@ -57,7 +57,7 @@ model Recipe {
   difficulty          difficulty
   image               String
   rating              Float?
-  season              String?
+  season              seasons?
   categorytype        String
   cuisinetype         cuisineType
   mealtype            mealType
@@ -175,4 +175,12 @@ enum occasion {
   Picnic
   Brunch
   Potluck
+}
+
+enum seasons {
+  Spring
+  Summer
+  Fall
+  Winter
+  All
 }

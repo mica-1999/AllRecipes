@@ -39,8 +39,11 @@ export default function CaloriesRange({caloriesRange, setCaloriesRange}: Calorie
     
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 border-[0.5px] border-gray-200 dark:border-gray-700 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
-                ${counter > 0 ? "after:absolute after:top-0 after:right-0 after:h-4 after:w-4 after:rounded-full after:bg-indigo-500 dark:after:bg-indigo-400 after:-translate-y-1/2 after:translate-x-1/2" : ""}`}>
+            <div className={`bg-white dark:bg-gray-800 p-5 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
+                ${counter > 0 
+                    ? "border-l-4 border-indigo-500 dark:border-indigo-400 border-t border-r border-b border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700" 
+                    : "border border-gray-200 dark:border-gray-700"
+                }`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.caloriesRange')}</h2>
                 <div className="flex flex-col space-y-6">
                     <div className="flex justify-between items-center">

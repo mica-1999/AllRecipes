@@ -9,6 +9,7 @@ import { Recipe } from '@/app/types/recipe';
 import Link from "next/link";
 
 export default function TableFiltered({
+    mainFilterMenu,
     cuisineFilter,
     mealType,
     cookingTime,
@@ -44,6 +45,19 @@ export default function TableFiltered({
             // Build query parameters from filters
             const params = new URLSearchParams();
             
+            // Handle special case for Seasonal filter
+            if (mainFilterMenu === "Seasonal") {
+                if (seasonChoice && seasonChoice !== "") {
+                    params.append('season', seasonChoice);
+                }
+            }
+            else if (mainFilterMenu === "Top Rated") {
+                
+            } 
+            else {
+                params.append('mainFilterMenu', mainFilterMenu);
+            }
+            
             // Add all filters to query params - only add non-empty values
             if (cuisineFilter.length > 0) params.append('cuisine', cuisineFilter.join(','));
             if (mealType.length > 0) params.append('mealType', mealType.join(','));
@@ -55,7 +69,9 @@ export default function TableFiltered({
             if (caloriesRange.max < 2000) params.append('caloriesMax', caloriesRange.max.toString());
             if (cookingMethod.length > 0) params.append('method', cookingMethod.join(','));
             if (occasion.length > 0) params.append('occasion', occasion.join(','));
-            if (seasonChoice) params.append('season', seasonChoice);
+            params.append('exactMatchDiet', exactMatchDiet.toString());
+            params.append('exactMatchIngredients', exactMatchIngredients.toString());
+            params.append('exactMatchOccasion', exactMatchOccasion.toString());
             
             // Create the URL with parameters
             const queryString = params.toString();
@@ -85,6 +101,10 @@ export default function TableFiltered({
             });
         }
     }
+
+    useEffect(() => {
+        fetchRecipes();
+    },[cuisineFilter, mealType, cookingTime, dietaryRestrictions, exactMatchDiet, ingredients, exactMatchIngredients, difficultyLevel, caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice]);
     
     return(
         <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-200 dark:border-gray-700">

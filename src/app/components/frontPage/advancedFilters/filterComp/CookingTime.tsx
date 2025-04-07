@@ -40,11 +40,11 @@ export default function CookingTime({cookingTime, setCookingTime}: CookingTimePr
 
     return(
         <>
-            <div className={`bg-white dark:bg-gray-800 p-5 ${
-                isModified 
-                ? "border-[2.5px] border-green-500 dark:border-green-600" 
-                : "border-[0.5px] border-gray-200 dark:border-gray-700"
-            } relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200`}>
+            <div className={`bg-white dark:bg-gray-800 p-5 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
+                ${isModified 
+                    ? "border-l-4 border-indigo-500 dark:border-indigo-400 border-t border-r border-b border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700" 
+                    : "border border-gray-200 dark:border-gray-700"
+                }`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.cookingTime')}</h2>
                 <div className="flex flex-col space-y-4">
                     <div className="flex justify-between items-center">

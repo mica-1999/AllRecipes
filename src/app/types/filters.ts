@@ -4,6 +4,7 @@ export interface CaloriesRangeType {
 }
 
 export interface TableFilteredProps {
+    mainFilterMenu: string;
     cuisineFilter: string[];
     mealType: string[];
     cookingTime: number;

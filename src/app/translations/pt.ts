@@ -96,7 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Escolha a sua preferência de filtro para ver receitas correspondentes abaixo',
-        mainFilters: ["Mais recentes", "Popular", "Mais votados", "Temporada", "Aleatório"],
+        mainFilters: ["All","Mais recentes", "Popular", "Mais votados", "Temporada", "Aleatório"],
         seasons: {
             spring: 'Primavera',
             summer: 'Verão',

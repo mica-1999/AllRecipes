@@ -96,7 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Choose your filter preference to see matching recipes below',
-        mainFilters: ["Latest", "Popular", "Top Rated", "Seasonal","Random"],
+        mainFilters: ["All","Latest", "Popular", "Top Rated", "Seasonal","Random"],
         seasons: {
             spring: 'Spring',
             summer: 'Summer',

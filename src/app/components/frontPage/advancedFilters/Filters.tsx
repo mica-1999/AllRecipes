@@ -74,7 +74,7 @@ export default function AdvFilters () {
     const handleMenuChange = (menu: string) => {
         const filters = tArray<string>('advancedFilters.mainFilters');
 
-        if (menu === filters[3]) { // If the menu is "Seasonal"
+        if (menu === filters[4]) { // If the menu is "Seasonal"
             setMainFilterMenu(menu);
             setSeasonalOpen(!seasonalOpen);
         } else {
@@ -85,6 +85,7 @@ export default function AdvFilters () {
 
     const resetAllFilters = () => {
         // Reset all filter states to their initial values
+        setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); // Reset to the first menu item
         setCuisineFilter([]);
         setMealType([]);
         setCookingTime(0);
@@ -153,7 +154,7 @@ export default function AdvFilters () {
                                     onClick={() => handleMenuChange(filter)}
                                 >
                                     
-                                    {index === 3 ? (
+                                    {index === 4 ? (
                                         <>
                                             {seasonChoice ? getSeasonTranslation(seasonChoice) : filter}
                                             <i className={`ri-arrow-${seasonalOpen ? 'up' : 'down'}-s-line ml-2`}></i>
@@ -162,7 +163,7 @@ export default function AdvFilters () {
                                         filter
                                     )}
                                 </button>
-                                {index === 3 && (
+                                {index === 4 && (
                                     <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white dark:bg-gray-800 shadow-lg dark:shadow-black/30 rounded-md z-40" ref={seasonsRef} style={{display: seasonalOpen ? "block" : "none"}}>
                                         <div className="py-2">
                                             {seasonsData.map((season) => (
@@ -202,6 +203,7 @@ export default function AdvFilters () {
 
                 <div className="mt-8">
                     <TableFiltered 
+                        mainFilterMenu={mainFilterMenu}
                         cuisineFilter={cuisineFilter}
                         mealType={mealType}
                         cookingTime={cookingTime}
