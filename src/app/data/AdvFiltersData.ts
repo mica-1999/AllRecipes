@@ -54,5 +54,6 @@ export const listHeaders = [
   "Recipe Name",
   "Views",
   "Rating",
+  "Date",
   "Actions"
 ]

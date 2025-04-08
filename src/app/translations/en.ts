@@ -195,7 +195,8 @@ const translations = {
             thisMonth: 'This Month',
             lastMonth: 'Last Month',
             allTime: 'All Time'
-        }
+        },
+        dateAdded: 'Date Added'
     },
     themeSettings: {
         title: 'Layout Preferences',

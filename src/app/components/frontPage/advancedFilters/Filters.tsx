@@ -15,7 +15,7 @@ import DifficultyLevel from "@/app/components/frontPage/advancedFilters/filterCo
 import CaloriesRange from "@/app/components/frontPage/advancedFilters/filterComp/CaloriesRange";
 import CookingMethod from "@/app/components/frontPage/advancedFilters/filterComp/CookingMethod";
 import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occasion";
-import TableFiltered from "@/app/components/frontPage/advancedFilters/content/TableFiltered";
+import TableFiltered from "@/app/components/frontPage/advancedFilters/resultTable/TableFiltered";
 import ResetAdvFilters from "@/app/components/frontPage/advancedFilters/resetButton/Reset"
 
 // Data

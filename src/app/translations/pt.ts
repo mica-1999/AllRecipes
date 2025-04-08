@@ -195,7 +195,8 @@ const translations = {
             thisMonth: 'Este Mês',
             lastMonth: 'Mês Passado',
             allTime: 'Todo Período'
-        }
+        },
+        dateAdded: 'Data Adicionada'
     },
     themeSettings: {
         title: 'Preferências de Layout',
