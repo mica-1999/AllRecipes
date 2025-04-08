@@ -1,27 +1,20 @@
 "use client"
 import { useSession } from "next-auth/react";
 import { useState, useRef } from "react"
-import { toast } from 'react-toastify';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { modeStyles, languageOptions } from "@/app/data/LayoutData";
 import { useTheme } from "@/app/context/ThemeContext";
-
-interface HandleResetProps {
-    method: "reset" | "cancel";
-}
+import { showToast } from "@/app/components/reusable/Toasters";
+import { HandleResetProps } from "@/app/types/theme";
 
 export default function StickyButton() {
     // Get session data from NextAuth
     const { data: session } = useSession(); 
 
-    // Get theme and language from context
+    // State variables & hooks
+    const [showConfig, setShowConfig] = useState(false)
     const { theme, setTheme, language, setLanguage, savedTheme, setSavedTheme, savedLanguage, setSavedLanguage, t } = useTheme();
-    
-    // Ref to DIV
-    const configRef = useRef<HTMLDivElement>(null) // Used to close the config menu when clicking outside of it
-    
-    // State variables
-    const [showConfig, setShowConfig] = useState(false) // Controls the visibility of the config menu
+    const configRef = useRef<HTMLDivElement>(null)
 
     // Handle click outside of the config menu to close it
     useClickOutside(configRef, setShowConfig);
@@ -54,28 +47,12 @@ export default function StickyButton() {
                 
                 // Close the config menu and show success message
                 setShowConfig(false)
-                toast.success(t('themeSettings.changesSaved'), {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: theme.toLowerCase() === "dark" ? "dark" : "light"
-                });
+                showToast("success", t('themeSettings.changesSaved'), savedTheme);
             }
         }
         catch(error){
             console.error("Error saving preferences:", error)
-            toast.error(t('themeSettings.errorSaving'), {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: theme.toLowerCase() === "dark" ? "dark" : "light"
-            });
+            showToast("error", t('themeSettings.errorSaving'), savedTheme);
         }
     }
 
@@ -84,16 +61,9 @@ export default function StickyButton() {
         setLanguage(savedLanguage);
         setTheme(savedTheme);
 
+        // Shows only if user doesn't click on the cancel button and instead clicks on the reset button
         if (method !== "cancel") {
-            toast.info(t('themeSettings.settingsReset'), {
-                position: "top-center",
-                autoClose: 1500,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
-            });
+            showToast("info", t('themeSettings.settingsReset'), savedTheme);
         }
     }
     

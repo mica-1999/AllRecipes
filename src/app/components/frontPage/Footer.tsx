@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function Footer() {
-    // State variables
+    // State variables & hooks
     const [currentYear, setCurrentYear] = useState<string | null>("");
     const [hoveredSocial, setHoveredSocial] = useState<number | null>(null);
     const { t } = useTheme();

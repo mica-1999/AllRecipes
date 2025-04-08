@@ -8,9 +8,10 @@ const minCalories = 0;
 const maxCalories = 2000;
 
 export default function CaloriesRange({caloriesRange, setCaloriesRange}: CaloriesRangeProps) {
-    const { t } = useTheme();
-    // State Variables
+
+    // State Variables & Hooks
     const [counter, setCounter] = useState(0);
+    const { t } = useTheme();
 
     // Reset counter if caloriesRange is reset
     useEffect(() => {

@@ -3,7 +3,7 @@ import "./globals.css";
 import 'remixicon/fonts/remixicon.css'; // Import Remix Icon CSS
 import NextAuthSessionProvider from "./sessionWrapper";
 import { ToastContainer } from 'react-toastify'; // Initialize ToastContainer for App
-import { ThemeProvider } from "@/app/context/ThemeContext";
+import { ThemeProvider } from "@/app/context/ThemeContext"; // Import ThemeProvider for App
 
 export const metadata: Metadata = {
   title: "Home",

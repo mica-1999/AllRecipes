@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeType } from '@/app/types/filters';
-import { toast } from "react-toastify";
+import { showToast } from "@/app/components/reusable/Toasters"; 
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -20,6 +20,8 @@ import ResetAdvFilters from "@/app/components/frontPage/advancedFilters/resetBut
 
 // Data
 import { seasonsData } from "@/app/data/AdvFiltersData";
+
+// Hook to handle click outside of a component
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 export default function AdvFilters () {
@@ -101,15 +103,7 @@ export default function AdvFilters () {
         setExactMatchOccasion(false);
         
         // Show a toast notification to confirm filters were reset
-        toast.success(t('advancedFilters.filtersReset'), {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: savedTheme.toLowerCase() === "dark" ? "dark" : "light"
-        });
+        showToast("success", t('advancedFilters.filtersReset'), savedTheme);
     };
 
     // Update the main filter menu based on the query parameter
@@ -117,12 +111,10 @@ export default function AdvFilters () {
         if (query) {
             setMainFilterMenu(query);
         }
+        else {
+            setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]);
+        }
     }, [query]);
-
-    // Set default menu to "Latest" translated
-    useEffect(() => {
-        setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); 
-    },[tArray]);
     
     return(
         <>

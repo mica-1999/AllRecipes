@@ -5,10 +5,10 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { DifficultyLevelProps } from '@/app/types/filters';
 
 export default function DifficultyLevel({difficultyLevel, setDifficultyLevel}: DifficultyLevelProps) {
-    const { t } = useTheme();
     
-    // State variables
+    // State variables & Hooks
     const [counter, setCounter] = useState<number>(0);
+    const { t } = useTheme();
     
     // Function to handle difficulty level selection
     const selectDifficulty = (difficulty: string) => {

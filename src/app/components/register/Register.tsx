@@ -3,19 +3,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from 'react-toastify';
 import { Spinner } from "@/app/components/reusable/Spinner";
+import { showToast } from "@/app/components/reusable/Toasters";
 
 export default function Register() {
     // Router instance to navigate between pages
     const router = useRouter();
 
     // State variables to manage form data, error messages, and loading state
-    const [formData,setformData] = useState ({
-        username : "",
-        password : "",
-        confirmpassword : ""
-    });
+    const [formData,setformData] = useState ({username : "",password : "",confirmpassword : ""});
     const [error,setError] = useState("");
     const [loading , setLoading] = useState(false);
 
@@ -91,20 +87,9 @@ export default function Register() {
                     setError("An error occurred. Please try again later.");
                 }
 
-                toast.success("Account created successfully!", {
-                    position: "top-right",
-                    autoClose: 1500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "light"
-                });
-                
-                // Clear form
+                // Display success message/clear form and small delay for toast to be visible
+                showToast("success", "Account created successfully!", "light");
                 setformData({username: "", password: "", confirmpassword: ""});
-                
-                // Brief delay for toast to be visible
                 setTimeout(() => {
                     setLoading(true);
                     router.push("/pages/login");

@@ -3,9 +3,9 @@ import Image from "next/image"
 import { listHeaders } from "@/app/data/AdvFiltersData"
 import { useTheme } from '@/app/context/ThemeContext';
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { TableFilteredProps } from '@/app/types/filters';
 import { Recipe } from '@/app/types/recipe';
+import { showToast } from "@/app/components/reusable/Toasters";
 import Link from "next/link";
 
 export default function TableFiltered({
@@ -26,11 +26,13 @@ export default function TableFiltered({
     onResetFilters
 }: TableFilteredProps) {
 
-    const [recipes, setRecipes] = useState<Recipe[]>([]);
-    const { t, theme } = useTheme();
-    const [sortField, setSortField] = useState<string>("");
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-    
+    // State variables & Hooks
+    const [recipes, setRecipes] = useState<Recipe[]>([]); // Store the fetched recipes
+    const [sortField, setSortField] = useState<string>(""); // Store the field to sort by
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc'); // Store the sort order (ascending or descending)
+    const { t, savedTheme } = useTheme();
+
+    // Function to get the translation for the table headers
     const getHeaderTranslation = (header: string) => {
         switch (header) {
             case "Recipe Name": return t('tableFiltered.headers.recipeName');
@@ -41,6 +43,7 @@ export default function TableFiltered({
         }
     };
 
+    // Function to handle sorting based on the selected header
     useEffect(() => {
         if (mainFilterMenu === "Top Rated") {
             setSortField("rating");
@@ -51,6 +54,7 @@ export default function TableFiltered({
         }
     }, [mainFilterMenu]);
 
+    // Function to handle sorting when a table header is clicked
     const handleSort = (field: string) => {
         if (sortField === field) {
             setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -60,9 +64,11 @@ export default function TableFiltered({
         }
     };
 
+    // Function to fetch recipes based on the selected filters
+    // This function is called whenever the component mounts or any of the dependencies change
     const fetchRecipes = async () => {
         try {
-            const params = new URLSearchParams();
+            const params = new URLSearchParams(); // Gets URL params for the API fetch
             
             if (mainFilterMenu === "Seasonal") {
                 if (seasonChoice && seasonChoice !== "") {
@@ -99,7 +105,7 @@ export default function TableFiltered({
             params.append('exactMatchIngredients', exactMatchIngredients.toString());
             params.append('exactMatchOccasion', exactMatchOccasion.toString());
             
-            if (sortField) {
+            if (sortField && sortOrder && sortField != "" && sortOrder != null) {
                 params.append('sortBy', sortField);
                 params.append('order', sortOrder);
             }
@@ -120,18 +126,11 @@ export default function TableFiltered({
             }
         } catch (error) {
             console.error("Error fetching recipes:", error);
-            toast.error("Error fetching recipes. Please try again later.", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: theme.toLowerCase() === "dark" ? "dark" : "light"
-            });
+            showToast("error", "Error fetching recipes. Please try again later.", savedTheme);
         }
     }
 
+    // Fetch recipes when the component mounts or any of the dependencies change
     useEffect(() => {
         fetchRecipes();
     }, [mainFilterMenu, cuisineFilter, mealType, cookingTime, dietaryRestrictions, exactMatchDiet, ingredients, exactMatchIngredients, difficultyLevel, caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice, sortField, sortOrder]);

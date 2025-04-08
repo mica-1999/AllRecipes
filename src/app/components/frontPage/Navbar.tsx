@@ -10,18 +10,14 @@ import { useTheme } from '@/app/context/ThemeContext';
 export default function Navbar() {
     // Get session data from NextAuth
     const { data: session } = useSession(); 
-
-    // Get theme context
-    const { t } = useTheme();
-
-    // Refs for dropdowns
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const dropdownCategoriesRef = useRef<HTMLDivElement>(null);
-
-    // State variables for dropdowns and search filter
+    
+    // State variables & hooks
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [categoriesOpen, setCategoriesOpen] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const dropdownCategoriesRef = useRef<HTMLDivElement>(null);
+    const { t } = useTheme();
 
     // Controls closing dropdowns when clicking outside
     useClickOutside(dropdownRef, setDropdownOpen);

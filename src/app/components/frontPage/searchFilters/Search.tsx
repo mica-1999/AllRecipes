@@ -1,21 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { useClickOutside } from '@/app/components/reusable/ClickOutsideDiv';
 import { useTheme } from '@/app/context/ThemeContext';
-
-interface SearchFilterProps {
-    openSearch: boolean;
-    setOpenSearch: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { SearchFilterProps } from '@/app/types/navSearch';
 
 export default function SearchFilter ({openSearch, setOpenSearch}: SearchFilterProps) {
-    // Get translations from Theme context
-    const { t } = useTheme();
-    
-    // Ref for the search box element
-    const searchRef = useRef<HTMLDivElement>(null);
-    
-    // State Variable
+    // State Variable & Hooks
     const [isFocused, setIsFocused] = useState<boolean>(false);
+    const searchRef = useRef<HTMLDivElement>(null);
+    const { t } = useTheme();
     
     // Hook to detect clicks outside the search box
     useClickOutside(searchRef, setOpenSearch)

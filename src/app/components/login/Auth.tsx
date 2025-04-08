@@ -10,10 +10,7 @@ export default function Auth() {
     const router = useRouter(); 
 
     // State variables to manage form data, error messages, and loading state
-    const [loginForm, setLoginForm] = useState({
-        username: "",
-        password: ""
-    });
+    const [loginForm, setLoginForm] = useState({username: "", password: ""});
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);

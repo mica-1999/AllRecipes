@@ -5,11 +5,8 @@ import { recipeData } from '@/app/data/RecipeInfoData';
 import { useTheme } from '@/app/context/ThemeContext';
 
 export default function RecipeInfo() {
-  // State to manage the active step in the recipe instructions
-  // This will allow the user to navigate through the steps of the recipe
+  // State variables & Hooks
   const [activeStep, setActiveStep] = useState(0);
-
-  // Theme context to manage settings
   const { t } = useTheme();
   
   return (

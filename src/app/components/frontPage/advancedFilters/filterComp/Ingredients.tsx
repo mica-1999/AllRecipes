@@ -5,10 +5,10 @@ import { IngredientsProps } from '@/app/types/filters';
 import FilterModeToggle from "@/app/components/frontPage/advancedFilters/filterComp/FilterModeToggle";
 
 export default function Ingredients({ingredients, setIngredients, exactMatchIngredients, setExactMatchIngredients}: IngredientsProps) {
-    const { t } = useTheme();
-    
-    // State Variables
+
+    // State Variables & Hooks
     const [inputValue, setInputValue] = useState<string>("");
+    const { t } = useTheme();
     
     // Add Ingredient Function
     const addIngredient = (ingredient: string) => {

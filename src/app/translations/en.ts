@@ -175,14 +175,27 @@ const translations = {
             recipeName: 'Recipe Name',
             views: 'Views',
             rating: 'Rating',
-            actions: 'Actions'
+            actions: 'Actions',
+            date: 'Date'
         },
         viewsLabel: 'Views',
         viewButton: 'View',
         outOf5: '/5',
         noResults: 'No recipes found matching your criteria',
         tryAdjusting: 'Try adjusting your filters or selecting different options',
-        resetFilters: 'Reset Filters'
+        resetFilters: 'Reset Filters',
+        dateRange: {
+            title: 'Select Date Range',
+            start: 'Start Date',
+            end: 'End Date',
+            apply: 'Apply',
+            cancel: 'Cancel',
+            last7Days: 'Last 7 Days',
+            last30Days: 'Last 30 Days',
+            thisMonth: 'This Month',
+            lastMonth: 'Last Month',
+            allTime: 'All Time'
+        }
     },
     themeSettings: {
         title: 'Layout Preferences',

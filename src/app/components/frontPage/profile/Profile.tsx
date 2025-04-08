@@ -8,12 +8,10 @@ import { useTheme } from "@/app/context/ThemeContext"
 export default function Profile() {
     // Using NextAuth to get the session data
     const { status } = useSession()
-
-    // Theme context for settings
-    const { t } = useTheme();
-
-    // State Variables
+    
+    // State Variables & Hooks
     const [activeTab, setActiveTab] = useState('About');
+    const { t } = useTheme();
     
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">

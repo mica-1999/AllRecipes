@@ -5,14 +5,15 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { MealOptionsProps } from '@/app/types/filters';
 
 export default function MealOptions({cuisineFilter, setCuisineFilter}: MealOptionsProps) {
-    const { t, tArray } = useTheme();
+
     
-    // State Variables
+    // State Variables & Hooks
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
-
-    // Ref for the dropdown menu
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const { t, tArray } = useTheme();
+
+    // Listener for click outside to close the dropdown
     useClickOutside(dropdownRef, setIsOpen);
     
     // Get cuisine options from translations and filter them based on search term

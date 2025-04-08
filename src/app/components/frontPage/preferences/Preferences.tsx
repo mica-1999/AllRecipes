@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
-import { toast } from 'react-toastify';
 import { useTheme } from '@/app/context/ThemeContext';
+import { showToast } from "@/app/components/reusable/Toasters";
 
 // Import components
 import DietPreferences from "@/app/components/frontPage/preferences/types/DietPreferences";
@@ -13,17 +13,15 @@ import ColorSettings from "@/app/components/frontPage/preferences/types/ColorSet
 import PreferencesSummary from "@/app/components/frontPage/preferences/types/PreferencesSummary";
 
 export default function CustomizedPreferences() {
-    // Theme context for settings
-    const { t } = useTheme();
-    
-    // State management
+    // State management & hooks
     const [dietPreferences, setDietPreferences] = useState<string[]>([]);
     const [cuisinePreferences, setCuisinePreferences] = useState<string[]>([]);
     const [mealPreferences, setMealPreferences] = useState<string[]>([]);
     const [cookingPreferences, setCookingPreferences] = useState<string[]>([]);
     const [saved, setSaved] = useState(false);
     const [customColors, setCustomColors] = useState<{[key: string]: string}>({});
-    const [activeTab, setActiveTab] = useState("preferences"); // preferences or colors
+    const [activeTab, setActiveTab] = useState("preferences"); 
+    const { t, savedTheme } = useTheme();
 
     // Handlers for each preference
     const handleDietChange = (id: string) => {
@@ -73,15 +71,7 @@ export default function CustomizedPreferences() {
 
     // Function to save preferences
     const savePreferences = () => {
-        toast.success("Changes saved successfully!", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light"
-        });
+        showToast("success", "Changes saved successfully!", savedTheme);
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
     };

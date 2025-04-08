@@ -6,10 +6,10 @@ import { CookingTimeProps } from '@/app/types/filters';
 const maxTime = 180; // Maximum time in minutes (3 hours)
 
 export default function CookingTime({cookingTime, setCookingTime}: CookingTimeProps) {
-    const { t } = useTheme();
     
-    // State Variables
+    // State Variables & Hooks
     const [isModified, setIsModified] = useState<boolean>(false);
+    const { t } = useTheme();
     
     // Reset isModified state when cookingTime is reset to 0
     useEffect(() => {

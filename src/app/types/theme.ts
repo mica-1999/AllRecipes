@@ -13,6 +13,10 @@ export type ThemeContextType = {
   isLoading: boolean;
 };
 
+export interface HandleResetProps {
+  method: "reset" | "cancel";
+}
+
 // Define interfaces for translation structure
 export interface NestedTranslations {
   [key: string]: string | NestedTranslations | Array<unknown>;
