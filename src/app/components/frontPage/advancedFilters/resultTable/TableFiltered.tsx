@@ -58,7 +58,7 @@ export default function TableFiltered({
     const fetchRecipes = async () => {
         try {
             const params = new URLSearchParams();
-            
+
             if (mainFilterMenu === "Seasonal") {
                 if (seasonChoice && seasonChoice !== "") {
                     params.append('season', seasonChoice);
@@ -83,7 +83,7 @@ export default function TableFiltered({
             else {
                 params.append('mainFilterMenu', mainFilterMenu);
             }
-            
+
             if (cuisineFilter.length > 0) params.append('cuisine', cuisineFilter.join(','));
             if (mealType.length > 0) params.append('mealType', mealType.join(','));
             if (cookingTime > 0) params.append('cookingTime', cookingTime.toString());
@@ -97,15 +97,15 @@ export default function TableFiltered({
             params.append('exactMatchDiet', exactMatchDiet.toString());
             params.append('exactMatchIngredients', exactMatchIngredients.toString());
             params.append('exactMatchOccasion', exactMatchOccasion.toString());
-            
+
             if (sortField && sortOrder && sortField !== "") {
                 params.append('sortBy', sortField);
                 params.append('order', sortOrder);
             }
-            
+
             const queryString = params.toString();
             const url = `/api/recipes${queryString ? `?${queryString}` : ''}`;
-            
+
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -129,7 +129,7 @@ export default function TableFiltered({
     }, [
         mainFilterMenu, cuisineFilter, mealType, cookingTime, dietaryRestrictions,
         exactMatchDiet, ingredients, exactMatchIngredients, difficultyLevel,
-        caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice, 
+        caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice,
         sortField, sortOrder
     ]);
 
@@ -139,17 +139,17 @@ export default function TableFiltered({
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('tableFiltered.title')}</h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('tableFiltered.description')}</p>
             </div>
-            
-            <TableHeader 
-                sortField={sortField} 
-                sortOrder={sortOrder} 
-                handleSort={handleSort} 
+
+            <TableHeader
+                sortField={sortField}
+                sortOrder={sortOrder}
+                handleSort={handleSort}
             />
 
             <div className="flex flex-col w-full">
-                <ResultData 
-                    recipes={recipes} 
-                    onResetFilters={onResetFilters} 
+                <ResultData
+                    recipes={recipes}
+                    onResetFilters={onResetFilters}
                 />
             </div>
         </div>

@@ -10,12 +10,12 @@ export default function Footer() {
     const [hoveredSocial, setHoveredSocial] = useState<number | null>(null);
     const { t } = useTheme();
 
-    // Get Current Year on Mount
+    // Get Current Year on Mount 
     useEffect(() => {
         setCurrentYear(new Date().getFullYear().toString());
     }, []);
 
-    return(
+    return (
         <footer>
             {/* ======================== ABOUT US SECTION ======================== */}
             <div id="socialsSection" className="flex max-lg:flex-col max-lg:items-center justify-between bg-gray-100 w-full text-gray-800 dark:bg-gray-800 dark:text-white">
@@ -24,22 +24,21 @@ export default function Footer() {
                     <p className="text-gray-600 dark:text-gray-400">{t('footer.aboutDescription')}</p>
 
                     <div className="flex gap-5 mt-5">
-                    {Socials.map((social, index) => (
-                        <Link href={social.url} key={index}>
-                            <div 
-                                className={`flex justify-center items-center w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300 ${
-                                    hoveredSocial === index ? 'translate-y-[-4px]' : ''
-                                }`}
-                                style={{
-                                    backgroundColor: hoveredSocial === index ? `#${social.color}` : ''
-                                }}
-                                onMouseEnter={() => setHoveredSocial(index)}
-                                onMouseLeave={() => setHoveredSocial(null)}
-                            >
-                                <i className={`${social.icon} text-gray-700 dark:text-gray-200`}></i>
-                            </div>
-                        </Link>
-                    ))}
+                        {Socials.map((social, index) => (
+                            <Link href={social.url} key={index}>
+                                <div
+                                    className={`flex justify-center items-center w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300 ${hoveredSocial === index ? 'translate-y-[-4px]' : ''
+                                        }`}
+                                    style={{
+                                        backgroundColor: hoveredSocial === index ? `#${social.color}` : ''
+                                    }}
+                                    onMouseEnter={() => setHoveredSocial(index)}
+                                    onMouseLeave={() => setHoveredSocial(null)}
+                                >
+                                    <i className={`${social.icon} text-gray-700 dark:text-gray-200`}></i>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
 

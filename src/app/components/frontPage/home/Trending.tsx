@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { useTheme } from '@/app/context/ThemeContext';
 
-export default function Trending () {
+export default function Trending() {
     const { t } = useTheme();
-    
+
     return (
         <>
             <div className="flex items-center justify-between w-full h-15 mt-15">
@@ -15,19 +15,19 @@ export default function Trending () {
                         {/* Left arrow button */}
                         <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M15 18l-6-6 6-6"/>
+                                <path d="M15 18l-6-6 6-6" />
                             </svg>
                         </button>
                         {/* Right arrow button */}
                         <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 18l6-6-6-6"/>
+                                <path d="M9 18l6-6-6-6" />
                             </svg>
                         </button>
                     </div>
                 </div>
             </div>
-            
+
             {/* Desktop view (hidden on small screens) */}
             <div className="hidden lg:flex mb-10 h-[352px] gap-4">
                 <div className="w-1/4 h-full rounded-[15px] relative overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/30">
@@ -102,7 +102,7 @@ export default function Trending () {
                     </div>
                 </div>
             </div>
-            
+
             {/* Mobile view (hidden on medium screens and up) */}
             <div className="lg:hidden overflow-x-auto mb-10">
                 <div className="flex gap-4 w-max">

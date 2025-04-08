@@ -9,7 +9,7 @@ import { HandleResetProps } from "@/app/types/theme";
 
 export default function StickyButton() {
     // Get session data from NextAuth
-    const { data: session } = useSession(); 
+    const { data: session } = useSession();
 
     // State variables & hooks
     const [showConfig, setShowConfig] = useState(false)
@@ -18,11 +18,11 @@ export default function StickyButton() {
 
     // Handle click outside of the config menu to close it
     useClickOutside(configRef, setShowConfig);
-    
+
     // Function to handle confirmation of changes
     const handleSavedChanges = async () => {
-        try{
-            const response = await fetch("/api/preferences",{
+        try {
+            const response = await fetch("/api/preferences", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,27 +30,27 @@ export default function StickyButton() {
                 body: JSON.stringify({
                     userId: session?.user.id,
                     visualTheme: theme,
-                    language: language 
+                    language: language
                 })
             })
 
-            if(response.ok){
+            if (response.ok) {
                 // Save new theme and language to context        
-                setSavedTheme(theme); 
-                setSavedLanguage(language);     
-                
+                setSavedTheme(theme);
+                setSavedLanguage(language);
+
                 // Save new theme and language to localStorage
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('theme', theme);
                     localStorage.setItem('language', language);
-                  }
-                
+                }
+
                 // Close the config menu and show success message
                 setShowConfig(false)
                 showToast("success", t('themeSettings.changesSaved'), savedTheme);
             }
         }
-        catch(error){
+        catch (error) {
             console.error("Error saving preferences:", error)
             showToast("error", t('themeSettings.errorSaving'), savedTheme);
         }
@@ -66,10 +66,10 @@ export default function StickyButton() {
             showToast("info", t('themeSettings.settingsReset'), savedTheme);
         }
     }
-    
-    return(
+
+    return (
         <>
-            <div 
+            <div
                 className="
                     fixed right-0 top-40 z-50
                     flex items-center justify-center w-12 h-10
@@ -93,21 +93,21 @@ export default function StickyButton() {
                     shadow-xl
                     overflow-y-auto
                     dark:from-gray-800 dark:to-gray-900
-                    " 
-                ref={configRef}>
+                    "
+                    ref={configRef}>
                     <div className="flex items-center justify-between border-b-2 border-gray-300 pb-2 -mx-5 px-5 dark:border-gray-700">
                         <div className="flex flex-col">
                             <h2 className="text-[18px] font-semibold text-gray-800 dark:text-white">{t('themeSettings.title')}</h2>
                             <p className="text-[12px] text-gray-600 dark:text-gray-400">{t('themeSettings.subtitle')}</p>
                         </div>
                         <div className="flex items-center gap-1">
-                            <button 
+                            <button
                                 onClick={() => handleReset("reset")}
                                 className="cursor-pointer hover:text-blue-600 transition-colors dark:text-gray-300 dark:hover:text-blue-400">
                                 <i className="ri-refresh-line text-[23px]"></i>
                             </button>
-                            <button 
-                                className="cursor-pointer hover:text-red-600 transition-colors dark:text-gray-300 dark:hover:text-red-400" 
+                            <button
+                                className="cursor-pointer hover:text-red-600 transition-colors dark:text-gray-300 dark:hover:text-red-400"
                                 onClick={() => {
                                     handleReset("cancel");
                                     setShowConfig(false);
@@ -126,15 +126,14 @@ export default function StickyButton() {
                         <div className="flex justify-between gap-3 mt-3 w-full">
                             {modeStyles.map((mode, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
-                                    <button 
+                                    <button
                                         onClick={() => {
                                             setTheme(mode.type)
                                         }}
-                                        className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            (theme || savedTheme) === mode.type  // Add fallback to savedTheme
+                                        className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${(theme || savedTheme) === mode.type  // Add fallback to savedTheme
                                                 ? `bg-gradient-to-r ${mode.activeGradient} shadow-md`
                                                 : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600"
-                                        }`}
+                                            }`}
                                     >
                                         <i className={`${mode.icon} text-[28px] ${theme === mode.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
@@ -154,13 +153,12 @@ export default function StickyButton() {
                         <div className="flex justify-between gap-3 mt-3 w-full">
                             {languageOptions.map((languagearray, index) => (
                                 <div key={index} className="flex flex-col w-1/3 justify-center">
-                                    <button 
+                                    <button
                                         onClick={() => setLanguage(languagearray.type)}
-                                        className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${
-                                            language === languagearray.type
+                                        className={`w-full py-3 rounded-[14px] cursor-pointer transition-all duration-200 ${language === languagearray.type
                                                 ? `bg-gradient-to-r ${languagearray.activeGradient} shadow-md`
                                                 : "bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600"
-                                        }`}
+                                            }`}
                                     >
                                         <i className={`${languagearray.icon} text-[28px] ${language === languagearray.type ? "text-white" : "text-gray-700 dark:text-gray-200"}`}></i>
                                     </button>
@@ -171,11 +169,11 @@ export default function StickyButton() {
                             ))}
                         </div>
                     </div>
-                    
+
                     <div id="btns" className="flex flex-col mt-10 mb-5">
                         <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-2 -mx-5 px-5">
                             <div className="flex items-center justify-between gap-4">
-                                <button 
+                                <button
                                     className="flex-1 py-2 px-3 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center justify-center cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                                     onClick={() => {
                                         handleReset("cancel");
@@ -185,7 +183,7 @@ export default function StickyButton() {
                                     <i className="ri-close-circle-line mr-1.5 text-base"></i>
                                     {t('themeSettings.cancel')}
                                 </button>
-                                <button 
+                                <button
                                     className="flex-1 py-2 px-3 bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a29] hover:to-[#e57a4d] text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center cursor-pointer dark:from-indigo-600 dark:to-indigo-700 dark:hover:from-indigo-700 dark:hover:to-indigo-800"
                                     onClick={() => handleSavedChanges()}
                                 >

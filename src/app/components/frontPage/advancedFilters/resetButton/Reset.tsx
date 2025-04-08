@@ -3,9 +3,9 @@ interface ResetAdvFiltersProps {
 }
 
 export default function ResetAdvFilters({ resetAllFilters }: ResetAdvFiltersProps) {
-    return(
+    return (
         <>
-            <div 
+            <div
                 className="
                     fixed right-0 top-52 z-50
                     flex items-center justify-center w-12 h-10
@@ -20,4 +20,4 @@ export default function ResetAdvFilters({ resetAllFilters }: ResetAdvFiltersProp
             </div>
         </>
     )
-}
+} 

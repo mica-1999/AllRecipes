@@ -5,7 +5,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 
 export default function FeaturedChefs() {
     const { t } = useTheme();
-    
+
     return (
         <>
             <div className="flex items-center justify-between w-full">

@@ -3,9 +3,9 @@ import Image from "next/image";
 import BasicFilter from "@/app/components/frontPage/home/BasicFilter";
 import { useTheme } from '@/app/context/ThemeContext';
 
-export default function ImageContainer(){
+export default function ImageContainer() {
     const { t } = useTheme();
-    
+
     return (
         <div id="imageSection" className="w-full h-[260px] sm:h-[280px] md:h-[300px] relative mb-12 sm:mb-20 md:mb-16 rounded-[15px]">
             <Image

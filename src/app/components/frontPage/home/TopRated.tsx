@@ -4,9 +4,9 @@ import { useTheme } from '@/app/context/ThemeContext';
 
 const images = ["rated1.jpg", "rated2.jpg", "rated3.jpg", "rated4.jpg", "rated5.jpg"];
 
-export default function TopRated () {
+export default function TopRated() {
     const { t } = useTheme();
-    
+
     return (
         <>
             <div className="flex items-center justify-between w-full h-15">
@@ -17,13 +17,13 @@ export default function TopRated () {
                         {/* Left arrow button */}
                         <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M15 18l-6-6 6-6"/>
+                                <path d="M15 18l-6-6 6-6" />
                             </svg>
                         </button>
                         {/* Right arrow button */}
                         <button className="w-[40px] h-[40px] bg-black hover:bg-[#FF6B35] dark:bg-gray-800 dark:hover:bg-indigo-600 rounded-full flex items-center justify-center cursor-pointer transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 18l6-6-6-6"/>
+                                <path d="M9 18l6-6-6-6" />
                             </svg>
                         </button>
                     </div>

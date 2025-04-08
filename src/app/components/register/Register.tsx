@@ -11,26 +11,26 @@ export default function Register() {
     const router = useRouter();
 
     // State variables to manage form data, error messages, and loading state
-    const [formData,setformData] = useState ({username : "",password : "",confirmpassword : ""});
-    const [error,setError] = useState("");
-    const [loading , setLoading] = useState(false);
+    const [formData, setformData] = useState({ username: "", password: "", confirmpassword: "" });
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     // Validate form data
     const formValidation = () => {
         const usernameRegex = /^[a-zA-Z0-9_]+$/;
-        if(!formData.username || !formData.password || !formData.confirmpassword){
+        if (!formData.username || !formData.password || !formData.confirmpassword) {
             setError("All fields are required");
             return false;
         }
-        else if(formData.username.length < 4 || formData.username.length > 15){
+        else if (formData.username.length < 4 || formData.username.length > 15) {
             setError("Username must be between 4 and 15 characters");
             return false;
         }
-        else if(!usernameRegex.test(formData.username)){
+        else if (!usernameRegex.test(formData.username)) {
             setError("Username can only contain letters, numbers, and underscores (no spaces)");
             return false;
         }
-        else if(formData.password !== formData.confirmpassword){
+        else if (formData.password !== formData.confirmpassword) {
             setError("Passwords do not match");
             return false;
         }
@@ -39,10 +39,10 @@ export default function Register() {
 
     // Handle form submission
     // This function is called when the form is submitted. It validates the form data, sends a POST request to create a user account, and handles the response.
-    const handleSubmit =  async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!formValidation()){
+        if (!formValidation()) {
             setLoading(false);
             return;
         }
@@ -52,13 +52,13 @@ export default function Register() {
         // Create user account
         try {
             const response = await fetch("/api/createUser", {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json"
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username : formData.username,
-                    password : formData.password
+                    username: formData.username,
+                    password: formData.password
                 })
             });
 
@@ -66,7 +66,7 @@ export default function Register() {
             const data = await response.json();
 
             // If User sucessfully created, add default preferences
-            if(response.ok) {
+            if (response.ok) {
                 try {
                     const response = await fetch("/api/preferences", {
                         method: "POST",
@@ -77,25 +77,25 @@ export default function Register() {
                             userId: data.user.id
                         })
                     })
-                    
+
                     if (!response.ok) {
                         throw new Error("Failed to create preferences for user.");
                     }
                 }
-                catch(error){
+                catch (error) {
                     console.error("Error creating preferences for User:", error);
                     setError("An error occurred. Please try again later.");
                 }
 
                 // Display success message/clear form and small delay for toast to be visible
                 showToast("success", "Account created successfully!", "light");
-                setformData({username: "", password: "", confirmpassword: ""});
+                setformData({ username: "", password: "", confirmpassword: "" });
                 setTimeout(() => {
                     setLoading(true);
                     router.push("/pages/login");
                 }, 2500);
             }
-        }   
+        }
         catch (error: Error | unknown) {
             console.error("Registration error:", error);
             setError("Registration failed. Please try again later.");
@@ -103,7 +103,7 @@ export default function Register() {
         }
     }
 
-    return(
+    return (
         <>
             <div className="bg-white rounded-lg shadow-md px-6 py-7 sm:px-8 sm:py-8 w-full border-t-4 border-[#5eaaae]">
                 <div className="text-center mb-5">
@@ -112,41 +112,41 @@ export default function Register() {
                 <form onSubmit={handleSubmit} className="flex flex-col space-y-1">
                     <div className="">
                         <label htmlFor="username" className="mb-1 flex text-sm font-medium text-[#452624]">Username</label>
-                        <input 
-                            type="text" 
-                            name="username" 
-                            id="username" 
-                            placeholder="admin" 
-                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, username: e.target.value})}
+                        <input
+                            type="text"
+                            name="username"
+                            id="username"
+                            placeholder="admin"
+                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({ ...formData, username: e.target.value })}
                             value={formData.username}
                         />
                     </div>
                     <div className="mt-4">
                         <label htmlFor="password" className="mb-1 flex text-sm font-medium text-[#452624]">Password</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            placeholder="•••••••" 
-                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, password: e.target.value})}
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="•••••••"
+                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({ ...formData, password: e.target.value })}
                             value={formData.password}
                         />
                     </div>
                     <div className="mt-4">
                         <label htmlFor="confirmpassword" className="mb-1 flex text-sm font-medium text-[#452624]">Confirm Password</label>
-                        <input 
-                            type="password" 
-                            name="confirmpassword" 
-                            id="confirmpassword" 
-                            placeholder="•••••••" 
-                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]" 
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({...formData, confirmpassword: e.target.value})}
+                        <input
+                            type="password"
+                            name="confirmpassword"
+                            id="confirmpassword"
+                            placeholder="•••••••"
+                            className="w-full px-3 py-2.5 rounded-md border border-[#e1b891] focus:border-[#452624] focus:outline-none focus:ring-1 focus:ring-[#5eaaae]"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setformData({ ...formData, confirmpassword: e.target.value })}
                             value={formData.confirmpassword}
                         />
                     </div>
-                    
+
                     {error && (
                         <div className="bg-red-50 mt-3 border-l-4 border-red-400 p-3 rounded">
                             <div className="flex">
@@ -161,8 +161,8 @@ export default function Register() {
                             </div>
                         </div>
                     )}
-                    
-                    <button 
+
+                    <button
                         type="submit"
                         className="w-full cursor-pointer mt-6 py-2.5 px-4 bg-[#57713a] text-white rounded-md hover:bg-[#4a6231] transition-colors duration-200 font-medium"
                         disabled={loading}
@@ -170,7 +170,7 @@ export default function Register() {
                         {loading ? (
                             <div className="flex items-center justify-center">
                                 <span>Creating account  </span>
-                                <Spinner/>
+                                <Spinner />
                             </div>
                         ) : (
                             "Create Account"

@@ -7,7 +7,7 @@ import { CaloriesRangeProps } from '@/app/types/filters';
 const minCalories = 0;
 const maxCalories = 2000;
 
-export default function CaloriesRange({caloriesRange, setCaloriesRange}: CaloriesRangeProps) {
+export default function CaloriesRange({ caloriesRange, setCaloriesRange }: CaloriesRangeProps) {
 
     // State Variables & Hooks
     const [counter, setCounter] = useState(0);
@@ -20,29 +20,29 @@ export default function CaloriesRange({caloriesRange, setCaloriesRange}: Calorie
         }
     }, [caloriesRange]);
 
-    // Handle min value change
+    // Handle min value change 
     const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
         if (value < caloriesRange.max - 50) {
-            setCaloriesRange({...caloriesRange, min: value});
+            setCaloriesRange({ ...caloriesRange, min: value });
         }
         setCounter(counter + 1);
     };
-    
+
     // Handle max value change
     const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
         if (value > caloriesRange.min + 50) {
-            setCaloriesRange({...caloriesRange, max: value});
+            setCaloriesRange({ ...caloriesRange, max: value });
         }
         setCounter(counter + 1);
     };
-    
-    return(
+
+    return (
         <>
             <div className={`bg-white dark:bg-gray-800 p-5 relative hover:z-10 hover:shadow-lg dark:hover:shadow-black/20 transition-all duration-200
-                ${counter > 0 
-                    ? "border-l-4 border-indigo-500 dark:border-indigo-400 border-t border-r border-b border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700" 
+                ${counter > 0
+                    ? "border-l-4 border-indigo-500 dark:border-indigo-400 border-t border-r border-b border-t-gray-200 border-r-gray-200 border-b-gray-200 dark:border-t-gray-700 dark:border-r-gray-700 dark:border-b-gray-700"
                     : "border border-gray-200 dark:border-gray-700"
                 }`}>
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">{t('advancedFilters.filterSections.caloriesRange')}</h2>
@@ -51,36 +51,36 @@ export default function CaloriesRange({caloriesRange, setCaloriesRange}: Calorie
                         <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{caloriesRange.min} {t('advancedFilters.calories')}</span>
                         <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{caloriesRange.max} {t('advancedFilters.calories')}</span>
                     </div>
-                    
+
                     {/* Simplified version with two separate sliders */}
                     <div className="space-y-4">
                         <div>
                             <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">{t('advancedFilters.minimumCalories')}:</label>
-                            <input 
-                                type="range" 
-                                min={minCalories} 
-                                max={maxCalories - 100} 
-                                value={caloriesRange.min} 
+                            <input
+                                type="range"
+                                min={minCalories}
+                                max={maxCalories - 100}
+                                value={caloriesRange.min}
                                 step="50"
                                 onChange={handleMinChange}
                                 className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-600 dark:accent-indigo-500"
                             />
                         </div>
-                        
+
                         <div>
                             <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">{t('advancedFilters.maximumCalories')}:</label>
-                            <input 
-                                type="range" 
-                                min={minCalories + 100} 
-                                max={maxCalories} 
-                                value={caloriesRange.max} 
+                            <input
+                                type="range"
+                                min={minCalories + 100}
+                                max={maxCalories}
+                                value={caloriesRange.max}
                                 step="50"
                                 onChange={handleMaxChange}
                                 className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-600 dark:accent-indigo-500"
                             />
                         </div>
                     </div>
-                    
+
                     <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
                         <span>0 {t('advancedFilters.calories')}</span>
                         <span>500 {t('advancedFilters.calories')}</span>

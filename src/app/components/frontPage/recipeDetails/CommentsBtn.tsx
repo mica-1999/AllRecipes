@@ -1,5 +1,5 @@
 export default function Commentary() {
-    return(
+    return (
         <>
             <div className="
                 fixed right-0 top-52 z-50
@@ -14,4 +14,4 @@ export default function Commentary() {
             </div>
         </>
     )
-}
+} 

@@ -10,17 +10,17 @@ interface ResultDataProps {
 
 export default function ResultData({ recipes, onResetFilters }: ResultDataProps) {
     const { t } = useTheme();
-    
-    // Function to format date
+
+    // Function to format date 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        return new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         }).format(date);
     };
-    
+
     if (recipes.length === 0) {
         return (
             <div className="w-full flex flex-col items-center justify-center py-16 px-4">
@@ -33,7 +33,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 text-center max-w-md">
                     {t('tableFiltered.tryAdjusting')}
                 </p>
-                <button 
+                <button
                     onClick={(e) => {
                         e.preventDefault();
                         if (onResetFilters) {
@@ -48,27 +48,27 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
             </div>
         );
     }
-    
+
     return (
         <>
             {recipes.map((recipe, index) => (
                 <Link href={`/pages/home/recipeDetails?id=${recipe.id}`} key={index}>
-                    <div 
-                        id={`item-${index}`} 
+                    <div
+                        id={`item-${index}`}
                         className={`
                             w-full flex transition-colors duration-150
                             hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 cursor-pointer
                             ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/30 dark:bg-gray-800'}
-                        `} 
+                        `}
                     >
                         <div id="recipeName" className="flex items-center gap-4 w-2/5 md:w-2/5 px-6 py-4">
                             <div id="image" className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-lg relative overflow-hidden shadow-md dark:shadow-black/30 border border-gray-200 dark:border-gray-700">
-                                <Image 
-                                    src={recipe.image} 
-                                    alt={recipe.title} 
-                                    fill 
-                                    className="object-cover object-center rounded-lg" 
-                                    sizes="(max-width: 640px) 80px, (max-width: 768px) 90px, 100px" 
+                                <Image
+                                    src={recipe.image}
+                                    alt={recipe.title}
+                                    fill
+                                    className="object-cover object-center rounded-lg"
+                                    sizes="(max-width: 640px) 80px, (max-width: 768px) 90px, 100px"
                                 />
                             </div>
                             <div className="flex flex-col justify-center">
@@ -93,14 +93,14 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div id="views" className="w-0 md:w-1/8 hidden md:flex items-center justify-center py-4">
                             <div className="flex flex-col items-center text-center">
                                 <span className="text-xl font-bold text-gray-800 dark:text-white">{recipe.viewcount.toLocaleString()}</span>
                                 <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('tableFiltered.viewsLabel')}</span>
                             </div>
                         </div>
-                        
+
                         <div id="rating" className="w-0 md:w-1/8 hidden md:flex items-center justify-center py-4">
                             <div className="flex flex-col items-center text-center">
                                 <div className="flex items-center">
@@ -109,7 +109,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                                 </div>
                                 <div className="flex mt-1">
                                     {[...Array(5)].map((_, i) => (
-                                        <i 
+                                        <i
                                             key={i}
                                             className={`text-base ${i < Math.floor(recipe.rating || 0) ? "ri-star-fill text-amber-400 dark:text-amber-300" : "ri-star-line text-gray-300 dark:text-gray-600"}`}
                                         ></i>
@@ -117,7 +117,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div id="date" className="w-0 md:w-1/6 hidden md:flex items-center justify-center py-4">
                             <div className="flex flex-col items-center text-center">
                                 <span className="text-base font-medium text-gray-800 dark:text-white">
@@ -128,7 +128,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                                 </span>
                             </div>
                         </div>
-                        
+
                         <div id="actions" className="w-3/5 md:w-1/6 flex items-center justify-center py-4">
                             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                                 <i className="ri-bookmark-line text-lg"></i>

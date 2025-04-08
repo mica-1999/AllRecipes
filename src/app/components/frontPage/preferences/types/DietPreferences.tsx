@@ -5,7 +5,7 @@ import { DietPreferencesProps } from '@/app/types/preferences';
 
 export default function DietPreferences({ preferences, customColors, onPreferenceChange }: DietPreferencesProps) {
     const { t } = useTheme();
-    
+
     return (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 border border-gray-100 dark:border-gray-700">
             <div className="flex items-center mb-4">
@@ -13,11 +13,11 @@ export default function DietPreferences({ preferences, customColors, onPreferenc
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('preferences.dietPreferences.title')}</h2>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{t('preferences.dietPreferences.subtitle')}</p>
-            
+
             <div className="space-y-3">
                 {dietRestrictionBox.map((item) => (
-                    <label 
-                        key={item.id} 
+                    <label
+                        key={item.id}
                         className="flex items-start cursor-pointer group p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/70 transition-colors"
                     >
                         <div className="flex items-center h-5">

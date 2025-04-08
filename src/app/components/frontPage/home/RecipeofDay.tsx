@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from '@/app/context/ThemeContext';
 
-export default function RecipeOfDay () {
+export default function RecipeOfDay() {
     const { t } = useTheme();
-    
-    return(
+
+    return (
         <>
             <div className="flex items-center w-full h-15 mt-25">
                 <h2 className="text-[20px] dark:text-slate-200">{t('recipeOfDay.title')}</h2>
@@ -27,13 +27,13 @@ export default function RecipeOfDay () {
                             {t('recipeOfDay.todaysPick')}
                         </div>
                     </div>
-                    
+
                     {/* Right side - Content */}
                     <div className="w-3/5 p-6 flex flex-col justify-between">
                         <div>
                             <h3 className="text-2xl font-medium mb-2 dark:text-white">Sushi Special</h3>
                             <p className="text-gray-600 dark:text-gray-300">A delicate selection of fresh, expertly crafted sushi rolls with premium fish, topped with a perfect blend of seasonings and garnished with a touch of wasabi and pickled ginger.</p>
-                            
+
                             <div className="flex gap-5 mt-4">
                                 <div className="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +55,7 @@ export default function RecipeOfDay () {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <Link href="/recipe/moms-special-pasta" className="self-end">
                             <button className="bg-[#FF6B35] hover:bg-[#e55a29] text-white px-5 py-2 rounded-[5px] transition-colors mt-4 dark:bg-indigo-600 dark:hover:bg-indigo-500">
                                 {t('recipeOfDay.viewRecipe')}

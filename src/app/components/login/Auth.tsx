@@ -7,17 +7,17 @@ import { FormEvent, ChangeEvent } from "react";
 
 export default function Auth() {
     // Router instance to navigate between pages
-    const router = useRouter(); 
+    const router = useRouter();
 
     // State variables to manage form data, error messages, and loading state
-    const [loginForm, setLoginForm] = useState({username: "", password: ""});
+    const [loginForm, setLoginForm] = useState({ username: "", password: "" });
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     // Validation function to check if fields are filled (Needs improvement)
     const loginValidation = () => {
-        if(loginForm.username === '' || loginForm.password === '') {
+        if (loginForm.username === '' || loginForm.password === '') {
             setError("Please fill in all fields");
             return false;
         }
@@ -26,12 +26,12 @@ export default function Auth() {
 
     // Login function to handle sign in process
     const login = async () => {
-        if(loginValidation()){
+        if (loginValidation()) {
             setIsLoading(true);
             try {
                 // Create a promise that resolves after minimum loading time (e.g., 1.5 seconds)
                 const minLoadingTime = new Promise(resolve => setTimeout(resolve, 1250));
-                
+
                 // Sign in attempt
                 const result = await Promise.all([
                     signIn("credentials", {
@@ -41,7 +41,7 @@ export default function Auth() {
                     }),
                     minLoadingTime // This ensures we show loading for at least 1.5 seconds
                 ]);
-                
+
                 // Check if sign in was successful
                 if (result[0]?.ok) {
                     setTimeout(() => {
@@ -61,12 +61,12 @@ export default function Auth() {
     }
 
     return (
-        <>  
+        <>
             <div className="bg-white rounded-lg shadow-md px-6 py-7 sm:px-8 sm:py-8 w-full border-l-4 border-[#dc7f3a]">
                 <div className="text-center mb-6">
                     <h1 className="text-2xl font-bold text-[#414240]">Log In </h1>
                 </div>
-                
+
                 <form onSubmit={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     login();
@@ -75,32 +75,32 @@ export default function Auth() {
                         <label htmlFor="username" className="block text-sm font-medium text-[#414240] mb-1">
                             Username
                         </label>
-                        <input 
+                        <input
                             id="username"
                             type="text"
                             className="w-full px-3 py-2.5 rounded-md border border-[#969aa5] focus:border-[#dc7f3a] focus:outline-none focus:ring-1 focus:ring-[#81b234] transition-colors duration-200"
                             value={loginForm.username}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setLoginForm({...loginForm, username: e.target.value})}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setLoginForm({ ...loginForm, username: e.target.value })}
                             placeholder="username"
                             required
                         />
                     </div>
-                    
+
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-[#414240] mb-1">
                             Password
                         </label>
-                        <input 
+                        <input
                             id="password"
                             type="password"
                             className="w-full px-3 py-2.5 rounded-md border border-[#969aa5] focus:border-[#dc7f3a] focus:outline-none focus:ring-1 focus:ring-[#81b234] transition-colors duration-200"
                             value={loginForm.password}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setLoginForm({...loginForm, password: e.target.value})}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setLoginForm({ ...loginForm, password: e.target.value })}
                             placeholder="••••••••"
                             required
                         />
                     </div>
-                    
+
                     <div className="flex items-center justify-between text-sm">
                         <div className="flex items-center">
                             <input
@@ -120,9 +120,9 @@ export default function Auth() {
                             </Link>
                         </div>
                     </div>
-                    
-                    <button 
-                        type="submit" 
+
+                    <button
+                        type="submit"
                         className={`w-full flex justify-center items-center py-2.5 px-4 rounded-md 
                                    font-medium transition-all duration-200 bg-[#81b234] hover:bg-[#6e982d]
                                    text-white focus:outline-none focus:ring-2 focus:ring-offset-2 
@@ -139,7 +139,7 @@ export default function Auth() {
                             </>
                         ) : 'Sign in'}
                     </button>
-                    
+
                     {error && (
                         <div className="bg-red-50 border-l-4 border-red-400 p-3 rounded">
                             <div className="flex">
@@ -154,7 +154,7 @@ export default function Auth() {
                             </div>
                         </div>
                     )}
-                
+
                     <div className="relative my-5">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-[#969aa5]"></div>
@@ -163,10 +163,10 @@ export default function Auth() {
                             <span className="px-2 bg-white text-[#414240]">Or continue with</span>
                         </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-3">
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             onClick={() => signIn('facebook', { callbackUrl: '/dashboard' })}
                             className="flex cursor-pointer items-center justify-center px-3 py-2.5 bg-white rounded-md border border-[#969aa5] shadow-sm text-sm text-[#414240] hover:bg-[#3b5998] hover:text-white hover:border-[#3b5998] hover:-translate-y-0.5 transition-all duration-300"
                         >
@@ -175,9 +175,9 @@ export default function Auth() {
                             </svg>
                             Facebook
                         </button>
-                        <button 
+                        <button
                             type="button"
-                            onClick={() => signIn('google', { callbackUrl: '/dashboard' })} 
+                            onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
                             className="flex cursor-pointer items-center justify-center px-3 py-2.5 bg-white rounded-md border border-[#969aa5] shadow-sm text-sm text-[#414240] hover:bg-[#4285F4] hover:text-white hover:border-[#4285F4] hover:-translate-y-0.5 transition-all duration-300"
                         >
                             <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
@@ -188,9 +188,9 @@ export default function Auth() {
                             </svg>
                             Google
                         </button>
-                        <button 
+                        <button
                             type="button"
-                            onClick={() => signIn('twitter', { callbackUrl: '/dashboard' })} 
+                            onClick={() => signIn('twitter', { callbackUrl: '/dashboard' })}
                             className="flex cursor-pointer items-center justify-center px-3 py-2.5 bg-white rounded-md border border-[#969aa5] shadow-sm text-sm text-[#414240] hover:bg-[#00aced] hover:text-white hover:border-[#00aced] hover:-translate-y-0.5 transition-all duration-300"
                         >
                             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -198,9 +198,9 @@ export default function Auth() {
                             </svg>
                             Twitter
                         </button>
-                        <button 
+                        <button
                             type="button"
-                            onClick={() => signIn('github', { callbackUrl: '/dashboard' })} 
+                            onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
                             className="flex cursor-pointer items-center justify-center px-3 py-2.5 bg-white rounded-md border border-[#969aa5] shadow-sm text-sm text-[#414240] hover:bg-[#333] hover:text-white hover:border-[#333] hover:-translate-y-0.5 transition-all duration-300"
                         >
                             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -209,9 +209,9 @@ export default function Auth() {
                             GitHub
                         </button>
                     </div>
-                    
+
                     <p className="mt-5 text-center text-sm text-[#414240]">
-                        Dont have an account? 
+                        Dont have an account?
                         <Link href="/pages/signup" className="font-medium text-[#dc7f3a] hover:text-[#c06427] hover:underline transition-colors duration-200 ml-2">
                             Create Now!
                         </Link>

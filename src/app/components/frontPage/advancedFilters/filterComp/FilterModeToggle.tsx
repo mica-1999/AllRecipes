@@ -19,14 +19,13 @@ export default function FilterModeToggle({
   }
 }: FilterModeToggleProps) {
   const { t } = useTheme();
-  
+
   return (
-    <div 
-      className={`absolute top-4 right-4 p-1.5 rounded-md cursor-pointer transition-colors duration-200 ${
-        isExactMatch 
-          ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300' 
+    <div
+      className={`absolute top-4 right-4 p-1.5 rounded-md cursor-pointer transition-colors duration-200 ${isExactMatch
+          ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300'
           : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-      }`}
+        }`}
       onClick={() => setIsExactMatch(!isExactMatch)}
       title={isExactMatch ? tooltipText.all : tooltipText.any}
     >

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeType } from '@/app/types/filters';
-import { showToast } from "@/app/components/reusable/Toasters"; 
+import { showToast } from "@/app/components/reusable/Toasters";
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -24,7 +24,7 @@ import { seasonsData } from "@/app/data/AdvFiltersData";
 // Hook to handle click outside of a component
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
-export default function AdvFilters () {
+export default function AdvFilters() {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const query = searchParams.get("category") || "";
@@ -35,7 +35,7 @@ export default function AdvFilters () {
     // State variables for Main Filter Menu
     const [mainFilterMenu, setMainFilterMenu] = useState<string>(""); // Main Menu
     const [selectedSeason, setSelectedSeason] = useState<typeof seasonsData[0] | null>(null);
-    const [seasonChoice , setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
+    const [seasonChoice, setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
     const [seasonalOpen, setSeasonalOpen] = useState<boolean>(false); // Dropdown Menu Open/Close
 
     // Ref for the dropdown menu
@@ -51,7 +51,7 @@ export default function AdvFilters () {
     const [dietaryRestrictions, setDietaryRestrictions] = useState<string[]>([]);
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [difficultyLevel, setDifficultyLevel] = useState<string>("");
-    const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({min: 0, max: 2000});
+    const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({ min: 0, max: 2000 });
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
 
@@ -60,7 +60,7 @@ export default function AdvFilters () {
     const [exactMatchDiet, setExactMatchDiet] = useState<boolean>(true);
     const [exactMatchIngredients, setExactMatchIngredients] = useState<boolean>(true);
     const [exactMatchOccasion, setExactMatchOccasion] = useState<boolean>(false);
-    
+
     // Translate season name
     const getSeasonTranslation = (season: string) => {
         switch (season) {
@@ -101,7 +101,7 @@ export default function AdvFilters () {
         setExactMatchDiet(true);
         setExactMatchIngredients(true);
         setExactMatchOccasion(false);
-        
+
         // Show a toast notification to confirm filters were reset
         showToast("success", t('advancedFilters.filtersReset'), savedTheme);
     };
@@ -115,8 +115,8 @@ export default function AdvFilters () {
             setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]);
         }
     }, [query]);
-    
-    return(
+
+    return (
         <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-6 mb-8 transition-colors">
@@ -124,28 +124,27 @@ export default function AdvFilters () {
                         <div className="flex items-center gap-2">
                             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{mainFilterMenu}</h1>
                             {seasonChoice && (
-                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                    selectedSeason ? `${selectedSeason.bgColor} ${selectedSeason.textColor}` : 'bg-indigo-100 text-indigo-800'
-                                }`}>
+                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${selectedSeason ? `${selectedSeason.bgColor} ${selectedSeason.textColor}` : 'bg-indigo-100 text-indigo-800'
+                                    }`}>
                                     {getSeasonTranslation(seasonChoice)}
                                 </span>
                             )}
                         </div>
-                        
+
                         <p className="text-sm text-gray-600 dark:text-gray-300">{t('advancedFilters.title')}</p>
-                    </div>                
+                    </div>
 
                     <div id="mainMenuBtns" className="flex flex-wrap justify-start md:justify-end gap-3 mt-4 md:mt-0">
                         {tArray<string>('advancedFilters.mainFilters').map((filter: string, index) => (
                             <div className="relative" key={filter}>
-                                <button 
+                                <button
                                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer
-                                    ${mainFilterMenu === filter 
-                                        ? 'bg-indigo-600 text-white shadow-md' 
-                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                                    ${mainFilterMenu === filter
+                                            ? 'bg-indigo-600 text-white shadow-md'
+                                            : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
                                     onClick={() => handleMenuChange(filter)}
                                 >
-                                    
+
                                     {index === 4 ? (
                                         <>
                                             {seasonChoice ? getSeasonTranslation(seasonChoice) : filter}
@@ -156,11 +155,11 @@ export default function AdvFilters () {
                                     )}
                                 </button>
                                 {index === 4 && (
-                                    <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white dark:bg-gray-800 shadow-lg dark:shadow-black/30 rounded-md z-40" ref={seasonsRef} style={{display: seasonalOpen ? "block" : "none"}}>
+                                    <div id="seasonsDropdown" className="absolute w-full mt-1 bg-white dark:bg-gray-800 shadow-lg dark:shadow-black/30 rounded-md z-40" ref={seasonsRef} style={{ display: seasonalOpen ? "block" : "none" }}>
                                         <div className="py-2">
                                             {seasonsData.map((season) => (
-                                                <button 
-                                                    key={season.name} 
+                                                <button
+                                                    key={season.name}
                                                     className={`block px-4 py-2 text-sm w-full text-left cursor-pointer dark:text-gray-200 ${season.hoverBg} ${season.hoverText} dark:hover:bg-gray-700`}
                                                     onClick={() => {
                                                         setSeasonalOpen(false);
@@ -184,17 +183,17 @@ export default function AdvFilters () {
                         <MealOptions cuisineFilter={cuisineFilter} setCuisineFilter={setCuisineFilter} />
                         <MealType mealType={mealType} setMealType={setMealType} />
                         <CookingTime cookingTime={cookingTime} setCookingTime={setCookingTime} />
-                        <DietaryRestrictions dietaryRestrictions={dietaryRestrictions} setDietaryRestrictions={setDietaryRestrictions}  exactMatchDiet={exactMatchDiet} setExactMatchDiet={setExactMatchDiet} />
+                        <DietaryRestrictions dietaryRestrictions={dietaryRestrictions} setDietaryRestrictions={setDietaryRestrictions} exactMatchDiet={exactMatchDiet} setExactMatchDiet={setExactMatchDiet} />
                         <Ingredients ingredients={ingredients} setIngredients={setIngredients} exactMatchIngredients={exactMatchIngredients} setExactMatchIngredients={setExactMatchIngredients} />
                         <DifficultyLevel difficultyLevel={difficultyLevel} setDifficultyLevel={setDifficultyLevel} />
                         <CaloriesRange caloriesRange={caloriesRange} setCaloriesRange={setCaloriesRange} />
                         <CookingMethod cookingMethod={cookingMethod} setCookingMethod={setCookingMethod} />
-                        <Occasion occasion={occasion} setOccasion={setOccasion} exactMatchOccasion={exactMatchOccasion} setExactMatchOccasion={setExactMatchOccasion}/>
+                        <Occasion occasion={occasion} setOccasion={setOccasion} exactMatchOccasion={exactMatchOccasion} setExactMatchOccasion={setExactMatchOccasion} />
                     </div>
                 </div>
 
                 <div className="mt-8">
-                    <TableFiltered 
+                    <TableFiltered
                         mainFilterMenu={mainFilterMenu}
                         cuisineFilter={cuisineFilter}
                         mealType={mealType}

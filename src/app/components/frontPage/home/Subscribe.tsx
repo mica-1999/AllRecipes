@@ -3,7 +3,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 
 export default function Subscribe() {
     const { t } = useTheme();
-    
+
     return (
         <>
             <div className="flex flex-col min-[885px]:flex-row items-start min-[885px]:items-center justify-between w-full py-6 px-8 
@@ -19,12 +19,12 @@ export default function Subscribe() {
                         {t('subscribe.description')}
                     </p>
                 </div>
-                
+
                 {/* Form - Works for both mobile and desktop */}
                 <div className="flex flex-col min-[885px]:flex-row items-center gap-3 w-full min-[885px]:w-auto">
                     <div className="relative w-full min-[885px]:w-64">
-                        <input 
-                            type="email" 
+                        <input
+                            type="email"
                             placeholder={t('subscribe.placeholder')}
                             className="w-full h-[42px] px-4 py-2 
                                 rounded-[5px] 
@@ -35,7 +35,7 @@ export default function Subscribe() {
                                 transition-all duration-200"
                         />
                     </div>
-                    <button 
+                    <button
                         className="w-full min-[885px]:w-auto h-[42px] px-5 py-2 
                             bg-[#FF6B35] dark:bg-indigo-600
                             text-white text-sm font-medium

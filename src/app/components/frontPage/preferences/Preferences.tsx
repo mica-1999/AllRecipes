@@ -19,34 +19,34 @@ export default function CustomizedPreferences() {
     const [mealPreferences, setMealPreferences] = useState<string[]>([]);
     const [cookingPreferences, setCookingPreferences] = useState<string[]>([]);
     const [saved, setSaved] = useState(false);
-    const [customColors, setCustomColors] = useState<{[key: string]: string}>({});
-    const [activeTab, setActiveTab] = useState("preferences"); 
+    const [customColors, setCustomColors] = useState<{ [key: string]: string }>({});
+    const [activeTab, setActiveTab] = useState("preferences");
     const { t, savedTheme } = useTheme();
 
     // Handlers for each preference
     const handleDietChange = (id: string) => {
-        setDietPreferences(prev => 
+        setDietPreferences(prev =>
             prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
         );
         if (saved) setSaved(false);
     };
 
     const handleCuisineChange = (id: string) => {
-        setCuisinePreferences(prev => 
+        setCuisinePreferences(prev =>
             prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
         );
         if (saved) setSaved(false);
     };
 
     const handleMealChange = (id: string) => {
-        setMealPreferences(prev => 
+        setMealPreferences(prev =>
             prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
         );
         if (saved) setSaved(false);
     };
 
     const handleCookingChange = (id: string) => {
-        setCookingPreferences(prev => 
+        setCookingPreferences(prev =>
             prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
         );
         if (saved) setSaved(false);
@@ -62,7 +62,7 @@ export default function CustomizedPreferences() {
 
     const handleColorReset = (id: string) => {
         setCustomColors(prev => {
-            const newColors = {...prev};
+            const newColors = { ...prev };
             delete newColors[id];
             return newColors;
         });
@@ -76,7 +76,7 @@ export default function CustomizedPreferences() {
         setTimeout(() => setSaved(false), 3000);
     };
 
-    return(
+    return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
             {/* Header with buttons */}
             <div className="border-b border-gray-200 dark:border-gray-700 pb-5 mb-8">
@@ -86,13 +86,12 @@ export default function CustomizedPreferences() {
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{t('preferences.subtitle')}</p>
                     </div>
                     <div className="flex items-center space-x-3">
-                        <button 
+                        <button
                             onClick={savePreferences}
-                            className={`inline-flex items-center px-4 py-2 rounded-md shadow-sm dark:shadow-black/20 text-sm font-medium transition-all duration-200 cursor-pointer ${
-                                saved ? 
-                                "bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600" : 
-                                "bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] dark:from-indigo-600 dark:to-indigo-500 hover:from-[#e55a29] hover:to-[#e57a4d] dark:hover:from-indigo-500 dark:hover:to-indigo-400 text-white"
-                            }`}
+                            className={`inline-flex items-center px-4 py-2 rounded-md shadow-sm dark:shadow-black/20 text-sm font-medium transition-all duration-200 cursor-pointer ${saved ?
+                                    "bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600" :
+                                    "bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] dark:from-indigo-600 dark:to-indigo-500 hover:from-[#e55a29] hover:to-[#e57a4d] dark:hover:from-indigo-500 dark:hover:to-indigo-400 text-white"
+                                }`}
                         >
                             {saved ? (
                                 <>
@@ -120,8 +119,8 @@ export default function CustomizedPreferences() {
             <div className="flex border-b border-gray-200 dark:border-gray-700 mb-8">
                 <button
                     onClick={() => setActiveTab("preferences")}
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === "preferences" 
-                        ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400" 
+                    className={`px-4 py-2 text-sm font-medium ${activeTab === "preferences"
+                        ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >
                     <i className="ri-settings-4-line mr-1"></i>
@@ -129,8 +128,8 @@ export default function CustomizedPreferences() {
                 </button>
                 <button
                     onClick={() => setActiveTab("colors")}
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === "colors" 
-                        ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400" 
+                    className={`px-4 py-2 text-sm font-medium ${activeTab === "colors"
+                        ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >
                     <i className="ri-palette-line mr-1"></i>
@@ -142,32 +141,32 @@ export default function CustomizedPreferences() {
             {activeTab === "preferences" && (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <DietPreferences 
+                        <DietPreferences
                             preferences={dietPreferences}
                             customColors={customColors}
                             onPreferenceChange={handleDietChange}
                         />
-                        
-                        <CuisinePreferences 
+
+                        <CuisinePreferences
                             preferences={cuisinePreferences}
                             customColors={customColors}
                             onPreferenceChange={handleCuisineChange}
                         />
-                        
-                        <MealPreferences 
+
+                        <MealPreferences
                             preferences={mealPreferences}
                             customColors={customColors}
                             onPreferenceChange={handleMealChange}
                         />
-                        
-                        <CookingPreferences 
+
+                        <CookingPreferences
                             preferences={cookingPreferences}
                             customColors={customColors}
                             onPreferenceChange={handleCookingChange}
                         />
                     </div>
-                    
-                    <PreferencesSummary 
+
+                    <PreferencesSummary
                         dietPreferences={dietPreferences}
                         cuisinePreferences={cuisinePreferences}
                         mealPreferences={mealPreferences}
@@ -178,7 +177,7 @@ export default function CustomizedPreferences() {
             )}
 
             {activeTab === "colors" && (
-                <ColorSettings 
+                <ColorSettings
                     dietPreferences={dietPreferences}
                     cuisinePreferences={cuisinePreferences}
                     mealPreferences={mealPreferences}

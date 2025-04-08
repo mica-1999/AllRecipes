@@ -13,14 +13,14 @@ export default function MenuSwitcher() {
 
     // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {
-        switch(selectedMenu) {
+        switch (selectedMenu) {
             case 'list':
                 return <List />
             case 'collections':
                 return <Collections />
             case 'myRecipes':
                 return <MyRecipes />
-             case 'commented':
+            case 'commented':
                 return <Commented />
             case 'bookmarked':
                 return <Bookmarked />

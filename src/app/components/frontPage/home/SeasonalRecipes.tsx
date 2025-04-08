@@ -4,7 +4,7 @@ import Image from "next/image";
 import { seasonalRecipes } from "@/app/data/HomeData";
 import { useTheme } from '@/app/context/ThemeContext';
 
-export default function SeasonalRecipes () {
+export default function SeasonalRecipes() {
     const { t } = useTheme();
     const [activeSeason, setActiveSeason] = useState<string>("Spring");
 
@@ -44,14 +44,14 @@ export default function SeasonalRecipes () {
         }
     };
 
-    return(
+    return (
         <>
             <div className="flex items-center justify-between w-full h-15 [@media(max-width:860px)]:flex-col [@media(max-width:860px)]:items-start">
                 <h2 className="text-[20px] dark:text-slate-200">{t('seasonal.title')}</h2>
                 <div className="flex items-center gap-4 [@media(max-width:860px)]:mt-2 [@media(max-width:860px)]:justify-between [@media(max-width:860px)]:w-full">
                     <div className="flex items-center gap-3">
                         {["Spring", "Summer", "Autumn", "Winter"].map((season) => (
-                            <div 
+                            <div
                                 key={season}
                                 className={`px-4 py-1.5 rounded-full ${getSeasonStyle(season)} text-sm font-medium cursor-pointer transition-colors duration-200`}
                                 onClick={() => setActiveSeason(season)}
@@ -83,7 +83,7 @@ export default function SeasonalRecipes () {
                                 {/* Overlay - slightly darker in dark mode for better text contrast */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent dark:from-black/80 dark:via-black/30"></div>
                             </div>
-                            
+
                             {/* Recipe info */}
                             <div className="absolute bottom-0 left-0 w-full p-5 text-white">
                                 <div className={`${getSeasonColor()} w-fit px-3 py-1 rounded-full text-xs font-medium mb-2`}>
@@ -97,7 +97,7 @@ export default function SeasonalRecipes () {
                                     <span className="text-sm">{recipe.time}</span>
                                 </div>
                             </div>
-                            
+
                             {/* Action button - appears on hover */}
                             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <button className={`${getSeasonColor()} p-2 rounded-full`}>
