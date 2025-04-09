@@ -4,7 +4,7 @@ const translations = {
         popularRecipes: 'Most Popular Recipes Right Now',
         trendingRecipes: 'This Weeks Trending Recipes',
         seasonal: 'Seasonal Favorites',
-        featuredChefs : 'Featured Chef Collections',
+        featuredChefs: 'Featured Chef Collections',
         browseCategories: 'Browse All Categories',
         advanced: 'Advanced',
         myList: 'My List',
@@ -96,7 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Choose your filter preference to see matching recipes below',
-        mainFilters: ["All","Latest", "Popular", "Top Rated", "Seasonal","Random"],
+        mainFilters: ["All", "Latest", "Popular", "Top Rated", "Seasonal", "Random"],
         seasons: {
             spring: 'Spring',
             summer: 'Summer',
@@ -131,8 +131,8 @@ const translations = {
         clear: 'Clear',
         cuisinePlaceholder: 'Italian, Chinese, Mexican...',
         cuisineOptions: [
-            "Italian", "Chinese", "Mexican", "Indian", "Japanese", 
-            "Thai", "French", "Greek", "Spanish", "Mediterranean", 
+            "Italian", "Chinese", "Mexican", "Indian", "Japanese",
+            "Thai", "French", "Greek", "Spanish", "Mediterranean",
             "American", "Korean", "Vietnamese", "Middle Eastern", "Brazilian"
         ],
         mealTypes: ["Breakfast", "Lunch", "Dinner", "Brunch", "Snack", "Dessert"],
@@ -144,12 +144,12 @@ const translations = {
             steaming: "Steaming",
             boiling: "Boiling",
             roasting: "Roasting",
-            sauteing: "Sautéing", 
+            sauteing: "Sautéing",
             slowCooking: "Slow Cooking"
-          },
+        },
         occasions: [
-            "Birthday", "Holiday", "Casual", "Date Night", 
-            "Thanksgiving", "Christmas", "Wedding", "BBQ", 
+            "Birthday", "Holiday", "Casual", "Date Night",
+            "Thanksgiving", "Christmas", "Wedding", "BBQ",
             "Game Day", "Picnic", "Brunch", "Potluck"
         ],
         filtersReset: 'Filters have been reset',
@@ -184,16 +184,15 @@ const translations = {
         noResults: 'No recipes found matching your criteria',
         tryAdjusting: 'Try adjusting your filters or selecting different options',
         resetFilters: 'Reset Filters',
-        dateRange: {
+        dateFilter: {
             title: 'Select Date Range',
             start: 'Start Date',
             end: 'End Date',
             apply: 'Apply',
             cancel: 'Cancel',
             last7Days: 'Last 7 Days',
-            last30Days: 'Last 30 Days',
-            thisMonth: 'This Month',
             lastMonth: 'Last Month',
+            last6Month: 'Last 6 Months', // Added this
             allTime: 'All Time'
         },
         dateAdded: 'Date Added'
@@ -378,7 +377,7 @@ const translations = {
             comingSoon: "Video coming soon"
         }
     }
-    
+
 }
 
 export default translations;

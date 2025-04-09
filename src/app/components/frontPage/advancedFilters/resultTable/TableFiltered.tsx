@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Recipe } from '@/app/types/recipe';
 import { showToast } from "@/app/components/reusable/Toasters";
 import { useTheme } from '@/app/context/ThemeContext';
@@ -28,6 +28,8 @@ export default function TableFiltered({
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [sortField, setSortField] = useState<string>("");
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+    const [startDate, setStartDate] = useState<string>("");
+    const [endDate, setEndDate] = useState<string>("");
     const { t, savedTheme } = useTheme();
 
     // Function to handle sorting based on the selected header
@@ -55,7 +57,7 @@ export default function TableFiltered({
     };
 
     // Function to fetch recipes based on the selected filters
-    const fetchRecipes = async () => {
+    const fetchRecipes = useCallback(async () => {
         try {
             const params = new URLSearchParams();
 
@@ -121,17 +123,17 @@ export default function TableFiltered({
             console.error("Error fetching recipes:", error);
             showToast("error", "Error fetching recipes. Please try again later.", savedTheme);
         }
-    };
-
-    // Fetch recipes when the component mounts or any of the dependencies change
-    useEffect(() => {
-        fetchRecipes();
     }, [
         mainFilterMenu, cuisineFilter, mealType, cookingTime, dietaryRestrictions,
         exactMatchDiet, ingredients, exactMatchIngredients, difficultyLevel,
         caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice,
-        sortField, sortOrder
+        sortField, sortOrder, savedTheme
     ]);
+
+    // Fetch recipes when the component mounts or any of the dependencies change
+    useEffect(() => {
+        fetchRecipes();
+    }, [fetchRecipes]);
 
     return (
         <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -144,6 +146,10 @@ export default function TableFiltered({
                 sortField={sortField}
                 sortOrder={sortOrder}
                 handleSort={handleSort}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
             />
 
             <div className="flex flex-col w-full">

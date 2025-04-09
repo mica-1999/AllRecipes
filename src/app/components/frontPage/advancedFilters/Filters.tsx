@@ -114,7 +114,7 @@ export default function AdvFilters() {
         else {
             setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]);
         }
-    }, [query]);
+    }, [query, tArray]);
 
     return (
         <>

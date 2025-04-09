@@ -96,7 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Escolha a sua preferência de filtro para ver receitas correspondentes abaixo',
-        mainFilters: ["All","Mais recentes", "Popular", "Mais votados", "Temporada", "Aleatório"],
+        mainFilters: ["All", "Mais recentes", "Popular", "Mais votados", "Temporada", "Aleatório"],
         seasons: {
             spring: 'Primavera',
             summer: 'Verão',
@@ -131,8 +131,8 @@ const translations = {
         clear: 'Limpar',
         cuisinePlaceholder: 'Italiana, Chinesa, Mexicana...',
         cuisineOptions: [
-            "Italiana", "Chinesa", "Mexicana", "Indiana", "Japonesa", 
-            "Tailandesa", "Francesa", "Grega", "Espanhola", "Mediterrânea", 
+            "Italiana", "Chinesa", "Mexicana", "Indiana", "Japonesa",
+            "Tailandesa", "Francesa", "Grega", "Espanhola", "Mediterrânea",
             "Americana", "Coreana", "Vietnamita", "Médio Oriental", "Brasileira"
         ],
         mealTypes: ["Pequeno-almoço", "Almoço", "Jantar", "Brunch", "Lanche", "Sobremesa"],
@@ -146,10 +146,10 @@ const translations = {
             roasting: "Assar no Forno",
             sauteing: "Saltear",
             slowCooking: "Cozimento Lento"
-          },
+        },
         occasions: [
-            "Aniversário", "Férias", "Casual", "Encontro Romântico", 
-            "Ação de Graças", "Natal", "Casamento", "Churrasco", 
+            "Aniversário", "Férias", "Casual", "Encontro Romântico",
+            "Ação de Graças", "Natal", "Casamento", "Churrasco",
             "Dia de Jogo", "Piquenique", "Brunch", "Almoço Partilhado"
         ],
         filtersReset: 'Os filtros foram redefinidos',
@@ -184,19 +184,18 @@ const translations = {
         noResults: 'Não foram encontradas receitas que correspondam aos seus critérios',
         tryAdjusting: 'Tente ajustar seus filtros ou selecionar opções diferentes',
         resetFilters: 'Redefinir Filtros',
-        dateRange: {
+        dateAdded: 'Data Adicionada',
+        dateFilter: {
             title: 'Selecionar Intervalo de Datas',
             start: 'Data de Início',
             end: 'Data de Fim',
             apply: 'Aplicar',
             cancel: 'Cancelar',
             last7Days: 'Últimos 7 Dias',
-            last30Days: 'Últimos 30 Dias',
-            thisMonth: 'Este Mês',
-            lastMonth: 'Mês Passado',
+            lastMonth: 'Último Mês',
+            last6Month: 'Últimos 6 Meses', // Added this
             allTime: 'Todo Período'
-        },
-        dateAdded: 'Data Adicionada'
+        }
     },
     themeSettings: {
         title: 'Preferências de Layout',
@@ -278,7 +277,7 @@ const translations = {
         of: 'de',
         recipes: 'receitas',
         bookmarks: 'Seus Favoritos',
-        bookmarked: 'Favoritado', 
+        bookmarked: 'Favoritado',
         tabs: {
             list: 'Lista',
             myRecipes: 'Minhas Receitas',

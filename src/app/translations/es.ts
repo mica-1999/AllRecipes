@@ -96,7 +96,7 @@ const translations = {
     },
     advancedFilters: {
         title: 'Elige tu preferencia de filtro para ver recetas coincidentes a continuación',
-        mainFilters: ["All","Más recientes", "Popular", "Mejor valorados", "De temporada", "Aleatorio"],
+        mainFilters: ["All", "Más recientes", "Popular", "Mejor valorados", "De temporada", "Aleatorio"],
         seasons: {
             spring: 'Primavera',
             summer: 'Verano',
@@ -131,8 +131,8 @@ const translations = {
         clear: 'Limpiar',
         cuisinePlaceholder: 'Italiana, China, Mexicana...',
         cuisineOptions: [
-            "Italiana", "China", "Mexicana", "India", "Japonesa", 
-            "Tailandesa", "Francesa", "Griega", "Española", "Mediterránea", 
+            "Italiana", "China", "Mexicana", "India", "Japonesa",
+            "Tailandesa", "Francesa", "Griega", "Española", "Mediterránea",
             "Americana", "Coreana", "Vietnamita", "Medio Oriente", "Brasileña"
         ],
         mealTypes: ["Desayuno", "Almuerzo", "Cena", "Brunch", "Merienda", "Postre"],
@@ -148,8 +148,8 @@ const translations = {
             slowCooking: "Cocción lenta"
         },
         occasions: [
-            "Cumpleaños", "Vacaciones", "Casual", "Cita Romántica", 
-            "Acción de Gracias", "Navidad", "Boda", "Barbacoa", 
+            "Cumpleaños", "Vacaciones", "Casual", "Cita Romántica",
+            "Acción de Gracias", "Navidad", "Boda", "Barbacoa",
             "Día de Partido", "Picnic", "Brunch", "Comida Compartida"
         ],
         filtersReset: 'Los filtros han sido restablecidos',
@@ -184,16 +184,15 @@ const translations = {
         noResults: 'No se encontraron recetas que coincidan con tus criterios',
         tryAdjusting: 'Intenta ajustar tus filtros o seleccionar diferentes opciones',
         resetFilters: 'Restablecer Filtros',
-        dateRange: {
+        dateFilter: {
             title: 'Seleccionar Rango de Fechas',
             start: 'Fecha de Inicio',
             end: 'Fecha de Fin',
             apply: 'Aplicar',
             cancel: 'Cancelar',
             last7Days: 'Últimos 7 Días',
-            last30Days: 'Últimos 30 Días',
-            thisMonth: 'Este Mes',
-            lastMonth: 'Mes Pasado',
+            lastMonth: 'Último Mes',
+            last6Month: 'Últimos 6 Meses', // Added this
             allTime: 'Todo el Período'
         },
         dateAdded: 'Fecha Añadida'
@@ -278,7 +277,7 @@ const translations = {
         of: 'de',
         recipes: 'recetas',
         bookmarks: 'Tus Favoritos',
-        bookmarked: 'Guardado',  
+        bookmarked: 'Guardado',
         tabs: {
             list: 'Lista',
             myRecipes: 'Mis Recetas',

@@ -16,7 +16,7 @@ export interface FilterParams {
 
 export function buildRecipeQuery(searchParams: URLSearchParams) {
   // Build dynamic query based on search params
-  let query: any = {
+  const query: any = {
     where: {}
   };
 
@@ -141,10 +141,10 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
       .split(',')
       .map((ing) => ing.trim())
       .filter(Boolean);
-  
+
     if (ingredients.length > 0) {
       // Check exactMatchIngredients parameter
-      if ( searchParams.has('exactMatchIngredients') && searchParams.get('exactMatchIngredients') === 'true') {
+      if (searchParams.has('exactMatchIngredients') && searchParams.get('exactMatchIngredients') === 'true') {
         // "AND" operation - all ingredients must match
         query.where = {
           ...query.where,
@@ -178,7 +178,7 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
       }
     }
   }
-  
+
   // Look for seasons, single value
   // e.g. ?season=Summer returns all recipes that are suitable for summer or all seasons
   if (searchParams.has('season') && searchParams.get('season') !== '') {
@@ -192,7 +192,7 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
   if (searchParams.has('sortBy') && searchParams.has('order')) {
     const sortBy = searchParams.get('sortBy');
     const order = searchParams.get('order');
-    
+
     // Only apply sorting if valid values are provided
     if (sortBy && ['rating', 'viewcount'].includes(sortBy)) {
       query.orderBy = {
@@ -200,6 +200,9 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
       };
     }
   }
+
+
+  // Handle date parameters
 
   return query;
 }
