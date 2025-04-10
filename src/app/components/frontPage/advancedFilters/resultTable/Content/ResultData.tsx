@@ -45,6 +45,28 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
         }
     }
 
+    const addToBookmark = async (recipeId: number) => {
+        try {
+            const response = await fetch("/api/myList/bookmark", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ recipeId }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                showToast("success", "Recipe added to Bookmarks", savedTheme);
+            }
+        } catch (error) {
+            console.error("Error adding to bookmark:", error);
+            showToast("error", "Error trying to add recipe to bookmarks", savedTheme);
+        }
+
+
+    }
+
     if (recipes.length === 0) {
         return (
             <div className="w-full flex flex-col items-center justify-center py-16 px-4">
@@ -86,13 +108,14 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                         `}
                     >
                         <div id="recipeName" className="flex items-center gap-4 w-2/5 md:w-2/5 px-6 py-4">
-                            <div id="image" className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-lg relative overflow-hidden shadow-md dark:shadow-black/30 border border-gray-200 dark:border-gray-700">
+                            <div id="image" className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-lg relative overflow-hidden shadow-md dark:shadow-black/30 border border-gray-200 dark:border-gray-700 flex-shrink-0">
                                 <Image
                                     src={recipe.image}
                                     alt={recipe.title}
                                     fill
                                     className="object-cover object-center rounded-lg"
-                                    sizes="(max-width: 640px) 80px, (max-width: 768px) 90px, 100px"
+                                    sizes="(max-width: 640px) 80px, 90px"
+                                    priority
                                 />
                             </div>
                             <div className="flex flex-col justify-center">
@@ -154,7 +177,12 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                         </div>
 
                         <div id="actions" className="w-3/5 md:w-1/6 flex items-center justify-center py-4">
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    addToBookmark(recipe.id)
+                                }}>
                                 <i className="ri-bookmark-line text-lg"></i>
                             </button>
                             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors cursor-pointer"
@@ -167,7 +195,8 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                             >
                                 <i className="ri-folder-add-line text-lg"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
+                            >
                                 <i className="ri-file-list-line text-lg"></i>
                             </button>
                         </div>

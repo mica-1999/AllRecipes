@@ -70,7 +70,7 @@ export default function MenuSwitcher() {
                     case 'bookmarked':
                         // Fetch bookmarked recipes
                         if (bookmarks.length === 0) {
-                            const bookmarksData = await fetch('/api/mylist/bookmarks')
+                            const bookmarksData = await fetch('/api/myList/bookmark')
                             const bookmarksJson = await bookmarksData.json()
                             setBookmarks(bookmarksJson)
                         }
