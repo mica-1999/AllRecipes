@@ -201,8 +201,26 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
     }
   }
 
-
   // Handle date parameters
+  if (searchParams.has('startDate') && searchParams.has('endDate')) {
+    const startDate = new Date(searchParams.get('startDate')!);
+    const endDate = new Date(searchParams.get('endDate')!);
+    if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+      query.where.createdat = {
+        gte: startDate,
+        lte: endDate,
+      };
+    }
+  }
+
+  // Handle search box
+  if (searchParams.has('search') && searchParams.get('search') !== '') {
+    const search = searchParams.get('search')!;
+    query.where.title = {
+      contains: search,
+      mode: 'insensitive', // optional: makes search case-insensitive
+    }
+  }
 
   return query;
 }

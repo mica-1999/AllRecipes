@@ -68,7 +68,7 @@ export default function Navbar() {
                                     </div>
                                 </Link>
 
-                                <Link href="/weekly-trending">
+                                <Link href="/pages/home/advancedFilters?category=Popular&date=7days">
                                     <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                         <i className="ri-star-line mr-2 text-yellow-500"></i>
                                         {t('navBar.trendingRecipes')}
@@ -89,7 +89,7 @@ export default function Navbar() {
                                     </div>
                                 </Link>
 
-                                <Link href="/categories">
+                                <Link href="/pages/home/advancedFilters">
                                     <div className="px-4 py-2.5 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700">
                                         <i className="ri-apps-line mr-2 text-green-500"></i>
                                         {t('navBar.browseCategories')}

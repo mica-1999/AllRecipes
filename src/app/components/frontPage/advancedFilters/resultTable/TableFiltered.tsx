@@ -6,6 +6,7 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { TableFilteredProps } from '@/app/types/filters';
 import TableHeader from './Headers/TableHeader';
 import ResultData from './Content/ResultData';
+import { useSearchParams } from "next/navigation";
 
 export default function TableFiltered({
     mainFilterMenu,
@@ -22,14 +23,27 @@ export default function TableFiltered({
     occasion,
     exactMatchOccasion,
     seasonChoice,
-    onResetFilters
+    onResetFilters,
+    searchQuery,
+    setSearchQuery,
 }: TableFilteredProps) {
+
     // State variables & Hooks
+    const searchParams = useSearchParams();
+    const dateParam = searchParams.get('date');
+
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [sortField, setSortField] = useState<string>("");
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-    const [startDate, setStartDate] = useState<string>("");
-    const [endDate, setEndDate] = useState<string>("");
+    const [startDate, setStartDate] = useState<string>(() => {
+        if (dateParam === "7days") {
+            const date = new Date();
+            date.setDate(date.getDate() - 7);
+            return date.toISOString().split('T')[0];
+        }
+        return "";
+    });
+    const [endDate, setEndDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const { t, savedTheme } = useTheme();
 
     // Function to handle sorting based on the selected header
@@ -56,7 +70,7 @@ export default function TableFiltered({
         }
     };
 
-    // Function to fetch recipes based on the selected filters
+    // Update fetchRecipes to include search query
     const fetchRecipes = useCallback(async () => {
         try {
             const params = new URLSearchParams();
@@ -74,7 +88,7 @@ export default function TableFiltered({
                 params.append('sortBy', 'viewcount');
                 params.append('order', sortOrder);
             }
-            else if (mainFilterMenu === "Latest" && sortField !== "createdat") {
+            else if (mainFilterMenu === "Latest") {
                 params.append('sortBy', 'createdat');
                 params.append('order', sortOrder);
             }
@@ -96,10 +110,12 @@ export default function TableFiltered({
             if (caloriesRange.max < 2000) params.append('caloriesMax', caloriesRange.max.toString());
             if (cookingMethod.length > 0) params.append('method', cookingMethod.join(','));
             if (occasion.length > 0) params.append('occasion', occasion.join(','));
+            if (startDate) params.append('startDate', startDate);
+            if (endDate) params.append('endDate', endDate);
+            if (searchQuery && searchQuery.trim() !== "") params.append('search', searchQuery.trim());
             params.append('exactMatchDiet', exactMatchDiet.toString());
             params.append('exactMatchIngredients', exactMatchIngredients.toString());
             params.append('exactMatchOccasion', exactMatchOccasion.toString());
-
             if (sortField && sortOrder && sortField !== "") {
                 params.append('sortBy', sortField);
                 params.append('order', sortOrder);
@@ -127,10 +143,10 @@ export default function TableFiltered({
         mainFilterMenu, cuisineFilter, mealType, cookingTime, dietaryRestrictions,
         exactMatchDiet, ingredients, exactMatchIngredients, difficultyLevel,
         caloriesRange, cookingMethod, occasion, exactMatchOccasion, seasonChoice,
-        sortField, sortOrder, savedTheme
+        sortField, sortOrder, savedTheme, startDate, endDate, searchQuery
     ]);
 
-    // Fetch recipes when the component mounts or any of the dependencies change
+    // Fetch recipes when the component mounts or when any of the dependencies change
     useEffect(() => {
         fetchRecipes();
     }, [fetchRecipes]);
@@ -138,8 +154,47 @@ export default function TableFiltered({
     return (
         <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-200 dark:border-gray-700">
             <div className="px-6 py-5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('tableFiltered.title')}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('tableFiltered.description')}</p>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{t('tableFiltered.title')}</h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('tableFiltered.description')}</p>
+                    </div>
+
+                    {/* Search box */}
+                    <div className="relative min-w-[240px]">
+                        <input
+                            type="text"
+                            placeholder={t('tableFiltered.searchRecipes') || "Search recipes..."}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full h-10 pl-10 pr-4 py-2 text-sm rounded-lg border border-gray-300 
+                              dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                              placeholder-gray-400 dark:placeholder-gray-400
+                              focus:outline-none focus:ring-2 focus:ring-[#FF6B35] dark:focus:ring-indigo-400
+                              focus:border-[#FF6B35] dark:focus:border-indigo-400 transition-colors"
+                        />
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 text-gray-400 dark:text-gray-500"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        {searchQuery && (
+                            <button
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer"
+                                onClick={() => setSearchQuery("")}
+                                aria-label="Clear search"
+                            >
+                                <i className="ri-close-line"></i>
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <TableHeader

@@ -178,6 +178,7 @@ const translations = {
             actions: 'Ações',
             date: 'Data'
         },
+        searchRecipes: 'Pesquisar receitas...',
         viewsLabel: 'Visualizações',
         viewButton: 'Ver',
         outOf5: '/5',
@@ -193,7 +194,8 @@ const translations = {
             cancel: 'Cancelar',
             last7Days: 'Últimos 7 Dias',
             lastMonth: 'Último Mês',
-            last6Month: 'Últimos 6 Meses', // Added this
+            last6Month: 'Últimos 6 Meses',
+            lastYear: 'Último Ano',
             allTime: 'Todo Período'
         }
     },
@@ -344,7 +346,7 @@ const translations = {
         },
         emptyStates: {
             recipes: "As receitas do usuário serão exibidas aqui",
-            followers: "Os seguidores do usuário serão exibidos aqui",
+            followers: "Os seguidores do usuário serão exibidas aqui",
             following: "As contas que este usuário segue serão exibidas aqui"
         }
     },

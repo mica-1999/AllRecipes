@@ -33,14 +33,11 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
     }
   };
 
-  const handleQuickDate = (days: number) => {
+  const handleQuickDate = (days: number | 'allTime') => {
     let start = new Date(); // Manipulated date
     const end = new Date(); // Current date
 
     switch (days) {
-      case 1:
-        start.setDate(start.getDate() - 1); // Yesterday
-        break;
       case 7:
         start.setDate(start.getDate() - 7); // Last 7 days
         break;
@@ -53,6 +50,9 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
       case 365:
         start.setFullYear(start.getFullYear() - 1); // Last year
         break;
+      case 'allTime':
+        start = new Date(2000, 0, 1); // Set to a very early date
+        break;
       default:
         start = new Date(); // Reset to current date
         break;
@@ -61,12 +61,6 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
     setEndDate(end.toISOString().split('T')[0]); // Format to YYYY-MM-DD
     setDateDropdown(false); // Close the dropdown
   }
-
-  useEffect(() => {
-    console.log("Start Date:", startDate);
-    console.log("End Date:", endDate);
-
-  }, [startDate, endDate])
 
   return (
     <div className="flex w-full bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-medium text-sm relative">
@@ -97,10 +91,10 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                 (header === "Rating" && sortField === "rating")
               ) ? (
                 sortOrder === "asc" ?
-                  <i className="ri-arrow-up-line text-xs text-[#FF6B35] dark:text-indigo-300"></i> :
-                  <i className="ri-arrow-down-line text-xs text-[#FF6B35] dark:text-indigo-300"></i>
+                  <i className="ri-arrow-up-line text-xs text-[#FF6B35] dark:text-indigo-300 cursor-pointer"></i> :
+                  <i className="ri-arrow-down-line text-xs text-[#FF6B35] dark:text-indigo-300 cursor-pointer"></i>
               ) : (
-                <i className="ri-arrow-up-down-line text-xs"></i>
+                <i className="ri-arrow-up-down-line text-xs cursor-pointer"></i>
               )}
             </button>
           )}
@@ -112,7 +106,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                   e.preventDefault();
                   setDateDropdown(!dateDropdown);
                 }}>
-                <i className={`ri-calendar-line text-xs ${dateDropdown ? "text-[#FF6B35] dark:text-indigo-300" : ""}`}></i>
+                <i className={`ri-calendar-line text-xs cursor-pointer ${dateDropdown || (startDate || endDate) ? "text-[#FF6B35] dark:text-indigo-300" : ""}`}></i>
               </button>
               {dateDropdown && (
                 <div className="absolute top-11 w-[280px] bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 z-20" ref={dropdownRef}>
@@ -125,7 +119,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                       onClick={() => setDateDropdown(false)}
                       className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                     >
-                      <i className="ri-close-line"></i>
+                      <i className="ri-close-line cursor-pointer"></i>
                     </button>
                   </div>
 
@@ -156,7 +150,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                       </div>
                     </div>
                     <button
-                      className="w-full bg-[#FF6B35] dark:bg-indigo-500 text-white text-xs py-1.5 rounded hover:bg-[#ff8559] dark:hover:bg-indigo-600 transition-colors"
+                      className="w-full bg-[#FF6B35] dark:bg-indigo-500 text-white text-xs py-1.5 rounded hover:bg-[#ff8559] dark:hover:bg-indigo-600 transition-colors cursor-pointer"
                       onClick={() => {
                         // Add your date range filter logic here
                         setDateDropdown(false);
@@ -170,16 +164,16 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                   <div className="p-2">
                     <div className="grid grid-cols-2 gap-1.5">
                       <button
-                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                         onClick={() => {
-                          handleQuickDate(1);
+                          handleQuickDate(7);
                           setDateDropdown(false);
                         }}
                       >
                         {t('tableFiltered.dateFilter.last7Days') || 'Last 7 Days'}
                       </button>
                       <button
-                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                         onClick={() => {
                           handleQuickDate(30);
                           setDateDropdown(false);
@@ -188,7 +182,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                         {t('tableFiltered.dateFilter.lastMonth') || 'Last Month'}
                       </button>
                       <button
-                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                         onClick={() => {
                           handleQuickDate(182);
                           setDateDropdown(false);
@@ -197,9 +191,18 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                         {t('tableFiltered.dateFilter.last6Month') || 'Last 6 Month'}
                       </button>
                       <button
-                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                         onClick={() => {
                           handleQuickDate(365);
+                          setDateDropdown(false);
+                        }}
+                      >
+                        {t('tableFiltered.dateFilter.lastYear') || 'Last Year'}
+                      </button>
+                      <button
+                        className="text-xs px-2 py-1.5 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 col-span-2 cursor-pointer"
+                        onClick={() => {
+                          handleQuickDate('allTime');
                           setDateDropdown(false);
                         }}
                       >

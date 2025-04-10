@@ -19,6 +19,8 @@ export interface TableFilteredProps {
     exactMatchOccasion: boolean;
     seasonChoice: string;
     onResetFilters?: () => void;
+    searchQuery: string;
+    setSearchQuery: (value: string) => void;
 }
 
 export interface MealOptionsProps {
@@ -76,7 +78,7 @@ export interface FilterModeToggleProps {
     isExactMatch: boolean;
     setIsExactMatch: (value: boolean) => void;
     tooltipText?: {
-      all: string;
-      any: string;
+        all: string;
+        any: string;
     };
-  }
+}

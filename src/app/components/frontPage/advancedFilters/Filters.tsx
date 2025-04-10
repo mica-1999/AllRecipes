@@ -1,9 +1,11 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeType } from '@/app/types/filters';
 import { showToast } from "@/app/components/reusable/Toasters";
+import { seasonsData } from "@/app/data/AdvFiltersData";
+import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -18,31 +20,24 @@ import Occasion from "@/app/components/frontPage/advancedFilters/filterComp/Occa
 import TableFiltered from "@/app/components/frontPage/advancedFilters/resultTable/TableFiltered";
 import ResetAdvFilters from "@/app/components/frontPage/advancedFilters/resetButton/Reset"
 
-// Data
-import { seasonsData } from "@/app/data/AdvFiltersData";
-
-// Hook to handle click outside of a component
-import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
-
 export default function AdvFilters() {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
-    const query = searchParams.get("category") || "";
+    const urlCategory = searchParams.get("category") || "";
 
     // Theme context for settings
     const { t, tArray, savedTheme } = useTheme();
 
     // State variables for Main Filter Menu
-    const [mainFilterMenu, setMainFilterMenu] = useState<string>(""); // Main Menu
+    const [mainFilterMenu, setMainFilterMenu] = useState<string>(urlCategory || tArray<string>('advancedFilters.mainFilters')[0]); // Main Menu
     const [selectedSeason, setSelectedSeason] = useState<typeof seasonsData[0] | null>(null);
     const [seasonChoice, setSeasonChoice] = useState<string>(""); // Seasonal Dropdown Menu
     const [seasonalOpen, setSeasonalOpen] = useState<boolean>(false); // Dropdown Menu Open/Close
+    const [searchQuery, setSearchQuery] = useState<string>(""); // Search query for filtering recipes
 
     // Ref for the dropdown menu
     const seasonsRef = useRef<HTMLDivElement>(null);
-
-    // Close the dropdown when clicking outside of it
-    useClickOutside(seasonsRef, setSeasonalOpen);
+    useClickOutside(seasonsRef, setSeasonalOpen); // Custom hook to close the dropdown when clicking outside
 
     // State variables for Filters
     const [cuisineFilter, setCuisineFilter] = useState<string[]>([]);  // Changed from mealTypeFilter
@@ -101,20 +96,11 @@ export default function AdvFilters() {
         setExactMatchDiet(true);
         setExactMatchIngredients(true);
         setExactMatchOccasion(false);
+        setSearchQuery("");
 
         // Show a toast notification to confirm filters were reset
         showToast("success", t('advancedFilters.filtersReset'), savedTheme);
     };
-
-    // Update the main filter menu based on the query parameter
-    useEffect(() => {
-        if (query) {
-            setMainFilterMenu(query);
-        }
-        else {
-            setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]);
-        }
-    }, [query, tArray]);
 
     return (
         <>
@@ -209,6 +195,8 @@ export default function AdvFilters() {
                         exactMatchOccasion={exactMatchOccasion}
                         seasonChoice={seasonChoice}
                         onResetFilters={resetAllFilters}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
                     />
                 </div>
             </div>

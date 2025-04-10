@@ -178,6 +178,7 @@ const translations = {
             actions: 'Actions',
             date: 'Date'
         },
+        searchRecipes: 'Search recipes...',
         viewsLabel: 'Views',
         viewButton: 'View',
         outOf5: '/5',
@@ -192,7 +193,8 @@ const translations = {
             cancel: 'Cancel',
             last7Days: 'Last 7 Days',
             lastMonth: 'Last Month',
-            last6Month: 'Last 6 Months', // Added this
+            last6Month: 'Last 6 Months',
+            lastYear: 'Last Year',
             allTime: 'All Time'
         },
         dateAdded: 'Date Added'
