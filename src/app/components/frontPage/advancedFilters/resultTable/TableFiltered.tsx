@@ -6,7 +6,6 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { TableFilteredProps } from '@/app/types/filters';
 import TableHeader from './Headers/TableHeader';
 import ResultData from './Content/ResultData';
-import { useSearchParams } from "next/navigation";
 
 export default function TableFiltered({
     mainFilterMenu,
@@ -26,24 +25,18 @@ export default function TableFiltered({
     onResetFilters,
     searchQuery,
     setSearchQuery,
+    sortField,
+    setSortField,
+    sortOrder,
+    setSortOrder,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
 }: TableFilteredProps) {
 
-    // State variables & Hooks
-    const searchParams = useSearchParams();
-    const dateParam = searchParams.get('date');
-
+    // State variables & hooks
     const [recipes, setRecipes] = useState<Recipe[]>([]);
-    const [sortField, setSortField] = useState<string>("");
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-    const [startDate, setStartDate] = useState<string>(() => {
-        if (dateParam === "7days") {
-            const date = new Date();
-            date.setDate(date.getDate() - 7);
-            return date.toISOString().split('T')[0];
-        }
-        return "";
-    });
-    const [endDate, setEndDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const { t, savedTheme } = useTheme();
 
     // Function to handle sorting based on the selected header
@@ -116,10 +109,6 @@ export default function TableFiltered({
             params.append('exactMatchDiet', exactMatchDiet.toString());
             params.append('exactMatchIngredients', exactMatchIngredients.toString());
             params.append('exactMatchOccasion', exactMatchOccasion.toString());
-            if (sortField && sortOrder && sortField !== "") {
-                params.append('sortBy', sortField);
-                params.append('order', sortOrder);
-            }
 
             const queryString = params.toString();
             const url = `/api/recipes${queryString ? `?${queryString}` : ''}`;

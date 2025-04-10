@@ -24,6 +24,7 @@ export default function AdvFilters() {
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const urlCategory = searchParams.get("category") || "";
+    const dateParam = searchParams.get('date');
 
     // Theme context for settings
     const { t, tArray, savedTheme } = useTheme();
@@ -49,6 +50,19 @@ export default function AdvFilters() {
     const [caloriesRange, setCaloriesRange] = useState<CaloriesRangeType>({ min: 0, max: 2000 });
     const [cookingMethod, setCookingMethod] = useState<string[]>([]);
     const [occasion, setOccasion] = useState<string[]>([]);
+
+    //  State variables for table header sorting
+    const [sortField, setSortField] = useState<string>("");
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+    const [startDate, setStartDate] = useState<string>(() => {
+        if (dateParam === "7days") {
+            const date = new Date();
+            date.setDate(date.getDate() - 7);
+            return date.toISOString().split('T')[0];
+        }
+        return new Date(2000, 0, 1).toISOString().split('T')[0];
+    });
+    const [endDate, setEndDate] = useState<string>(new Date().toISOString().split('T')[0]);
 
     // State variables for OR or AND operations in Diet/Ingredients/Occasion
     // By default it will show all recipes that match any of the selected filters
@@ -97,6 +111,10 @@ export default function AdvFilters() {
         setExactMatchIngredients(true);
         setExactMatchOccasion(false);
         setSearchQuery("");
+        setSortField("");
+        setSortOrder('desc');
+        setStartDate("");
+        setEndDate(new Date().toISOString().split('T')[0]);
 
         // Show a toast notification to confirm filters were reset
         showToast("success", t('advancedFilters.filtersReset'), savedTheme);
@@ -197,6 +215,14 @@ export default function AdvFilters() {
                         onResetFilters={resetAllFilters}
                         searchQuery={searchQuery}
                         setSearchQuery={setSearchQuery}
+                        sortField={sortField}
+                        setSortField={setSortField}
+                        sortOrder={sortOrder}
+                        setSortOrder={setSortOrder}
+                        startDate={startDate}
+                        setStartDate={setStartDate}
+                        endDate={endDate}
+                        setEndDate={setEndDate}
                     />
                 </div>
             </div>

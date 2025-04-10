@@ -1,6 +1,6 @@
 import { listHeaders } from "@/app/data/AdvFiltersData";
 import { useTheme } from '@/app/context/ThemeContext';
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
 
 interface TableHeaderProps {
@@ -18,6 +18,9 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
   // State variables & hooks
   const [dateDropdown, setDateDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [tempStartDate, setTempStartDate] = useState<string>(startDate);
+  const [tempEndDate, setTempEndDate] = useState<string>(endDate);
+
   useClickOutside(dropdownRef, setDateDropdown);
   const { t } = useTheme();
 
@@ -62,6 +65,17 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
     setDateDropdown(false); // Close the dropdown
   }
 
+  const handleDateConfirmation = () => {
+    // Check if the dates are valid and in the correct format (YYYY-MM-DD)
+    const startDateValid = /^\d{4}-\d{2}-\d{2}$/.test(tempStartDate);
+    const endDateValid = /^\d{4}-\d{2}-\d{2}$/.test(tempEndDate);
+
+    if (startDateValid && endDateValid) {
+      setStartDate(tempStartDate);
+      setEndDate(tempEndDate);
+    }
+  }
+
   return (
     <div className="flex w-full bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-medium text-sm relative">
       {listHeaders.map((header, index) => (
@@ -82,7 +96,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                 handleSort(
                   header === "Views" ? "viewcount" :
                     header === "Rating" ? "rating" :
-                      "createdat"
+                      ""
                 );
               }}
             >
@@ -112,9 +126,28 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                 <div className="absolute top-11 w-[280px] bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 z-20" ref={dropdownRef}>
                   {/* Header with Close Button */}
                   <div className="flex items-center justify-between px-3 py-2 border-b border-gray-200 dark:border-gray-700">
-                    <h4 className="font-medium text-sm text-gray-800 dark:text-gray-100">
-                      {t('tableFiltered.dateFilter.title') || 'Date Filter'}
-                    </h4>
+                    <div className="flex items-center">
+                      <h4 className="font-medium text-sm text-gray-800 dark:text-gray-100">
+                        {t('tableFiltered.dateFilter.title') || 'Date Filter'}
+                      </h4>
+                      <button
+                        className="ml-2 text-gray-400 dark:text-gray-400 hover:text-[#FF6B35] dark:hover:text-indigo-300"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSort("createdat");
+                        }}
+                      >
+                        {sortField === "createdat" ? (
+                          sortOrder === "asc" ? (
+                            <i className="ri-arrow-up-line text-xs text-[#FF6B35] dark:text-indigo-300 cursor-pointer"></i>
+                          ) : (
+                            <i className="ri-arrow-down-line text-xs text-[#FF6B35] dark:text-indigo-300 cursor-pointer"></i>
+                          )
+                        ) : (
+                          <i className="ri-arrow-up-down-line text-xs cursor-pointer"></i>
+                        )}
+                      </button>
+                    </div>
                     <button
                       onClick={() => setDateDropdown(false)}
                       className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
@@ -132,8 +165,8 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                         </label>
                         <input
                           type="date"
-                          value={startDate}
-                          onChange={(e) => setStartDate(e.target.value)}
+                          value={tempStartDate}
+                          onChange={(e) => setTempStartDate(e.target.value)}
                           className="w-full text-xs px-2 py-1.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-[#FF6B35] dark:focus:ring-indigo-300"
                         />
                       </div>
@@ -143,8 +176,8 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                         </label>
                         <input
                           type="date"
-                          value={endDate}
-                          onChange={(e) => setEndDate(e.target.value)}
+                          value={tempEndDate}
+                          onChange={(e) => setTempEndDate(e.target.value)}
                           className="w-full text-xs px-2 py-1.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-[#FF6B35] dark:focus:ring-indigo-300"
                         />
                       </div>
@@ -152,7 +185,7 @@ export default function TableHeader({ sortField, sortOrder, handleSort, startDat
                     <button
                       className="w-full bg-[#FF6B35] dark:bg-indigo-500 text-white text-xs py-1.5 rounded hover:bg-[#ff8559] dark:hover:bg-indigo-600 transition-colors cursor-pointer"
                       onClick={() => {
-                        // Add your date range filter logic here
+                        handleDateConfirmation();
                         setDateDropdown(false);
                       }}
                     >

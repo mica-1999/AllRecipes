@@ -194,7 +194,7 @@ export function buildRecipeQuery(searchParams: URLSearchParams) {
     const order = searchParams.get('order');
 
     // Only apply sorting if valid values are provided
-    if (sortBy && ['rating', 'viewcount'].includes(sortBy)) {
+    if (sortBy && ['rating', 'viewcount', 'createdat'].includes(sortBy)) {
       query.orderBy = {
         [sortBy]: order === 'desc' ? 'desc' : 'asc'
       };

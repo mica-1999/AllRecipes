@@ -21,6 +21,14 @@ export interface TableFilteredProps {
     onResetFilters?: () => void;
     searchQuery: string;
     setSearchQuery: (value: string) => void;
+    sortField: string;
+    setSortField: (value: string) => void;
+    sortOrder: "asc" | "desc";
+    setSortOrder: (value: "asc" | "desc") => void;
+    startDate: string;
+    setStartDate: (value: string) => void;
+    endDate: string;
+    setEndDate: (value: string) => void;
 }
 
 export interface MealOptionsProps {
