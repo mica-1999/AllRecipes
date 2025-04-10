@@ -3,9 +3,11 @@ import { Dispatch, SetStateAction } from 'react'
 import { listItems } from '@/app/data/MyListData';
 import { useTheme } from '@/app/context/ThemeContext';
 
-export default function Filters({ selectedMenu, setSelectedMenu }: {
+export default function Filters({ selectedMenu, setSelectedMenu, searchBox, setSearchBox }: {
     selectedMenu: string;
     setSelectedMenu: Dispatch<SetStateAction<string>>;
+    searchBox: string;
+    setSearchBox: (value: string) => void;
 }) {
     const { t } = useTheme();
 
@@ -44,6 +46,8 @@ export default function Filters({ selectedMenu, setSelectedMenu }: {
                     focus:ring-1 focus:ring-[#FF6B35] dark:focus:ring-indigo-400 transition-all"
                         type="text"
                         placeholder={`${t('myList.search')} ${t(`myList.tabs.${selectedMenu}`)}`}
+                        onChange={(e) => setSearchBox(e.target.value)}
+                        value={searchBox}
                     />
                     <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-[#A8A8A8] dark:text-gray-400 text-lg"></i>
                 </div>

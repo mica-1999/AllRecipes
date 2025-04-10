@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { bookmarkedRecipes } from "@/app/data/MyListData";
 import { useTheme } from "@/app/context/ThemeContext";
+import { Bookmark } from "@/app/types/recipe";
 
-export default function Bookmarked() {
+export default function Bookmarked({ bookmarks }: { bookmarks: Bookmark[] }) {
     const { t } = useTheme()
     return (
         <>

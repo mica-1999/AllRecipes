@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { collectionsData } from "@/app/data/MyListData";
+import { Collection } from "@/app/types/recipe";
 
-export default function Collections() {
+export default function Collections({ collections }: { collections: Collection[] }) {
     return (
         <>
             <div className="flex flex-wrap w-full h-full mb-15">

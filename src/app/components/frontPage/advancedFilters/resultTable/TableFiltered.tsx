@@ -110,6 +110,11 @@ export default function TableFiltered({
             params.append('exactMatchIngredients', exactMatchIngredients.toString());
             params.append('exactMatchOccasion', exactMatchOccasion.toString());
 
+            if (!params.has('sortBy') && !params.has('order')) {
+                params.append('sortBy', sortField);
+                params.append('order', sortOrder);
+            }
+
             const queryString = params.toString();
             const url = `/api/recipes${queryString ? `?${queryString}` : ''}`;
 

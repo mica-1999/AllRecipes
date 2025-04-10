@@ -10,7 +10,7 @@
     "seed": "npx ts-node --project tsconfig-seed.json prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^6.5.0",
+    "@prisma/client": "^6.6.0",
     "bcryptjs": "^3.0.2",
     "next": "^15.2.4",
     "next-auth": "^4.24.11",
@@ -29,7 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "postcss": "^8.5.3",
-    "prisma": "^6.5.0",
+    "prisma": "^6.6.0",
     "tailwindcss": "^4.0.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"

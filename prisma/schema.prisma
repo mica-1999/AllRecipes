@@ -24,6 +24,10 @@ model User {
   Recipe          Recipe[]
   Session         Session[]
   UserPreferences UserPreferences?
+  PrepareRecipe   PrepareRecipe[]
+  Bookmark        Bookmark[]
+  Collection      Collection[]
+  Comment         Comment[]
 
   @@index([email])
   @@index([username])
@@ -71,7 +75,10 @@ model Recipe {
   updatedat           DateTime              @default(now()) @db.Timestamp(6)
   userid              Int
   User                User                  @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
+  PrepareRecipe       PrepareRecipe[]
+  Bookmark            Bookmark[]
+  CollectionRecipe    CollectionRecipe[]
+  Comment             Comment[]
 
   @@index([cuisinetype], map: "Recipe_cuisineType_idx")
   @@index([mealtype], map: "Recipe_mealType_idx")
@@ -79,10 +86,11 @@ model Recipe {
 }
 
 model Ingredients {
-  id          Int      @id @default(autoincrement())
-  ingredient        String
-  recipeid    Int
-  Recipe      Recipe   @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id         Int    @id @default(autoincrement())
+  ingredient String
+  recipeid   Int
+  Recipe     Recipe @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
   @@index([recipeid], map: "Ingredients_recipeId_idx")
 }
 
@@ -95,6 +103,67 @@ model Address {
   country    String?
   userid     Int?    @unique
   User       User?   @relation(fields: [userid], references: [id], onUpdate: NoAction)
+}
+
+model PrepareRecipe {
+  id           Int       @id @default(autoincrement())
+  recipeid     Int
+  userid       Int
+  dateAdded    DateTime  @default(now()) @db.Timestamp(6)
+  lastPrepared DateTime? @db.Timestamp(6)
+  Recipe       Recipe    @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User         User      @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([userid])
+  @@index([recipeid])
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  recipeid  Int
+  userid    Int
+  dateAdded DateTime @default(now()) @db.Timestamp(6)
+  Recipe    Recipe   @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User      User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([userid])
+  @@index([recipeid])
+}
+
+model Collection {
+  id        Int                @id @default(autoincrement())
+  name      String
+  createdat DateTime           @default(now()) @db.Timestamp(6)
+  updatedat DateTime           @default(now()) @db.Timestamp(6)
+  userid    Int
+  User      User               @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  recipes   CollectionRecipe[]
+
+  @@index([userid])
+}
+
+model CollectionRecipe {
+  id           Int        @id @default(autoincrement())
+  collectionid Int
+  recipeid     Int
+  Collection   Collection @relation(fields: [collectionid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Recipe       Recipe     @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([collectionid])
+  @@index([recipeid])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  recipeid  Int
+  userid    Int
+  content   String
+  createdat DateTime @default(now()) @db.Timestamp(6)
+  Recipe    Recipe   @relation(fields: [recipeid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User      User     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([userid])
+  @@index([recipeid])
 }
 
 enum VisualTheme {

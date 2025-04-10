@@ -3,8 +3,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { commentsData } from "@/app/data/MyListData";
 import { useTheme } from "@/app/context/ThemeContext";
+import { Comment } from "@/app/types/recipe";
 
-export default function Comments() {
+export default function Comments({ comments }: { comments: Comment[] }) {
     const { t } = useTheme();
     // State to manage the active tab (My Comments or Liked Comments)
     const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');
@@ -18,8 +19,8 @@ export default function Comments() {
                         <button
                             onClick={() => setActiveTab('my')}
                             className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${activeTab === 'my'
-                                    ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
+                                ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
                                 }`}
                         >
                             {t('myList.comments.myComments')}
@@ -27,8 +28,8 @@ export default function Comments() {
                         <button
                             onClick={() => setActiveTab('liked')}
                             className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${activeTab === 'liked'
-                                    ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
-                                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
+                                ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-white shadow-sm dark:shadow-black/10'
+                                : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white'
                                 }`}
                         >
                             {t('myList.comments.likedComments')}

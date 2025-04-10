@@ -1,5 +1,6 @@
 import { Recipe } from '@/app/types/recipe';
 import { useTheme } from '@/app/context/ThemeContext';
+import { showToast } from '@/app/components/reusable/Toasters';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ interface ResultDataProps {
 }
 
 export default function ResultData({ recipes, onResetFilters }: ResultDataProps) {
-    const { t } = useTheme();
+    const { t, savedTheme } = useTheme();
 
     // Function to format date 
     const formatDate = (dateString: string) => {
@@ -20,6 +21,29 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
             day: 'numeric'
         }).format(date);
     };
+
+    const addToPrepareList = async (recipeId: number) => {
+        try {
+            const response = await fetch("/api/myList/prepareList", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ recipeId }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showToast("success", "Added to Prepare List", savedTheme);
+            } else {
+                showToast("error", data.error, savedTheme);
+            }
+        } catch (error) {
+            console.error("Error adding to prepare list:", error);
+            showToast("error", "Error trying to add recipe to Prepare List", savedTheme);
+        }
+    }
 
     if (recipes.length === 0) {
         return (
@@ -133,7 +157,14 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
                                 <i className="ri-bookmark-line text-lg"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors">
+                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors cursor-pointer"
+
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    addToPrepareList(recipe.id)
+                                }}
+                            >
                                 <i className="ri-folder-add-line text-lg"></i>
                             </button>
                             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors">
