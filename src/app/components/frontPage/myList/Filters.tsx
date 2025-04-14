@@ -51,19 +51,25 @@ export default function Filters({ selectedMenu, setSelectedMenu, searchBox, setS
                     />
                     <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-[#A8A8A8] dark:text-gray-400 text-lg"></i>
                 </div>
+
                 <div className="flex items-center gap-3 ml-auto">
                     <button className="flex items-center gap-2 px-4 py-2.5 bg-[#D3D3D3] dark:bg-gray-700 text-black dark:text-white rounded-[5px] hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer">
                         <i className="ri-filter-3-line"></i>
                         <span>{t('myList.filter')}</span>
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2.5 bg-[#D3D3D3] dark:bg-gray-700 text-black dark:text-white rounded-[5px] hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer">
-                        <i className="ri-download-line"></i>
-                        <span>{t('myList.export')}</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2.5 bg-[#FF6B35] dark:bg-indigo-600 text-white rounded-[5px] hover:bg-[#e55a29] dark:hover:bg-indigo-500 transition-colors cursor-pointer">
-                        <i className="ri-upload-line"></i>
-                        <span>{t('myList.import')}</span>
-                    </button>
+
+                    {selectedMenu != 'commented' &&
+                        <button className="flex items-center gap-2 px-4 py-2.5 bg-teal-500 dark:bg-teal-600 text-white rounded-[5px] hover:bg-teal-600 dark:hover:bg-teal-700 transition-colors cursor-pointer">
+                            <i className="ri-download-line"></i>
+                            <span>{t('myList.export')}</span>
+                        </button>
+                    }
+                    {(selectedMenu !== 'commented' && selectedMenu !== 'collections') &&
+                        <button className="flex items-center gap-2 px-4 py-2.5 bg-[#FF6B35] dark:bg-indigo-600 text-white rounded-[5px] hover:bg-[#e55a29] dark:hover:bg-indigo-500 transition-colors cursor-pointer">
+                            <i className="ri-upload-line"></i>
+                            <span>{t('myList.import')}</span>
+                        </button>
+                    }
                 </div>
             </div>
         </>

@@ -287,7 +287,17 @@ const translations = {
             bookmarked: 'Bookmarked',
             commented: 'Commented'
         },
-        // MY LIST TABLE HEADERS
+        prepareList: 'Prepare List',
+        added: 'Added',
+        lastMade: 'Last made',
+        noRecipes: 'No recipes in your prepare list',
+        prepareListDescription: 'Add recipes to your prepare list to keep track of what you want to cook',
+        browseRecipes: 'Browse Recipes',
+        myRecipes: 'My Recipes',
+        created: 'Created',
+        noMyRecipes: 'No recipes created yet',
+        createRecipeDescription: 'Share your culinary creations with the community',
+        createRecipe: 'Create Recipe',
         mylistHeaders: [
             "Recipe Name",
             "Category",
@@ -309,7 +319,16 @@ const translations = {
             reply: 'Reply',
             delete: 'Delete',
             loadMore: 'Load More Comments'
-        }
+        },
+        collection: 'Collection',
+        collections: 'Collections',
+        recipe: 'Recipe',
+        createNewCollection: 'Create New Collection',
+        organizeYourFavoriteRecipes: 'Organize your favorite recipes into themed collections',
+        noCollections: 'No collections yet',
+        createCollection: 'Create Collection',
+        collectionDeleted: 'Collection deleted successfully',
+        errorDeletingCollection: 'Error deleting collection'
     },
     profile: {
         bannerAlt: "Profile banner",

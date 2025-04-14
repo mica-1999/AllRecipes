@@ -1,11 +1,11 @@
 // MENU 
 export const listItems = [
-    {id: "list", name: "List", icon: "ri-list-check"},
-    {id: "myRecipes", name: "My Recipes", icon: "ri-edit-2-line"},
-    {id: "collections", name: "Collections", icon: "ri-folder-line"},
-    {id: "bookmarked", name: "Bookmarked", icon: "ri-bookmark-line"},
-    {id: "commented", name: "Commented", icon: "ri-chat-3-line"}
-] 
+    { id: "list", name: "List", icon: "ri-list-check" },
+    { id: "myRecipes", name: "My Recipes", icon: "ri-edit-2-line" },
+    { id: "bookmarked", name: "Bookmarked", icon: "ri-bookmark-line" },
+    { id: "collections", name: "Collections", icon: "ri-folder-line" },
+    { id: "commented", name: "Commented", icon: "ri-chat-3-line" }
+]
 
 // BOOKMARK
 export const bookmarkedRecipes = [

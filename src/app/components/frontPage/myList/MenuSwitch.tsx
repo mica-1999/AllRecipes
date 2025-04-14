@@ -11,7 +11,7 @@ import { showToast } from "../../reusable/Toasters"
 import { useTheme } from "@/app/context/ThemeContext"
 
 export default function MenuSwitcher() {
-    const { t, savedTheme } = useTheme()
+    const { savedTheme } = useTheme()
 
     // State to manage the selected menu option
     const [selectedMenu, setSelectedMenu] = useState('list')
@@ -63,16 +63,26 @@ export default function MenuSwitcher() {
                         // Fetch user's collections
                         if (collections.length === 0) {
                             const collectionsData = await fetch('/api/myList/collections')
-                            const collectionsJson = await collectionsData.json()
-                            setCollections(collectionsJson)
+                            if (!collectionsData.ok) {
+                                showToast('error', 'Error fetching collections. Please try again later.', savedTheme)
+                            }
+                            else {
+                                const collectionsJson = await collectionsData.json()
+                                setCollections(collectionsJson)
+                            }
                         }
                         break
                     case 'bookmarked':
                         // Fetch bookmarked recipes
                         if (bookmarks.length === 0) {
                             const bookmarksData = await fetch('/api/myList/bookmark')
-                            const bookmarksJson = await bookmarksData.json()
-                            setBookmarks(bookmarksJson)
+                            if (!bookmarksData.ok) {
+                                showToast('error', 'Error fetching bookmarks. Please try again later.', savedTheme)
+                            }
+                            else {
+                                const bookmarksJson = await bookmarksData.json()
+                                setBookmarks(bookmarksJson)
+                            }
                         }
                         break
                     case 'commented':
@@ -104,17 +114,17 @@ export default function MenuSwitcher() {
 
         switch (selectedMenu) {
             case 'list':
-                return <List recipes={recipes} />
+                return <List recipes={recipes} searchBox={searchBox} />
             case 'collections':
-                return <Collections collections={collections} />
+                return <Collections collections={collections} searchBox={searchBox} />
             case 'myRecipes':
-                return <MyRecipes myRecipes={myRecipes} />
+                return <MyRecipes myRecipes={myRecipes} searchBox={searchBox} />
             case 'commented':
-                return <Commented comments={comments} />
+                return <Commented comments={comments} searchBox={searchBox} />
             case 'bookmarked':
-                return <Bookmarked bookmarks={bookmarks} />
+                return <Bookmarked bookmarks={bookmarks} searchBox={searchBox} />
             default:
-                return <List recipes={recipes} />
+                return <List recipes={recipes} searchBox={searchBox} />
         }
     }
 

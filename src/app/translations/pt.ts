@@ -308,7 +308,26 @@ const translations = {
             reply: 'Responder',
             delete: 'Excluir',
             loadMore: 'Carregar Mais Comentários'
-        }
+        },
+        prepareList: 'Lista de Preparação',
+        added: 'Adicionado',
+        lastMade: 'Preparado pela última vez em',
+        noRecipes: 'Sem receitas na sua lista de preparação',
+        prepareListDescription: 'Adicione receitas à sua lista de preparação para acompanhar o que deseja cozinhar',
+        browseRecipes: 'Explorar Receitas',
+        created: 'Criado',
+        noMyRecipes: 'Nenhuma receita criada ainda',
+        createRecipeDescription: 'Compartilhe suas criações culinárias com a comunidade',
+        createRecipe: 'Criar Receita',
+        collection: 'Coleção',
+        collections: 'Coleções',
+        recipe: 'Receita',
+        createNewCollection: 'Criar Nova Coleção',
+        organizeYourFavoriteRecipes: 'Organize suas receitas favoritas em coleções temáticas',
+        noCollections: 'Nenhuma coleção ainda',
+        createCollection: 'Criar Coleção',
+        collectionDeleted: 'Coleção excluída com sucesso',
+        errorDeletingCollection: 'Erro ao excluir coleção'
     },
     profile: {
         bannerAlt: "Banner de perfil",

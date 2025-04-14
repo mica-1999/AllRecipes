@@ -1,14 +1,12 @@
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
-import { PrepareRecipe } from "@/app/types/recipe"
+import { PrepareRecipe } from "@/app/types/recipe";
+import { useState } from "react";
 
-export default function List({ recipes }: { recipes: PrepareRecipe[] }) {
-    const { tArray, t } = useTheme()
-
-    // Function to handle navigation to recipe details page
-    const ToRecipeDetails = (id: number) => {
-        window.location.href = `/pages/home/recipeDetails?id=${id}`;
-    }
+export default function List({ recipes, searchBox }: { recipes: PrepareRecipe[], searchBox: string }) {
+    const { t } = useTheme();
+    const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
 
     // Function to format date
     const formatDate = (dateString: string | null | undefined) => {
@@ -22,145 +20,183 @@ export default function List({ recipes }: { recipes: PrepareRecipe[] }) {
     };
 
     return (
-        <div className="w-full dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-700 mb-20">
-            {/* Table Header */}
-            <div id="tableHeaders" className="flex w-full bg-gray-50 dark:bg-gray-700/60 border-b border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-200 font-medium text-sm">
-                {tArray<string>('myList.mylistHeaders').map((header, index) => (
-                    <div key={index} className={`
-                        px-4 py-3.5 flex items-center
-                        ${index === 0 ? "w-1/4 lg:w-1/3" : "w-1/8 hidden md:flex"}
-                        ${index === 1 || index === 2 ? "lg:flex md:hidden" : ""}
-                        ${index === 7 ? "w-1/4 md:w-1/8 justify-end md:justify-center" : ""}
-                    `}>
-                        {header}
-                    </div>
-                ))}
-            </div>
+        <>
+            <div className="py-2 mb-10">
+                <div className="flex items-center justify-between mb-6 px-6">
+                    <h2 className="text-xl font-semibold text-gray-800 dark:text-white flex items-center">
+                        <span className="bg-indigo-100 dark:bg-indigo-900/20 p-2 rounded-lg mr-2">
+                            <i className="ri-knife-line text-indigo-600 dark:text-indigo-400"></i>
+                        </span>
+                        {t('myList.prepareList')}
+                        <span className="ml-3 text-sm font-normal text-gray-500 dark:text-gray-400">
+                            ({recipes.length})
+                        </span>
+                    </h2>
+                </div>
 
-            {/* Table Body */}
-            <div id="table" className="flex flex-col w-full">
                 {recipes.length > 0 ? (
-                    recipes.map((recipe, index) => (
-                        <div
-                            id={`item-${index}`}
-                            className={`
-                                w-full flex transition-colors duration-150
-                                hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 cursor-pointer
-                                ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/30 dark:bg-gray-800'}
-                            `}
-                            key={index}
-                            onClick={() => ToRecipeDetails(recipe.recipeid)}
-                        >
-                            {/* Recipe Name with Image */}
-                            <div id="recipeName" className="flex items-center gap-3 w-1/4 lg:w-1/3 p-2.5">
-                                <div id="image" className="w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] rounded-lg relative overflow-hidden shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-gray-700">
-                                    <Image
-                                        src={recipe.Recipe.image || '/images/home/placeholder.jpg'}
-                                        alt={recipe.Recipe.title}
-                                        fill
-                                        className="object-cover"
-                                        priority
-                                    />
-                                </div>
-                                <div className="flex flex-col justify-center">
-                                    <h1 className="font-medium text-gray-800 dark:text-white line-clamp-1">
-                                        {recipe.Recipe.title}
-                                    </h1>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                        {recipe.Recipe.description ? recipe.Recipe.description.substring(0, 40) + '...' : ''}
-                                    </p>
-                                </div>
-                            </div>
+                    <div className="px-6">
+                        <div className="space-y-4">
+                            {recipes
+                                .filter((recipe) => recipe.Recipe.title.toLowerCase().includes(searchBox.toLowerCase()))
+                                .map((recipe) => (
+                                    <div
+                                        key={recipe.id}
+                                        className={`relative bg-white dark:bg-gray-800 rounded-xl transition-all duration-300 ${hoveredItemId === recipe.id
+                                            ? 'shadow-md transform -translate-y-1'
+                                            : 'shadow-sm'
+                                            }`}
+                                        onMouseEnter={() => setHoveredItemId(recipe.id)}
+                                        onMouseLeave={() => setHoveredItemId(null)}
+                                    >
+                                        <Link href={`/pages/home/recipeDetails?id=${recipe.recipeid}`}>
+                                            <div className="flex p-3 items-center">
+                                                <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-lg overflow-hidden flex-shrink-0 border border-gray-200 dark:border-gray-700">
+                                                    <Image
+                                                        src={recipe.Recipe.image || '/images/home/placeholder.jpg'}
+                                                        alt={recipe.Recipe.title}
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="(max-width: 640px) 6rem, 7rem"
+                                                    />
+                                                </div>
 
-                            {/* Category */}
-                            <div id="category" className="w-1/8 hidden lg:flex items-center px-4">
-                                <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
-                                    {recipe.Recipe.categorytype}
-                                </span>
-                            </div>
+                                                <div className="ml-4 flex-grow">
+                                                    <div className="flex items-start justify-between">
+                                                        <div>
+                                                            <div className="flex items-center gap-2">
+                                                                <h3 className="font-medium text-lg text-gray-800 dark:text-white line-clamp-1">
+                                                                    {recipe.Recipe.title}
+                                                                </h3>
+                                                                <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+                                                                    {recipe.Recipe.categorytype}
+                                                                </span>
+                                                            </div>
 
-                            {/* Difficulty */}
-                            <div id="difficulty" className="w-1/8 hidden lg:flex items-center px-4">
-                                <span className={`
-                                    px-2.5 py-1 rounded-full text-xs font-medium
-                                    ${recipe.Recipe.difficulty === "Easy" ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400" : ""}
-                                    ${recipe.Recipe.difficulty === "Medium" ? "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400" : ""}
-                                    ${recipe.Recipe.difficulty === "Hard" ? "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400" : ""}
-                                `}>
-                                    {recipe.Recipe.difficulty}
-                                </span>
-                            </div>
+                                                            <div className="flex items-center gap-2 mt-1">
+                                                                <div className="flex">
+                                                                    {[...Array(5)].map((_, i) => (
+                                                                        <i
+                                                                            key={i}
+                                                                            className={`text-sm ${i < Math.floor(recipe.Recipe.rating || 0)
+                                                                                ? "ri-star-fill text-amber-400 dark:text-amber-300"
+                                                                                : "ri-star-line text-gray-300 dark:text-gray-600"
+                                                                                }`}
+                                                                        ></i>
+                                                                    ))}
+                                                                </div>
+                                                                <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                                    ({recipe.Recipe.rating?.toFixed(1) || "0.0"})
+                                                                </span>
+                                                            </div>
+                                                        </div>
 
-                            {/* Cooking Time */}
-                            <div id="cookingTime" className="w-1/8 hidden md:flex items-center px-4 text-gray-700 dark:text-gray-300 text-sm">
-                                <i className="ri-time-line mr-1.5 text-gray-400 dark:text-gray-500"></i>
-                                <span>{recipe.Recipe.cooktime || 0} min</span>
-                            </div>
+                                                        <div className="flex gap-4">
+                                                            <button
+                                                                className={`px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors text-xs font-medium cursor-pointer opacity-0 ${hoveredItemId === recipe.id ? 'opacity-100' : ''
+                                                                    }`}
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    e.stopPropagation();
+                                                                    // Prepare recipe handler
+                                                                }}
+                                                            >
+                                                                <i className="ri-chef-hat-line mr-1"></i>
+                                                                {t('myList.prepareButton')}
+                                                            </button>
+                                                            <button
+                                                                className={`p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all opacity-0 ${hoveredItemId === recipe.id ? 'opacity-100' : ''}`}
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    e.stopPropagation();
+                                                                    // Delete recipe handler
+                                                                }}
+                                                            >
+                                                                <i className="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
 
-                            {/* Rating */}
-                            <div id="rating" className="w-1/8 hidden md:flex items-center px-4">
-                                <div className="flex items-center">
-                                    {[...Array(5)].map((_, i) => (
-                                        <i
-                                            key={i}
-                                            className={`text-sm ${i < Math.floor(recipe.Recipe.rating || 0) ? "ri-star-fill text-amber-400 dark:text-amber-300" : "ri-star-line text-gray-300 dark:text-gray-600"}`}
-                                        ></i>
-                                    ))}
-                                </div>
-                            </div>
+                                                    <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-1 mt-1">
+                                                        {recipe.Recipe.description || ''}
+                                                    </p>
 
-                            {/* Last Made */}
-                            <div id="lastMade" className="w-1/8 hidden md:flex items-center px-4 text-sm text-gray-600 dark:text-gray-400">
-                                <span>{formatDate(recipe.lastPrepared?.toString())}</span>
-                            </div>
+                                                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                                                        <span className="inline-flex items-center text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
+                                                            <i className="ri-time-line mr-1"></i>
+                                                            {recipe.Recipe.cooktime || "-"} min
+                                                        </span>
 
-                            {/* Date Added */}
-                            <div id="dateAdded" className="w-1/8 hidden md:flex items-center px-4 text-sm text-gray-600 dark:text-gray-400">
-                                <span>{formatDate(recipe.dateAdded?.toString())}</span>
-                            </div>
+                                                        {recipe.Recipe.difficulty && (
+                                                            <span className={`
+                                                            inline-flex items-center text-xs px-2 py-1 rounded
+                                                            ${recipe.Recipe.difficulty === "Easy" ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400" : ""}
+                                                            ${recipe.Recipe.difficulty === "Medium" ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400" : ""}
+                                                            ${recipe.Recipe.difficulty === "Hard" ? "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400" : ""}
+                                                        `}>
+                                                                <i className="ri-bar-chart-line mr-1"></i>
+                                                                {recipe.Recipe.difficulty}
+                                                            </span>
+                                                        )}
 
-                            {/* Actions */}
-                            <div id="actions" className="w-1/4 md:w-1/8 flex items-center justify-end md:justify-center gap-2 p-2.5">
-                                <button className="px-3 py-1.5 rounded-lg bg-[#FF6B35] dark:bg-indigo-600 text-white hover:bg-[#e05a2a] dark:hover:bg-indigo-500 transition-colors text-xs font-medium cursor-pointer">
-                                    <i className="ri-chef-hat-line mr-1"></i>
-                                    {t('myList.prepareButton')}
-                                </button>
-                                <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer">
-                                    <i className="ri-more-2-fill"></i>
-                                </button>
-                            </div>
+                                                        {recipe.Recipe.cuisinetype && (
+                                                            <span className="inline-flex items-center text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded">
+                                                                <i className="ri-restaurant-line mr-1"></i>
+                                                                {recipe.Recipe.cuisinetype}
+                                                            </span>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                        <div>
+                                                            {t('myList.added')} {formatDate(recipe.dateAdded?.toString())}
+                                                        </div>
+                                                        {recipe.lastPrepared && (
+                                                            <div className="font-medium text-indigo-600 dark:text-indigo-400">
+                                                                <i className="ri-history-line mr-1"></i>
+                                                                {t('myList.lastMade')} {formatDate(recipe.lastPrepared?.toString())}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+
+                                        {/* Quick action buttons that appear on hover */}
+                                        <div className={`
+                                        absolute bottom-3 right-3 flex space-x-1 transition-opacity duration-300
+                                        ${hoveredItemId === recipe.id ? 'opacity-100' : 'opacity-0'}
+                                    `}>
+                                            <Link
+                                                href={`/pages/home/recipeDetails?id=${recipe.recipeid}`}
+                                                className="p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                                            >
+                                                <i className="ri-arrow-right-line"></i>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
-                    ))
+                    </div>
                 ) : (
                     <div className="w-full py-16 flex flex-col items-center justify-center">
-                        <i className="ri-inbox-line text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                        <p className="text-gray-500 dark:text-gray-400">{t('myList.noRecipes')}</p>
+                        <div className="p-6 bg-indigo-100 dark:bg-indigo-900/20 rounded-full mb-4">
+                            <i className="ri-inbox-line text-3xl text-indigo-600 dark:text-indigo-400"></i>
+                        </div>
+                        <p className="text-gray-700 dark:text-gray-200 font-medium">{t('myList.noRecipes')}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm text-center mt-2">
+                            {t('myList.prepareListDescription') || "Add recipes to your prepare list to keep track of what you want to cook"}
+                        </p>
+                        <Link
+                            href="/pages/home"
+                            className="mt-6 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white rounded-lg transition-colors flex items-center gap-2"
+                        >
+                            <i className="ri-search-line"></i>
+                            {t('myList.browseRecipes')}
+                        </Link>
                     </div>
                 )}
             </div>
-
-            {/* Table Footer */}
-            <div className="flex justify-between items-center px-4 py-3 bg-gray-50 dark:bg-gray-700/60 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-sm text-gray-600 dark:text-gray-300 ml-10">
-                    {t('myList.showing')} <span className="font-medium dark:text-white">{recipes.length}</span> {t('myList.of')} <span className="font-medium dark:text-white">{recipes.length}</span> {t('myList.recipes')}
-                </div>
-                <div className="flex gap-1">
-                    <button className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">
-                        <i className="ri-arrow-left-s-line"></i>
-                    </button>
-                    {[1].map(page => (
-                        <button
-                            key={page}
-                            className={`w-8 h-8 rounded flex items-center justify-center transition-colors bg-[#FF6B35] dark:bg-indigo-600 text-white`}
-                        >
-                            {page}
-                        </button>
-                    ))}
-                    <button className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">
-                        <i className="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    )
+        </>
+    );
 }

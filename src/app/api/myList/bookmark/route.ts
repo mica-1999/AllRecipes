@@ -64,7 +64,4 @@ export async function POST(request: Request) {
         console.error("Error fetching data:", error);
         return NextResponse.json({ error: "Failed to fetch Bookmarks" }, { status: 500 });
     }
-
-
-
 }

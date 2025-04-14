@@ -280,6 +280,10 @@ const translations = {
         recipes: 'recetas',
         bookmarks: 'Tus Favoritos',
         bookmarked: 'Guardado',
+        created: 'Creado',
+        noMyRecipes: 'Aún no has creado recetas',
+        createRecipeDescription: 'Comparte tus creaciones culinarias con la comunidad',
+        createRecipe: 'Crear Receta',
         tabs: {
             list: 'Lista',
             myRecipes: 'Mis Recetas',
@@ -308,7 +312,22 @@ const translations = {
             reply: 'Responder',
             delete: 'Eliminar',
             loadMore: 'Cargar Más Comentarios'
-        }
+        },
+        prepareList: 'Lista de Preparación',
+        added: 'Añadido',
+        lastMade: 'Última vez preparado',
+        noRecipes: 'No hay recetas en tu lista de preparación',
+        prepareListDescription: 'Añade recetas a tu lista de preparación para hacer seguimiento de lo que quieres cocinar',
+        browseRecipes: 'Explorar Recetas',
+        collection: 'Colección',
+        collections: 'Colecciones',
+        recipe: 'Receta',
+        createNewCollection: 'Crear Nueva Colección',
+        organizeYourFavoriteRecipes: 'Organiza tus recetas favoritas en colecciones temáticas',
+        noCollections: 'No hay colecciones todavía',
+        createCollection: 'Crear Colección',
+        collectionDeleted: 'Colección eliminada con éxito',
+        errorDeletingCollection: 'Error al eliminar la colección'
     },
     profile: {
         bannerAlt: "Banner de perfil",

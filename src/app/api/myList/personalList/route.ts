@@ -12,10 +12,22 @@ export async function GET() {
         // Extract userId from the authentication response
         const userId = isAuthenticated.userId as number;
 
-        // Fetch users recipes from the database
+        // Fetch users recipes from the database with related data
         const myRecipes = await prisma.recipe.findMany({
             where: {
                 userid: userId
+            },
+            include: {
+                // Include any related data you need
+                collections: {
+                    include: {
+                        Collection: true
+                    }
+                },
+                // Other relationships you might need
+            },
+            orderBy: {
+                createdat: 'desc'
             }
         })
 
@@ -30,6 +42,4 @@ export async function GET() {
         console.error("Error fetching data:", error);
         return NextResponse.json({ error: "Failed to fetch To My Recipes" }, { status: 500 });
     }
-
-
 }
