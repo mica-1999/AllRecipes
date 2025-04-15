@@ -78,6 +78,47 @@ export async function POST(req: Request) {
         console.error("Error adding to prepare list:", error);
         return NextResponse.json({ error: "Failed to add to Prepare List" + error }, { status: 500 });
     }
+}
 
+export async function DELETE(req: Request) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const recipeId = parseInt(searchParams.get("recipeid") || "0");
 
+        const isAuthenticated = await authVerify();
+        if (!isAuthenticated.isAuthenticated) {
+            return isAuthenticated.response;
+        }
+        const userId = isAuthenticated.userId as number;
+
+        if (!recipeId) {
+            return NextResponse.json({ error: "Recipe ID is required" }, { status: 400 });
+        }
+
+        const constExistingEntry = await prisma.prepareRecipe.findFirst({
+            where: {
+                recipeid: recipeId,
+                userid: userId
+            }
+        })
+
+        if (!constExistingEntry) {
+            console.log("Recipe not found in Prepare List:", recipeId);
+            return NextResponse.json({ error: "Recipe not found in Prepare List" }, { status: 404 });
+        }
+
+        const deleteRecord = await prisma.prepareRecipe.delete({
+            where: {
+                id: constExistingEntry.id
+            }
+        })
+
+        if (deleteRecord) {
+            return NextResponse.json({ message: "Recipe removed from Prepare List" }, { status: 200 });
+        }
+    } catch (error) {
+        console.error("Error deleting from prepare list:", error);
+        return NextResponse.json({ error: "Failed to delete from Prepare List" + error }, { status: 500 });
+
+    }
 }

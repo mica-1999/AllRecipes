@@ -5,7 +5,7 @@ import { Bookmark } from "@/app/types/recipe";
 import { showToast } from "@/app/components/reusable/Toasters";
 import { useState } from "react";
 
-export default function Bookmarked({ bookmarks, searchBox }: { bookmarks: Bookmark[], searchBox: string }) {
+export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { bookmarks: Bookmark[], searchBox: string, setSearchBox: (value: string) => void }) {
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
 
@@ -93,12 +93,9 @@ export default function Bookmarked({ bookmarks, searchBox }: { bookmarks: Bookma
                         ) : (
                             <button
                                 onClick={() => {
-                                    const searchInput = document.getElementById('recipe-search') as HTMLInputElement;
-                                    if (searchInput) searchInput.value = '';
-                                    // You'll need to update your parent component to clear the search
-                                    // This is just a visual representation
+                                    setSearchBox("");
                                 }}
-                                className="mt-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors flex items-center gap-2"
+                                className="mt-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
                             >
                                 <i className="ri-close-line"></i>
                                 {t('myList.clearSearch') || "Clear search"}

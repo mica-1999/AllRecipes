@@ -37,10 +37,7 @@ export default function MenuSwitcher() {
                         // Fetch user's list of recipes to prepare
                         if (recipes.length === 0) {
                             const listData = await fetch('/api/myList/prepareList')
-                            if (!listData.ok) {
-                                showToast('error', 'Error fetching recipes. Please try again later.', savedTheme)
-                            }
-                            else {
+                            if (listData.ok) {
                                 const listJson = await listData.json()
                                 setRecipes(listJson)
                             }
@@ -50,10 +47,7 @@ export default function MenuSwitcher() {
                         // Fetch recipes created by the user
                         if (myRecipes.length === 0) {
                             const myRecipesData = await fetch('/api/myList/personalList')
-                            if (!myRecipesData.ok) {
-                                showToast('error', 'Error fetching your recipes. Please try again later.', savedTheme)
-                            }
-                            else {
+                            if (myRecipesData.ok) {
                                 const myRecipesJson = await myRecipesData.json()
                                 setMyRecipes(myRecipesJson)
                             }
@@ -114,17 +108,17 @@ export default function MenuSwitcher() {
 
         switch (selectedMenu) {
             case 'list':
-                return <List recipes={recipes} searchBox={searchBox} />
+                return <List recipes={recipes} searchBox={searchBox} setSearchBox={setSearchBox} />
             case 'collections':
-                return <Collections collections={collections} searchBox={searchBox} />
+                return <Collections collections={collections} searchBox={searchBox} setSearchBox={setSearchBox} />
             case 'myRecipes':
-                return <MyRecipes myRecipes={myRecipes} searchBox={searchBox} />
+                return <MyRecipes myRecipes={myRecipes} searchBox={searchBox} setSearchBox={setSearchBox} />
             case 'commented':
-                return <Commented comments={comments} searchBox={searchBox} />
+                return <Commented comments={comments} searchBox={searchBox} setSearchBox={setSearchBox} />
             case 'bookmarked':
-                return <Bookmarked bookmarks={bookmarks} searchBox={searchBox} />
+                return <Bookmarked bookmarks={bookmarks} searchBox={searchBox} setSearchBox={setSearchBox} />
             default:
-                return <List recipes={recipes} searchBox={searchBox} />
+                return <List recipes={recipes} searchBox={searchBox} setSearchBox={setSearchBox} />
         }
     }
 

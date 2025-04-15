@@ -327,7 +327,12 @@ const translations = {
         noCollections: 'Nenhuma coleção ainda',
         createCollection: 'Criar Coleção',
         collectionDeleted: 'Coleção excluída com sucesso',
-        errorDeletingCollection: 'Erro ao excluir coleção'
+        errorDeletingCollection: 'Erro ao excluir coleção',
+        noMatchingBookmarks: "Nenhum favorito corresponde à sua pesquisa",
+        tryAnotherSearch: "Tente um termo de pesquisa diferente ou limpe a pesquisa",
+        clearSearch: "Limpar pesquisa",
+        noMatchingRecipes: "Nenhuma receita corresponde à sua pesquisa",
+        noMatchingPrepareRecipes: "Nenhuma receita na sua lista de preparação corresponde à sua pesquisa"
     },
     profile: {
         bannerAlt: "Banner de perfil",

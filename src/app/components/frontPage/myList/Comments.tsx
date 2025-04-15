@@ -5,7 +5,7 @@ import { commentsData } from "@/app/data/MyListData";
 import { useTheme } from "@/app/context/ThemeContext";
 import { Comment } from "@/app/types/recipe";
 
-export default function Comments({ comments, searchBox }: { comments: Comment[], searchBox: string }) {
+export default function Comments({ comments, searchBox, setSearchBox }: { comments: Comment[], searchBox: string, setSearchBox: (value: string) => void }) {
     const { t } = useTheme();
     // State to manage the active tab (My Comments or Liked Comments)
     const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');

@@ -4,7 +4,7 @@ import { useTheme } from "@/app/context/ThemeContext";
 import { Collection } from "@/app/types/recipe";
 import { showToast } from "@/app/components/reusable/Toasters";
 
-export default function Collections({ collections, searchBox }: { collections: Collection[], searchBox: string }) {
+export default function Collections({ collections, searchBox, setSearchBox }: { collections: Collection[], searchBox: string, setSearchBox: (value: string) => void }) {
     const { t, savedTheme } = useTheme();
 
     // Function to format date

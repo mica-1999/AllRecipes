@@ -328,7 +328,12 @@ const translations = {
         noCollections: 'No collections yet',
         createCollection: 'Create Collection',
         collectionDeleted: 'Collection deleted successfully',
-        errorDeletingCollection: 'Error deleting collection'
+        errorDeletingCollection: 'Error deleting collection',
+        noMatchingBookmarks: "No bookmarks match your search",
+        tryAnotherSearch: "Try a different search term or clear your search",
+        clearSearch: "Clear search",
+        noMatchingRecipes: "No recipes match your search",
+        noMatchingPrepareRecipes: "No recipes in your prepare list match your search"
     },
     profile: {
         bannerAlt: "Profile banner",
