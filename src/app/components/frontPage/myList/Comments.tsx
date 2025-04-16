@@ -60,8 +60,36 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
         }
     };
 
-    const handleUnlike = (id: number) => {
-        console.log(`Unlike comment with id: ${id}`);
+    const handleUnlike = async (id: number) => {
+        try {
+            const response = await fetch(`/api/myList/comments/like?likedCommentId=${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                showToast('error', t('myList.comments.unlikeError') || "Error removing like from comment", savedTheme);
+                return;
+            }
+
+            // Success! Update UI by filtering out the unliked comment
+            setFilteredLikedComments(prevComments =>
+                prevComments.filter(comment => comment.id !== id)
+            );
+
+            // Also update the original list
+            const updatedLikedComments = likedComments.filter(comment => comment.id !== id);
+            // This assumes you have some way to update the parent component's state
+            // If not, you'll need to implement a callback or context to manage this
+
+            showToast('success', t('myList.comments.unliked') || "Comment unliked successfully", savedTheme);
+
+        } catch (error) {
+            console.error("Error unliking comment:", error);
+            showToast('error', t('myList.comments.unlikeError') || "Error removing like from comment", savedTheme);
+        }
     };
 
     // Determine which comments to display based on active tab
