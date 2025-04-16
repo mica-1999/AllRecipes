@@ -349,7 +349,14 @@ const translations = {
         collectionName: "Nombre de la Colección",
         collectionNamePlaceholder: "Ej., Favoritos Italianos, Cenas Rápidas",
         collectionNameHelp: "Dale a tu colección un nombre descriptivo",
-        create: "Crear"
+        create: "Crear",
+        noComments: "Aún no has comentado en ninguna receta",
+        noLikedComments: "Aún no has dado me gusta a ningún comentario",
+        commentsDescription: "Comparte tus pensamientos sobre las recetas dejando comentarios",
+        likedCommentsDescription: "Dale me gusta a los comentarios de otros usuarios para guardarlos aquí",
+        exploreComments: "Explorar Comentarios",
+        noMatchingComments: "Ningún comentario coincide con tu búsqueda",
+        noMatchingLikedComments: "Ningún comentario que te gusta coincide con tu búsqueda",
     },
     profile: {
         bannerAlt: "Banner de perfil",

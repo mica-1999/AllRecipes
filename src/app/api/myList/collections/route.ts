@@ -28,7 +28,7 @@ export async function GET() {
             }
         });
 
-        if (!collections) {
+        if (collections.length === 0) {
             return NextResponse.json({ message: "No collections found" }, { status: 404 });
         }
 

@@ -5,8 +5,6 @@ import { useTheme } from '@/app/context/ThemeContext';
 import { MealOptionsProps } from '@/app/types/filters';
 
 export default function MealOptions({ cuisineFilter, setCuisineFilter }: MealOptionsProps) {
-
-
     // State Variables & Hooks
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string>("");

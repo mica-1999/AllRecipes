@@ -6,7 +6,7 @@ import MyRecipes from "@/app/components/frontPage/myList/MyRecipes"
 import Collections from "@/app/components/frontPage/myList/Collections"
 import Bookmarked from "@/app/components/frontPage/myList/Bookmarks"
 import Commented from "@/app/components/frontPage/myList/Comments"
-import { Recipe, PrepareRecipe, Collection, Bookmark, Comment } from "@/app/types/recipe"
+import { Recipe, PrepareRecipe, Collection, Bookmark, Comment, LikedComment } from "@/app/types/recipe"
 import { showToast } from "../../reusable/Toasters"
 import { useTheme } from "@/app/context/ThemeContext"
 
@@ -23,6 +23,7 @@ export default function MenuSwitcher() {
     const [collections, setCollections] = useState<Collection[]>([])
     const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
     const [comments, setComments] = useState<Comment[]>([])
+    const [likedComments, setLikedComments] = useState<LikedComment[]>([])
 
     // Filters state
     const [searchBox, setSearchBox] = useState('')
@@ -100,7 +101,7 @@ export default function MenuSwitcher() {
                     case 'commented':
                         // Fetch recipes with user comments
                         if (comments.length === 0) {
-                            const commentsData = await fetch('/api/mylist/comments')
+                            const commentsData = await fetch('/api/myList/comments')
                             if (!commentsData.ok) {
                                 if (commentsData.status === 404) {
                                     showToast('info', 'No commented recipes found.', savedTheme)
@@ -109,7 +110,8 @@ export default function MenuSwitcher() {
                                 }
                             } else {
                                 const commentsJson = await commentsData.json()
-                                setComments(commentsJson)
+                                setComments(commentsJson.comments || [])
+                                setLikedComments(commentsJson.likedComments || [])
                             }
                         }
                         break
@@ -123,7 +125,7 @@ export default function MenuSwitcher() {
         }
 
         fetchData()
-    }, [selectedMenu, savedTheme, recipes.length, myRecipes.length, collections.length, bookmarks.length, comments.length])
+    }, [selectedMenu, savedTheme, recipes.length, myRecipes.length, collections.length, bookmarks.length, comments.length, likedComments.length])
 
     // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {
@@ -141,7 +143,12 @@ export default function MenuSwitcher() {
             case 'myRecipes':
                 return <MyRecipes myRecipes={myRecipes} searchBox={searchBox} setSearchBox={setSearchBox} />
             case 'commented':
-                return <Commented comments={comments} searchBox={searchBox} setSearchBox={setSearchBox} />
+                return <Commented
+                    comments={comments}
+                    likedComments={likedComments}
+                    searchBox={searchBox}
+                    setSearchBox={setSearchBox}
+                />
             case 'bookmarked':
                 return <Bookmarked bookmarks={bookmarks} searchBox={searchBox} setSearchBox={setSearchBox} />
             default:

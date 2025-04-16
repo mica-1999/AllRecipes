@@ -76,6 +76,20 @@ export interface Comment {
   };
 }
 
+export interface LikedComment {
+  id: number;
+  commentid: number;
+  userid: number;
+  likedAt: string;
+  Comment: Comment;
+  User?: {
+    id: number;
+    username: string;
+    firstname?: string;
+    lastname?: string;
+  };
+}
+
 export interface FilterParams {
   cuisine?: string;
   mealType?: string;

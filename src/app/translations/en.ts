@@ -349,7 +349,14 @@ const translations = {
         collectionName: "Collection Name",
         collectionNamePlaceholder: "E.g., Italian Favorites, Weeknight Dinners",
         collectionNameHelp: "Give your collection a descriptive name",
-        create: "Create"
+        create: "Create",
+        noMatchingComments: "No comments match your search",
+        noMatchingLikedComments: "No liked comments match your search",
+        noComments: "You haven't commented on any recipes yet",
+        noLikedComments: "You haven't liked any comments yet",
+        commentsDescription: "Share your thoughts on recipes by leaving comments",
+        likedCommentsDescription: "Like comments from other users to save them here",
+        exploreComments: "Explore Comments"
     },
     profile: {
         bannerAlt: "Profile banner",

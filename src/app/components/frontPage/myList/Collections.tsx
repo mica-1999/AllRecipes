@@ -184,7 +184,7 @@ export default function Collections({ collections, searchBox, setSearchBox }: { 
                             <button
                                 onClick={createCollection}
                                 disabled={!newCollectionName.trim()}
-                                className={`px-4 py-2 rounded-lg bg-purple-600 text-white transition-colors cursor-pointer ${!newCollectionName.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-700'
+                                className={`px-4 py-2 rounded-lg bg-purple-600 text-white transition-colors  ${!newCollectionName.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-700 cursor-pointer'
                                     }`}
                             >
                                 {t('myList.create') || "Create"}

@@ -335,6 +335,8 @@ const translations = {
         noMatchingRecipes: "Nenhuma receita corresponde à sua pesquisa",
         noMatchingPrepareRecipes: "Nenhuma receita na sua lista de preparação corresponde à sua pesquisa",
         noMatchingCollections: "Nenhuma coleção corresponde à sua pesquisa",
+        noMatchingComments: "Nenhum comentário corresponde à sua pesquisa",
+        noMatchingLikedComments: "Nenhum comentário curtido corresponde à sua pesquisa",
         recipeDeleted: "Receita excluída com sucesso",
         errorDeletingRecipe: "Erro ao excluir receita. Por favor, tente novamente mais tarde.",
         recipeRemoved: "Receita removida da lista de preparação",
@@ -349,7 +351,12 @@ const translations = {
         collectionName: "Nome da Coleção",
         collectionNamePlaceholder: "Ex., Favoritos Italianos, Jantares Rápidos",
         collectionNameHelp: "Dê à sua coleção um nome descritivo",
-        create: "Criar"
+        create: "Criar",
+        noComments: "Você ainda não comentou em nenhuma receita",
+        noLikedComments: "Você ainda não curtiu nenhum comentário",
+        commentsDescription: "Compartilhe suas opiniões sobre as receitas deixando comentários",
+        likedCommentsDescription: "Curta comentários de outros usuários para salvá-los aqui",
+        exploreComments: "Explorar Comentários"
     },
     profile: {
         bannerAlt: "Banner de perfil",
