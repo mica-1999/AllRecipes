@@ -3,36 +3,49 @@ import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
 import { Bookmark } from "@/app/types/recipe";
 import { showToast } from "@/app/components/reusable/Toasters";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { bookmarks: Bookmark[], searchBox: string, setSearchBox: (value: string) => void }) {
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+    const [tempBookmarks, setTempBookmarks] = useState<Bookmark[]>(bookmarks);
 
-    // Filter bookmarks based on search query
-    const filteredBookmarks = bookmarks.filter((bookmark) =>
+    // Update tempBookmarks when the bookmarks prop changes
+    useEffect(() => {
+        setTempBookmarks(bookmarks);
+    }, [bookmarks]);
+
+    // Filter bookmarks based on search query using tempBookmarks
+    const filteredBookmarks = tempBookmarks.filter((bookmark) =>
         bookmark.Recipe.title.toLowerCase().includes(searchBox.toLowerCase())
     );
 
-    // Function to remove a bookmark
+    // Function to remove a bookmark with optimistic UI update
     const removeBookmark = async (id: number, e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
 
         try {
-            const response = await fetch(`/api/myList/bookmark?id=${id}`, {
+            // Optimistically update the UI
+            setTempBookmarks(current => current.filter(bookmark => bookmark.recipeid !== id));
+
+            // Make the API call to delete the bookmark
+            const response = await fetch(`/api/myList/bookmark?recipeid=${id}`, {
                 method: "DELETE",
             });
 
             if (response.ok) {
-                showToast("success", t('myList.bookmarkRemoved'), savedTheme);
-                window.location.reload();
+                showToast("success", t('myList.bookmarkRemoved') || "Bookmark removed successfully", savedTheme);
             } else {
-                showToast("error", t('myList.errorRemovingBookmark'), savedTheme);
+                // If the API call fails, revert the optimistic update
+                setTempBookmarks(bookmarks);
+                showToast("error", t('myList.errorRemovingBookmark') || "Error removing bookmark", savedTheme);
             }
         } catch (error) {
+            // Also revert on exception
+            setTempBookmarks(bookmarks);
             console.error("Error removing bookmark:", error);
-            showToast("error", t('myList.errorRemovingBookmark'), savedTheme);
+            showToast("error", t('myList.errorRemovingBookmark') || "Error removing bookmark", savedTheme);
         }
     };
 
@@ -57,7 +70,7 @@ export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { boo
                         </span>
                         {t('myList.bookmarks')}
                         <span className="ml-3 text-sm font-normal text-gray-500 dark:text-gray-400">
-                            ({bookmarks.length})
+                            ({tempBookmarks.length})
                         </span>
                     </h2>
                 </div>
@@ -66,25 +79,25 @@ export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { boo
                 {filteredBookmarks.length === 0 ? (
                     <div className="w-full py-16 flex flex-col items-center justify-center">
                         <div className="p-6 bg-[#FF6B35]/10 dark:bg-[#FF6B35]/20 rounded-full mb-4">
-                            {bookmarks.length === 0 ? (
+                            {tempBookmarks.length === 0 ? (
                                 <i className="ri-bookmark-line text-3xl text-[#FF6B35]"></i>
                             ) : (
                                 <i className="ri-search-line text-3xl text-[#FF6B35]"></i>
                             )}
                         </div>
                         <p className="text-gray-700 dark:text-gray-200 font-medium">
-                            {bookmarks.length === 0
+                            {tempBookmarks.length === 0
                                 ? t('myList.noBookmarks')
                                 : t('myList.noMatchingBookmarks') || "No bookmarks match your search"}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm text-center mt-2">
-                            {bookmarks.length === 0
+                            {tempBookmarks.length === 0
                                 ? (t('myList.bookmarksDescription') || "Save your favorite recipes here for quick access later")
                                 : (t('myList.tryAnotherSearch') || "Try a different search term or clear your search")}
                         </p>
-                        {bookmarks.length === 0 ? (
+                        {tempBookmarks.length === 0 ? (
                             <Link
-                                href="/pages/home"
+                                href="/pages/home/advancedFilters"
                                 className="mt-6 px-4 py-2 bg-[#FF6B35] hover:bg-[#e55d2a] dark:bg-[#FF6B35] dark:hover:bg-[#e55d2a] text-white rounded-lg transition-colors flex items-center gap-2"
                             >
                                 <i className="ri-search-line"></i>
@@ -153,9 +166,9 @@ export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { boo
                                                     </div>
 
                                                     <button
-                                                        className={`p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all ${hoveredItemId === bookmark.id ? 'opacity-100' : 'opacity-0'
+                                                        className={`p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all  cursor-pointer ${hoveredItemId === bookmark.id ? 'opacity-100' : 'opacity-0'
                                                             }`}
-                                                        onClick={(e) => removeBookmark(bookmark.id, e)}
+                                                        onClick={(e) => removeBookmark(bookmark.recipeid, e)}
                                                         aria-label="Remove bookmark"
                                                     >
                                                         <i className="ri-delete-bin-6-line"></i>

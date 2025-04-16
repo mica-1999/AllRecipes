@@ -2,15 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
 import { Recipe } from "@/app/types/recipe";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { showToast } from "../../reusable/Toasters";
 
 export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRecipes: Recipe[], searchBox: string, setSearchBox: (value: string) => void }) {
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+    const [tempRecipes, setTempRecipes] = useState<Recipe[]>(myRecipes);
 
-    // Filter recipes based on search query
-    const filteredRecipes = myRecipes.filter((recipe) =>
+    // Update tempRecipes when the myRecipes prop changes
+    useEffect(() => {
+        setTempRecipes(myRecipes);
+    }, [myRecipes]);
+
+    // Filter recipes based on search query using tempRecipes
+    const filteredRecipes = tempRecipes.filter((recipe) =>
         recipe.title.toLowerCase().includes(searchBox.toLowerCase())
     );
 
@@ -27,6 +33,9 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
 
     const handleDelete = async (recipeId: number) => {
         try {
+            // Optimistically update the UI by removing the recipe from tempRecipes
+            setTempRecipes(current => current.filter(recipe => recipe.id !== recipeId));
+
             // Make the API call to delete the recipe
             const response = await fetch(`/api/myList/personalList?recipeid=${recipeId}`, {
                 method: 'DELETE',
@@ -36,17 +45,19 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
             });
 
             if (!response.ok) {
-                showToast('error', 'Error deleting recipe. Please try again later.', savedTheme);
+                // If the API call fails, revert the optimistic update
+                setTempRecipes(myRecipes);
+                showToast('error', t('myList.errorDeletingRecipe') || 'Error deleting recipe. Please try again later.', savedTheme);
             }
             else {
-                showToast('success', 'Recipe deleted successfully.', savedTheme);
+                showToast('success', t('myList.recipeDeleted') || 'Recipe deleted successfully.', savedTheme);
             }
         } catch (error) {
+            // Also revert on exception
+            setTempRecipes(myRecipes);
             console.error("Error deleting recipe:", error);
-            showToast('error', 'Error deleting recipe. Please try again later.', savedTheme);
+            showToast('error', t('myList.errorDeletingRecipe') || 'Error deleting recipe. Please try again later.', savedTheme);
         }
-
-
     }
 
     return (
@@ -59,31 +70,43 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
                         </span>
                         {t('myList.myRecipes')}
                         <span className="ml-3 text-sm font-normal text-gray-500 dark:text-gray-400">
-                            ({myRecipes.length})
+                            ({tempRecipes.length})
                         </span>
                     </h2>
+
+                    {tempRecipes.length > 0 && (
+                        <div>
+                            <Link
+                                href="/pages/home/create"
+                                className="flex items-center gap-2 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded-lg transition-colors"
+                            >
+                                <i className="ri-add-line"></i>
+                                {t('myList.createRecipe')}
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
                 {filteredRecipes.length === 0 ? (
                     <div className="w-full py-16 flex flex-col items-center justify-center">
                         <div className="p-6 bg-green-100 dark:bg-green-900/20 rounded-full mb-4">
-                            {myRecipes.length === 0 ? (
+                            {tempRecipes.length === 0 ? (
                                 <i className="ri-file-list-3-line text-3xl text-green-600 dark:text-green-400"></i>
                             ) : (
                                 <i className="ri-search-line text-3xl text-green-600 dark:text-green-400"></i>
                             )}
                         </div>
                         <p className="text-gray-700 dark:text-gray-200 font-medium">
-                            {myRecipes.length === 0
+                            {tempRecipes.length === 0
                                 ? t('myList.noMyRecipes')
                                 : t('myList.noMatchingRecipes') || "No recipes match your search"}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm text-center mt-2">
-                            {myRecipes.length === 0
+                            {tempRecipes.length === 0
                                 ? t('myList.createRecipeDescription')
                                 : t('myList.tryAnotherSearch') || "Try a different search term or clear your search"}
                         </p>
-                        {myRecipes.length === 0 ? (
+                        {tempRecipes.length === 0 ? (
                             <Link
                                 href="/pages/home/create"
                                 className="mt-6 px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded-lg transition-colors flex items-center gap-2"
@@ -168,7 +191,7 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
                                                             <i className="ri-pencil-line"></i>
                                                         </Link>
                                                         <button
-                                                            className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                                                            className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all cursor-pointer"
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 e.stopPropagation();

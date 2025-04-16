@@ -59,12 +59,13 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                 const data = await response.json();
                 showToast("success", "Recipe added to Bookmarks", savedTheme);
             }
+            else if (response.status === 409) {
+                showToast("error", "Recipe already bookmarked", savedTheme);
+            }
         } catch (error) {
             console.error("Error adding to bookmark:", error);
             showToast("error", "Error trying to add recipe to bookmarks", savedTheme);
         }
-
-
     }
 
     if (recipes.length === 0) {

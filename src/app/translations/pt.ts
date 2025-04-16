@@ -280,6 +280,7 @@ const translations = {
         recipes: 'receitas',
         bookmarks: 'Seus Favoritos',
         bookmarked: 'Favoritado',
+        myRecipes: 'Minhas Receitas',
         tabs: {
             list: 'Lista',
             myRecipes: 'Minhas Receitas',
@@ -332,7 +333,23 @@ const translations = {
         tryAnotherSearch: "Tente um termo de pesquisa diferente ou limpe a pesquisa",
         clearSearch: "Limpar pesquisa",
         noMatchingRecipes: "Nenhuma receita corresponde à sua pesquisa",
-        noMatchingPrepareRecipes: "Nenhuma receita na sua lista de preparação corresponde à sua pesquisa"
+        noMatchingPrepareRecipes: "Nenhuma receita na sua lista de preparação corresponde à sua pesquisa",
+        noMatchingCollections: "Nenhuma coleção corresponde à sua pesquisa",
+        recipeDeleted: "Receita excluída com sucesso",
+        errorDeletingRecipe: "Erro ao excluir receita. Por favor, tente novamente mais tarde.",
+        recipeRemoved: "Receita removida da lista de preparação",
+        errorRemovingRecipe: "Erro ao remover receita",
+        bookmarkRemoved: "Favorito removido com sucesso",
+        errorRemovingBookmark: "Erro ao remover favorito",
+        noBookmarks: "Ainda não há favoritos",
+        bookmarksDescription: "Salve suas receitas favoritas aqui para acesso rápido mais tarde",
+        findRecipes: "Encontrar Receitas",
+        collectionCreated: "Coleção criada com sucesso",
+        errorCreatingCollection: "Erro ao criar coleção",
+        collectionName: "Nome da Coleção",
+        collectionNamePlaceholder: "Ex., Favoritos Italianos, Jantares Rápidos",
+        collectionNameHelp: "Dê à sua coleção um nome descritivo",
+        create: "Criar"
     },
     profile: {
         bannerAlt: "Banner de perfil",

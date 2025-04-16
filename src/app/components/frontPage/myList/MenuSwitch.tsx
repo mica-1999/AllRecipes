@@ -37,7 +37,13 @@ export default function MenuSwitcher() {
                         // Fetch user's list of recipes to prepare
                         if (recipes.length === 0) {
                             const listData = await fetch('/api/myList/prepareList')
-                            if (listData.ok) {
+                            if (!listData.ok) {
+                                if (listData.status === 404) {
+                                    showToast('info', 'No recipes found in prepare list.', savedTheme)
+                                } else {
+                                    showToast('error', 'Error fetching prepare list. Please try again later.', savedTheme)
+                                }
+                            } else {
                                 const listJson = await listData.json()
                                 setRecipes(listJson)
                             }
@@ -47,7 +53,13 @@ export default function MenuSwitcher() {
                         // Fetch recipes created by the user
                         if (myRecipes.length === 0) {
                             const myRecipesData = await fetch('/api/myList/personalList')
-                            if (myRecipesData.ok) {
+                            if (!myRecipesData.ok) {
+                                if (myRecipesData.status === 404) {
+                                    showToast('info', 'No personal recipes found.', savedTheme)
+                                } else {
+                                    showToast('error', 'Error fetching your recipes. Please try again later.', savedTheme)
+                                }
+                            } else {
                                 const myRecipesJson = await myRecipesData.json()
                                 setMyRecipes(myRecipesJson)
                             }
@@ -58,9 +70,12 @@ export default function MenuSwitcher() {
                         if (collections.length === 0) {
                             const collectionsData = await fetch('/api/myList/collections')
                             if (!collectionsData.ok) {
-                                showToast('error', 'Error fetching collections. Please try again later.', savedTheme)
-                            }
-                            else {
+                                if (collectionsData.status === 404) {
+                                    showToast('info', 'No collections found.', savedTheme)
+                                } else {
+                                    showToast('error', 'Error fetching collections. Please try again later.', savedTheme)
+                                }
+                            } else {
                                 const collectionsJson = await collectionsData.json()
                                 setCollections(collectionsJson)
                             }
@@ -71,9 +86,12 @@ export default function MenuSwitcher() {
                         if (bookmarks.length === 0) {
                             const bookmarksData = await fetch('/api/myList/bookmark')
                             if (!bookmarksData.ok) {
-                                showToast('error', 'Error fetching bookmarks. Please try again later.', savedTheme)
-                            }
-                            else {
+                                if (bookmarksData.status === 404) {
+                                    showToast('info', 'No bookmarks found.', savedTheme)
+                                } else {
+                                    showToast('error', 'Error fetching bookmarks. Please try again later.', savedTheme)
+                                }
+                            } else {
                                 const bookmarksJson = await bookmarksData.json()
                                 setBookmarks(bookmarksJson)
                             }
@@ -83,20 +101,29 @@ export default function MenuSwitcher() {
                         // Fetch recipes with user comments
                         if (comments.length === 0) {
                             const commentsData = await fetch('/api/mylist/comments')
-                            const commentsJson = await commentsData.json()
-                            setComments(commentsJson)
+                            if (!commentsData.ok) {
+                                if (commentsData.status === 404) {
+                                    showToast('info', 'No commented recipes found.', savedTheme)
+                                } else {
+                                    showToast('error', 'Error fetching comments. Please try again later.', savedTheme)
+                                }
+                            } else {
+                                const commentsJson = await commentsData.json()
+                                setComments(commentsJson)
+                            }
                         }
                         break
                 }
             } catch (error) {
                 console.error('Error fetching data:', error)
+                showToast('error', 'Network error. Please check your connection.', savedTheme)
             } finally {
                 setIsLoading(false)
             }
         }
 
         fetchData()
-    }, [selectedMenu])
+    }, [selectedMenu, savedTheme])
 
     // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {

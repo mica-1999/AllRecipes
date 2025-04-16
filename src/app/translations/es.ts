@@ -284,6 +284,7 @@ const translations = {
         noMyRecipes: 'Aún no has creado recetas',
         createRecipeDescription: 'Comparte tus creaciones culinarias con la comunidad',
         createRecipe: 'Crear Receta',
+        myRecipes: 'Mis Recetas',
         tabs: {
             list: 'Lista',
             myRecipes: 'Mis Recetas',
@@ -332,7 +333,23 @@ const translations = {
         tryAnotherSearch: "Prueba con un término de búsqueda diferente o borra la búsqueda",
         clearSearch: "Borrar búsqueda",
         noMatchingRecipes: "Ninguna receta coincide con tu búsqueda",
-        noMatchingPrepareRecipes: "Ninguna receta en tu lista de preparación coincide con tu búsqueda"
+        noMatchingPrepareRecipes: "Ninguna receta en tu lista de preparación coincide con tu búsqueda",
+        recipeDeleted: "Receta eliminada con éxito",
+        errorDeletingRecipe: "Error al eliminar la receta. Por favor, inténtalo de nuevo más tarde.",
+        recipeRemoved: "Receta eliminada de la lista de preparación",
+        errorRemovingRecipe: "Error al eliminar la receta de la lista",
+        bookmarkRemoved: "Favorito eliminado con éxito",
+        errorRemovingBookmark: "Error al eliminar el favorito",
+        noBookmarks: "Aún no tienes favoritos",
+        bookmarksDescription: "Guarda tus recetas favoritas aquí para acceder rápidamente más tarde",
+        findRecipes: "Buscar Recetas",
+        noMatchingCollections: "Ninguna colección coincide con tu búsqueda",
+        collectionCreated: "Colección creada con éxito",
+        errorCreatingCollection: "Error al crear la colección",
+        collectionName: "Nombre de la Colección",
+        collectionNamePlaceholder: "Ej., Favoritos Italianos, Cenas Rápidas",
+        collectionNameHelp: "Dale a tu colección un nombre descriptivo",
+        create: "Crear"
     },
     profile: {
         bannerAlt: "Banner de perfil",
