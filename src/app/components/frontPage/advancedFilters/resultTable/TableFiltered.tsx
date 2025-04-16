@@ -51,7 +51,7 @@ export default function TableFiltered({
             setSortField("createdat");
             setSortOrder("desc");
         }
-    }, [mainFilterMenu]);
+    }, [mainFilterMenu, setSortField, setSortOrder]);
 
     // Function to handle sorting when a table header is clicked
     const handleSort = (field: string) => {

@@ -123,7 +123,7 @@ export default function MenuSwitcher() {
         }
 
         fetchData()
-    }, [selectedMenu, savedTheme])
+    }, [selectedMenu, savedTheme, recipes.length, myRecipes.length, collections.length, bookmarks.length, comments.length])
 
     // Function to render the appropriate component based on the selected menu
     const renderComponent = () => {

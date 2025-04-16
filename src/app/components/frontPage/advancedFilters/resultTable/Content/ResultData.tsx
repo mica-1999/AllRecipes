@@ -56,7 +56,6 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
             });
 
             if (response.ok) {
-                const data = await response.json();
                 showToast("success", "Recipe added to Bookmarks", savedTheme);
             }
             else if (response.status === 409) {
