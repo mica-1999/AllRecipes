@@ -6,16 +6,18 @@ import { PrepareRecipe } from "@/app/types/recipe";
 import { useState, useEffect } from "react";
 
 export default function List({ recipes, searchBox, setSearchBox }: { recipes: PrepareRecipe[], searchBox: string, setSearchBox: (value: string) => void }) {
+
+    // State variables & hooks
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
     const [tempRecipes, setTempRecipes] = useState<PrepareRecipe[]>(recipes);
 
-    // Update tempRecipes when the recipes prop changes
+    // Update when recipes change
     useEffect(() => {
         setTempRecipes(recipes);
     }, [recipes]);
 
-    // Filter recipes based on search query using tempRecipes instead
+    // Filter recipes by search box input
     const filteredRecipes = tempRecipes.filter((recipe) =>
         recipe.Recipe.title.toLowerCase().includes(searchBox.toLowerCase())
     );
@@ -31,12 +33,12 @@ export default function List({ recipes, searchBox, setSearchBox }: { recipes: Pr
         }).format(date);
     };
 
+    // API call to delete a recipe from the preparation list
     const handleDelete = async (recipeId: number) => {
         try {
-            // Optimistically update the UI by removing the recipe from tempRecipes
+            // Illusion of instant feedback: remove the recipe from the UI immediately
             setTempRecipes(current => current.filter(recipe => recipe.recipeid !== recipeId));
 
-            // Make the API call to delete the recipe
             const response = await fetch(`/api/myList/prepareList?recipeid=${recipeId}`, {
                 method: 'DELETE',
                 headers: {
@@ -47,12 +49,11 @@ export default function List({ recipes, searchBox, setSearchBox }: { recipes: Pr
             if (response.ok) {
                 showToast('success', t('myList.recipeRemoved') || 'Recipe removed from preparation list', savedTheme);
             } else {
-                // If the API call fails, revert the optimistic update
+                // If the API call fails, revert the to default state
                 setTempRecipes(recipes);
                 showToast('error', t('myList.errorRemovingRecipe') || 'Failed to remove recipe', savedTheme);
             }
         } catch (error) {
-            // Also revert on exception
             setTempRecipes(recipes);
             console.error('Error deleting recipe:', error);
             showToast('error', t('myList.errorRemovingRecipe') || 'Failed to remove recipe', savedTheme);
@@ -175,7 +176,6 @@ export default function List({ recipes, searchBox, setSearchBox }: { recipes: Pr
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 e.stopPropagation();
-                                                                // Prepare recipe handler
                                                             }}
                                                         >
                                                             <i className="ri-chef-hat-line mr-1"></i>

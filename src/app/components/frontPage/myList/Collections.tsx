@@ -7,18 +7,19 @@ import { showToast } from "@/app/components/reusable/Toasters";
 import { useClickOutside } from "../../reusable/ClickOutsideDiv";
 
 export default function Collections({ collections, searchBox, setSearchBox }: { collections: Collection[], searchBox: string, setSearchBox: (value: string) => void }) {
+
+    // State variables & hooks & refs
     const { t, savedTheme } = useTheme();
     const [tempCollections, setTempCollections] = useState<Collection[]>(collections);
-
-    // Modal state
     const [showModal, setShowModal] = useState(false);
     const [newCollectionName, setNewCollectionName] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
 
+    // Click outside to close modal
     useClickOutside(modalRef, setShowModal)
 
-    // Update tempCollections when the collections prop changes
+    // Update whenever collections change
     useEffect(() => {
         setTempCollections(collections);
     }, [collections]);

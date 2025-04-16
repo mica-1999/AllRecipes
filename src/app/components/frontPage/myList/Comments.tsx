@@ -7,6 +7,8 @@ import { Comment, LikedComment } from "@/app/types/recipe";
 import { showToast } from "../../reusable/Toasters";
 
 export default function Comments({ likedComments, comments, searchBox, setSearchBox }: { likedComments: LikedComment[], comments: Comment[], searchBox: string, setSearchBox: (value: string) => void }) {
+
+    // State variables & hooks
     const { t, savedTheme } = useTheme();
     const [activeTab, setActiveTab] = useState<'my' | 'liked'>('my');
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
@@ -79,10 +81,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                 prevComments.filter(comment => comment.id !== id)
             );
 
-            // Also update the original list
             const updatedLikedComments = likedComments.filter(comment => comment.id !== id);
-            // This assumes you have some way to update the parent component's state
-            // If not, you'll need to implement a callback or context to manage this
 
             showToast('success', t('myList.comments.unliked') || "Comment unliked successfully", savedTheme);
 

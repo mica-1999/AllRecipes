@@ -6,16 +6,18 @@ import { useState, useEffect } from "react";
 import { showToast } from "../../reusable/Toasters";
 
 export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRecipes: Recipe[], searchBox: string, setSearchBox: (value: string) => void }) {
+
+    // State variables & hooks
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
     const [tempRecipes, setTempRecipes] = useState<Recipe[]>(myRecipes);
 
-    // Update tempRecipes when the myRecipes prop changes
+    // Updates tempRecipes whenever myRecipes changes
     useEffect(() => {
         setTempRecipes(myRecipes);
     }, [myRecipes]);
 
-    // Filter recipes based on search query using tempRecipes
+    // Filter recipes based on search query
     const filteredRecipes = tempRecipes.filter((recipe) =>
         recipe.title.toLowerCase().includes(searchBox.toLowerCase())
     );
@@ -31,12 +33,12 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
         }).format(date);
     };
 
+    // API call to delete a recipe
     const handleDelete = async (recipeId: number) => {
         try {
-            // Optimistically update the UI by removing the recipe from tempRecipes
+            // Illusion of instant feedback
             setTempRecipes(current => current.filter(recipe => recipe.id !== recipeId));
 
-            // Make the API call to delete the recipe
             const response = await fetch(`/api/myList/personalList?recipeid=${recipeId}`, {
                 method: 'DELETE',
                 headers: {
@@ -45,7 +47,7 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
             });
 
             if (!response.ok) {
-                // If the API call fails, revert the optimistic update
+                // If the API call fails, change to the original state
                 setTempRecipes(myRecipes);
                 showToast('error', t('myList.errorDeletingRecipe') || 'Error deleting recipe. Please try again later.', savedTheme);
             }
@@ -53,7 +55,6 @@ export default function MyRecipes({ myRecipes, searchBox, setSearchBox }: { myRe
                 showToast('success', t('myList.recipeDeleted') || 'Recipe deleted successfully.', savedTheme);
             }
         } catch (error) {
-            // Also revert on exception
             setTempRecipes(myRecipes);
             console.error("Error deleting recipe:", error);
             showToast('error', t('myList.errorDeletingRecipe') || 'Error deleting recipe. Please try again later.', savedTheme);

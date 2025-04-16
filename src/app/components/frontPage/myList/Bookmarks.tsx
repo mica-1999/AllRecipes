@@ -6,11 +6,13 @@ import { showToast } from "@/app/components/reusable/Toasters";
 import { useState, useEffect } from "react";
 
 export default function Bookmarked({ bookmarks, searchBox, setSearchBox }: { bookmarks: Bookmark[], searchBox: string, setSearchBox: (value: string) => void }) {
+
+    // State variables & hooks
     const { t, savedTheme } = useTheme();
     const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
     const [tempBookmarks, setTempBookmarks] = useState<Bookmark[]>(bookmarks);
 
-    // Update tempBookmarks when the bookmarks prop changes
+    // Udate tempBookmarks when bookmarks change
     useEffect(() => {
         setTempBookmarks(bookmarks);
     }, [bookmarks]);
