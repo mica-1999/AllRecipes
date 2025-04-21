@@ -1,13 +1,59 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { recipeData } from '@/app/data/RecipeInfoData';
 import { useTheme } from '@/app/context/ThemeContext';
+import { useSearchParams } from 'next/navigation';
+import { showToast } from '../../reusable/Toasters';
+import { recipeData } from '@/app/data/RecipeInfoData';
+import { Recipe } from '@/app/types/recipe';
 
 export default function RecipeInfo() {
+
+  // Get the recipe ID from the URL
+  const searchParams = useSearchParams();
+  const recipeId = searchParams.get('id');
+
   // State variables & Hooks
+  const [recipe, setRecipe] = useState<Recipe>();
   const [activeStep, setActiveStep] = useState(0);
-  const { t } = useTheme();
+  const { t, savedTheme } = useTheme();
+
+  useEffect(() => {
+    const fetchRecipeData = async () => {
+      try {
+        const response = await fetch(`/api/recipes/simplefetch?id=${recipeId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        if (!response.ok) {
+          showToast("error", t('recipeInfo.error.notFound'), savedTheme);
+          return;
+        }
+
+        const data = await response.json();
+        if (data) {
+          setRecipe(data);
+        } else {
+          showToast("error", t('recipeInfo.error.notFound'), savedTheme);
+        }
+
+      } catch (error) {
+        console.error("Error fetching recipe data:", error);
+        showToast("error", t('recipeInfo.error.fetchingData'), savedTheme);
+      }
+    }
+
+    fetchRecipeData();
+  }, [recipeId]);
+
+  useEffect(() => {
+    console.log("Recipe Data:", recipe);
+  }, [recipe])
+
+
 
   return (
     <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 border border-blue-100 dark:border-gray-700 rounded-lg overflow-hidden my-6 shadow-sm">
