@@ -1,8 +1,9 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTheme } from '@/app/context/ThemeContext';
 import { showToast } from "@/app/components/reusable/Toasters";
+import { useSession } from "next-auth/react";
 
 // Import components
 import DietPreferences from "@/app/components/frontPage/preferences/types/DietPreferences";
@@ -13,6 +14,8 @@ import ColorSettings from "@/app/components/frontPage/preferences/types/ColorSet
 import PreferencesSummary from "@/app/components/frontPage/preferences/types/PreferencesSummary";
 
 export default function CustomizedPreferences() {
+    const session = useSession();
+
     // State management & hooks
     const [dietPreferences, setDietPreferences] = useState<string[]>([]);
     const [cuisinePreferences, setCuisinePreferences] = useState<string[]>([]);
@@ -70,11 +73,71 @@ export default function CustomizedPreferences() {
     };
 
     // Function to save preferences
-    const savePreferences = () => {
-        showToast("success", "Changes saved successfully!", savedTheme);
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
+    const savePreferences = async () => {
+        try {
+            const response = await fetch("/api/preferences/meal", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    dietPreferences,
+                    cuisinePreferences,
+                    mealPreferences,
+                    cookingPreferences,
+                }),
+            });
+
+            if (!response.ok) {
+                showToast("error", "Failed to save preferences. Please try again later.", savedTheme);
+                return;
+            }
+
+            showToast("success", "Changes saved successfully!", savedTheme);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 3000);
+
+        } catch (error) {
+            console.error("Error saving preferences:", error);
+            showToast("error", "An error occurred while saving preferences.", savedTheme);
+        }
     };
+
+
+    // Load preferences on component mount
+    useEffect(() => {
+        if (!session.data) return;
+
+        const fetchPreferences = async () => {
+            try {
+                const response = await fetch(`/api/preferences/meal`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    showToast("error", "Failed to fetch preferences. Please try again later.", savedTheme);
+                    return;
+                }
+
+                const data = await response.json();
+                setDietPreferences(data.dietPreferences || []);
+                setCuisinePreferences(data.cuisinePreferences || []);
+                setMealPreferences(data.mealPreferences || []);
+                setCookingPreferences(data.cookingPreferences || []);
+
+            } catch (error) {
+                console.error("Error fetching preferences:", error);
+                showToast("error", "An error occurred while fetching preferences.", savedTheme);
+            }
+        }
+
+
+        fetchPreferences();
+    }, [session]);
+
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
@@ -89,8 +152,8 @@ export default function CustomizedPreferences() {
                         <button
                             onClick={savePreferences}
                             className={`inline-flex items-center px-4 py-2 rounded-md shadow-sm dark:shadow-black/20 text-sm font-medium transition-all duration-200 cursor-pointer ${saved ?
-                                    "bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600" :
-                                    "bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] dark:from-indigo-600 dark:to-indigo-500 hover:from-[#e55a29] hover:to-[#e57a4d] dark:hover:from-indigo-500 dark:hover:to-indigo-400 text-white"
+                                "bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600" :
+                                "bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] dark:from-indigo-600 dark:to-indigo-500 hover:from-[#e55a29] hover:to-[#e57a4d] dark:hover:from-indigo-500 dark:hover:to-indigo-400 text-white"
                                 }`}
                         >
                             {saved ? (
@@ -119,7 +182,7 @@ export default function CustomizedPreferences() {
             <div className="flex border-b border-gray-200 dark:border-gray-700 mb-8">
                 <button
                     onClick={() => setActiveTab("preferences")}
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === "preferences"
+                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "preferences"
                         ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >
@@ -128,7 +191,7 @@ export default function CustomizedPreferences() {
                 </button>
                 <button
                     onClick={() => setActiveTab("colors")}
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === "colors"
+                    className={`px-4 py-2 text-sm font-medium cursor-pointer ${activeTab === "colors"
                         ? "border-b-2 border-[#FF6B35] dark:border-indigo-400 text-[#FF6B35] dark:text-indigo-400"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}`}
                 >

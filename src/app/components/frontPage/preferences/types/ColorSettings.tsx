@@ -47,7 +47,7 @@ export default function ColorSettings({
                                     />
                                     <button
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                         title={t('preferences.colorSettings.reset')}
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -61,7 +61,13 @@ export default function ColorSettings({
                 {/* Cuisine Colors */}
                 <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
                     <h3 className="font-medium text-gray-800 dark:text-white mb-3">{t('preferences.summary.cuisine')}</h3>
-                    <div className="space-y-4">
+                    <div
+                        className="space-y-4 overflow-y-auto pr-2 max-h-[350px]"
+                        style={{
+                            scrollbarWidth: 'thin',
+                            scrollbarColor: 'rgb(156 163 175) transparent'
+                        }}
+                    >
                         {cuisineTypeBox.map(item => (
                             <div key={item.id} className="flex items-center justify-between py-1">
                                 <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
@@ -72,7 +78,6 @@ export default function ColorSettings({
                                     <span className="text-sm text-gray-700 dark:text-gray-200">{item.name}</span>
                                 </label>
                                 <div className="flex items-center">
-                                    <label className="mr-2 text-sm text-gray-600 dark:text-gray-400">{t('preferences.colorSettings.color')}:</label>
                                     <input
                                         type="color"
                                         id={`color-${item.id}`}
@@ -82,7 +87,7 @@ export default function ColorSettings({
                                     />
                                     <button
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                         title={t('preferences.colorSettings.reset')}
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -116,7 +121,7 @@ export default function ColorSettings({
                                     />
                                     <button
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                         title={t('preferences.colorSettings.reset')}
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -130,7 +135,13 @@ export default function ColorSettings({
                 {/* Cooking Preference Colors */}
                 <div className="rounded-lg shadow-md dark:shadow-lg dark:shadow-black/20 p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
                     <h3 className="font-medium text-gray-800 dark:text-white mb-3">{t('preferences.summary.cooking')}</h3>
-                    <div className="space-y-4">
+                    <div
+                        className="space-y-4 overflow-y-auto pr-2 max-h-[350px]"
+                        style={{
+                            scrollbarWidth: 'thin',
+                            scrollbarColor: 'rgb(156 163 175) transparent'
+                        }}
+                    >
                         {cookingPreferenceBox.map(item => (
                             <div key={item.id} className="flex items-center justify-between py-1">
                                 <label htmlFor={`color-${item.id}`} className="flex items-center flex-1 cursor-pointer">
@@ -150,7 +161,7 @@ export default function ColorSettings({
                                     />
                                     <button
                                         onClick={() => onColorReset(item.id)}
-                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                        className="ml-2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                         title={t('preferences.colorSettings.reset')}
                                     >
                                         <i className="ri-refresh-line"></i>
@@ -168,11 +179,11 @@ export default function ColorSettings({
                 <div className="bg-white dark:bg-gray-800 shadow-md dark:shadow-lg dark:shadow-black/30 rounded-lg overflow-hidden">
                     <div className="relative h-48">
                         <Image
-                            src="/images/home/change.jpg"
+                            src="/images/home/recipes/ham&eggs.jpg"
                             alt="Sample recipe"
                             fill
                             quality={100}
-                            className="object-cover"
+                            className="object-cover filter grayscale"
                         />
 
                         {/* Color indicators for preview */}

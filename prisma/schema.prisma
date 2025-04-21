@@ -35,11 +35,15 @@ model User {
 }
 
 model UserPreferences {
-  id          Int         @id @default(autoincrement())
-  visualtheme VisualTheme @default(Light)
-  language    language    @default(English)
-  userid      Int         @unique
-  User        User        @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                 Int                   @id @default(autoincrement())
+  visualtheme        VisualTheme           @default(Light)
+  language           language              @default(English)
+  dietPreferences    dietaryRestrictions[]
+  cuisinePreferences cuisineType[]
+  mealPreferences    mealType[]
+  cookingPreferences cookingMethod[]
+  userid             Int                   @unique
+  User               User                  @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model Session {

@@ -159,14 +159,14 @@ export default function Navbar() {
                                                 <p className="text-xs text-gray-500 truncate dark:text-gray-400">{session.user.email}</p>
                                             </div>
 
-                                            <Link href="/pages/home/profile">
+                                            <Link href="/pages/home/profile" onClick={() => setDropdownOpen(false)}>
                                                 <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                     <i className="ri-user-line mr-2 text-gray-500 dark:text-gray-400"></i>
                                                     {t('navBar.myProfile')}
                                                 </div>
                                             </Link>
 
-                                            <Link href="/pages/home/preferences">
+                                            <Link href="/pages/home/preferences" onClick={() => setDropdownOpen(false)}>
                                                 <div className="px-4 py-2 hover:bg-gray-100 text-sm flex items-center dark:hover:bg-gray-700 dark:text-gray-200">
                                                     <i className="ri-settings-4-line mr-2 text-gray-500 dark:text-gray-400"></i>
                                                     {t('navBar.settings')}

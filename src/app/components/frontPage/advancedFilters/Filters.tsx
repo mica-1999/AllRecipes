@@ -1,11 +1,12 @@
 "use client"
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from '@/app/context/ThemeContext';
 import { CaloriesRangeType } from '@/app/types/filters';
 import { showToast } from "@/app/components/reusable/Toasters";
 import { seasonsData } from "@/app/data/AdvFiltersData";
 import { useClickOutside } from "@/app/components/reusable/ClickOutsideDiv";
+import { useSession } from "next-auth/react";
 
 // Components
 import MealOptions from "@/app/components/frontPage/advancedFilters/filterComp/MealOptions";
@@ -21,6 +22,8 @@ import TableFiltered from "@/app/components/frontPage/advancedFilters/resultTabl
 import ResetAdvFilters from "@/app/components/frontPage/advancedFilters/resetButton/Reset"
 
 export default function AdvFilters() {
+    const { data: session } = useSession(); // Get the session data to check if the user is logged in
+
     // Get the search params from the URL to update the Filters
     const searchParams = useSearchParams();
     const urlCategory = searchParams.get("category") || "";
@@ -119,6 +122,38 @@ export default function AdvFilters() {
         // Show a toast notification to confirm filters were reset
         showToast("success", t('advancedFilters.filtersReset'), savedTheme);
     };
+
+
+    // Load User's Preference for Advanced Filters
+    useEffect(() => {
+        const loadMealPreferences = async () => {
+            try {
+                const response = await fetch('/api/preferences/meal', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    showToast("error", t('advancedFilters.errorLoadingPreferences'), savedTheme);
+                    return;
+                }
+
+                const data = await response.json();
+                setCookingMethod(data.cookingPreferences || []);
+                setMealType(data.mealPreferences || []);
+                setDietaryRestrictions(data.dietPreferences || []);
+                setCuisineFilter(data.cuisinePreferences || []);
+            } catch (error) {
+                console.error("Error loading meal preferences:", error);
+                showToast("error", t('advancedFilters.errorLoadingPreferences'), savedTheme);
+            }
+        }
+
+
+        loadMealPreferences();
+    }, [session]);
 
     return (
         <>

@@ -18,7 +18,7 @@ export default function MealPreferences({ preferences, customColors, onPreferenc
                 {mealTypeBox.map((item) => (
                     <label
                         key={item.id}
-                        className="flex items-start cursor-pointer group p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/70 transition-colors"
+                        className="flex items-center cursor-pointer group p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/70 transition-colors"
                     >
                         <div className="flex items-center h-5">
                             <input

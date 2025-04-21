@@ -14,11 +14,18 @@ export default function CookingPreferences({ preferences, customColors, onPrefer
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{t('preferences.cookingPreferences.subtitle')}</p>
 
-            <div className="space-y-3">
+            {/* Scrollable container with custom scrollbar styling */}
+            <div
+                className="space-y-3 overflow-y-auto pr-2 max-h-[500px]"
+                style={{
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: 'rgb(156 163 175) transparent'
+                }}
+            >
                 {cookingPreferenceBox.map((item) => (
                     <label
                         key={item.id}
-                        className="flex items-start cursor-pointer group p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/70 transition-colors"
+                        className="flex items-center cursor-pointer group p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/70 transition-colors"
                     >
                         <div className="flex items-center h-5">
                             <input
