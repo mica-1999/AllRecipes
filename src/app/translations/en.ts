@@ -290,12 +290,14 @@ const translations = {
         prepareList: 'Prepare List',
         added: 'Added',
         lastMade: 'Last made',
-        noRecipes: 'No recipes in your prepare list',
+        noRecipes: 'No recipes found in prepare list',
+        errorFetchingRecipes: 'Error fetching prepare list. Please try again later',
         prepareListDescription: 'Add recipes to your prepare list to keep track of what you want to cook',
         browseRecipes: 'Browse Recipes',
         myRecipes: 'My Recipes',
         created: 'Created',
-        noMyRecipes: 'No recipes created yet',
+        noMyRecipes: 'No personal recipes found',
+        errorFetchingMyRecipes: 'Error fetching your recipes. Please try again later',
         createRecipeDescription: 'Share your culinary creations with the community',
         createRecipe: 'Create Recipe',
         mylistHeaders: [
@@ -318,14 +320,21 @@ const translations = {
             like: 'Like',
             reply: 'Reply',
             delete: 'Delete',
-            loadMore: 'Load More Comments'
+            loadMore: 'Load More Comments',
+            unliked: "Like removed successfully",
+            unlikeError: "Error removing like",
+            unlike: "Unlike",
+            deleted: "Comment deleted successfully",
+            deleteError: "Error deleting comment",
+            notFound: "Comment not found"
         },
         collection: 'Collection',
         collections: 'Collections',
         recipe: 'Recipe',
         createNewCollection: 'Create New Collection',
         organizeYourFavoriteRecipes: 'Organize your favorite recipes into themed collections',
-        noCollections: 'No collections yet',
+        noCollections: 'No collections found',
+        errorFetchingCollections: 'Error fetching collections. Please try again later',
         createCollection: 'Create Collection',
         collectionDeleted: 'Collection deleted successfully',
         errorDeletingCollection: 'Error deleting collection',
@@ -340,7 +349,8 @@ const translations = {
         errorRemovingRecipe: "Failed to remove recipe",
         bookmarkRemoved: "Bookmark removed successfully",
         errorRemovingBookmark: "Error removing bookmark",
-        noBookmarks: "No bookmarks yet",
+        noBookmarks: "No bookmarks found",
+        errorFetchingBookmarks: "Error fetching bookmarks. Please try again later",
         bookmarksDescription: "Save your favorite recipes here for quick access later",
         findRecipes: "Find Recipes",
         noMatchingCollections: "No collections match your search",
@@ -356,7 +366,11 @@ const translations = {
         noLikedComments: "You haven't liked any comments yet",
         commentsDescription: "Share your thoughts on recipes by leaving comments",
         likedCommentsDescription: "Like comments from other users to save them here",
-        exploreComments: "Explore Comments"
+        exploreComments: "Explore Comments",
+        noCommentsFound: "No commented recipes found",
+        errorFetchingComments: "Error fetching comments. Please try again later",
+        noLikedCommentsFound: "No liked comments found",
+        errorFetchingLikedComments: "Error fetching liked comments. Please try again later"
     },
     profile: {
         bannerAlt: "Profile banner",
@@ -425,8 +439,10 @@ const translations = {
         videoPlaceholder: {
             comingSoon: "Video coming soon"
         }
+    },
+    errors: {
+        networkError: 'Network error. Please check your connection',
     }
-
 }
 
 export default translations;

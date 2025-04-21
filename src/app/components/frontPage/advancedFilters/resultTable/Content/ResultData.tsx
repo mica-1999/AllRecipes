@@ -22,6 +22,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
         }).format(date);
     };
 
+    // API calls for adding to prepare list
     const addToPrepareList = async (recipeId: number) => {
         try {
             const response = await fetch("/api/myList/prepareList", {
@@ -45,6 +46,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
         }
     }
 
+    // API calls for adding to bookmark
     const addToBookmark = async (recipeId: number) => {
         try {
             const response = await fetch("/api/myList/bookmark", {
@@ -67,6 +69,7 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
         }
     }
 
+    // If no recipes are found, show a message
     if (recipes.length === 0) {
         return (
             <div className="w-full flex flex-col items-center justify-center py-16 px-4">

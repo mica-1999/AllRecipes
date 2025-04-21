@@ -176,8 +176,8 @@ export default function RecipeInfo() {
                       key={index}
                       onClick={() => setActiveStep(index)}
                       className={`flex text-gray-700 dark:text-gray-300 cursor-pointer p-2 rounded-lg transition-colors ${activeStep === index
-                          ? "bg-blue-100 dark:bg-blue-800/30"
-                          : "hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                        ? "bg-blue-100 dark:bg-blue-800/30"
+                        : "hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                     >
                       <div className={`

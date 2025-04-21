@@ -308,16 +308,24 @@ const translations = {
             like: 'Curtir',
             reply: 'Responder',
             delete: 'Excluir',
-            loadMore: 'Carregar Mais Comentários'
+            loadMore: 'Carregar Mais Comentários',
+            unliked: "Curtida removida com sucesso",
+            unlikeError: "Erro ao remover curtida",
+            unlike: "Descurtir",
+            deleted: "Comentário excluído com sucesso",
+            deleteError: "Erro ao excluir comentário",
+            notFound: "Comentário não encontrado"
         },
         prepareList: 'Lista de Preparação',
         added: 'Adicionado',
         lastMade: 'Preparado pela última vez em',
-        noRecipes: 'Sem receitas na sua lista de preparação',
+        noRecipes: 'Nenhuma receita encontrada na lista de preparação',
+        errorFetchingRecipes: 'Erro ao carregar a lista de preparação. Por favor, tente novamente mais tarde',
         prepareListDescription: 'Adicione receitas à sua lista de preparação para acompanhar o que deseja cozinhar',
         browseRecipes: 'Explorar Receitas',
         created: 'Criado',
-        noMyRecipes: 'Nenhuma receita criada ainda',
+        noMyRecipes: 'Nenhuma receita pessoal encontrada',
+        errorFetchingMyRecipes: 'Erro ao carregar suas receitas. Por favor, tente novamente mais tarde',
         createRecipeDescription: 'Compartilhe suas criações culinárias com a comunidade',
         createRecipe: 'Criar Receita',
         collection: 'Coleção',
@@ -325,7 +333,8 @@ const translations = {
         recipe: 'Receita',
         createNewCollection: 'Criar Nova Coleção',
         organizeYourFavoriteRecipes: 'Organize suas receitas favoritas em coleções temáticas',
-        noCollections: 'Nenhuma coleção ainda',
+        noCollections: 'Nenhuma coleção encontrada',
+        errorFetchingCollections: 'Erro ao carregar coleções. Por favor, tente novamente mais tarde',
         createCollection: 'Criar Coleção',
         collectionDeleted: 'Coleção excluída com sucesso',
         errorDeletingCollection: 'Erro ao excluir coleção',
@@ -343,7 +352,8 @@ const translations = {
         errorRemovingRecipe: "Erro ao remover receita",
         bookmarkRemoved: "Favorito removido com sucesso",
         errorRemovingBookmark: "Erro ao remover favorito",
-        noBookmarks: "Ainda não há favoritos",
+        noBookmarks: 'Nenhum favorito encontrado',
+        errorFetchingBookmarks: 'Erro ao carregar favoritos. Por favor, tente novamente mais tarde',
         bookmarksDescription: "Salve suas receitas favoritas aqui para acesso rápido mais tarde",
         findRecipes: "Encontrar Receitas",
         collectionCreated: "Coleção criada com sucesso",
@@ -356,7 +366,11 @@ const translations = {
         noLikedComments: "Você ainda não curtiu nenhum comentário",
         commentsDescription: "Compartilhe suas opiniões sobre as receitas deixando comentários",
         likedCommentsDescription: "Curta comentários de outros usuários para salvá-los aqui",
-        exploreComments: "Explorar Comentários"
+        exploreComments: "Explorar Comentários",
+        noCommentsFound: "Nenhuma receita comentada encontrada",
+        errorFetchingComments: "Erro ao carregar comentários. Por favor, tente novamente mais tarde",
+        noLikedCommentsFound: "Nenhum comentário curtido encontrado",
+        errorFetchingLikedComments: "Erro ao carregar comentários curtidos. Por favor, tente novamente mais tarde"
     },
     profile: {
         bannerAlt: "Banner de perfil",
@@ -425,6 +439,9 @@ const translations = {
         videoPlaceholder: {
             comingSoon: "Vídeo em breve"
         }
+    },
+    errors: {
+        networkError: 'Erro de rede. Por favor, verifique sua conexão',
     }
 }
 

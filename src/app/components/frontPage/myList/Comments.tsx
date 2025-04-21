@@ -41,7 +41,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`/api/myList/comments?commentId=${id}`, {
+            const response = await fetch(`/api/myList/comments/myComments?commentId=${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,21 +50,29 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
 
             if (!response.ok && response.status !== 404) {
                 showToast('error', t('myList.comments.notFound') || "Comment not found", savedTheme);
-            }
-            else {
-                showToast('success', t('myList.comments.deleted') || "Comment deleted successfully", savedTheme);
+                return;
             }
 
+            // Success! Update UI by filtering out the deleted comment
+            setFilteredComments(prevComments =>
+                prevComments.filter(comment => comment.id !== id)
+            );
+
+            // This ensures the parent component's state stays in sync
+            // Similar to how we're handling the likedComments
+            const updatedComments = comments.filter(comment => comment.id !== id);
+            // If you have the ability to update the parent state, you would add that here
+
+            showToast('success', t('myList.comments.deleted') || "Comment deleted successfully", savedTheme);
         } catch (error) {
             console.error("Error deleting comment:", error);
             showToast('error', t('myList.comments.deleteError') || "Error deleting comment", savedTheme);
-
         }
     };
 
     const handleUnlike = async (id: number) => {
         try {
-            const response = await fetch(`/api/myList/comments/like?likedCommentId=${id}`, {
+            const response = await fetch(`/api/myList/comments/likedComments?likedCommentId=${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,11 +85,14 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
             }
 
             // Success! Update UI by filtering out the unliked comment
+            // Use commentid for filtering, not id (which is the likedComment id)
             setFilteredLikedComments(prevComments =>
-                prevComments.filter(comment => comment.id !== id)
+                prevComments.filter(comment => comment.commentid !== id)
             );
 
-            const updatedLikedComments = likedComments.filter(comment => comment.id !== id);
+            // Update the reference to the original array for future filtering
+            const updatedLikedComments = likedComments.filter(comment => comment.commentid !== id);
+            // If you have the ability to update the parent state, you would add that here
 
             showToast('success', t('myList.comments.unliked') || "Comment unliked successfully", savedTheme);
 
@@ -211,9 +222,10 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                                         <div className="flex items-center">
                                             <div className="w-10 h-10 rounded-full overflow-hidden relative">
                                                 <Image
-                                                    src="/images/avatar-placeholder.jpg" // Placeholder image
+                                                    src="/images/home/profile/defaulticon.png" // Placeholder image
                                                     alt={comment.User?.username || "User"}
                                                     fill
+                                                    sizes="40px" // Added sizes for the 40px (w-10 h-10) avatar
                                                     className="object-cover"
                                                 />
                                             </div>
@@ -260,6 +272,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                                                 src={comment.Recipe?.image || "/images/recipe-placeholder.jpg"}
                                                 alt={comment.Recipe?.title || "Recipe"}
                                                 fill
+                                                sizes="64px" // Added sizes for the 64px (w-16 h-16) recipe thumbnail
                                                 className="object-cover"
                                             />
                                         </div>
@@ -299,9 +312,10 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                                         <div className="flex items-center">
                                             <div className="w-10 h-10 rounded-full overflow-hidden relative">
                                                 <Image
-                                                    src="/images/avatar-placeholder.jpg" // Placeholder image
+                                                    src="/images/home/profile/defaulticon.png" // Placeholder image
                                                     alt={likedComment.Comment.User?.username || "User"}
                                                     fill
+                                                    sizes="40px" // Added sizes for the 40px (w-10 h-10) avatar
                                                     className="object-cover"
                                                 />
                                             </div>
@@ -324,7 +338,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                                                 className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 
                                                         text-amber-500 dark:text-amber-400 transition-colors cursor-pointer"
                                                 title={t('myList.comments.unlike')}
-                                                onClick={() => handleUnlike(likedComment.id)}
+                                                onClick={() => handleUnlike(likedComment.commentid)}
                                             >
                                                 <i className="ri-heart-fill text-sm"></i>
                                             </button>
@@ -348,6 +362,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                                                 src={likedComment.Comment.Recipe?.image || "/images/recipe-placeholder.jpg"}
                                                 alt={likedComment.Comment.Recipe?.title || "Recipe"}
                                                 fill
+                                                sizes="64px" // Added sizes for the 64px (w-16 h-16) recipe thumbnail
                                                 className="object-cover"
                                             />
                                         </div>
@@ -377,7 +392,7 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                         {(activeTab === 'my' && filteredComments.length > 3 ||
                             activeTab === 'liked' && filteredLikedComments.length > 3) && (
                                 <div className="flex justify-center mt-8">
-                                    <button className="px-5 py-2 bg-amber-100 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800/30 transition-colors">
+                                    <button className="px-5 py-2 bg-amber-100 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800/30 transition-colors cursor-pointer">
                                         {t('myList.comments.loadMore')}
                                     </button>
                                 </div>

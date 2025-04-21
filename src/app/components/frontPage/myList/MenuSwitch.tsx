@@ -11,7 +11,7 @@ import { showToast } from "../../reusable/Toasters"
 import { useTheme } from "@/app/context/ThemeContext"
 
 export default function MenuSwitcher() {
-    const { savedTheme } = useTheme()
+    const { t, savedTheme } = useTheme()
 
     // State to manage the selected menu option
     const [selectedMenu, setSelectedMenu] = useState('list')
@@ -40,9 +40,9 @@ export default function MenuSwitcher() {
                             const listData = await fetch('/api/myList/prepareList')
                             if (!listData.ok) {
                                 if (listData.status === 404) {
-                                    showToast('info', 'No recipes found in prepare list.', savedTheme)
+                                    showToast('info', t('myList.noRecipes') || 'No recipes found in prepare list.', savedTheme)
                                 } else {
-                                    showToast('error', 'Error fetching prepare list. Please try again later.', savedTheme)
+                                    showToast('error', t('myList.errorFetchingRecipes') || 'Error fetching prepare list. Please try again later.', savedTheme)
                                 }
                             } else {
                                 const listJson = await listData.json()
@@ -56,9 +56,9 @@ export default function MenuSwitcher() {
                             const myRecipesData = await fetch('/api/myList/personalList')
                             if (!myRecipesData.ok) {
                                 if (myRecipesData.status === 404) {
-                                    showToast('info', 'No personal recipes found.', savedTheme)
+                                    showToast('info', t('myList.noMyRecipes') || 'No personal recipes found.', savedTheme)
                                 } else {
-                                    showToast('error', 'Error fetching your recipes. Please try again later.', savedTheme)
+                                    showToast('error', t('myList.errorFetchingMyRecipes') || 'Error fetching your recipes. Please try again later.', savedTheme)
                                 }
                             } else {
                                 const myRecipesJson = await myRecipesData.json()
@@ -72,9 +72,9 @@ export default function MenuSwitcher() {
                             const collectionsData = await fetch('/api/myList/collections')
                             if (!collectionsData.ok) {
                                 if (collectionsData.status === 404) {
-                                    showToast('info', 'No collections found.', savedTheme)
+                                    showToast('info', t('myList.noCollections') || 'No collections found.', savedTheme)
                                 } else {
-                                    showToast('error', 'Error fetching collections. Please try again later.', savedTheme)
+                                    showToast('error', t('myList.errorFetchingCollections') || 'Error fetching collections. Please try again later.', savedTheme)
                                 }
                             } else {
                                 const collectionsJson = await collectionsData.json()
@@ -88,9 +88,9 @@ export default function MenuSwitcher() {
                             const bookmarksData = await fetch('/api/myList/bookmark')
                             if (!bookmarksData.ok) {
                                 if (bookmarksData.status === 404) {
-                                    showToast('info', 'No bookmarks found.', savedTheme)
+                                    showToast('info', t('myList.noBookmarks') || 'No bookmarks found.', savedTheme)
                                 } else {
-                                    showToast('error', 'Error fetching bookmarks. Please try again later.', savedTheme)
+                                    showToast('error', t('myList.errorFetchingBookmarks') || 'Error fetching bookmarks. Please try again later.', savedTheme)
                                 }
                             } else {
                                 const bookmarksJson = await bookmarksData.json()
@@ -101,24 +101,38 @@ export default function MenuSwitcher() {
                     case 'commented':
                         // Fetch recipes with user comments
                         if (comments.length === 0) {
-                            const commentsData = await fetch('/api/myList/comments')
+                            const commentsData = await fetch('/api/myList/comments/myComments')
                             if (!commentsData.ok) {
                                 if (commentsData.status === 404) {
-                                    showToast('info', 'No commented recipes found.', savedTheme)
+                                    showToast('info', t('myList.noCommentsFound') || 'No commented recipes found.', savedTheme)
                                 } else {
-                                    showToast('error', 'Error fetching comments. Please try again later.', savedTheme)
+                                    showToast('error', t('myList.errorFetchingComments') || 'Error fetching comments. Please try again later.', savedTheme)
                                 }
                             } else {
                                 const commentsJson = await commentsData.json()
-                                setComments(commentsJson.comments || [])
-                                setLikedComments(commentsJson.likedComments || [])
+                                setComments(commentsJson.comments)
+                            }
+                        }
+
+                        // Fetch liked comments
+                        if (likedComments.length === 0) {
+                            const likedCommentsData = await fetch('/api/myList/comments/likedComments')
+                            if (!likedCommentsData.ok) {
+                                if (likedCommentsData.status === 404) {
+                                    showToast('info', t('myList.noLikedCommentsFound') || 'No liked comments found.', savedTheme)
+                                } else {
+                                    showToast('error', t('myList.errorFetchingLikedComments') || 'Error fetching liked comments. Please try again later.', savedTheme)
+                                }
+                            } else {
+                                const likedCommentsJson = await likedCommentsData.json()
+                                setLikedComments(likedCommentsJson.comments || [])
                             }
                         }
                         break
                 }
             } catch (error) {
                 console.error('Error fetching data:', error)
-                showToast('error', 'Network error. Please check your connection.', savedTheme)
+                showToast('error', t('errors.networkError') || 'Network error. Please check your connection.', savedTheme)
             } finally {
                 setIsLoading(false)
             }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { authVerify } from "@/lib/authVerify";
 import prisma from "@/lib/prisma";
+import { authVerify } from "@/lib/authVerify";
 
 export async function GET() {
     const isAuthenticated = await authVerify();
@@ -10,7 +10,6 @@ export async function GET() {
     const userId = isAuthenticated.userId as number;
 
     try {
-        // Get user's comments
         const allComments = await prisma.comment.findMany({
             where: {
                 userid: userId
@@ -24,33 +23,17 @@ export async function GET() {
             }
         });
 
-        // Get user's liked comments (assuming you have a LikedComment table)
-        const likedComments = await prisma.likedComment.findMany({
-            where: {
-                userid: userId
-            },
-            include: {
-                Comment: {
-                    include: {
-                        Recipe: true,
-                        User: true
-                    }
-                }
-            },
-            orderBy: {
-                likedAt: 'desc'
-            }
-        });
+        if (!allComments || allComments.length === 0) {
+            return NextResponse.json({ message: "No comments found." }, { status: 404 });
+        }
 
-        return NextResponse.json({
-            comments: allComments.length > 0 ? allComments : [],
-            likedComments: likedComments.length > 0 ? likedComments : []
-        });
+        return NextResponse.json({ comments: allComments });
     } catch (error) {
         console.error("Error fetching data:", error);
         return NextResponse.json({ error: "Failed to fetch comments" }, { status: 500 });
     }
 }
+
 
 export async function DELETE(req: Request) {
     const isAuthenticated = await authVerify();
