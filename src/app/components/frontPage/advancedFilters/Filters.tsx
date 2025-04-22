@@ -154,7 +154,7 @@ export default function AdvFilters() {
 
 
         loadMealPreferences();
-    }, [session]);
+    }, [session, savedTheme, t]);
 
     return (
         <>

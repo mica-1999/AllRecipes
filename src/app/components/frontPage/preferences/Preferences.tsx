@@ -136,7 +136,7 @@ export default function CustomizedPreferences() {
 
 
         fetchPreferences();
-    }, [session]);
+    }, [session, savedTheme]);
 
 
     return (
