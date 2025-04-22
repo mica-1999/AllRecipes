@@ -1,4 +1,4 @@
-export default function CommentsBtn({ toggleComments }: { toggleComments: () => void }) {
+export default function RecipeComments() {
     return (
         <>
             <div className="
@@ -9,7 +9,6 @@ export default function CommentsBtn({ toggleComments }: { toggleComments: () => 
                 hover:w-14 hover:from-blue-600 hover:to-blue-700 dark:hover:from-emerald-700 dark:hover:to-teal-800 hover:shadow-xl dark:hover:shadow-black/40 cursor-pointer
                 transition-all duration-300 ease-in-out"
                 title="Comments"
-                onClick={toggleComments}
             >
                 <i className="ri-chat-3-line text-xl"></i>
             </div>

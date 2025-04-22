@@ -6,9 +6,11 @@ export interface Recipe {
   title: string;
   description: string;
   instructions: string[];
+  preptime?: number | null;  // Added preptime field
   cooktime?: number | null;
   difficulty: difficulty;
   image: string;
+  video?: string | null;     // Added video field
   rating?: number | null;
   season?: seasons | null;
   categorytype: string;

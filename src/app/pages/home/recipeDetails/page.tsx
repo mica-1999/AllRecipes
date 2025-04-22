@@ -1,11 +1,9 @@
-import RecipeInfo from "@/app/components/frontPage/recipeDetails/RecipeInfo"
-import Commentary from "@/app/components/frontPage/recipeDetails/CommentsBtn"
+import RecipeDetailContainer from "@/app/components/frontPage/recipeDetails/RecipeDetailContainer";
 
-export default function ProfilePage () {
+export default function RecipeDetailPage() {
     return (
         <div className="px-12 py-10">
-            <RecipeInfo />
-            <Commentary />
+            <RecipeDetailContainer />
         </div>
-    )
+    );
 }

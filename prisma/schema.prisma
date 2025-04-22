@@ -62,9 +62,11 @@ model Recipe {
   description         String
   instructions        String[]
   Ingredients         Ingredients[]
+  preptime            Int?
   cooktime            Int?
   difficulty          difficulty
   image               String
+  video               String?
   rating              Float?
   season              seasons?
   categorytype        String

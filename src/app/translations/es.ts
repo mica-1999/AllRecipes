@@ -413,6 +413,13 @@ const translations = {
         }
     },
     recipeInfo: {
+        error: {
+            notFound: "Receta no encontrada",
+            fetchingData: "Error al obtener datos de la receta",
+            tryAgain: "Intenta buscar una receta diferente o vuelve para explorar todas las recetas",
+            noId: "No se proporcionó ID de receta"
+        },
+        loading: "Cargando receta...",
         stats: {
             prep: "Preparación",
             cook: "Cocción",
@@ -424,7 +431,8 @@ const translations = {
             instructions: "Instrucciones Paso a Paso",
             tips: "Consejos de Mamá",
             allSteps: "Todos los Pasos",
-            viewAll: "Ver Todo"
+            viewAll: "Ver Todo",
+            description: "Descripción"
         },
         navigation: {
             previous: "Anterior",

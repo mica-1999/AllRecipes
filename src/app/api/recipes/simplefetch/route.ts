@@ -9,6 +9,9 @@ export async function GET(req: Request) {
         const specificRecipe = await prisma.recipe.findFirst({
             where: {
                 id: recipeid
+            },
+            include: {
+                Ingredients: true
             }
         })
 
@@ -16,10 +19,9 @@ export async function GET(req: Request) {
             return NextResponse.json({ message: "Recipe not found" }, { status: 404 });
         }
 
-        return NextResponse.json({ specificRecipe }, { status: 200 });
+        return NextResponse.json(specificRecipe, { status: 200 });
     } catch (error) {
         console.error("Error fetching recipes:", error);
         return NextResponse.json({ message: "Error fetching recipes", error: String(error) }, { status: 500 });
-
     }
 }
