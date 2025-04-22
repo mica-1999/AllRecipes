@@ -370,7 +370,16 @@ const translations = {
         noCommentsFound: "No commented recipes found",
         errorFetchingComments: "Error fetching comments. Please try again later",
         noLikedCommentsFound: "No liked comments found",
-        errorFetchingLikedComments: "Error fetching liked comments. Please try again later"
+        errorFetchingLikedComments: "Error fetching liked comments. Please try again later",
+        addedToPrepareList: "Added to Prepare List",
+        recipeAlreadyInPrepareList: "Recipe already in prepare list",
+        errorAddingToPrepareList: "Error trying to add recipe to Prepare List",
+        addedToBookmarks: "Recipe added to Bookmarks",
+        recipeAlreadyBookmarked: "Recipe already bookmarked",
+        errorAddingToBookmarks: "Error trying to add recipe to bookmarks",
+        addToBookmarks: "Add to bookmarks",
+        addToPrepareList: "Add to prepare list",
+        viewDetails: "View recipe details"
     },
     profile: {
         bannerAlt: "Profile banner",
@@ -442,7 +451,8 @@ const translations = {
         actions: {
             save: "Save Recipe",
             print: "Print",
-            share: "Share"
+            share: "Share",
+            alreadySaved: "Already Saved"
         },
         videoPlaceholder: {
             comingSoon: "Video coming soon"

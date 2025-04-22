@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import RecipeInfo from './RecipeInfo';
 import CommentsBtn from './CommentsBtn';
 import RecipeComments from './RecipeComments';
@@ -13,21 +13,26 @@ export default function RecipeDetailContainer() {
         setShowComments(!showComments);
     };
 
-    useEffect(() => {
-        console.log("Comment div shown: ", showComments);
-    }, [showComments]);
-
     return (
         <>
-            <RecipeInfo />
-            <CommentsBtn toggleComments={toggleComments} />
-
-            {/* Comments section - conditionally render based on state */}
-            {showComments && (
-                <div className="mt-8">
-                    <RecipeComments />
+            <div className="relative flex w-full gap-4 mb-20">
+                {/* Recipe Info Section - Adjusts width based on comments visibility */}
+                <div className={`transition-all duration-300 ${showComments ? 'w-[70%]' : 'w-full'}`}>
+                    <RecipeInfo />
                 </div>
-            )}
+
+                {/* Comments Section - Fixed at 30% when visible */}
+                {showComments && (
+                    <div className="w-[30%]">
+                        <div className="sticky top-0">
+                            <RecipeComments />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* Comments Button */}
+            <CommentsBtn toggleComments={toggleComments} />
         </>
     );
 }

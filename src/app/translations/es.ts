@@ -370,7 +370,16 @@ const translations = {
         noCommentsFound: "No se encontraron recetas comentadas",
         errorFetchingComments: "Error al cargar comentarios. Por favor, inténtalo más tarde",
         noLikedCommentsFound: "No se encontraron comentarios con me gusta",
-        errorFetchingLikedComments: "Error al cargar comentarios con me gusta. Por favor, inténtalo más tarde"
+        errorFetchingLikedComments: "Error al cargar comentarios con me gusta. Por favor, inténtalo más tarde",
+        addedToPrepareList: "Añadido a la Lista de Preparación",
+        recipeAlreadyInPrepareList: "La receta ya está en la lista de preparación",
+        errorAddingToPrepareList: "Error al intentar añadir la receta a la Lista de Preparación",
+        addedToBookmarks: "Receta añadida a Favoritos",
+        recipeAlreadyBookmarked: "La receta ya está en favoritos",
+        errorAddingToBookmarks: "Error al intentar añadir la receta a favoritos",
+        addToBookmarks: "Añadir a favoritos",
+        addToPrepareList: "Añadir a la lista de preparación",
+        viewDetails: "Ver detalles de la receta"
     },
     profile: {
         bannerAlt: "Banner de perfil",
@@ -442,7 +451,8 @@ const translations = {
         actions: {
             save: "Guardar Receta",
             print: "Imprimir",
-            share: "Compartir"
+            share: "Compartir",
+            alreadySaved: "Ya Guardado"
         },
         videoPlaceholder: {
             comingSoon: "Video próximamente"

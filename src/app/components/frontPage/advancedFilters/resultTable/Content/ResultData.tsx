@@ -33,16 +33,14 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                 body: JSON.stringify({ recipeId }),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                showToast("success", "Added to Prepare List", savedTheme);
-            } else {
-                showToast("error", data.error, savedTheme);
+                showToast("success", t('myList.addedToPrepareList'), savedTheme);
+            } else if (response.status === 409) {
+                showToast("info", t('myList.recipeAlreadyInPrepareList'), savedTheme);
             }
         } catch (error) {
             console.error("Error adding to prepare list:", error);
-            showToast("error", "Error trying to add recipe to Prepare List", savedTheme);
+            showToast("error", t('myList.errorAddingToPrepareList'), savedTheme);
         }
     }
 
@@ -58,14 +56,14 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
             });
 
             if (response.ok) {
-                showToast("success", "Recipe added to Bookmarks", savedTheme);
+                showToast("success", t('myList.addedToBookmarks'), savedTheme);
             }
             else if (response.status === 409) {
-                showToast("error", "Recipe already bookmarked", savedTheme);
+                showToast("error", t('myList.recipeAlreadyBookmarked'), savedTheme);
             }
         } catch (error) {
             console.error("Error adding to bookmark:", error);
-            showToast("error", "Error trying to add recipe to bookmarks", savedTheme);
+            showToast("error", t('myList.errorAddingToBookmarks'), savedTheme);
         }
     }
 
@@ -180,25 +178,31 @@ export default function ResultData({ recipes, onResetFilters }: ResultDataProps)
                         </div>
 
                         <div id="actions" className="w-3/5 md:w-1/6 flex items-center justify-center py-4">
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
+                            <button
+                                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     e.preventDefault();
                                     addToBookmark(recipe.id)
-                                }}>
+                                }}
+                                aria-label={t('myList.addToBookmarks')}
+                            >
                                 <i className="ri-bookmark-line text-lg"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors cursor-pointer"
-
+                            <button
+                                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors cursor-pointer"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     e.preventDefault();
                                     addToPrepareList(recipe.id)
                                 }}
+                                aria-label={t('myList.addToPrepareList')}
                             >
                                 <i className="ri-folder-add-line text-lg"></i>
                             </button>
-                            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
+                            <button
+                                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
+                                aria-label={t('myList.viewDetails')}
                             >
                                 <i className="ri-file-list-line text-lg"></i>
                             </button>

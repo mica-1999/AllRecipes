@@ -53,15 +53,9 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                 return;
             }
 
-            // Success! Update UI by filtering out the deleted comment
             setFilteredComments(prevComments =>
                 prevComments.filter(comment => comment.id !== id)
             );
-
-            // This ensures the parent component's state stays in sync
-            // Similar to how we're handling the likedComments
-            const updatedComments = comments.filter(comment => comment.id !== id);
-            // If you have the ability to update the parent state, you would add that here
 
             showToast('success', t('myList.comments.deleted') || "Comment deleted successfully", savedTheme);
         } catch (error) {
@@ -84,15 +78,9 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
                 return;
             }
 
-            // Success! Update UI by filtering out the unliked comment
-            // Use commentid for filtering, not id (which is the likedComment id)
             setFilteredLikedComments(prevComments =>
                 prevComments.filter(comment => comment.commentid !== id)
             );
-
-            // Update the reference to the original array for future filtering
-            const updatedLikedComments = likedComments.filter(comment => comment.commentid !== id);
-            // If you have the ability to update the parent state, you would add that here
 
             showToast('success', t('myList.comments.unliked') || "Comment unliked successfully", savedTheme);
 
@@ -103,8 +91,6 @@ export default function Comments({ likedComments, comments, searchBox, setSearch
     };
 
     // Determine which comments to display based on active tab
-    const displayedComments = activeTab === 'my' ? filteredComments : [];
-    const displayedLikedComments = activeTab === 'liked' ? filteredLikedComments : [];
     const isEmptyResults = activeTab === 'my' ? filteredComments.length === 0 : filteredLikedComments.length === 0;
 
     return (

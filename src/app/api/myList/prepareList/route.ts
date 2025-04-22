@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authVerify } from "@/lib/authVerify";
 
-export async function GET() {
+export async function GET(req: Request) {
     try {
         // Verify if the user is authenticated
         const isAuthenticated = await authVerify();
@@ -13,26 +13,52 @@ export async function GET() {
         // Extract user ID from the session
         const userId = isAuthenticated.userId as number;
 
-        // Fetch the list of recipes in list of prepared added by the user
-        const prepareList = await prisma.prepareRecipe.findMany({
-            where: {
-                userid: userId
-            },
-            include: {
-                Recipe: {}
-            },
-            orderBy: {
-                dateAdded: 'desc'
+        const { searchParams } = new URL(req.url);
+        const recipeId = parseInt(searchParams.get("recipeid") || "0");
+
+        // Check if recipeId is provided, if not fetch all recipes in the prepare list
+        if (!recipeId) {
+            // Fetch the list of recipes in list of prepared added by the user
+            const prepareList = await prisma.prepareRecipe.findMany({
+                where: {
+                    userid: userId
+                },
+                include: {
+                    Recipe: {}
+                },
+                orderBy: {
+                    dateAdded: 'desc'
+                }
+            });
+
+            // Check if the prepare list is empty   
+            if (!prepareList || prepareList.length === 0) {
+                return NextResponse.json({ message: "No recipes in Prepare List" }, { status: 404 });
             }
-        });
 
-        // Check if the prepare list is empty   
-        if (!prepareList || prepareList.length === 0) {
-            return NextResponse.json({ message: "No recipes in Prepare List" }, { status: 404 });
+            // Return the prepare list with recipe details
+            return NextResponse.json(prepareList);
         }
+        else {
+            // Fetch the specific recipe in the prepare list
+            const prepareList = await prisma.prepareRecipe.findFirst({
+                where: {
+                    recipeid: recipeId,
+                    userid: userId
+                },
+                include: {
+                    Recipe: {}
+                }
+            });
 
-        // Return the prepare list with recipe details
-        return NextResponse.json(prepareList);
+            // Check if the recipe is found in the prepare list
+            if (!prepareList) {
+                return NextResponse.json({ message: "Recipe not found in Prepare List" }, { status: 404 });
+            }
+
+            // Return the specific recipe in the prepare list with details
+            return NextResponse.json(prepareList);
+        }
     } catch (error) {
         console.error("Error fetching data:", error);
         return NextResponse.json({ error: "Failed to fetch To Prepare List" + error }, { status: 500 });
@@ -56,18 +82,19 @@ export async function POST(req: Request) {
         // Check if already exists in the prepare list
         const constExistingEntry = await prisma.prepareRecipe.findFirst({
             where: {
-                recipeid: recipeId,
+                recipeid: parseInt(recipeId),
                 userid: userId
             }
         })
+
         if (constExistingEntry) {
-            return NextResponse.json({ error: "Recipe already in Prepare List!" }, { status: 400 });
+            return NextResponse.json({ error: "Recipe already in Prepare List!" }, { status: 409 });
         }
 
         // Create a new entry in the prepare list
         const prepareRecipe = await prisma.prepareRecipe.create({
             data: {
-                recipeid: recipeId,
+                recipeid: parseInt(recipeId),
                 userid: userId
             }
         });
@@ -119,6 +146,5 @@ export async function DELETE(req: Request) {
     } catch (error) {
         console.error("Error deleting from prepare list:", error);
         return NextResponse.json({ error: "Failed to delete from Prepare List" + error }, { status: 500 });
-
     }
 }

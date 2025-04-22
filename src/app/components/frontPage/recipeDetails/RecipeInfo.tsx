@@ -16,6 +16,8 @@ export default function RecipeInfo() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [showShareOptions, setShowShareOptions] = useState(false);
+  const [saved, setSaved] = useState(false);
   const { t, savedTheme } = useTheme();
 
   useEffect(() => {
@@ -55,8 +57,57 @@ export default function RecipeInfo() {
       }
     }
 
+    const fetchSavedRecipes = async () => {
+      try {
+        const response = await fetch(`/api/myList/prepareList?recipeid=${recipeId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        if (!response.ok) {
+          setSaved(false);
+          return;
+        }
+        else {
+          console.log("Recipe is saved in the list");
+          setSaved(true);
+        }
+
+      } catch (error) {
+        console.error("Error fetching saved recipes:", error);
+        showToast("error", t('recipeInfo.error.fetchingSaved'), savedTheme);
+      }
+    }
+
     fetchRecipeData();
+    fetchSavedRecipes();
   }, [recipeId, savedTheme, t]);
+
+  const handleSaveRecipe = async () => {
+    try {
+      const response = await fetch('/api/myList/prepareList', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipeId: recipeId })
+      });
+
+      if (!response) {
+        showToast("error", t('recipeInfo.error.saving'), savedTheme);
+        return;
+      }
+      else {
+        setSaved(true);
+        showToast("success", t('recipeInfo.success.saved'), savedTheme);
+      }
+    } catch (error) {
+      console.error("Error saving recipe:", error);
+      showToast("error", t('recipeInfo.error.saving'), savedTheme);
+    }
+  }
 
   // Loading state
   if (loading) {
@@ -86,7 +137,7 @@ export default function RecipeInfo() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 border border-blue-100 dark:border-gray-700 rounded-lg overflow-hidden my-6 shadow-sm">
+    <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 border border-blue-100 dark:border-gray-700 rounded-lg overflow-hidden mt-6 shadow-sm">
       {/* Recipe Header */}
       <div className="relative h-72 w-full">
         <Image
@@ -284,21 +335,70 @@ export default function RecipeInfo() {
 
       {/* Action Buttons */}
       <div className="bg-gray-50 dark:bg-gray-800/60 px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex flex-wrap gap-3">
-          <button className="flex items-center px-4 py-2 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg transition-colors cursor-pointer">
-            <i className="ri-heart-line mr-1.5"></i>
-            {t('recipeInfo.actions.save')}
-          </button>
+        <div className="flex flex-wrap items-center gap-3">
+
+          {saved ? (
+            <button className="flex items-center px-4 py-2 bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700 text-white rounded-lg transition-colors cursor-not-allowed">
+              <i className="ri-check-line mr-1.5"></i>
+              {t('recipeInfo.actions.alreadySaved')}
+            </button>
+
+          ) : (
+            <button
+              className="flex items-center px-4 py-2 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg transition-colors cursor-pointer"
+              onClick={() => handleSaveRecipe()}
+            >
+              <i className="ri-heart-line mr-1.5"></i>
+              {t('recipeInfo.actions.save')}
+            </button>
+          )}
+
+
+
           <button className="flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-lg transition-colors cursor-pointer">
             <i className="ri-printer-line mr-1.5"></i>
             {t('recipeInfo.actions.print')}
           </button>
-          <button className="flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-lg transition-colors cursor-pointer">
+          <button
+            onClick={() => setShowShareOptions(!showShareOptions)}
+            className={`flex items-center px-4 py-2 border text-gray-700 dark:text-gray-300 rounded-lg transition-colors cursor-pointer ${showShareOptions
+              ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800'
+              : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
+              }`}
+          >
             <i className="ri-share-line mr-1.5"></i>
             {t('recipeInfo.actions.share')}
           </button>
+
+          <div className={`
+            flex items-center space-x-2 ml-2 pl-3 pr-4 py-2 bg-white dark:bg-gray-800 
+            border border-gray-200 dark:border-gray-700 rounded-full shadow-md
+            transition-all duration-300 ease-in-out origin-left
+            ${showShareOptions
+              ? 'opacity-100 scale-x-100 w-auto'
+              : 'opacity-0 scale-x-0 w-0 overflow-hidden pointer-events-none'}
+          `}>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#1877F2]/80 transition-colors shrink-0">
+              <i className="ri-facebook-fill"></i>
+            </a>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-[#1DA1F2] text-white hover:bg-[#1DA1F2]/80 transition-colors shrink-0">
+              <i className="ri-twitter-fill"></i>
+            </a>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-tr from-[#fd5949] to-[#d6249f] text-white hover:opacity-80 transition-opacity shrink-0">
+              <i className="ri-instagram-line"></i>
+            </a>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-[#25D366] text-white hover:bg-[#25D366]/80 transition-colors shrink-0">
+              <i className="ri-whatsapp-line"></i>
+            </a>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0A66C2] text-white hover:bg-[#0A66C2]/80 transition-colors shrink-0">
+              <i className="ri-linkedin-fill"></i>
+            </a>
+            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors shrink-0">
+              <i className="ri-links-line"></i>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

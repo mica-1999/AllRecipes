@@ -97,8 +97,9 @@ export default function AdvFilters() {
         }
     }
 
+    // Reset all filter states to their initial values
     const resetAllFilters = () => {
-        // Reset all filter states to their initial values
+
         setMainFilterMenu(tArray<string>('advancedFilters.mainFilters')[0]); // Reset to the first menu item
         setCuisineFilter([]);
         setMealType([]);

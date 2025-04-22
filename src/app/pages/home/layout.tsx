@@ -9,11 +9,11 @@ export const metadata = {
     description: 'Discover new recipes',
 };
 
-interface LoginLayoutProps {
+interface HomeLayoutProps {
     children: ReactNode;
 }
 
-export default function HomeLayout ({children}: LoginLayoutProps) {
+export default function HomeLayout({ children }: HomeLayoutProps) {
     return (
         <LoadingWrapper>
             <div className="flex flex-col min-h-screen">

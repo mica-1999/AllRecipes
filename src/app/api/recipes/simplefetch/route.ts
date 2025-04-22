@@ -5,6 +5,10 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const recipeid = parseInt(searchParams.get('id') || "0");
 
+    if (!recipeid) {
+        return NextResponse.json({ message: "Recipe ID is required" }, { status: 400 });
+    }
+
     try {
         const specificRecipe = await prisma.recipe.findFirst({
             where: {
